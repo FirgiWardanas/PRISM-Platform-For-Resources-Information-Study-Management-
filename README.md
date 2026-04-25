@@ -39,8 +39,8 @@ The system helps academic administrators create, update, and publish curriculum 
 ## ⚙️ Installation
 
 ```bash id="1pnlm3"
-git clone https://github.com/username/prism.git
-cd prism
+git clone https://github.com/FirgiWardanas/PRISM-Platform-For-Resources-Information-Study-Management-.git
+cd PRISM-Platform-For-Resources-Information-Study-Management-
 composer install
 npm install
 cp .env.example .env
