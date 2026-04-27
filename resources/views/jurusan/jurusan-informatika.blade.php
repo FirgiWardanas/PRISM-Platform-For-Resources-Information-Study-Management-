@@ -2,34 +2,53 @@
   <body class="font-[Montserrat]">
     <x-jurusan.header></x-jurusan.header>
     
-      <section id="tentang" class="flex flex-col justify-center items-center px-45 py-25">
-    <h1 class="text-3xl md:text-5xl font-bold lg:text-5xl mb-3 text-[#1B4597]">Teknik Informatika</h1>
-    <p class="text-center mb-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi voluptas
-      nulla temporibus soluta obcaecati repudiandae quam accusamus dicta totam, unde tenetur molestias possimus
-      voluptatibus ipsum quo nemo. Sunt harum eius accusamus earum quos illo, voluptas facilis corrupti et? Modi rerum
-      quam, iure doloribus numquam enim quis! Quidem, quibusdam.</p>
+      <section id="tentang"
+    class="flex flex-col justify-center items-center px-4 sm:px-8 md:px-16 lg:px-24 py-10 sm:py-16 md:py-20">
 
-    <div class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF] w-full rounded-4xl text-white py-8 px-12 flex justify-evenly items-start gap-18">
-      <div class="flex flex-col justify-center items-center flex-1 gap-4">
-        <h1 class="text-sm font-bold">Tahun berdiri</h1>
-        <h1 class="text-2xl font-bold">0000</h1>
-        <p class="text-xs text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi
-          voluptas nulla temporibus soluta </p>
+    <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 text-[#1B4597] text-center">
+      Teknik Informatika
+    </h1>
+
+    <p class="text-center mb-10 sm:mb-12 text-xs sm:text-sm md:text-base max-w-4xl">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi voluptas
+      nulla temporibus soluta obcaecati repudiandae quam accusamus dicta totam.
+    </p>
+
+    <div class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF]
+  w-full rounded-3xl text-white py-4 sm:py-6 md:py-8
+  px-3 sm:px-8 md:px-12
+  flex justify-evenly items-start
+  gap-3 sm:gap-8 md:gap-12">
+
+      <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
+        <h1 class="text-[10px] sm:text-sm font-bold">Tahun berdiri</h1>
+        <h1 class="text-base sm:text-xl md:text-2xl font-bold">0000</h1>
+        <p class="text-[9px] sm:text-xs text-center leading-tight">
+          Lorem ipsum dolor sit amet consectetur
+        </p>
       </div>
-      <div class="flex flex-col justify-evenly items-center w-45 flex-1 gap-4">
-        <h1 class="text-sm font-bold">Program Studi</h1>
-        <h1 class="text-2xl font-bold">7</h1>
-        <button
-          class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#b95600] hover:to-[#af7200] hover:scale-102 hover:cursor-pointer">Selengkapnya</button>
+
+      <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
+        <h1 class="text-[10px] sm:text-sm font-bold">Program Studi</h1>
+        <h1 class="text-base sm:text-xl md:text-2xl font-bold">7</h1>
+
+        <button class="bg-gradient-to-r from-[#ff7700] to-[#ffa600]
+      shadow-lg px-3 sm:px-6 md:px-8 py-1 sm:py-3 rounded-full
+      text-[9px] sm:text-xs font-bold transition hover:scale-105">
+          Selengkapnya
+        </button>
       </div>
-      <div class="flex flex-col justify-center items-center w-45 flex-1 gap-4">
-        <h1 class="text-sm font-bold">jumlah Mahasiswa</h1>
-        <h1 class="text-2xl font-bold">0000</h1>
-        <p class="text-xs text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi
-          voluptas nulla temporibus soluta </p>
+
+      <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
+        <h1 class="text-[10px] sm:text-sm font-bold">Jumlah Dosen</h1>
+        <h1 class="text-base sm:text-xl md:text-2xl font-bold">0000</h1>
+        <p class="text-[9px] sm:text-xs text-center leading-tight">
+          Lorem ipsum dolor sit amet consectetur
+        </p>
       </div>
+
     </div>
-    <h1 class="text-3xl md:text-5xl font-bold lg:text-5xl mb-3 text-[#1B4597] mt-25">Profil Lulusan</h1>
+    <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-8 sm:mb-10 text-[#1B4597] mt-16 sm:mt-20 text-center">Profil Lulusan</h1>
 
 
     <!-- GRID -->
@@ -179,92 +198,99 @@
 
       <!-- 1 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-if.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition  bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-if.png') }}')">
         <h1 class="text-[#00766D] font-bold text-xl">Teknik Informatika</h1>
         <p class=" font-semibold text-[#00766D] mb-3">Diploma 3</p>
 
         <img src="{{ asset('images/logo-if.png') }}" class="w-28">
-
+        
+        <a href="{{ url('/prodi/if') }}">
         <button
-          class="bg-gradient-to-r from-[#01C7B8] to-[#1BE1D1] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#00aa9c] hover:to-[#17cbbc] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#01C7B8] to-[#1BE1D1] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#00aa9c] hover:to-[#17cbbc] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
       <!-- 2 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-gm.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-gm.png') }}')">
         <h1 class="text-[#589230] font-bold text-xl">Teknologi Geomatika</h1>
         <p class=" font-semibold text-[#589230] mb-3">Diploma 3</p>
 
         <img src="{{ asset('images/logo-gm.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/gm') }}">
         <button
-          class="bg-gradient-to-r from-[#54CD00] to-[#AEE353] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4ab000] hover:to-[#94c243] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#54CD00] to-[#AEE353] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4ab000] hover:to-[#94c243] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
       <!-- 3 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-an.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-an.png') }}')">
         <h1 class="text-[#B60019] font-bold text-xl">Animasi</h1>
         <p class=" font-semibold text-[#B60019] mb-3">Sarjana Terapan</p>
 
         <img src="{{ asset('images/logo-an.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/an') }}">
         <button
-          class="bg-gradient-to-r from-[#E80527] to-[#FD3168] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#b7041f] hover:to-[#dd2757] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#E80527] to-[#FD3168] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#b7041f] hover:to-[#dd2757] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
       <!-- 4 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-trm.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition  bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-trm.png') }}')">
         <h1 class="text-[#C03F0B] font-bold text-xl">Teknologi Rekayasa Multimedia</h1>
         <p class=" font-semibold text-[#C03F0B] mb-3">Sarjana Terapan</p>
 
         <img src="{{ asset('images/logo-trm.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/trm') }}">
         <button
-          class="bg-gradient-to-r from-[#FF4D01] to-[#FEBA00] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#d13f00] hover:to-[#cf9801] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#FF4D01] to-[#FEBA00] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#d13f00] hover:to-[#cf9801] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
       <!-- 5 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-rks.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition  bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-rks.png') }}')">
         <h1 class="text-[#6A6A6A] font-bold text-xl">Rekayasa Keamanan Siber</h1>
         <p class=" font-semibold text-[#6A6A6A] mb-3">Sarjana Terapan</p>
 
         <img src="{{ asset('images/logo-rks.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/rks') }}">
         <button
-          class="bg-gradient-to-r from-[#313131] to-[#DBDBDB] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#191919] hover:to-[#aaaaaa] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#313131] to-[#DBDBDB] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#191919] hover:to-[#aaaaaa] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
       <!-- 6 -->
       <div
-        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-trpl.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition  bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-trpl.png') }}')">
         <h1 class="text-[#0F3F7F] font-bold text-xl">Teknologi Rekayasa Perangkat Lunak</h1>
         <p class=" font-semibold text-[#0F3F7F] mb-3">Sarjana Terapan</p>
 
         <img src="{{ asset('images/logo-trpl.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/trpl') }}">
         <button
-          class="bg-gradient-to-r from-[#00439C] to-[#0159D0] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#003171] hover:to-[#00459e] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#00439C] to-[#0159D0] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#003171] hover:to-[#00459e] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
       <!-- 7 (CENTER) -->
 
       <div
-        class="md:col-start-2 relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition bg-[url('/card-tp.png')] bg-cover bg-center bg-no-repeat flex flex-col items-center">
+        class="md:col-start-2 relative bg-white rounded-2xl shadow-md p-6 text-center overflow-hidden hover:scale-105 transition  bg-cover bg-center bg-no-repeat flex flex-col items-center" style="background-image: url('{{ asset('images/card-tp.png') }}')">
         <h1 class="text-[#462471] font-bold text-xl">Teknologi Permainan</h1>
         <p class=" font-semibold text-[#462471] mb-3">Sarjana Terapan</p>
 
         <img src="{{ asset('images/logo-tp.png') }}" class="w-28">
 
+        <a href="{{ url('/prodi/tp') }}">
         <button
-          class="bg-gradient-to-r from-[#5D02D2] to-[#7F1CFF] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4702a1] hover:to-[#6717cf] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button>
+          class="bg-gradient-to-r from-[#5D02D2] to-[#7F1CFF] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4702a1] hover:to-[#6717cf] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
       </div>
 
