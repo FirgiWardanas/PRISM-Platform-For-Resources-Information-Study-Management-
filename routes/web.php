@@ -1,11 +1,18 @@
 <?php
 
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\AnController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GmController;
+use App\Http\Controllers\IfController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\RksController;
+use App\Http\Controllers\TpController;
+use App\Http\Controllers\TrmController;
+use App\Http\Controllers\TrplController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/laravel', function () {
@@ -25,5 +32,17 @@ Route::resource('/admin/login',LoginController::class);
 
 Route::resource('/',JurusanController::class);
 
+Route::resource('/prodi/if',IfController::class);
 
+Route::resource('/prodi/gm',GmController::class);
+
+Route::resource('/prodi/an',AnController::class);
+
+Route::resource('/prodi/tp',TpController::class);
+
+Route::resource('/prodi/trm',TrmController::class);
+
+Route::resource('/prodi/trpl',TrplController::class);
+
+Route::resource('/prodi/rks',RksController::class);
 
