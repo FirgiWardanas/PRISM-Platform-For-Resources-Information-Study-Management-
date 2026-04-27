@@ -20,7 +20,15 @@ Route::get('/laravel', function () {
 });
 
 Route::get('/kurikulum', function () {
-    return view('tim_kurikulum.index');
+    return view('tim_kurikulum.kurikulum');
+});
+
+Route::get('/profilekur', function () {
+    return view('tim_kurikulum.profile');
+});
+
+Route::get('/dashboardkur', function () {
+    return view('tim_kurikulum.dashboard');
 });
 
 

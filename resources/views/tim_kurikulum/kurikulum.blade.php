@@ -14,13 +14,13 @@
             </div>
 
             <nav class="space-y-3">
-                <a href="#"
+                <a href="dashboardkur"
                     class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
                     <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
-                <a href="#"
+                <a href="kurikulum"
                     class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
                     <img src="{{ asset('images/untuk kurikulum putih.svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
-                <a href="#"
+                <a href="profilekur"
                     class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
                     <img src="{{ asset('images/untuk profil(biru).svg') }}" class="h-4 w-4">Profile</a>
 
