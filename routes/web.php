@@ -12,6 +12,10 @@ Route::get('/laravel', function () {
     return view('welcome');
 });
 
+Route::get('/kurikulum', function () {
+    return view('tim_kurikulum.index');
+});
+
 
 Route::resource('/admin/dashboard',DashboardController::class);
 
