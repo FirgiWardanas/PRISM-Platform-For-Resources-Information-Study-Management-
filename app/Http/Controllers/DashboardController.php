@@ -13,7 +13,10 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
-
+  public function tim()
+    {
+    return view('tim_kurikulum.dashboard');
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -65,9 +65,11 @@
 
                     <!-- Logout bawah -->
                     <div class="flex flex-col h-full">
+                        <a href="/admin/login">
                         <button
                             class="flex items-center gap-1 mt-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
                             Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4">
+                        </a>
                     </div>
 
                 </div>
