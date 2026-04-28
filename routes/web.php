@@ -40,8 +40,10 @@ Route::resource('/admin/akun',AkunController::class);
 
 Route::resource('/admin/profil',ProfileController::class);
 
-Route::resource('/admin/login',LoginController::class);
-
+Route::get('/admin/login', [LoginController::class, 'index'])->name('login');
+Route::post('/admin/login', [LoginController::class, 'store'])->name('login.store');
+Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/tim_kurikulum/dashboard', [DashboardController::class, 'tim']);
 Route::resource('/',JurusanController::class);
 
 Route::resource('/prodi/if',IfController::class);
