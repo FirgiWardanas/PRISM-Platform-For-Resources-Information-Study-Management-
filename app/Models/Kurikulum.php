@@ -5,19 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
 
 class Kurikulum extends Model
 {
     protected $table      = 'kurikulum';
     protected $primaryKey = 'id_kurikulum';
-    public $timestamps    = false;
+    public    $timestamps = false;
 
     protected $fillable = [
+        'id_prodi',
         'nama_kurikulum',
         'tahun_mulai',
-        'status',
-        'id_prodi',
+        'status_kurikulum',
+    ];
+
+    protected $casts = [
+        'status_kurikulum' => 'string',
+        'tahun_mulai'      => 'integer',
     ];
 
     public function prodi(): BelongsTo
@@ -29,5 +33,4 @@ class Kurikulum extends Model
     {
         return $this->hasMany(DetailKurikulum::class, 'id_kurikulum', 'id_kurikulum');
     }
-
 }

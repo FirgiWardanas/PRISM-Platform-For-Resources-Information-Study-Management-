@@ -835,4 +835,3 @@ function hapusKurikulum(el) {
         item.remove();
     }
 }
-

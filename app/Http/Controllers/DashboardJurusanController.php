@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProgramStudiController extends Controller
+class DashboardJurusanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.ketua_jurusan.program-studi');
+        return view('admin.ketua_jurusan.dashboard');
     }
 
     /**

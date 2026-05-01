@@ -4,24 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Silabus extends Model
 {
     protected $table      = 'silabus';
     protected $primaryKey = 'id_silabus';
-    public $timestamps    = false;
+    public    $timestamps = false;
 
     protected $fillable = [
-        'cpm',
-        'cpk',
+        'id_detail',
         'bahan_pustaka',
+        'cpk',
+        'cpm',
         'deskripsi',
         'file_rps',
     ];
 
-    public function detailKurikulums(): HasMany
+    public function detailKurikulum(): BelongsTo
     {
-        return $this->hasMany(DetailKurikulum::class, 'id_silabus', 'id_silabus');
+        return $this->belongsTo(DetailKurikulum::class, 'id_detail', 'id_detail');
     }
 }

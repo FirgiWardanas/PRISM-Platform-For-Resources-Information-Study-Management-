@@ -204,7 +204,7 @@
 
         <img src="{{ asset('images/logo-if.png') }}" class="w-28">
         
-        <a href="{{ url('/prodi/if') }}">
+        <a href="{{ url('/informatika') }}">
         <button
           class="bg-gradient-to-r from-[#01C7B8] to-[#1BE1D1] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#00aa9c] hover:to-[#17cbbc] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -218,7 +218,7 @@
 
         <img src="{{ asset('images/logo-gm.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/gm') }}">
+        <a href="{{ url('/geomatika') }}">
         <button
           class="bg-gradient-to-r from-[#54CD00] to-[#AEE353] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4ab000] hover:to-[#94c243] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -232,7 +232,7 @@
 
         <img src="{{ asset('images/logo-an.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/an') }}">
+        <a href="{{ url('/animasi') }}">
         <button
           class="bg-gradient-to-r from-[#E80527] to-[#FD3168] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#b7041f] hover:to-[#dd2757] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -246,7 +246,7 @@
 
         <img src="{{ asset('images/logo-trm.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/trm') }}">
+        <a href="{{ url('/tr-multimedia') }}">
         <button
           class="bg-gradient-to-r from-[#FF4D01] to-[#FEBA00] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#d13f00] hover:to-[#cf9801] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -260,7 +260,7 @@
 
         <img src="{{ asset('images/logo-rks.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/rks') }}">
+        <a href="{{ url('/rekayasa-keamanan-siber') }}">
         <button
           class="bg-gradient-to-r from-[#313131] to-[#DBDBDB] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#191919] hover:to-[#aaaaaa] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -274,7 +274,7 @@
 
         <img src="{{ asset('images/logo-trpl.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/trpl') }}">
+        <a href="{{ url('/tr-perangkat-lunak') }}">
         <button
           class="bg-gradient-to-r from-[#00439C] to-[#0159D0] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#003171] hover:to-[#00459e] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
@@ -288,7 +288,7 @@
 
         <img src="{{ asset('images/logo-tp.png') }}" class="w-28">
 
-        <a href="{{ url('/prodi/tp') }}">
+        <a href="{{ url('/teknologi-permainan') }}">
         <button
           class="bg-gradient-to-r from-[#5D02D2] to-[#7F1CFF] shadow-2xl px-8 py-3 rounded-full  text-xs font-bold transition duration-200 hover:from-[#4702a1] hover:to-[#6717cf] hover:scale-102 hover:cursor-pointer text-white">Selengkapnya</button></a>
 
