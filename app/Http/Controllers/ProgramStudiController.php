@@ -9,8 +9,9 @@ class ProgramStudiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($kode_prodi)
     {
+        
         return view('admin.program-studi');
     }
 

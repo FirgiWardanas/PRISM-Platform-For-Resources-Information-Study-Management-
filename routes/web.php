@@ -46,6 +46,7 @@ Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout'
 Route::get('/tim_kurikulum/dashboard', [DashboardController::class, 'tim']);
 Route::resource('/',JurusanController::class);
 
+Route::resource('/prodi/{kode_prodi}',IfController::class);
 Route::resource('/prodi/if',IfController::class);
 
 Route::resource('/prodi/gm',GmController::class);

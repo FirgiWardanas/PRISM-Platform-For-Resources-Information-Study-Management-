@@ -12,7 +12,7 @@ class UserKurikulum extends Authenticatable
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     public $timestamps = false;
-    
+
     protected $fillable = [
         'nip',
         'nama',
@@ -31,5 +31,11 @@ class UserKurikulum extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+
+  
+    public function getAuthIdentifierName()
+    {
+        return 'email';
     }
 }
