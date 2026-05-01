@@ -11,35 +11,48 @@ class Prodi extends Model
 {
     protected $table      = 'prodi';
     protected $primaryKey = 'id_prodi';
-    public $timestamps    = false;
+    public    $timestamps = false;
 
     protected $fillable = [
+        'id_user',
+        'id_jurusan',
         'kode_prodi',
         'nama_prodi',
         'jenjang',
-        'id_jurusan',
+        'status_prodi',
     ];
 
-    // Prodi milik satu jurusan
+    protected $casts = [
+        'status_prodi' => 'string',
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
+
     public function jurusan(): BelongsTo
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
 
+    public function detailProdi(): HasOne
+    {
+        return $this->hasOne(DetailProdi::class, 'id_prodi', 'id_prodi');
+    }
 
     public function kurikulums(): HasMany
     {
         return $this->hasMany(Kurikulum::class, 'id_prodi', 'id_prodi');
     }
 
-    public function kurikulumAktif(): HasOne
+    public function dosens(): HasMany
     {
-        return $this->hasOne(Kurikulum::class, 'id_prodi', 'id_prodi')
-                    ->where('status', 'aktif');
+        return $this->hasMany(Dosen::class, 'id_prodi', 'id_prodi');
     }
 
-    public function user(): HasOne
+    public function kustomisasi(): HasOne
     {
-        return $this->hasOne(User::class, 'id_prodi', 'id_prodi');
+        return $this->hasOne(Kustomisasi::class, 'id_prodi', 'id_prodi');
     }
 }

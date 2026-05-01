@@ -9,14 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user', function (Blueprint $table) {
-            $table->id('id_user');
-            $table->string('nip', 20)->unique();
-            $table->string('nama', 100);
-            $table->string('email', 100)->unique();
+            $table->unsignedInteger('id_user')->autoIncrement();
+            $table->string('nama', 150);
+            $table->string('nip', 30)->unique();
+            $table->string('email', 150)->unique();
             $table->string('password', 255);
             $table->enum('role', ['ketua_jurusan', 'tim_kurikulum']);
-            $table->unsignedBigInteger('id_prodi')->nullable();
-            $table->timestamps();
         });
     }
 

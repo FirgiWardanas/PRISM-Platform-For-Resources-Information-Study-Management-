@@ -11,7 +11,7 @@ class AkunController extends Controller
      */
     public function index()
     {
-        return view('admin.akun');
+        return view('admin.ketua_jurusan.akun');
     }
 
     /**

@@ -2,47 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
-
     protected $table      = 'user';
     protected $primaryKey = 'id_user';
-    public $timestamps    = false;
+    public    $timestamps = false;
 
     protected $fillable = [
-        'nip',
         'nama',
+        'nip',
         'email',
         'password',
         'role',
-        'id_prodi',
     ];
 
-    protected $hidden = [
-        'password',
-    ];
+    protected $hidden = ['password'];
 
     protected $casts = [
-        'password' => 'hashed',
+        'role' => 'string',
     ];
 
-    public function prodi(): BelongsTo
+    public function prodis(): HasMany
     {
-        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+        return $this->hasMany(Prodi::class, 'id_user', 'id_user');
     }
 
-    public function isKetuaJurusan(): bool
+    public function dosens(): HasMany
     {
-        return $this->role === 'ketua_jurusan';
-    }
-
-    public function isTimKurikulum(): bool
-    {
-        return $this->role === 'tim_kurikulum';
+        return $this->hasMany(Dosen::class, 'id_user', 'id_user');
     }
 }

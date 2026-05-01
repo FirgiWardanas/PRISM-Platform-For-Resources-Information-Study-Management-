@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class ProfileTimController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('admin.tim_kurikulum.profile');
     }
-  public function tim()
-    {
-    return view('tim_kurikulum.dashboard');
-    }
+
     /**
      * Show the form for creating a new resource.
      */
