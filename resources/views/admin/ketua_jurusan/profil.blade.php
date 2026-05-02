@@ -14,7 +14,6 @@
 
                 <!-- Pensil -->
                 <button onclick="openModal()" class="absolute top-5 right-5 text-gray-500 hover:text-blue-500 text-xl">
-                    ✏️
                 </button>
 
                 <!-- Kiri -->
@@ -33,10 +32,13 @@
                 </div>
 
                 <!-- Logout bawah -->
-                <a href="/"
-                    class="mt-auto inline-block rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
-                Logout ↗
-                </a>
+                <!-- SESUDAH (benar) -->
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="mt-auto inline-block rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
+        Logout ↗
+    </button>
+</form>
                 
                 </div>
 

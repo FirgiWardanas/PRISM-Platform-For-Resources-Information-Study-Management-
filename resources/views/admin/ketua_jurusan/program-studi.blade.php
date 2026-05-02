@@ -65,7 +65,7 @@
             </h2>
 
             <div class="max-w-lg text-sm">
-                <form action="{{ route('program-studi.store') }}"" method="POST">
+                <form action="{{ route('admin.program-studi.store') }}" method="POST">
                     @csrf
                     <label for="kode">
                         <span>Kode</span>

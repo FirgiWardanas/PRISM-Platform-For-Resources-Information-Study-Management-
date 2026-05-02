@@ -16,17 +16,16 @@
                     </div>
                 </div>
 
-                <nav class="space-y-3">
-                    <a href="dashboardkur"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
-                    <a href="kurikulum"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
-                    <a href="profilekur"
-                        class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
-                        <img src="{{ asset('images/icon-profil(putih).svg') }}" class="h-4 w-4">Profile</a>
-
+               <nav class="space-y-3">
+        <a href="/admin/tim-kurikulum"
+            class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
+            <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
+        <a href="/admin/kurikulum"
+            class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
+            <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
+        <a href="/admin/profile-tim-kurikulum"
+            class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
+            <img src="{{ asset('images/icon-profil(putih).svg') }}" class="h-4 w-4">Profile</a>
                 </nav>
             </aside>
 
@@ -63,14 +62,14 @@
                         </div>
                     </div>
 
-                    <!-- Logout bawah -->
-                    <div class="flex flex-col h-full">
-                        <a href="/">
-                        <button
+                        <!-- Logout bawah -->
+                       <form method="POST" action="{{ route('logout') }}">
+                             @csrf
+                        <button type="submit"
                             class="flex items-center gap-1 mt-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
                             Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4">
-                        </a>
-                    </div>
+                        </button>
+                    </form>
 
                 </div>
 

@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+class User extends Authenticatable  // <-- ganti dari Model ke Authenticatable
 {
     protected $table      = 'user';
     protected $primaryKey = 'id_user';
     public    $timestamps = false;
 
     protected $fillable = [
+        'id_prodi',
         'nama',
         'nip',
         'email',
@@ -22,7 +23,8 @@ class User extends Model
     protected $hidden = ['password'];
 
     protected $casts = [
-        'role' => 'string',
+        'role'     => 'string',
+        // 'password' => 'hashed',
     ];
 
     public function prodis(): HasMany
