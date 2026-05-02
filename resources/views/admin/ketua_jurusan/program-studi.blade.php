@@ -17,81 +17,20 @@
 
             <!-- LIST CARD -->
             <div class="space-y-4">
-
+                
+                @foreach ( $prodi as $p )
+                
                 <!-- CARD -->
                 <div class="bg-white rounded-xl p-4 shadow flex justify-between items-center border border-gray-300">
-
-                    <!-- Kiri -->
-                    <div class="grid grid-cols-[100px_1fr_250px] text-sm w-full">
-                        <p>P001</p>
-                        <p>Teknologi Rekayasa Perangkat Lunak</p>
-                        <p>Diploma 4</p>
-                    </div>
-
-                    <!-- Kanan -->
-                    <div class="flex gap-2 mr-6">
-                        <button onclick="openEditModal(this,'P001','Teknologi Rekayasa Perangkat Lunak','D4')"
-                            class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
-                            Edit
-                        </button>
-                        <button
-                            class="bg-gradient-to-r from-[#FF003C] to-[#D60067] text-white px-3 py-1 rounded-lg text-sm">
-                            Hapus
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- CARD -->
-                <div class="bg-white rounded-xl p-4 shadow flex justify-between items-center border border-gray-300">
-                    <div class="grid grid-cols-[100px_1fr_250px] text-sm w-full">
-                        <p>P002</p>
-                        <p>Teknik Informatika</p>
-                        <p>Diploma 3</p>
+                    <div class="grid grid-cols-[100px_1fr_150px_100px] text-sm w-full">
+                        <p>{{ $p->kode_prodi }}</p>
+                        <p>{{ $p->nama_prodi }}</p>
+                        <p>{{ $p->jenjang }}</p>
+                        <p>{{ $p->status_prodi  }}</p>
                     </div>
 
                     <div class="flex gap-2 mr-6">
-                        <button onclick="openEditModal(this,'P002','Teknik Informatika','D3')"
-                            class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
-                            Edit
-                        </button>
-                        <button
-                            class="bg-gradient-to-r from-[#FF003C] to-[#D60067] text-white px-3 py-1 rounded-lg text-sm">
-                            Hapus
-                        </button>
-                    </div>
-                </div>
-
-                <!-- CARD -->
-                <div class="bg-white rounded-xl p-4 shadow flex justify-between items-center border border-gray-300">
-                    <div class="grid grid-cols-[100px_1fr_250px] text-sm w-full">
-                        <p>P003</p>
-                        <p>Animasi</p>
-                        <p>Diploma 4</p>
-                    </div>
-
-                    <div class="flex gap-2 mr-6">
-                        <button onclick="openEditModal(this,'P003','Animasi','D4')"
-                            class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
-                            Edit
-                        </button>
-                        <button
-                            class="bg-gradient-to-r from-[#FF003C] to-[#D60067] text-white px-3 py-1 rounded-lg text-sm">
-                            Hapus
-                        </button>
-                    </div>
-                </div>
-
-                <!-- CARD -->
-                <div class="bg-white rounded-xl p-4 shadow flex justify-between items-center border border-gray-300">
-                    <div class="grid grid-cols-[100px_1fr_250px] text-sm w-full">
-                        <p>P004</p>
-                        <p>Teknologi Geomatika</p>
-                        <p>Diploma 3</p>
-                    </div>
-
-                    <div class="flex gap-2 mr-6">
-                        <button onclick="openEditModal(this,'P004','Teknologi Geomatika','D3')"
+                        <button onclick="openEditModal(this,'{{ $p->kode_prodi }}','{{ $p->nama_prodi }}','{{ $p->jenjang }}')"
                             class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
                             Edit
                         </button>
@@ -101,11 +40,18 @@
                         </button>
                     </div>
                 </div>
+
+                @endforeach
             </div>
 
         </main>
 
+
+
+
     </div>
+
+
     <!--tambahModal-->
     <div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
         <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
@@ -119,35 +65,44 @@
             </h2>
 
             <div class="max-w-lg text-sm">
-                <form action="">
-                    <label for="email">
+                <form action="{{ route('program-studi.store') }}"" method="POST">
+                    @csrf
+                    <label for="kode">
                         <span>Kode</span>
-                        <input type="text" id="Kode" placeholder="Masukkan kode program studi"
+                        <input type="text" name="kode_prodi" id="Kode" placeholder="Masukkan kode program studi"
                             class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                     </label>
                     <label for="nama">
                         <span>Nama</span>
-                        <input type="text" id="nama" placeholder="Masukkan nama Program Studi"
+                        <input type="text" name="nama_prodi" id="nama" placeholder="Masukkan nama Program Studi"
                             class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                    </label>
+                    <label for="status_prodi">
+                        <span>Status</span>
+                        <select name="status_prodi" class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                            <option value="D4">Draft</option>
+                            <option value="D3">Publish</option>
+                    </select>
                     </label>
                     <label for="jenjang">
                         <span>Jenjang</span>
-                        <select class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                        <select name="jenjang" class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                             <option value="D4">D4</option>
                             <option value="D3">D3</option>
                             <option value="D2">D2</option>
                             <option value="D1">D1</option>
                         </select>
+                    </label>
 
 
                         <div class="flex justify-center">
-                            <button onclick="saveTambah()"
+                            <button type="submit" onclick="saveTambah()"
                                 class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
                                 Simpan
                             </button>
                         </div>
                 </form>
-
+ 
             </div>
         </div>
     </div>
