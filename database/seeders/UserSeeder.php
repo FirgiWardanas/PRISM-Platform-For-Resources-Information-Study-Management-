@@ -3,22 +3,22 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\UserKurikulum;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        UserKurikulum::create([
+        User::create([
             'nip'      => '198501012010011001',
             'nama'     => 'Ketua Jurusan',
             'email'    => 'ketuajurusan@gmail.com',
             'password' => bcrypt('ketua123'),
             'role'     => 'ketua_jurusan',
-            'id_prodi' => null,
+            'id_prodi' => 1,
         ]);
 
-        UserKurikulum::create([
+        User::create([
             'nip'      => '199001032012013003',
             'nama'     => 'Tim Kurikulum',
             'email'    => 'timkurikulum@gmail.com',
