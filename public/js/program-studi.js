@@ -1,81 +1,56 @@
-        function openTambahModal() {
-            document.getElementById("tambahmodal").classList.remove("hidden");
-            document.getElementById("tambahmodal").classList.add("flex");
-        }
+// =======================
+// MODAL TAMBAH
+// =======================
+function openTambahModal() {
+    const modal = document.getElementById("tambahmodal");
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
 
-        function closeTambahModal() {
-            document.getElementById("tambahmodal").classList.add("hidden");
-            document.getElementById("tambahmodal").classList.remove("flex");
-        }
+function closeTambahModal() {
+    const modal = document.getElementById("tambahmodal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
 
-        function saveTambah() {
-            // tutup modal
-            closeTambahModal();
+// ❌ HAPUS saveTambah()
+// karena submit langsung ke backend
 
-            // tampilkan popup sukses
-            const popup = document.getElementById("popupSukses");
-            popup.classList.remove("hidden");
 
-            setTimeout(() => {
-                popup.classList.add("hidden");
-            }, 3000);
-        }
-        //edit
-        let currentCard = null;
+// =======================
+// MODAL EDIT
+// =======================
+function openEditModal(btn, id, kode, nama, jenjang) {
+    console.log("ID:", id);
+    const modal = document.getElementById("modaledit");
 
-        function openEditModal(btn, kode, nama, jenjang) {
-            currentCard = btn.closest(".bg-white"); // simpan card
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
 
-            document.getElementById("modaledit").classList.remove("hidden");
-            document.getElementById("modaledit").classList.add("flex");
+    // isi form edit
+    document.getElementById("editkode").value = kode;
+    document.getElementById("editnama").value = nama;
+    document.getElementById("editjenjang").value = jenjang;
 
-            document.getElementById("editkode").value = kode;
-            document.getElementById("editnama").value = nama;
-            document.getElementById("editjenjang").value = jenjang;
-        }
+    // set action form ke route update (dynamic)
+    document.getElementById("formEdit").action = `/admin/program-studi/${id}`;
+}
 
-        function closeEditModal() {
-            document.getElementById("modaledit").classList.add("hidden");
-            document.getElementById("modaledit").classList.remove("flex");
-        }
+function closeEditModal() {
+    const modal = document.getElementById("modaledit");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
 
-        function saveEdit() {
-            // ambil nilai dari input
-            const kode = document.getElementById("editkode").value;
-            const nama = document.getElementById("editnama").value;
-            const jenjang = document.getElementById("editjenjang").value;
+// ❌ HAPUS saveEdit()
+// karena update dilakukan oleh backend
 
-            // ambil semua <p> di card
-            const p = currentCard.querySelectorAll("p");
 
-            // update isi card
-            p[0].innerText = kode;
-            p[1].innerText = nama;
-            p[2].innerText = jenjang;
-
-            closeEditModal();
-
-            // popup sukses
-            const popup = document.getElementById("popupSukses");
-            popup.innerText = "✏️ Data berhasil diupdate";
-            popup.classList.remove("hidden");
-
-            setTimeout(() => {
-                popup.classList.add("hidden");
-            }, 3000);
-        }
-        //hapus
-        function hapusData(btn) {
-            if (confirm("Yakin mau hapus data ini?")) {
-                const card = btn.closest(".bg-white");
-                card.remove();
-
-                const popup = document.getElementById("popupSukses");
-                popup.innerText = "❌ Data berhasil dihapus";
-                popup.classList.remove("hidden");
-
-                setTimeout(() => {
-                    popup.classList.add("hidden");
-                }, 3000);
-            }
-        }
+// =======================
+// HAPUS DATA (BACKEND)
+// =======================
+function hapusData(id) {
+    if (confirm("Yakin mau hapus data ini?")) {
+        document.getElementById(`deleteForm${id}`).submit();
+    }
+}
