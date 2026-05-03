@@ -20,7 +20,7 @@
             </ul>
 
             <div class="hidden lg:flex">
-                <a href="/admin/login"  class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-2 rounded-lg text-primary text-xs font-bold hover:from-[#b95600] hover:to-[#af7200] hover:cursor-pointer hover:scale-105 transition">
+                <a href="/admin/login" class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-2 rounded-lg text-primary text-xs font-bold hover:from-[#b95600] hover:to-[#af7200] hover:cursor-pointer hover:scale-105 transition">
                     LOGIN
                 </a>
             </div>
@@ -40,9 +40,9 @@
             <li class="p-3 rounded-lg hover:bg-white/10 transition">Kontak</li>
         </ul>
         <div class="flex flex-col gap-4 mt-4 px-2">
-            <button class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition duration-200 hover:from-[#b95600] hover:to-[#af7200] hover:scale-102 hover:cursor-pointer">
+            <a href="/admin/login" class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition duration-200 hover:from-[#b95600] hover:to-[#af7200] hover:scale-102 hover:cursor-pointer">
                 LOGIN
-            </button>
+            </a>
         </div>
     </div>
 </header>

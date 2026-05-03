@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-@vite('..\resources\css\app.css')
+  @vite('..\resources\css\app.css')
 </head>
 
 <body class=" font-[Montserrat] ">
@@ -41,10 +41,10 @@
           </ul>
 
           <div class="hidden lg:flex">
-            <button
+            <a href="/admin/login"
               class="bg-gradient-to-r from-[#FE2574] to-[#F55A93] shadow-2xl px-8 py-2 rounded-lg text-primary text-xs font-bold hover:from-[#d32061] hover:to-[#da4a7f]hover:cursor-pointer hover:scale-105 transition">
               LOGIN
-            </button>
+            </a>
           </div>
         </div>
 
@@ -95,10 +95,10 @@
 
         </ul>
         <div class="flex flex-col gap-4 mt-4 px-2">
-          <button
+          <a href="/admin/login"
             class="bg-gradient-to-r from-[#FE2574] to-[#F55A93] shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition duration-200 hover:from-[#d32061] hover:to-[#da4a7f] hover:scale-102 hover:cursor-pointer">
             LOGIN
-          </button>
+          </a>
         </div>
       </div>
     </header>
@@ -683,19 +683,19 @@
               </div>
 
               <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 4</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 4</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
 
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 5</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 5</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
 
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 6</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 6</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
 
             </div>
           </div>
@@ -1036,13 +1036,13 @@
       <div>
         <h2 class="font-semibold text-lg mb-3">Program Studi</h2>
         <ul class="space-y-2 text-sm text-white/80">
-          <li>Teknik Informatika</li>
-          <li>Teknologi Geomatika</li>
-          <li>Animasi</li>
-          <li>Teknologi Rekayasa Multimedia</li>
-          <li>Rekayasa Keamanan Siber</li>
-          <li>Teknologi Rekayasa Perangkat Lunak</li>
-          <li>Teknologi Permainan</li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/informatika">Teknik Informatika</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/geomatika">Teknologi Geomatika</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/animasi">Animasi</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/tr-multimedia">Teknologi Rekayasa Multimedia</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/rekayasa-keamanan-siber">Rekayasa Keamanan Siber</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/tr-perangkat-lunak">Teknologi Rekayasa Perangkat Lunak</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/teknologi-permainan">Teknologi Permainan</a></li>
         </ul>
       </div>
 
