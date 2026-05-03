@@ -14,7 +14,6 @@ class Prodi extends Model
     public    $timestamps = false;
 
     protected $fillable = [
-        'id_user',
         'id_jurusan',
         'kode_prodi',
         'nama_prodi',
@@ -26,9 +25,9 @@ class Prodi extends Model
         'status_prodi' => 'string',
     ];
 
-    public function user(): BelongsTo
+    public function user(): HasOne
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->hasOne(User::class, 'id_user', 'id_user');
     }
 
     public function jurusan(): BelongsTo

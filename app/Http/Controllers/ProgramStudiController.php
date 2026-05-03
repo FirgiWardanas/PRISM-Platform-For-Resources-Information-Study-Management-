@@ -33,18 +33,17 @@ class ProgramStudiController extends Controller
             'kode_prodi' => 'required',
             'nama_prodi' => 'required',
             'jenjang' => 'required',
-            'status_prodi' => 'required'
-        ]);
+            'id_jurusan' => 'required'
+        ],);
 
         Prodi::create([
             'kode_prodi'=>$request->kode_prodi,
             'nama_prodi'=>$request->nama_prodi,
             'jenjang'=>$request->jenjang,
-            'status_prodi'=>$request->status_prodi
-
+            'id_jurusan' => $request->id_jurusan
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('pesan','Data Prodi Berhasil di Tambahkan');
     }
 
     /**
@@ -68,14 +67,31 @@ class ProgramStudiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'kode_prodi' => 'required',
+            'nama_prodi' => 'required',
+            'jenjang' => 'required',
+        ]);
+
+        Prodi::where('id_prodi',$id    )->update([
+            'kode_prodi'=>$request->kode_prodi,
+            'nama_prodi'=>$request->nama_prodi,
+            'jenjang'=>$request->jenjang,
+        ]);
+
+        return redirect()->back();
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+    $prodi = Prodi::findOrFail($id);
+    $prodi->delete();
+
+    return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

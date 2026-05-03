@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Model
 {
@@ -17,6 +19,7 @@ class User extends Model
         'email',
         'password',
         'role',
+        'id_user'
     ];
 
     protected $hidden = ['password'];
@@ -25,9 +28,9 @@ class User extends Model
         'role' => 'string',
     ];
 
-    public function prodis(): HasMany
+    public function prodis(): BelongsTo
     {
-        return $this->hasMany(Prodi::class, 'id_user', 'id_user');
+        return $this->belongsTo(Prodi::class, 'id_user', 'id_user');
     }
 
     public function dosens(): HasMany
