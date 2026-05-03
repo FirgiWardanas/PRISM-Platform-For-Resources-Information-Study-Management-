@@ -21,7 +21,6 @@ function closeTambahModal() {
 // MODAL EDIT
 // =======================
 function openEditModal(btn, id, kode, nama, jenjang) {
-    console.log("ID:", id);
     const modal = document.getElementById("modaledit");
 
     modal.classList.remove("hidden");

@@ -46,7 +46,7 @@ Route::resource('/admin/ketua-jurusan',DashboardJurusanController::class);
 
 Route::resource('/admin/program-studi',ProgramStudiController::class);
 
-Route::resource('/admin/akun',AkunController::class);
+Route::resource('/admin/akun/',AkunController::class);
 
 Route::resource('/admin/profile-ketua-jurusan',ProfileKajurController::class);
 

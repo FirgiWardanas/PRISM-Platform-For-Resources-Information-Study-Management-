@@ -73,7 +73,7 @@ class ProgramStudiController extends Controller
             'jenjang' => 'required',
         ]);
 
-        Prodi::where('id_prodi',$id    )->update([
+        Prodi::where('id_prodi',$id)->update([
             'kode_prodi'=>$request->kode_prodi,
             'nama_prodi'=>$request->nama_prodi,
             'jenjang'=>$request->jenjang,
