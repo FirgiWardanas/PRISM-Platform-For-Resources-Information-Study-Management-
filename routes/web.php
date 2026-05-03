@@ -14,6 +14,7 @@ use App\Http\Controllers\TrplController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
+use App\Http\Controllers\matakuliahController;
 use App\Http\Controllers\ProfileKajurController;
 use App\Http\Controllers\ProfileTimController;
 
@@ -58,6 +59,8 @@ Route::resource('/admin/tim-kurikulum',DashboardKurikulumController::class);
 Route::resource('/admin/kurikulum',KurikulumController::class);
 
 Route::resource('/admin/profile-tim-kurikulum',ProfileTimController::class);
+
+Route::resource('/admin/matakuliah',matakuliahController::class);
 
 
 
