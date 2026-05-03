@@ -61,10 +61,10 @@ return [
     |
     */
 
-    'providers' => [
+   'providers' => [
     'users' => [
         'driver' => 'eloquent',
-        'model'  => App\Models\UserKurikulum::class,
+        'model'  => App\Models\User::class,
     ],
 ],
 

@@ -41,27 +41,29 @@ Route::post('/admin/login', [LoginController::class, 'store'])->name('login.stor
 Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
 
 
-
 // Ketua Jurusan
-Route::resource('/admin/ketua-jurusan',DashboardJurusanController::class);
-
-Route::resource('/admin/program-studi',ProgramStudiController::class);
-
-Route::resource('/admin/akun',AkunController::class);
-
-Route::resource('/admin/profile-ketua-jurusan',ProfileKajurController::class);
+Route::middleware(['auth', 'role:ketua_jurusan'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('/ketua-jurusan', DashboardJurusanController::class);
+        Route::resource('/program-studi', ProgramStudiController::class);
+        Route::resource('/akun', AkunController::class);
+        Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
+    });
 
 
 
 // Tim Kurikulum
-Route::resource('/admin/tim-kurikulum',DashboardKurikulumController::class);
-
-Route::resource('/admin/kurikulum',KurikulumController::class);
-
-Route::resource('/admin/profile-tim-kurikulum',ProfileTimController::class);
-
-Route::resource('/admin/matakuliah',matakuliahController::class);
-
+Route::middleware(['auth', 'role:tim_kurikulum'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('/tim-kurikulum', DashboardKurikulumController::class);
+        Route::resource('/kurikulum', KurikulumController::class);
+        Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
+        Route::resource('/matakuliah', matakuliahController::class);
+    });
 
 
 // Halaman Prodi
