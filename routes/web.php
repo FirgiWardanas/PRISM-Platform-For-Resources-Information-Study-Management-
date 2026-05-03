@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AnController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\GmController;
 use App\Http\Controllers\IfController;
 use App\Http\Controllers\JurusanController;
@@ -51,6 +52,9 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
     });
+
+Route::resource('/admin/kelola-dosen',DosenController::class);
+
 
 
 
