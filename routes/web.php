@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AnController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\GmController;
 use App\Http\Controllers\IfController;
 use App\Http\Controllers\JurusanController;
@@ -49,6 +50,9 @@ Route::resource('/admin/program-studi',ProgramStudiController::class);
 Route::resource('/admin/akun',AkunController::class);
 
 Route::resource('/admin/profile-ketua-jurusan',ProfileKajurController::class);
+
+Route::resource('/admin/kelola-dosen',DosenController::class);
+
 
 
 
