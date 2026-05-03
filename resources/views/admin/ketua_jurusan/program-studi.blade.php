@@ -74,7 +74,7 @@
         </h2>
 
         <div class="max-w-lg text-sm">
-            <form action="{{ route('program-studi.store') }}" method="POST">
+           <form action="{{ route('admin.program-studi.store') }}" method="POST">
                 @csrf
 
                 <!-- KODE -->
@@ -176,9 +176,9 @@
     @foreach ( $prodi as $p )
     
     <form id="deleteForm{{ $p->id_prodi }}" 
-      action="{{ route('program-studi.destroy', $p->id_prodi) }}" 
-      method="POST" 
-      class="hidden">
+        action="{{ route('admin.program-studi.destroy', $p->id_prodi) }}" 
+        method="POST" 
+        class="hidden">
     @csrf
     @method('DELETE')
 </form>
