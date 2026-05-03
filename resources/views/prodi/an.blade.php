@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-@vite('..\resources\css\app.css')
+  @vite('..\resources\css\app.css')
 </head>
 
 <body class=" font-[Montserrat] ">
@@ -41,10 +41,10 @@
           </ul>
 
           <div class="hidden lg:flex">
-            <button
+            <a href="/admin/login"
               class="bg-gradient-to-r from-[#01D1FC] to-[#0162DD] shadow-2xl px-8 py-2 rounded-lg text-primary text-xs font-bold hover:from-[#00a7c9] hover:to-[#0358C4]hover:cursor-pointer hover:scale-105 transition">
               LOGIN
-            </button>
+            </a>
           </div>
         </div>
 
@@ -95,10 +95,10 @@
 
         </ul>
         <div class="flex flex-col gap-4 mt-4 px-2">
-          <button
+          <a href="/admin/login"
             class="bg-gradient-to-r from-[#01D1FC] to-[#0162DD]  shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition duration-200 hover:from-[#00a7c9] hover:to-[#0358C4] hover:scale-102 hover:cursor-pointer">
             LOGIN
-          </button>
+          </a>
         </div>
       </div>
     </header>
@@ -216,7 +216,7 @@
 
         <div
           class="slide absolute left-1/2 w-[90%] md:w-[700px] h-[380px] md:h-[300px] rounded-3xl bg-gradient-to-br from-[#E3016E] to-[#FB01BD] flex flex-col md:flex-row items-center justify-center md:justify-start px-6 md:px-10 shadow-2xl transition-all duration-500">
-          <img src="{{ asset('images/illustrasi programming.png') }}"  class="w-32 md:w-56">
+          <img src="{{ asset('images/illustrasi programming.png') }}" class="w-32 md:w-56">
           <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
             <h1 class="text-2xl md:text-4xl font-bold">Concept Artist</h1>
             <p class="text-[10px] md:text-sm mt-2 leading-relaxed">seorang individu yang menghasilkan desain visual untuk item, karakter, atau setting area yang belum ada. Ini termasuk, namun tidak terbatas pada, produksi video game produksi film, produksi animasi dan terus berkembang luas di era digital ini. CONCEPT ARTIST dituntut sebuah komitmen tinggi dalam perannya di dalam bagian produksi besar.</p>
@@ -225,7 +225,7 @@
 
         <div
           class="slide absolute left-1/2 w-[90%] md:w-[700px] h-[380px] md:h-[300px] rounded-3xl bg-gradient-to-br from-[#E3016E] to-[#FB01BD] flex flex-col md:flex-row items-center justify-center md:justify-start px-6 md:px-10 shadow-2xl transition-all duration-500">
-          <img src="{{ asset('images/illustrasi programming.png') }}"  class="w-32 md:w-56">
+          <img src="{{ asset('images/illustrasi programming.png') }}" class="w-32 md:w-56">
           <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
             <h1 class="text-2xl md:text-4xl font-bold">Animator</h1>
             <p class="text-[10px] md:text-sm mt-2">seorang seniman yang menciptakan berbagai ragam gambar yang akan membentuk ilusi seolah-olah bergerak pada saat ditayangkan dengan cepat yang disebut dengan frame. Animator dapat bekerja dalam berbagai bidang seperti film, televisi, video game, dan Internet. Biasanya, sebuah karya animasi membutuhkan beberapa animator. Cara kerja dalam menciptakan gambar tersebut, sangat bergantung dari gaya dan keahlian mereka.</p>
@@ -234,7 +234,7 @@
 
         <div
           class="slide absolute left-1/2 w-[90%] md:w-[700px] h-[380px] md:h-[300px] rounded-3xl bg-gradient-to-br from-[#E3016E] to-[#FB01BD] flex flex-col md:flex-row items-center justify-center md:justify-start px-6 md:px-10 shadow-2xl transition-all duration-500">
-          <img src="{{ asset('images/illustrasi programming.png') }}"  class="w-32 md:w-56">
+          <img src="{{ asset('images/illustrasi programming.png') }}" class="w-32 md:w-56">
           <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
             <h1 class="text-2xl md:text-4xl font-bold">Soryboard Artist</h1>
             <p class="text-[10px] md:text-sm mt-2">Storyboard artist merupakan bagian pekerjaan dimana kita akan lebih banyak menggambar panel-panel storyboard berdasarkan script yang sudah ada, serta menentukan sudut pandang kamera dan komposisi yang sesuai dengan alur cerita animasi yang terdapat pada scriptnya.</p>
@@ -243,7 +243,7 @@
 
         <div
           class="slide absolute left-1/2 w-[90%] md:w-[700px] h-[380px] md:h-[300px] rounded-3xl bg-gradient-to-br from-[#E3016E] to-[#FB01BD] flex flex-col md:flex-row items-center justify-center md:justify-start px-6 md:px-10 shadow-2xl transition-all duration-500">
-          <img src="{{ asset('images/illustrasi programming.png') }}"  class="w-32 md:w-56">
+          <img src="{{ asset('images/illustrasi programming.png') }}" class="w-32 md:w-56">
           <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
             <h1 class="text-2xl md:text-4xl font-bold">Layout Artist</h1>
             <p class="text-[10px] md:text-sm mt-2">Layout artist bertanggung jawab untuk meletakkan elemen-elemen yang akan digunakan pada suatu shot animasi dan kemudian menggerakkan elemen-elemen didalamnya secara draft sesuai dengan petunjuk visual dari storyboard dan timing audio dari departemen audio untuk animasi tersebut. Hasil pekerjaan dari para 3D layout artist nantinya yang akan di lanjutkan oleh para animator untuk diberikan gerakan-gerakan animasi yang lebih detail dan lanjut.</p>
@@ -560,243 +560,243 @@
         <div id="kur-a" class="kur-content text-sm md:text-base">
           <div class="max-w-6xl mx-auto ">
 
-          <!-- Semester List -->
-          <div class="space-y-4">
+            <!-- Semester List -->
+            <div class="space-y-4">
 
-            <!-- SEMESTER 1 -->
-            <div class="bg-white rounded-xl p-4 shadow-md border border-gray-300">
+              <!-- SEMESTER 1 -->
+              <div class="bg-white rounded-xl p-4 shadow-md border border-gray-300">
+
+                <!-- HEADER -->
+                <div onclick="toggleSemester(this)" class="flex justify-between items-center cursor-pointer">
+
+                  <span class="tracking-widest font-semibold text-[#001286]">
+                    SEMESTER 1
+                  </span>
+
+                  <img src="{{ asset('images/panah.png') }}" class="h-5 w-5 transition-transform duration-300 arrow">
+                </div>
+
+                <!-- CONTENT -->
+                <div class="mt-3 hidden content">
+
+                  <!-- ✅ TAMBAHAN: overflow-x-auto -->
+                  <div class="overflow-x-auto">
+
+                    <div class="min-w-[700px] rounded-t-lg overflow-hidden shadow border border-gray-300">
+                      <table class="w-full text-[10px] sm:text-xs border-collapse">
+
+                        <colgroup>
+                          <col class="w-[40px]">
+                          <col class="w-[70px]">
+                          <col class="w-[150px]">
+                          <col class="w-[50px]">
+                          <col class="w-[40px]">
+                          <col class="w-[40px]">
+                          <col class="w-[40px]">
+                          <col class="w-[40px]">
+                          <col class="w-[90px]">
+                          <col class="w-[70px]">
+                        </colgroup>
+
+                        <thead>
+                          <tr class="bg-[#D9E5FF] text-[10px] sm:text-[11px] text-center">
+                            <th rowspan="2" class="p-2">No</th>
+                            <th rowspan="2" class="p-2">Kode</th>
+                            <th rowspan="2" class="p-2 text-left">Nama</th>
+                            <th rowspan="2" class="p-2">Sks</th>
+
+                            <th colspan="2" class="p-2">Bobot SKS</th>
+                            <th colspan="2" class="p-2">Jam/Sesi</th>
+
+                            <th rowspan="2" class="p-2">Kategori</th>
+                            <th rowspan="2" class="p-2">Silabus</th>
+                          </tr>
+
+                          <tr class="bg-[#D9E5FF] text-[8px] sm:text-[9px] text-center">
+                            <th class="p-1">T</th>
+                            <th class="p-1">P</th>
+                            <th class="p-1">T</th>
+                            <th class="p-1">P</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="p-2">1</td>
+                            <td class="p-2">201</td>
+                            <td class="p-2 text-left">Pemrograman basis data</td>
+                            <td class="p-2">3</td>
+
+                            <td class="p-2">2</td>
+                            <td class="p-2">1</td>
+                            <td class="p-2">2</td>
+                            <td class="p-2">1</td>
+
+                            <td class="p-2">Wajib</td>
+
+                            <td class="p-2 flex justify-center items-center">
+                              <img src="{{ asset('images/silabus.png') }}" class="cursor-pointer w-4 sm:w-5"
+                                onclick="openModalSilabus()">
+                            </td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- SEMESTER LAIN (tetap sama tampilan) -->
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 2</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 3</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 4</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 5</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 6</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 7</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+              <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
+                <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 8</span>
+                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
+              </div>
+
+
+
+            </div>
+          </div>
+
+          <!-- MODAL SILABUS -->
+          <div id="modalSilabus" class="fixed inset-0 hidden items-center justify-center bg-black/40 z-50 p-3">
+
+
+            <div class="w-full max-w-[800px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative overflow-hidden">
 
               <!-- HEADER -->
-              <div onclick="toggleSemester(this)" class="flex justify-between items-center cursor-pointer">
+              <div class="flex justify-center items-center py-3 relative border-b">
+                <h2 class="text-base sm:text-lg font-semibold text-[#1B4597]">Silabus</h2>
 
-                <span class="tracking-widest font-semibold text-[#001286]">
-                  SEMESTER 1
-                </span>
-
-                <img src="{{ asset('images/panah.png') }}" class="h-5 w-5 transition-transform duration-300 arrow">
+                <button onclick="closeModalSilabus()"
+                  class="absolute right-3 sm:right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm">
+                  ✕
+                </button>
               </div>
 
               <!-- CONTENT -->
-              <div class="mt-3 hidden content">
+              <div class="p-3 sm:p-5">
+                <div class="overflow-y-auto max-h-[75vh]">
 
-                <!-- ✅ TAMBAHAN: overflow-x-auto -->
-                <div class="overflow-x-auto">
+                  <!-- ✅ scroll horizontal kalau sempit -->
+                  <div class="overflow-x-auto">
 
-                  <div class="min-w-[700px] rounded-t-lg overflow-hidden shadow border border-gray-300">
-                    <table class="w-full text-[10px] sm:text-xs border-collapse">
+                    <table class="w-full min-w-[500px] border border-gray-400 border-collapse text-xs sm:text-sm">
 
-                      <colgroup>
-                        <col class="w-[40px]">
-                        <col class="w-[70px]">
-                        <col class="w-[150px]">
-                        <col class="w-[50px]">
-                        <col class="w-[40px]">
-                        <col class="w-[40px]">
-                        <col class="w-[40px]">
-                        <col class="w-[40px]">
-                        <col class="w-[90px]">
-                        <col class="w-[70px]">
-                      </colgroup>
+                      <tr>
+                        <td class="border p-2 w-[120px] sm:w-40">Mata Kuliah</td>
+                        <td class="border p-2 w-[20px] text-center">:</td>
+                        <td class="border p-2">Pemrograman Basis Data</td>
+                      </tr>
 
-                      <thead>
-                        <tr class="bg-[#D9E5FF] text-[10px] sm:text-[11px] text-center">
-                          <th rowspan="2" class="p-2">No</th>
-                          <th rowspan="2" class="p-2">Kode</th>
-                          <th rowspan="2" class="p-2 text-left">Nama</th>
-                          <th rowspan="2" class="p-2">Sks</th>
+                      <tr>
+                        <td class="border p-2">Kode</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">201</td>
+                      </tr>
 
-                          <th colspan="2" class="p-2">Bobot SKS</th>
-                          <th colspan="2" class="p-2">Jam/Sesi</th>
+                      <tr>
+                        <td class="border p-2">SKS</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">3</td>
+                      </tr>
 
-                          <th rowspan="2" class="p-2">Kategori</th>
-                          <th rowspan="2" class="p-2">Silabus</th>
-                        </tr>
+                      <tr>
+                        <td class="border p-2">Deskripsi Mata Kuliah</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">
+                          Mata kuliah ini membahas konsep dasar basis data, perancangan database,
+                          serta implementasi menggunakan SQL dan DBMS.
+                        </td>
+                      </tr>
 
-                        <tr class="bg-[#D9E5FF] text-[8px] sm:text-[9px] text-center">
-                          <th class="p-1">T</th>
-                          <th class="p-1">P</th>
-                          <th class="p-1">T</th>
-                          <th class="p-1">P</th>
-                        </tr>
-                      </thead>
+                      <tr>
+                        <td class="border p-2">Capaian Pembelajaran Umum</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">
+                          Mahasiswa mampu memahami konsep basis data dan mengimplementasikannya
+                          dalam pengembangan aplikasi.
+                        </td>
+                      </tr>
 
-                      <tbody>
-                        <tr class="text-center">
-                          <td class="p-2">1</td>
-                          <td class="p-2">201</td>
-                          <td class="p-2 text-left">Pemrograman basis data</td>
-                          <td class="p-2">3</td>
+                      <tr>
+                        <td class="border p-2">Capaian Pembelajaran Khusus</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">
+                          Mahasiswa mampu merancang database, membuat query SQL,
+                          serta mengelola data secara efektif.
+                        </td>
+                      </tr>
 
-                          <td class="p-2">2</td>
-                          <td class="p-2">1</td>
-                          <td class="p-2">2</td>
-                          <td class="p-2">1</td>
+                      <tr>
+                        <td class="border p-2">Daftar Pustaka</td>
+                        <td class="border p-2 text-center">:</td>
+                        <td class="border p-2">
+                          - Database System Concepts - Silberschatz<br>
+                          - Fundamentals of Database Systems - Elmasri
+                        </td>
+                      </tr>
 
-                          <td class="p-2">Wajib</td>
+                      <tr>
+                        <td class="border p-2">Rencana Pembelajaran Semester</td>
+                        <td class="border p-2 text-center">:</td>
 
-                          <td class="p-2 flex justify-center items-center">
-                            <img src="{{ asset('images/silabus.png') }}" class="cursor-pointer w-4 sm:w-5"
-                              onclick="openModalSilabus()">
-                          </td>
-                        </tr>
-                      </tbody>
+                        <td class="border p-2">
+
+                          <div class="space-y-2">
+
+                            <div class="flex items-center gap-2 border rounded-lg p-2">
+                              <img src="../foto/file.svg" class="w-4 sm:w-5">
+                              <div>
+                                <p class="text-xs sm:text-sm font-medium">RPS.pdf</p>
+                                <p class="text-[10px] sm:text-xs text-gray-500">100 kb</p>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </td>
+                      </tr>
 
                     </table>
+
                   </div>
 
                 </div>
               </div>
             </div>
-
-            <!-- SEMESTER LAIN (tetap sama tampilan) -->
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 2</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 3</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 4</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 5</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 6</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 7</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            <div class="bg-white rounded-xl p-4 flex justify-between items-center shadow-md border border-gray-300">
-              <span class="tracking-widest font-semibold text-[#001286]">SEMESTER 8</span>
-              <img src="{{ asset('images/panah.png') }}" class="h-5 w-5">
-            </div>
-
-            
-
           </div>
-        </div>
-
-        <!-- MODAL SILABUS -->
-        <div id="modalSilabus" class="fixed inset-0 hidden items-center justify-center bg-black/40 z-50 p-3">
-
-
-          <div class="w-full max-w-[800px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative overflow-hidden">
-
-            <!-- HEADER -->
-            <div class="flex justify-center items-center py-3 relative border-b">
-              <h2 class="text-base sm:text-lg font-semibold text-[#1B4597]">Silabus</h2>
-
-              <button onclick="closeModalSilabus()"
-                class="absolute right-3 sm:right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm">
-                ✕
-              </button>
-            </div>
-
-            <!-- CONTENT -->
-            <div class="p-3 sm:p-5">
-              <div class="overflow-y-auto max-h-[75vh]">
-
-                <!-- ✅ scroll horizontal kalau sempit -->
-                <div class="overflow-x-auto">
-
-                  <table class="w-full min-w-[500px] border border-gray-400 border-collapse text-xs sm:text-sm">
-
-                    <tr>
-                      <td class="border p-2 w-[120px] sm:w-40">Mata Kuliah</td>
-                      <td class="border p-2 w-[20px] text-center">:</td>
-                      <td class="border p-2">Pemrograman Basis Data</td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Kode</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">201</td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">SKS</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">3</td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Deskripsi Mata Kuliah</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">
-                        Mata kuliah ini membahas konsep dasar basis data, perancangan database,
-                        serta implementasi menggunakan SQL dan DBMS.
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Capaian Pembelajaran Umum</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">
-                        Mahasiswa mampu memahami konsep basis data dan mengimplementasikannya
-                        dalam pengembangan aplikasi.
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Capaian Pembelajaran Khusus</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">
-                        Mahasiswa mampu merancang database, membuat query SQL,
-                        serta mengelola data secara efektif.
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Daftar Pustaka</td>
-                      <td class="border p-2 text-center">:</td>
-                      <td class="border p-2">
-                        - Database System Concepts - Silberschatz<br>
-                        - Fundamentals of Database Systems - Elmasri
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td class="border p-2">Rencana Pembelajaran Semester</td>
-                      <td class="border p-2 text-center">:</td>
-
-                      <td class="border p-2">
-
-                        <div class="space-y-2">
-
-                          <div class="flex items-center gap-2 border rounded-lg p-2">
-                            <img src="../foto/file.svg" class="w-4 sm:w-5">
-                            <div>
-                              <p class="text-xs sm:text-sm font-medium">RPS.pdf</p>
-                              <p class="text-[10px] sm:text-xs text-gray-500">100 kb</p>
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-
-                  </table>
-
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
         </div>
 
         <div id="kur-b" class="kur-content hidden text-sm md:text-base">
@@ -929,8 +929,8 @@
       </div>
     </div>
 
-    
-    
+
+
 
 
 
@@ -964,13 +964,13 @@
       <div>
         <h2 class="font-semibold text-lg mb-3">Program Studi</h2>
         <ul class="space-y-2 text-sm text-white/80">
-          <li>Teknik Informatika</li>
-          <li>Teknologi Geomatika</li>
-          <li>Animasi</li>
-          <li>Teknologi Rekayasa Multimedia</li>
-          <li>Rekayasa Keamanan Siber</li>
-          <li>Teknologi Rekayasa Perangkat Lunak</li>
-          <li>Teknologi Permainan</li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/informatika">Teknik Informatika</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/geomatika">Teknologi Geomatika</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/animasi">Animasi</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/tr-multimedia">Teknologi Rekayasa Multimedia</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/rekayasa-keamanan-siber">Rekayasa Keamanan Siber</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/tr-perangkat-lunak">Teknologi Rekayasa Perangkat Lunak</a></li>
+          <li class="hover:cursor-pointer hover:text-white"><a href="/teknologi-permainan">Teknologi Permainan</a></li>
         </ul>
       </div>
 
@@ -1008,7 +1008,7 @@
     </div>
 
   </footer>
-  
+
   <script src="{{ asset('js/tampilan-program-studi.js') }}"></script>
 </body>
 
