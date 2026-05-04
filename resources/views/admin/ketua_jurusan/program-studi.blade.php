@@ -17,7 +17,7 @@
 
             <!-- LIST CARD -->
             <div class="space-y-4">
-                                                        @if(session('pesan'))
+@if(session('pesan'))
     <div class="mb-4 rounded bg-green-100 p-3 text-green-700">
         {{ session('pesan') }}
     </div>
@@ -178,7 +178,7 @@
     <form id="deleteForm{{ $p->id_prodi }}" 
         action="{{ route('admin.program-studi.destroy', $p->id_prodi) }}" 
         method="POST" 
-        class="hidden">
+        class="hidden"  >
     @csrf
     @method('DELETE')
 </form>
@@ -186,8 +186,6 @@
     @endforeach
 
 
-
-
     </body>
-    <script src="{{ asset('js/program-studi.js') }}"></script>
+    <script src="{{ asset('js/program-studi.js') }}"></script>  
 </x-layout.layout>
