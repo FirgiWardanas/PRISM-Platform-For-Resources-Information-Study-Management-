@@ -1,58 +1,19 @@
 <x-layout.layout>
+    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}')">
+        <!-- Sidebar -->
+        <x-admin.sidebar></x-admin.sidebar>
+        <!-- Main Content -->
+        <main class="flex-1 p-6 space-y-6 ml-72">
+            <!-- Header -->
+            <x-admin.header>Kelola Dosen</x-admin.header>
 
-    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
-        <div class="flex h-screen  px-4 py-4">
-            <!-- Sidebar -->
-            <aside class="w-64 rounded-3xl bg-white p-5 shadow-lg border border-gray-300">
-                <div class="mb-10 flex items-center gap-3">
-                    <div class="h-12 w-20 rounded-full bg-cover bg-center"
-                        style="background-image: url('{{ asset('images/logo prism.png') }}');"></div>
-
-                    <div>
-                        <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
-                        <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
-                    </div>
-                </div>
-
-                <nav class="space-y-3">
-                    <a href="dashboard_ketua.html"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
-                    <a href="#"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/program studi(biru).svg') }}" class="h-5 w-5 mt-1 ">Program Studi</a>
-                    <a href="#"
-                        class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
-                        <img src="{{ asset('images/dosen (putih).svg') }}" class="h-4 w-4  ">Dosen</a>
-                    <a href="#"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/akun (biru).svg') }}" class="h-4 w-4 ">Akun</a>
-                    <a href="profileketuajurusan.html"
-                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/untuk profil(biru).svg') }}" class="h-4 w-4">Profile</a>
-                </nav>
-            </aside>
-
-            <!-- MAIN CONTENT -->
-            <main class="flex-1 p-2 space-y-6">
-
-                <!-- Header -->
-                <div class="flex items-start justify-between mb-6 ml-7">
-                    <h1 class="text-2xl font-semibold">Dosen</h1>
-
-                    <div class="flex flex-col items-end gap-4 mr-6">
-                        <img src="{{ asset('images/Profile Circle.svg') }}"
-                            class="w-12 h-12 bg-gradient-to-r from-[#3665DF] to-[#9A55FF]  rounded-full">
-
+                <div class="space-y-4 max-w-[930px] mx-auto">
+                                        <div class="flex flex-col items-end gap-4 mr-6">
                         <button onclick="openTambahModal(1)"
                             class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer">
                             Tambah +
                         </button>
                     </div>
-                </div>
-
-                <div class="space-y-4 max-w-[930px] mx-auto">
-
                     <!-- CARD DOSEN 1 -->
                     <div class="card bg-white rounded-[32px] shadow-md border border-gray-300 p-5">
 
@@ -232,6 +193,8 @@
 
                 </div>
         </div>
+
+    </main>
 
         <!-- MODAL TAMBAH DOSEN -->
         <div id="modalTambahDosen1" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
