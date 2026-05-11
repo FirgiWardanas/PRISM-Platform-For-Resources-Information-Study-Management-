@@ -51,10 +51,8 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/program-studi', ProgramStudiController::class);
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
+        Route::resource('/kelola-dosen',DosenController::class);
     });
-
-Route::resource('/admin/kelola-dosen',DosenController::class);
-
 
 
 

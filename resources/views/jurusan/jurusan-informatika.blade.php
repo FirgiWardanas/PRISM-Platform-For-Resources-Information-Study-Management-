@@ -19,7 +19,6 @@
   px-3 sm:px-8 md:px-12
   flex justify-evenly items-start
   gap-3 sm:gap-8 md:gap-12">
-
       <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
         <h1 class="text-[10px] sm:text-sm font-bold">Tahun berdiri</h1>
         <h1 class="text-base sm:text-xl md:text-2xl font-bold">0000</h1>
@@ -153,6 +152,7 @@
         <div class="w-30 rounded-xl overflow-hidden">
           <img src="{{ asset('images/icon-teknisiGIS.png') }}" alt="">
         </div>
+        <div>
         <div>
           <h3 class="font-semibold text-blue-900">Teknisi GIS</h3>
           <p class="text-xs text-gray-500">

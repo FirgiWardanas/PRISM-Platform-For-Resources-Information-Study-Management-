@@ -14,6 +14,7 @@
                 <a href="/admin/ketua-jurusan" class="{{ request()->is('admin/ketua-jurusan') ? 'block rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'  :  'block rounded-xl px-4 py-3 text-blue-600 hover:bg-gray-100' }}">Dashboard</a>
                 <a href="/admin/program-studi" class="{{ request()->is('admin/program-studi') ? 'block rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'  :  'block rounded-xl px-4 py-3 text-blue-600 hover:bg-gray-100' }}">Program Studi</a>
                 <a href="/admin/akun" class="{{ request()->is('admin/akun') ? 'block rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'  :  'block rounded-xl px-4 py-3 text-blue-600 hover:bg-gray-100' }}">Akun</a>
+                <a href="/admin/kelola-dosen" class="{{ request()->is('admin/kelola-dosen') ? 'block rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'  :  'block rounded-xl px-4 py-3 text-blue-600 hover:bg-gray-100' }}">Kelola Dosen</a>
                 <a href="/admin/profile-ketua-jurusan" class="{{ request()->is('admin/profile-ketua-jurusan') ? 'block rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'  :  'block rounded-xl px-4 py-3 text-blue-600 hover:bg-gray-100' }}">Profil</a>
             </nav>
-        </aside>
+        </aside>    
