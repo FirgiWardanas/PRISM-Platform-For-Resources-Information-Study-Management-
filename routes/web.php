@@ -16,8 +16,9 @@ use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
 use App\Http\Controllers\ProfileKajurController;
 use App\Http\Controllers\ProfileTimController;
+use App\Http\Controllers\KustomisasiController;
 
-
+use App\Models\Kustomisasi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/laravel', function () {
@@ -29,7 +30,7 @@ Route::get('/laravel', function () {
 
 //Landing Page Jurusan
 
-Route::resource('/',JurusanController::class);
+Route::resource('/', JurusanController::class);
 
 
 
@@ -49,6 +50,16 @@ Route::resource('/admin/program-studi',ProgramStudiController::class);
 Route::resource('/admin/akun',AkunController::class);
 
 Route::resource('/admin/profile-ketua-jurusan',ProfileKajurController::class);
+Route::middleware(['auth', 'role:ketua_jurusan'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('/ketua-jurusan', DashboardJurusanController::class);
+        Route::resource('/program-studi', ProgramStudiController::class);
+        Route::resource('/akun', AkunController::class);
+        Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
+        Route::resource('/kelola-dosen', DosenController::class);
+    });
 
 
 
@@ -59,34 +70,45 @@ Route::resource('/admin/kurikulum',KurikulumController::class);
 
 Route::resource('/admin/profile-tim-kurikulum',ProfileTimController::class);
 
+Route::middleware(['auth', 'role:tim_kurikulum'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('/tim-kurikulum', DashboardKurikulumController::class);
+        Route::resource('/kurikulum', KurikulumController::class);
+        Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
+        Route::resource('/matakuliah', matakuliahController::class);
+        Route::get('/kustomisasi', [KustomisasiController::class, 'index'])
+            ->name('kustomisasi');
+    });
 
 
 // Halaman Prodi
 
 // Informatika
 
-Route::resource('/informatika',IfController::class);
+Route::resource('/informatika', IfController::class);
 
 // Geomatika
 
-Route::resource('/geomatika',GmController::class);
+Route::resource('/geomatika', GmController::class);
 
 // Animasi
 
-Route::resource('/animasi',AnController::class);
+Route::resource('/animasi', AnController::class);
 
 // Teknologi Rekaya Multimedia
 
-Route::resource('/tr-multimedia',TrmController::class);
+Route::resource('/tr-multimedia', TrmController::class);
 
 // Rekayasa Keamanan Siber
 
-Route::resource('/rekayasa-keamanan-siber',RksController::class);
+Route::resource('/rekayasa-keamanan-siber', RksController::class);
 
 // Teknologi Rekayasa Perangkat Lunak
 
-Route::resource('/tr-perangkat-lunak',TrplController::class);
+Route::resource('/tr-perangkat-lunak', TrplController::class);
 
 // Teknologi Permainan
 
-Route::resource('/teknologi-permainan',TpController::class);
+Route::resource('/teknologi-permainan', TpController::class);
