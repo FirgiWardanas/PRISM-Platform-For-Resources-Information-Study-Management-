@@ -19,13 +19,13 @@
         <div>
             <h2 class="font-semibold text-lg mb-3">Program Studi</h2>
             <ul class="space-y-2 text-sm text-white/80">
-                <li>Teknik Informatika</li>
-                <li>Teknologi Geomatika</li>
-                <li>Animasi</li>
-                <li>Teknologi Rekayasa Multimedia</li>
-                <li>Rekayasa Keamanan Siber</li>
-                <li>Teknologi Rekayasa Perangkat Lunak</li>
-                <li>Teknologi Permainan</li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/informatika">Teknik Informatika</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/geomatika">Teknologi Geomatika</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/animasi">Animasi</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/tr-multimedia">Teknologi Rekayasa Multimedia</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/rekayasa-keamanan-siber">Rekayasa Keamanan Siber</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/tr-perangkat-lunak">Teknologi Rekayasa Perangkat Lunak</a></li>
+                <li class="hover:cursor-pointer hover:text-white"><a href="/teknologi-permainan">Teknologi Permainan</a></li>
             </ul>
         </div>
 

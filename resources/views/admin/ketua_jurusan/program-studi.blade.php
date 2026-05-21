@@ -17,7 +17,7 @@
 
             <!-- LIST CARD -->
             <div class="space-y-4">
-                                                        @if(session('pesan'))
+@if(session('pesan'))
     <div class="mb-4 rounded bg-green-100 p-3 text-green-700">
         {{ session('pesan') }}
     </div>
@@ -74,7 +74,7 @@
         </h2>
 
         <div class="max-w-lg text-sm">
-            <form action="{{ route('program-studi.store') }}" method="POST">
+           <form action="{{ route('admin.program-studi.store') }}" method="POST">
                 @csrf
 
                 <!-- KODE -->
@@ -176,9 +176,9 @@
     @foreach ( $prodi as $p )
     
     <form id="deleteForm{{ $p->id_prodi }}" 
-      action="{{ route('program-studi.destroy', $p->id_prodi) }}" 
-      method="POST" 
-      class="hidden">
+        action="{{ route('admin.program-studi.destroy', $p->id_prodi) }}" 
+        method="POST" 
+        class="hidden"  >
     @csrf
     @method('DELETE')
 </form>
@@ -186,8 +186,6 @@
     @endforeach
 
 
-
-
     </body>
-    <script src="{{ asset('js/program-studi.js') }}"></script>
+    <script src="{{ asset('js/program-studi.js') }}"></script>  
 </x-layout.layout>

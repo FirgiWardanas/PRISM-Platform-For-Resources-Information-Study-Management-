@@ -5,9 +5,11 @@
         <!-- Main Content -->
         <main class="flex-1 p-6 space-y-6 ml-72">
             <!-- Header -->
-            <x-admin.header>Kelola Akun </x-admin.header>
+            <x-admin.header>Dashboard</x-admin.header>
 
-
+            
+            
+            
             <!-- Welcome Banner -->
             <div class="bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF] 
             text-white p-6 rounded-2xl shadow-lg">

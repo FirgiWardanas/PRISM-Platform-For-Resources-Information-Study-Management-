@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AnController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\GmController;
 use App\Http\Controllers\IfController;
 use App\Http\Controllers\JurusanController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\TrplController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
+use App\Http\Controllers\matakuliahController;
 use App\Http\Controllers\ProfileKajurController;
 use App\Http\Controllers\ProfileTimController;
 use App\Http\Controllers\KustomisasiController;
@@ -41,15 +43,7 @@ Route::post('/admin/login', [LoginController::class, 'store'])->name('login.stor
 Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
 
 
-
 // Ketua Jurusan
-Route::resource('/admin/ketua-jurusan',DashboardJurusanController::class);
-
-Route::resource('/admin/program-studi',ProgramStudiController::class);
-
-Route::resource('/admin/akun',AkunController::class);
-
-Route::resource('/admin/profile-ketua-jurusan',ProfileKajurController::class);
 Route::middleware(['auth', 'role:ketua_jurusan'])
     ->prefix('admin')
     ->name('admin.')
@@ -58,18 +52,12 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/program-studi', ProgramStudiController::class);
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
-        Route::resource('/kelola-dosen', DosenController::class);
+        Route::resource('/kelola-dosen',DosenController::class);
     });
 
 
 
 // Tim Kurikulum
-Route::resource('/admin/tim-kurikulum',DashboardKurikulumController::class);
-
-Route::resource('/admin/kurikulum',KurikulumController::class);
-
-Route::resource('/admin/profile-tim-kurikulum',ProfileTimController::class);
-
 Route::middleware(['auth', 'role:tim_kurikulum'])
     ->prefix('admin')
     ->name('admin.')
@@ -78,8 +66,6 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
         Route::resource('/kurikulum', KurikulumController::class);
         Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
         Route::resource('/matakuliah', matakuliahController::class);
-        Route::get('/kustomisasi', [KustomisasiController::class, 'index'])
-            ->name('kustomisasi');
     });
 
 
