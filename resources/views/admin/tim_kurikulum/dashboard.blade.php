@@ -48,10 +48,10 @@
                     <!-- Welcome Banner -->
                     <div
                         class="bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF] text-white p-6 rounded-2xl shadow-lg">
-                        <p class="text-sm opacity-80">HELLO Name!</p>
+                        <p class="text-sm opacity-80">Halo, {{ Auth::user()->nama }}</p>
                         <h1 class="text-2xl font-bold">Welcome Back</h1>
-                        <p class="text-xs mt-2 opacity-70">1 januari 2026</p>
-                    </div>
+                        <p class="text-xs mt-2 opacity-70">{{ now()->format(' d F Y') }}</p>
+                    </div>'
 
                     <!-- Cards -->
                     <div class="grid grid-cols-3 gap-3">
