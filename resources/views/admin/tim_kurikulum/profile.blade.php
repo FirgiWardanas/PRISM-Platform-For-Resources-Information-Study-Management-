@@ -9,7 +9,6 @@
                 <div class="mb-10 flex items-center gap-3">
                     <div class="h-12 w-20 rounded-full bg-cover bg-center"
                         style="background-image: url('{{ asset('images/logo prism.svg') }}');"></div>
-
                     <div>
                         <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
                         <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
@@ -22,14 +21,13 @@
                         <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
                     <a href="/admin/kurikulum"
                         class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
+                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1">Kurikulum</a>
                     <a href="/admin/matakuliah"
                         class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Matakuliah</a>
+                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1">Matakuliah</a>
                     <a href="/admin/profile-tim-kurikulum"
                         class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
                         <img src="{{ asset('images/icon-profil(putih).svg') }}" class="h-4 w-4">Profile</a>
-
                 </nav>
             </aside>
 
@@ -40,36 +38,35 @@
                     <h1 class="text-2xl font-semibold">Profile</h1>
                     <div class="flex flex-col items-end gap-6">
                         <img src="{{ asset('images/Profile Circle.svg') }}" alt="profil"
-                            class="w-12 h-12 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full ">
+                            class="w-12 h-12 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
                     </div>
                 </div>
 
-                <div
-                    class="relative flex justify-between rounded-2xl bg-white p-10 shadow-xl h-[300px] border border-gray-300">
+                <div class="relative flex justify-between rounded-2xl bg-white p-10 shadow-xl h-[300px] border border-gray-300">
 
                     <!-- Pensil -->
                     <button onclick="openModal()"
                         class="absolute top-5 right-5 text-gray-500 hover:text-blue-500 text-xl w-6 h-6 cursor-pointer">
-                        <img src="{{ asset('images/icon-edit.svg') }}">
+                        <img src="{{ asset('images/update button.png') }}" alt="icon" width="20" height="20">
                     </button>
 
                     <!-- Kiri -->
                     <div class="flex items-center gap-8">
                         <div class="h-20 w-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-500"></div>
-
                         <div class="text-sm text-gray-700 space-y-1">
-                            <h2 class="text-lg font-semibold mb-2">Kisabat</h2>
-                            <p>Nama : <span id="viewNama">Kisabat</span></p>
-                            <p>NIP : <span id="viewNip">4786</span></p>
-                            <p>Email : <span id="viewEmail">kisabatadin@gmail.com</span></p>
-                            <p>Password : <span id="viewPassword">payakumbuah86</span></p>
+                            <h2 class="text-lg font-semibold mb-2">{{ $user->nama }}</h2>
+                            <p>Nama : <span>{{ $user->nama }}</span></p>
+                            <p>NIP : <span>{{ $user->nip }}</span></p>
+                            <p>Email : <span>{{ $user->email }}</span></p>
+                            <p>Password : <span>••••••••</span></p>
                         </div>
                     </div>
 
-                    <!-- Logout bawah -->
+                    <!-- Logout -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="flex items-center gap-1 mt-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
+                        <button type="submit"
+                            class="flex items-center gap-1 mt-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
                             Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4">
                         </button>
                     </form>
@@ -81,7 +78,6 @@
 
         <!-- MODAL -->
         <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
-
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
 
                 <button onclick="closeModal()"
@@ -94,39 +90,92 @@
                 </h2>
 
                 <div class="max-w-lg text-sm">
-                    <form action="">
-                        <label for="email">
+                    <form method="POST" action="{{ route('admin.profile-tim-kurikulum.update', $user->id_user) }}">
+                        @csrf
+                        @method('PUT')
+                        <label>
                             <span>Nama</span>
-                            <input type="text" id="nama" placeholder="Masukkan Nama"
-                                class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                            <input type="text" name="nama" value="{{ $user->nama }}"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                                 @error('nama')
+                                    <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
+                                @enderror
                         </label>
-                        <label for="name">
+                        <label>
                             <span>NIP</span>
-                            <input type="text" id="nip" placeholder="Masukkan NIP"
+                            <input type="text" name="nip" value="{{ $user->nip }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                                @error('nip')
+                                    <p class="text-red-500 text-xs mb-2">NIP sudah digunakan, silakan gunakan NIP lain.</p>
+                                @enderror
                         </label>
-                        <label for="email">
+                        <label>
                             <span>Email</span>
-                            <input type="email" id="email" placeholder="Masukkan Email"
+                            <input type="email" name="email" value="{{ $user->email }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
+                                @error('email')
+                                    <p class="text-red-500 text-xs mb-2">Email sudah digunakan, silakan gunakan email lain.</p>
+                                @enderror   
                         </label>
-                        <label for="password">
-                            <span>Password</span>
-                            <input type="password" id="password" placeholder="Masukkan Password"
+                        <label>
+                            <span>Password Baru (kosongkan jika tidak diubah)</span>
+                            <input type="password" name="password" placeholder="Masukkan Password Baru"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-5">
+                                  @error('password')
+                                        <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
+                                    @enderror
                         </label>
                         <div class="flex justify-center">
-                            <button onclick="saveData()"
+                            <button type="submit"
                                 class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white cursor-pointer">
                                 Simpan
                             </button>
                         </div>
                     </form>
-
                 </div>
 
             </div>
         </div>
+        <!-- POPUP SUCCESS -->
+        <div id="successPopup" class="fixed top-5 right-5 hidden bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg">
+            ✅ Data berhasil disimpan
+        </div>
+
     </body>
-    <script src="{{ asset('js/profil.js') }}"></script>
+     <script>
+        @if(session('success'))
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('successPopup');
+            popup.classList.remove('hidden');
+            setTimeout(function() {
+                popup.classList.add('hidden');
+            }, 3000);
+        });
+        @endif
+
+        @if(session('info'))
+        document.addEventListener('DOMContentLoaded', function() {
+            openModal();
+            alert('{{ session("info") }}');
+        });
+        @endif
+
+        @if($errors->any())
+        document.addEventListener('DOMContentLoaded', function() {
+            openModal();
+        });
+        @endif
+
+        function openModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
 </x-layout.layout>
