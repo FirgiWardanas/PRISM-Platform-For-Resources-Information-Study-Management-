@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
     @vite('..\resources\css\app.css')
     <title>{{ $title ?? 'App' }}</title>
 
@@ -22,9 +22,9 @@
 </head>
 
 
-    {{ $slot }} 
+{{ $slot }}
 
-     
-    <script src="{{ asset('js/app.js') }}"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
 </html>
-

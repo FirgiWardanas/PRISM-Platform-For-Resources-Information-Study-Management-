@@ -15,13 +15,21 @@ class UserSeeder extends Seeder
             'email'    => 'ketuajurusan@gmail.com',
             'password' => bcrypt('ketua123'),
             'role'     => 'ketua_jurusan',
-            'id_prodi' => 1,
+            'id_prodi' => NULL,
         ]);
 
         User::create([
             'nip'      => '199001032012013003',
             'nama'     => 'Tim Kurikulum',
             'email'    => 'timkurikulum@gmail.com',
+            'password' => bcrypt('kurikulum123'),
+            'role'     => 'tim_kurikulum',
+            'id_prodi' => 1,
+        ]);
+        User::create([
+            'nip'      => '199001032012013002',
+            'nama'     => 'user',
+            'email'    => 'timkur@gmail.com',
             'password' => bcrypt('kurikulum123'),
             'role'     => 'tim_kurikulum',
             'id_prodi' => 1,
