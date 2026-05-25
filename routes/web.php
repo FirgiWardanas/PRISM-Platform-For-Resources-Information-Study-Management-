@@ -66,6 +66,7 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
         Route::resource('/kurikulum', KurikulumController::class);
         Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
         Route::resource('/matakuliah', matakuliahController::class);
+        Route::resource('/kustomisasi', kustomisasiController::class);
     });
 
 

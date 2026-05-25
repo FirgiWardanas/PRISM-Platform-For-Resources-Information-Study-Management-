@@ -60,13 +60,17 @@
                         <div onclick="showKurikulum(7)"
                             class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 7
                         </div>
-                        <div onclick="showKurikulum(6)" class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 6
+                        <div onclick="showKurikulum(6)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 6
                         </div>
-                        <div onclick="showKurikulum(5)" class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 5
+                        <div onclick="showKurikulum(5)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 5
                         </div>
-                        <div onclick="showKurikulum(4)" class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 4
+                        <div onclick="showKurikulum(4)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 4
                         </div>
-                        <div onclick="showKurikulum(3)" class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 3
+                        <div onclick="showKurikulum(3)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 3
                         </div>
 
                     </div>
@@ -7986,7 +7990,7 @@
                                     <div class="flex items-start justify-between gap-3">
 
                                         <!-- LIST FILE -->
-                                        <div id="rpsContainer" class="space-y-2 w-full">
+                                        <div id="rpsContainer1" class="space-y-2 w-full">
 
                                             <!-- contoh card -->
                                             <div
@@ -7999,32 +8003,42 @@
                                                     </div>
                                                 </div>
 
-                                                <button onclick="hapusRPS(this)" class="text-red-500">
+                                                <button onclick="hapusRPS1(this)" class="text-red-500">
                                                     <img src="{{ asset('images/icon-hapus.svg') }}" class="w-5 h-5">
                                                 </button>
                                             </div>
 
 
-                                            <div id="uploadArea"
+                                            <div id="uploadArea1"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
-                                                <input type="file" id="fileInput" class="hidden"
-                                                    onchange="handleFile(this)">
+                                                <!-- INPUT -->
+                                                <input type="file" id="fileInput1" class="hidden"
+                                                    onchange="handleFile(this, 'rpsContainer1', 'uploadArea1')">
 
-                                                <button onclick="document.getElementById('fileInput').click()"
+                                                <!-- BUTTON -->
+                                                <button onclick="document.getElementById('fileInput1').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>
 
                                         <!-- BUTTON TAMBAH -->
-                                        <button type="button" onclick="tambahRPS()"
+                                        <button type="button" onclick="tambahRPS1()"
                                             class="w-8 h-8 mt-2 flex items-center justify-center rounded-full bg-gradient-to-r from-[#0284FD] to-[#3502CA] shadow-lg cursor-pointer">
 
                                             <img src="{{ asset('images/icon-plus.svg') }}" class="w-6 h-6">
@@ -8170,17 +8184,27 @@
                                             <div id="uploadArea2"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
+                                                <!-- INPUT -->
                                                 <input type="file" id="fileInput2" class="hidden"
-                                                    onchange="handleFile(this)">
+                                                    onchange="handleFile(this, 'rpsContainer2', 'uploadArea3')">
 
+                                                <!-- BUTTON -->
                                                 <button onclick="document.getElementById('fileInput2').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>
@@ -8332,17 +8356,27 @@
                                             <div id="uploadArea3"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
+                                                <!-- INPUT -->
                                                 <input type="file" id="fileInput3" class="hidden"
-                                                    onchange="handleFile3(this)">
+                                                    onchange="handleFile(this, 'rpsContainer3', 'uploadArea3')">
 
+                                                <!-- BUTTON -->
                                                 <button onclick="document.getElementById('fileInput3').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>
