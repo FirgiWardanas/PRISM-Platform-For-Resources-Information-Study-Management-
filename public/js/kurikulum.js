@@ -126,7 +126,7 @@ function closeEditKurikulum() {
     document.getElementById("editKurikulum").classList.remove("flex");
 }
 
-
+//silabus
 function openModalSilabus(id) {
     const modal = document.getElementById(`modalSilabus${id}`);
     modal.classList.remove("hidden");
@@ -158,6 +158,23 @@ function simpansilabus() {
         popup.classList.add("hidden");
     }, 3000);
 }
+
+//tambah rencana pembelajaran semester
+function tambahRPS1() {
+    const upload = document.getElementById("uploadArea1");
+
+    if (!upload) {
+        console.error("uploadArea1 tidak ditemukan");
+        return;
+    }
+
+    upload.classList.toggle("hidden");
+}
+
+
+
+
+
 
 //hapuskurikulum
 function hapusKurikulum(el) {
