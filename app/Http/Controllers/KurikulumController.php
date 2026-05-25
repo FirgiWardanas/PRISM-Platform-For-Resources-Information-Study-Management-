@@ -115,4 +115,5 @@ class KurikulumController extends Controller
 
         return redirect()->back();
     }
+
 }

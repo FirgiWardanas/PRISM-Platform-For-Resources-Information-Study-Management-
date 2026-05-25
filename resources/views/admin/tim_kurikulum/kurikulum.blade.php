@@ -1,17 +1,78 @@
-    <x-layout.layout>
+<x-layout.layout>
 
-        <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
-            <div class="flex flex-col lg:flex-row h-screen px-4 py-4 gap-4">
-                <!-- Sidebar -->
-                <aside class="w-64 rounded-3xl bg-white p-5 shadow-lg border border-gray-300">
-                    <div class="mb-10 flex items-center gap-3">
-                        <div class="h-12 w-20 rounded-full bg-cover bg-center"
-                            style="background-image: url('{{ asset('images/logo prism.png') }}');"></div>
+    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
+        <div class="flex flex-col lg:flex-row h-screen px-4 py-4 gap-4">
+            <!-- Sidebar -->
+            <aside class="w-64 rounded-3xl bg-white p-5 shadow-lg border border-gray-300">
+                <div class="mb-10 flex items-center gap-3">
+                    <div class="h-12 w-20 rounded-full bg-cover bg-center"
+                        style="background-image: url('{{ asset('images/logo prism.png') }}');"></div>
 
-                        <div>
-                            <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
-                            <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
+                    <div>
+                        <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
+                        <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-3">
+                    <a href="/admin/tim-kurikulum"
+                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
+                        <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
+                    <a href="/admin/kurikulum"
+                        class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
+                        <img src="{{ asset('images/untuk kurikulum putih.svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
+                    <a href="/admin/matakuliah"
+                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
+                        <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Matakuliah</a>
+                    <a href="/admin/profile-tim-kurikulum"
+                        class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
+                        <img src="{{ asset('images/untuk profil(biru).svg') }}" class="h-4 w-4">Profile</a>
+
+                </nav>
+            </aside>
+            <!-- Header -->
+            <main class="flex-1  px-4">
+                <!-- Header -->
+                <div class="flex items-start justify-between mb-6">
+                    <h1 class="text-2xl font-semibold">Kurikulum</h1>
+                    <div class="flex flex-col items-end gap-6">
+                        <img src="{{ asset('images/Profile Circle.svg') }}" alt="profil"
+                            class="w-12 h-12 bg-gradient-to-r from-[#3665DF] to-[#9A55FF]  rounded-full ">
+                    </div>
+                </div>
+
+                <div class="flex gap-4 h-[90%]">
+
+                    <!-- List Kurikulum -->
+                    <div class="w-48 space-y-3 mt-5">
+
+
+                        <button onclick="openTambahKurikulum()"
+                            class="w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2  rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer">
+                            Tambah <img src="{{ asset('images/icon-plus.svg') }}">
+                        </button>
+
+                        <div onclick="showKurikulum(8)"
+                            class="bg-gradient-to-r from-[#4363E3] to-[#9A55FF] text-white p-5 rounded-lg mx-auto cursor-pointer">
+                            Kurikulum 8
                         </div>
+
+                        <div onclick="showKurikulum(7)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 7
+                        </div>
+                        <div onclick="showKurikulum(6)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 6
+                        </div>
+                        <div onclick="showKurikulum(5)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 5
+                        </div>
+                        <div onclick="showKurikulum(4)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 4
+                        </div>
+                        <div onclick="showKurikulum(3)"
+                            class="bg-[#B3C3FF] text-[#001286] p-3 rounded-lg cursor-pointer">Kurikulum 3
+                        </div>
+
                     </div>
 
 
@@ -637,7 +698,7 @@
                                     <div class="flex items-start justify-between gap-3">
 
                                         <!-- LIST FILE -->
-                                        <div id="rpsContainer" class="space-y-2 w-full">
+                                        <div id="rpsContainer1" class="space-y-2 w-full">
 
                                             <!-- contoh card -->
                                             <div
@@ -650,32 +711,42 @@
                                                     </div>
                                                 </div>
 
-                                                <button onclick="hapusRPS(this)" class="text-red-500">
+                                                <button onclick="hapusRPS1(this)" class="text-red-500">
                                                     <img src="{{ asset('images/icon-hapus.svg') }}" class="w-5 h-5">
                                                 </button>
                                             </div>
 
 
-                                            <div id="uploadArea"
+                                            <div id="uploadArea1"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
-                                                <input type="file" id="fileInput" class="hidden"
-                                                    onchange="handleFile(this)">
+                                                <!-- INPUT -->
+                                                <input type="file" id="fileInput1" class="hidden"
+                                                    onchange="handleFile(this, 'rpsContainer1', 'uploadArea1')">
 
-                                                <button onclick="document.getElementById('fileInput').click()"
+                                                <!-- BUTTON -->
+                                                <button onclick="document.getElementById('fileInput1').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>
 
                                         <!-- BUTTON TAMBAH -->
-                                        <button type="button" onclick="tambahRPS()"
+                                        <button type="button" onclick="tambahRPS1()"
                                             class="w-8 h-8 mt-2 flex items-center justify-center rounded-full bg-gradient-to-r from-[#0284FD] to-[#3502CA] shadow-lg cursor-pointer">
 
                                             <img src="{{ asset('images/icon-plus.svg') }}" class="w-6 h-6">
@@ -821,17 +892,27 @@
                                             <div id="uploadArea2"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
+                                                <!-- INPUT -->
                                                 <input type="file" id="fileInput2" class="hidden"
-                                                    onchange="handleFile(this)">
+                                                    onchange="handleFile(this, 'rpsContainer2', 'uploadArea3')">
 
+                                                <!-- BUTTON -->
                                                 <button onclick="document.getElementById('fileInput2').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>
@@ -983,17 +1064,27 @@
                                             <div id="uploadArea3"
                                                 class="hidden border-2 border-dashed border-blue-400 rounded-xl p-4 text-center">
 
+                                                <!-- ICON UPLOAD -->
+                                                <div class="flex justify-center mb-2">
+                                                    <img src="{{ asset('images/icon-upload.svg') }}"
+                                                        class="w-12 h-12 opacity-50">
+                                                </div>
+
+                                                <!-- TEXT -->
                                                 <p class="text-gray-700 mb-2 text-sm">
-                                                    choose a file
+                                                    choose a file or drag and drop it here
                                                 </p>
 
+                                                <!-- INPUT -->
                                                 <input type="file" id="fileInput3" class="hidden"
-                                                    onchange="handleFile3(this)">
+                                                    onchange="handleFile(this, 'rpsContainer3', 'uploadArea3')">
 
+                                                <!-- BUTTON -->
                                                 <button onclick="document.getElementById('fileInput3').click()"
                                                     class="px-3 py-1 bg-blue-200 text-blue-800 rounded-lg text-sm">
                                                     Browse File
                                                 </button>
+
                                             </div>
 
                                         </div>

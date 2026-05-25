@@ -79,7 +79,7 @@ class ProgramStudiController extends Controller
             'jenjang'=>$request->jenjang,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('pesan','Data Prodi Berhasil di Tambahkan');
     }
 
 
@@ -92,6 +92,6 @@ class ProgramStudiController extends Controller
     $prodi = Prodi::findOrFail($id);
     $prodi->delete();
 
-    return redirect()->back()->with('success', 'Data berhasil dihapus');
+    return redirect()->back();
     }
 }
