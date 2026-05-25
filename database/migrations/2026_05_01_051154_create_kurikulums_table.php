@@ -13,6 +13,7 @@ return new class extends Migration
             $table->unsignedInteger('id_prodi');
             $table->string('nama_kurikulum', 150);
             $table->year('tahun_mulai');
+            $table->integer('total_semester');
             $table->enum('status_kurikulum', ['aktif', 'tidak aktif'])->default('aktif');
 
             $table->foreign('id_prodi')
