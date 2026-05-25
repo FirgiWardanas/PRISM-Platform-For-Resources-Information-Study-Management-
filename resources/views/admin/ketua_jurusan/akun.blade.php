@@ -209,8 +209,8 @@
     {{-- Hapus --}}
     @foreach ( $akuns as $akun )
     
-    <form id="deleteForm{{ $akun->id_user }}" 
-        action="{{ route('admin.akun.destroy', $akun->id_user) }}" 
+
+    <form id="deleteForm{{ $akun->id_user }}" action="{{ route('admin.akun.destroy', $akun->id_user) }}" 
         method="POST" 
         class="hidden">
     @csrf
