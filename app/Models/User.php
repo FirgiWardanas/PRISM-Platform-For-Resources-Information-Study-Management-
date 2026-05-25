@@ -32,8 +32,4 @@ class User extends Authenticatable
         return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
     }
 
-    public function dosens(): HasMany
-    {
-        return $this->hasMany(Dosen::class, 'id_user', 'id_user');
-    }
 }

@@ -20,16 +20,13 @@ class Dosen extends Model
         'email',
         'foto_dosen',
         'status_jabatan',
+        'jenjang_pendidikan'
     ];
 
     protected $casts = [
         'status_jabatan' => 'string',
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
-    }
 
     public function prodi(): BelongsTo
     {

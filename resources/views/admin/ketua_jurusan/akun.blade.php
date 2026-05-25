@@ -10,9 +10,10 @@
                 <!-- Content -->
                 <div class="flex justify-between items-center mb-4">
     <h2 class="text-2xl font-bold text-gray-800">Akun</h2>
-    <button class="bg-blue-600 text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-blue-700">
-        Tambah +
-    </button>
+                    <button onclick="openTambahModal()"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600">
+                        Tambah +
+                    </button>
 </div>
 
 <div class="bg-white rounded-3xl shadow-lg p-6">
@@ -23,40 +24,22 @@
                     <th class="px-4 py-3 text-left text-sm font-semibold text-purple-600">Nama</th>
                     <th class="px-4 py-3 text-left text-sm font-semibold text-purple-600">NIP</th>
                     <th class="px-4 py-3 text-left text-sm font-semibold text-purple-600">Email</th>
-                    <th class="px-4 py-3 text-left text-sm font-semibold text-purple-600">Password</th>
                     <th class="px-4 py-3 text-left text-sm font-semibold text-purple-600">Prodi</th>
                     <th class="px-8 py-3 text-left text-sm font-semibold text-purple-600">  Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                @foreach([
-                    ['Jane Doe', '123456', 'janedoe@gmail.com', 'pass123', 'TRPL'],
-                    ['John Smith', '234567', 'johnsmith@gmail.com',  'pass234', 'TRPL'],
-                    ['Alice Brown', '345678', 'alicebrown@gmail.com', 'pass345', 'SI'],
-                    ['Bob Johnson', '456789', 'bobjohnson@gmail.com', 'pass456', 'SI'],
-                    ['Clara White', '567890', 'clarawhite@gmail.com', 'pass567', 'TI'],
-                    ['David Lee', '678901', 'davidlee@gmail.com', 'pass678', 'TI'],
-                    ['Eva Green', '789012', 'evagreen@gmail.com', 'pass789', 'TRPL'],
-                    ['Frank Black', '890123', 'frankblack@gmail.com', 'pass890', 'SI'],
-                    ['Grace Hall', '901234', 'gracehall@gmail.com', 'pass901', 'TI'],
-                    ['Henry King', '012345', 'henryking@gmail.com', 'pass012', 'TRPL'],
-                    ['Isla Scott', '111222', 'ilascott@gmail.com', 'pass111', 'SI'],
-                    ['Jack Turner', '222333', 'jackturner@gmail.com', 'pass222', 'TI'],
-                    ['Karen Adams', '333444', 'karenadams@gmail.com', 'pass333', 'TRPL'],
-                    ['Leo Baker', '444555', 'leobaker@gmail.com', 'pass444', 'SI'],
-                    ['Mia Clark', '555666', 'miaclark@gmail.com', 'pass555', 'TI'],
-                ] as [$nama, $nip, $email, $password, $prodi])
+                @foreach( $akuns as $akun )
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 text-sm text-gray-700">{{ $nama }}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700">{{ $nip }}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700">{{ $email }}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700">{{ $password }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">{{ $akun->nama }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">{{ $akun->nip }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">{{ $akun->email}}</td>
                     <td class="px-4 py-3">
-                        <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-lg">{{ $prodi }}</span>
+                        <span class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-lg">{{ $akun->prodis->nama_prodi }}</span>
                     </td>
                     <td class="px-4 py-3 flex gap-2">
-                        <button class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg text-sm">✎</button>
-                        <button class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-sm">🗑</button>
+                        <button onclick="openEditModal(this,'{{ $akun->id_user }}','{{ $akun->nama }}','{{ $akun->nip }}','{{ $akun->email}}','{{ $akun->prodis->id_prodi }}','{{ $akun->prodis->nama_prodi }}')" class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg text-sm">✎</button>
+                        <button onclick="hapusData('{{ $akun->id_user }}')" class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-sm">🗑</button>
                     </td>
                 </tr>
                 @endforeach
@@ -64,7 +47,179 @@
         </table>
     </div>
 </div>
+</main>
+
+
+{{-- MODAL --}}
+
+
+{{-- Tambah --}}
+<div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
+    <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+        <button onclick="closeTambahModal()"
+            class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+            ✕
+        </button>
+
+        <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+            Tambah Akun Tim Kurikulum
+        </h2>
+
+        <div class="max-w-lg text-sm">
+        <form action="{{ route('admin.akun.store') }}" method="POST">
+                @csrf
+                <!-- Nama -->
+                <label for="nama">
+                    <span>Nama</span>
+                    <input type="text" name="nama" id="nama"
+                        value="{{ old('nama') }}"
+                        placeholder="Masukkan Nama Pengelola"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                </label>
+
+
+                <!-- NIP -->
+                <label for="nip">
+                    <span>NIP</span>
+                    <input type="text" name="nip" id="nip"
+                        value="{{ old('nip') }}"
+                        placeholder="Masukkan NIP Pengelola"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required >
+                </label>
+
+                <!-- email -->
+                <label for="email">
+                    <span>Email</span>
+                    <input type="email" name="email" id="email"
+                        value="{{ old('email') }}"
+                        placeholder="Masukkan e-mail Pengelola"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required >
+                </label>
+
+                <!-- Program Studi -->  
+                <label for="id_prodi">
+                    <span>Program Studi</span>
+                    <select name="id_prodi" id="id_prodi"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                        <option value="">Pilih Program Studi yang di kelola</option>
+                        @foreach($list_prodi as $prodi)
+                            <option value="{{ $prodi->id_prodi }}">
+                                {{ $prodi->nama_prodi }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+
+                <!-- Password -->
+                <label for="password">
+                    <span>Password</span>
+                    <input type="password" name="password" id="password"
+                        placeholder="Masukkan Password Pengelola"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required >
+                </label>
+
+                <!-- Konfirmasi Password -->
+                <label for="password_confirmation">
+                    <span>konfirmasi Password</span>
+                    <input type="password" name="password_confirmation" id="password_confirmation"
+                        placeholder="Konfirmasi Password"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required >
+                </label>
+
+
+                <input type="hidden" name="role" value="tim_kurikulum">
+
+
+                <div class="flex justify-center">
+                    <button type="submit"
+                        class="w-40 mt-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                        Simpan
+                    </button>
+                </div>
+
+
+        </form>
+
+        </div>
+    </div>
+</div>
+
+{{-- Edit --}}
+
+    <div id="modaledit" class="fixed inset-0 hidden items-center justify-center bg-black/40">
+        <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+            <button onclick="closeEditModal()"
+                class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+                ✕
+            </button>
+
+            <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                Edit Akun Pengelola
+            </h2>
+
+            <div class="max-w-lg text-sm">
+                <form id="formEdit" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                    <label for="editnama">
+                        <span>Nama</span>
+                        <input type="text" id="editnama" name="nama"
+                            class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                    </label>
+
+                    <label for="editnip">
+                        <span>NIP</span>
+                        <input type="text" id="editnip" name="nip" 
+                            class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                    </label>
+
+                    <label for="editemail">
+                        <span>Email</span>
+                        <input type="email" id="editemail" name="email"
+                            class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                    </label>
+
+                <label for="editprodi">
+                    <span>Program Studi</span>
+                    <select name="id_prodi" id="id_prodi"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2" required>
+                            <option value="" id="selected_prodi"></option>
+                        @foreach($list_prodi as $prodi)
+                            <option value="{{ $prodi->id_prodi }}">
+                                {{ $prodi->nama_prodi }}
+                            </option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                        <div class="flex justify-center">
+                            <button type="submit" 
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                Simpan
+                            </button>
+                        </div>
+                </form>
+
             </div>
         </div>
+    </div>
+
+
+    {{-- Hapus --}}
+    @foreach ( $akuns as $akun )
+    
+    <form id="deleteForm{{ $akun->id_user }}" 
+        action="{{ route('admin.akun.destroy', $akun->id_user) }}" 
+        method="POST" 
+        class="hidden">
+    @csrf
+    @method('DELETE')
+</form>
+
+    @endforeach
+
         </body>
+    <script src="{{ asset('js/akun.js') }}"></script>  
     </x-layout.layout>
+

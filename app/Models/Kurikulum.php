@@ -16,6 +16,7 @@ class Kurikulum extends Model
         'id_prodi',
         'nama_kurikulum',
         'tahun_mulai',
+        'total_semester',
         'status_kurikulum',
     ];
 
