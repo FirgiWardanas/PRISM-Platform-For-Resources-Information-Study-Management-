@@ -34,7 +34,7 @@ class ProgramStudiController extends Controller
             'nama_prodi' => 'required',
             'jenjang' => 'required',
             'id_jurusan' => 'required'
-        ],);
+        ]);
 
         Prodi::create([
             'kode_prodi'=>$request->kode_prodi,

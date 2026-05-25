@@ -1,10 +1,149 @@
 function showKurikulum(id) {
+
+    // sembunyikan semua
     document.querySelectorAll(".kurikulum-content").forEach(el => {
         el.classList.add("hidden");
     });
 
-    document.getElementById(`kurikulum-${id}`).classList.remove("hidden");
+    // tampilkan yang dipilih
+    document.getElementById(`kurikulum-${id}`)
+        .classList.remove("hidden");
 }
+
+
+
+
+
+
+// TAMBAH
+
+// tambahkurikulum
+function openTambahKurikulum() {
+    document.getElementById("tambahkurikulum").classList.remove("hidden");
+    document.getElementById("tambahkurikulum").classList.add("flex");
+}
+
+function closeTambahKurikulum() {
+    document.getElementById("tambahkurikulum").classList.add("hidden");
+    document.getElementById("tambahkurikulum").classList.remove("flex");
+}
+
+
+// Semester
+let valueTambah = 0;
+
+function updateUITambah() {
+    document.getElementById("valueBoxTambah").innerText = valueTambah;
+    document.getElementById("semesterInputTambah").value = valueTambah;
+}
+
+function tambahTambah() {
+    valueTambah++;
+    updateUITambah();
+}
+
+function kurangTambah() {
+    if (valueTambah > 0) {
+        valueTambah--;
+        updateUITambah();
+    }
+}
+
+
+
+
+
+    
+
+// EDIT
+
+
+let valueEdit = 0;
+
+//modaleditkurikulum
+function openEditModal(btn, id_kurikulum ,nama_kurikulum, tahun_mulai , status_kurikulum , total_semester ) {
+    const modal = document.getElementById("editKurikulum");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    // isi form edit
+    document.getElementById("nama_kurikulum").value = nama_kurikulum;
+    document.getElementById("tahun_mulai").value = tahun_mulai;
+
+    // isi select status
+    document.getElementById("status_kurikulum").value = status_kurikulum;
+
+    valueEdit = total_semester;
+
+    document.getElementById("valueBoxEdit").innerText = total_semester;
+
+    document.getElementById("semesterInputEdit").value = total_semester;
+
+    // set action form ke route update (dynamic)
+    document.getElementById("formEdit").action = `/admin/kurikulum/${id_kurikulum}`;
+}
+
+
+function closeEditKurikulum() {
+    document.getElementById("editKurikulum").classList.add("hidden");
+    document.getElementById("editKurikulum").classList.remove("flex");
+}
+
+
+
+function updateUIEdit() {
+    document.getElementById("valueBoxEdit").innerText = valueEdit;
+    document.getElementById("semesterInputEdit").value = valueEdit;
+}
+
+function tambahEdit() {
+    valueEdit++;
+    updateUIEdit();
+}
+
+function kurangEdit() {
+    if (valueEdit > 0) {
+        valueEdit--;
+        updateUIEdit();
+    }
+}
+
+
+
+
+
+
+
+
+// Hapus
+
+function hapusKurikulum(id_kurikulum) {
+    if (confirm("Yakin mau menghapus kurikulum ini?")) {
+        document.getElementById(`deleteForm_${id_kurikulum}`).submit();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //togle
 function toggleSemester(kurikulumId, semesterId) {
     const content = document.getElementById(`semesterContent${kurikulumId}-${semesterId}`);
@@ -21,6 +160,8 @@ function toggleSemester(kurikulumId, semesterId) {
         btn.classList.remove("hidden");
     }
 }
+
+
 
 function closeAllSemester(kurikulumId) {
     for (let i = 1; i <= 8; i++) {
@@ -64,37 +205,9 @@ function saveEditMatkuliah() {
     setTimeout(() => {
         popup.classList.add("hidden");
     }, 3000);
-}
+}   
 
-// tambahkurikulum
-function openTambahKurikulum() {
-    document.getElementById("tambahkurikulum").classList.remove("hidden");
-    document.getElementById("tambahkurikulum").classList.add("flex");
-}
 
-function closeTambahKurikulum() {
-    document.getElementById("tambahkurikulum").classList.add("hidden");
-    document.getElementById("tambahkurikulum").classList.remove("flex");
-}
-
-//
-let value = 0;
-
-function updateUI() {
-    document.getElementById("valueBox").innerText = value;
-}
-
-function tambah() {
-    value++;
-    updateUI();
-}
-
-function kurang() {
-    if (value > 0) { // biar nggak minus
-        value--;
-        updateUI();
-    }
-}
 
 //
 let valueKur = 0;
@@ -115,16 +228,6 @@ function kurangkur() {
     }
 }
 
-//modaleditkurikulum
-function editKurikulum() {
-    document.getElementById("editKurikulum").classList.remove("hidden");
-    document.getElementById("editKurikulum").classList.add("flex");
-}
-
-function closeEditKurikulum() {
-    document.getElementById("editKurikulum").classList.add("hidden");
-    document.getElementById("editKurikulum").classList.remove("flex");
-}
 
 //silabus
 function openModalSilabus(id) {
@@ -159,33 +262,5 @@ function simpansilabus() {
     }, 3000);
 }
 
-//tambah rencana pembelajaran semester
-function tambahRPS1() {
-    const upload = document.getElementById("uploadArea1");
 
-    if (!upload) {
-        console.error("uploadArea1 tidak ditemukan");
-        return;
-    }
-
-    upload.classList.toggle("hidden");
-}
-
-
-
-
-
-
-//hapuskurikulum
-function hapusKurikulum(el) {
-    const yakin = confirm("Yakin ingin menghapus kurikulum ini?");
-    if (!yakin) return;
-
-    // ambil div kurikulum terdekat
-    const item = el.closest("div");
-
-    if (item) {
-        item.remove();
-    }
-}
 

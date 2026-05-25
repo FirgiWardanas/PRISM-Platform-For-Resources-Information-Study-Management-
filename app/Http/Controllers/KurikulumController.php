@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kurikulum;
 use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
@@ -11,7 +12,8 @@ class KurikulumController extends Controller
      */
     public function index()
     {
-        return view('admin.tim_kurikulum.kurikulum');
+        $kurikulums = Kurikulum::with('prodi','detailKurikulums')->where('id_prodi',auth()->guard()->user()->id_prodi)->get();
+        return view('admin.tim_kurikulum.kurikulum',compact('kurikulums'));
     }
 
     /**
@@ -27,7 +29,29 @@ class KurikulumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kurikulum' => 'required',
+            'tahun_mulai' => 'required',
+            'total_semester' => 'required',
+        ]); 
+
+        $idProdi = auth()->guard()->user()->id_prodi;
+
+        Kurikulum::where('id_prodi', $idProdi)
+        ->update([
+            'status_kurikulum' => 'tidak aktif'
+        ]);
+
+        Kurikulum::create([
+            'id_prodi' => $idProdi,
+            'nama_kurikulum' => $request->nama_kurikulum,
+            'tahun_mulai' => $request->tahun_mulai,
+            'total_semester' => $request->total_semester,
+            'status_kurikukum' => $request->status_kurikulum
+        ]);
+
+        return redirect()->back();
+
     }
 
     /**
@@ -51,7 +75,34 @@ class KurikulumController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    $request->validate([
+        'nama_kurikulum' => 'required',
+        'tahun_mulai' => 'required',
+        'total_semester' => 'required',
+        'status_kurikulum' => 'required'
+    ]);
+
+    $idProdi = auth()->guard()->user()->id_prodi;
+
+    // jika status yang di  pilih aktif
+    if($request->status_kurikulum == 'aktif') {
+
+        // nonaktifkan semua kurikulum prodi ini
+        Kurikulum::where('id_prodi', $idProdi)
+            ->update([
+                'status_kurikulum' => 'tidak aktif'
+            ]);
+    }
+
+    // update kurikulum yang diedit
+    Kurikulum::where('id_kurikulum', $id)->update([
+        'nama_kurikulum' => $request->nama_kurikulum,
+        'tahun_mulai' => $request->tahun_mulai,
+        'total_semester' => $request->total_semester,
+        'status_kurikulum' => $request->status_kurikulum
+    ]);
+
+    return redirect()->back();
     }
 
     /**
@@ -59,7 +110,10 @@ class KurikulumController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $kurikulum = Kurikulum::findOrFail($id);
+        $kurikulum->delete();
+
+        return redirect()->back();
     }
 
 }

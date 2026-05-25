@@ -9,14 +9,20 @@
 
                 <div class="space-y-4 max-w-[930px] mx-auto">
                                         <div class="flex flex-col items-end gap-4 mr-6">
-                        <button onclick="openTambahModal(1)"
+                        <button onclick="openTambahModal()"
                             class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer">
                             Tambah +
                         </button>
+
+
                     </div>
+
+                    @foreach ( $dosens as $dosen )
                     <!-- CARD DOSEN 1 -->
                     <div class="card bg-white rounded-[32px] shadow-md border border-gray-300 p-5">
 
+
+                    
                         <!-- HEADER -->
                         <div class="flex items-center gap-4">
                             <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">
@@ -26,10 +32,10 @@
                                 <div class="flex-1">
                                     <h2
                                         class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                                        Supardianto, M.Eng.
+                                        {{ $dosen->nama_dosen }}
                                     </h2>
                                     <p class="text-gray-500 text-sm font-semibold">
-                                        Kepala Program Studi Teknologi Rekayasa Perangkat Lunak
+                                        {{ $dosen->status_jabatan }} {{ $dosen->prodi->nama_prodi }}
                                     </p>
                                 </div>
                             </div>
@@ -37,7 +43,17 @@
                             <!-- ICON -->
                             <div class="flex items-center gap-3">
                                 <div class="flex items-center gap-2">
-                                    <button type="button" onclick="openEditDosen(1)">
+                                    <button type="button" onclick="openEditModal(this,
+                                    '{{ $dosen->id_dosen }}',
+                                    '{{ $dosen->id_prodi }}',
+                                    '{{ $dosen->nama_dosen }}',
+                                    '{{ $dosen->status_jabatan }}',
+                                    '{{ $dosen->jenjang_pendidikan }}',
+                                    '{{ $dosen->NIK }}',
+                                    '{{ $dosen->email }}',
+                                    @json($dosen->riwayatPendidikans),
+                                    @json($dosen->bidangSpesialis),
+                                    '{{ $dosen->prodi->nama_prodi }}')">
                                         <img src="{{ asset('images/icon-edit.svg') }}" class="w-5 h-5 cursor-pointer">
                                     </button>
 
@@ -50,7 +66,7 @@
                                 <button class="ml-3">
                                     <img src="{{ asset('images/icon-dropdown.svg') }}"
                                         class="icon-arrow h-5 w-5 transition">
-                                </button>
+                                </button>   
                             </div>
                         </div>
 
@@ -61,21 +77,21 @@
 
                                 <!-- kiri -->
                                 <div class="space-y-2 pl-2 ">
-                                    <p><span class="font-bold">NIK :</span> 113105</p>
+                                    <p><span class="font-bold">NIK :</span> {{ $dosen->NIK }}</p>
 
                                     <p>
                                         <span class="font-bold">Program Studi :</span>
-                                        Teknologi Rekayasa Perangkat Lunak
+                                        {{ $dosen->prodi->nama_prodi }}
                                     </p>
 
                                     <p>
                                         <span class="font-bold">Pendidikan Terakhir :</span>
-                                        S2
+                                        {{ $dosen->jenjang_pendidikan }}
                                     </p>
 
                                     <p>
                                         <span class="font-bold">Email :</span>
-                                        <u>suparlianto@polibatam.ac.id</u>
+                                        <u>{{ $dosen->email }}</u>
                                     </p>
                                 </div>
 
@@ -85,526 +101,309 @@
                                         Riwayat Pendidikan
                                     </h3>
 
+                                    @foreach ( $dosen->riwayatPendidikans as $riwayat )
+                                    
                                     <p class="text-gray-700">
-                                        S1 ITB : Teknik Media Digital
+                                        {{ $riwayat->deskripsi_riwayat  }}
                                     </p>
 
-                                    <p class="text-gray-700 mt-2">
-                                        S2 UGM : Teknologi Informasi
-                                    </p>
-
+                                    @endforeach
                                     <p class="mt-2">
                                         <span class="font-bold">Bidang :</span>
-                                        Ilmu Komputer
+                                        {{ $dosen->bidangSpesialis->pluck('deskripsi_bidang')->implode(', ') }}
                                     </p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <!-- CARD DOSEN 2 -->
-                    <div class="card bg-white rounded-[32px] shadow-md border border-gray-300 p-5">
+                    @endforeach
 
-                        <!-- HEADER -->
-                        <div class="flex items-center gap-4 cursor-pointer">
-                            <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">
-
-                                <img src="{{ asset('images/dosen2.png') }}" class="w-14 h-14 rounded-full object-cover">
-
-                                <div class="flex-1">
-                                    <h2
-                                        class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                                        Firgi wardanas, M.Eng.
-                                    </h2>
-                                    <p class="text-gray-500 text-sm font-semibold">
-                                        Kepala Program Studi keamanan siber
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- ICON -->
-                            <div class="flex items-center gap-3">
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="openEditDosen(2)">
-                                        <img src="{{ asset('images/icon-edit.svg') }}" class="w-5 h-5 cursor-pointer">
-                                    </button>
-
-                                    <button>
-                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
-                                    </button>
-                                </div>
-
-                                <!-- DROPDOWN -->
-                                <button class="ml-3">
-                                    <img src="{{ asset('images/icon-dropdown.svg') }}"
-                                        class="icon-arrow h-5 w-5 transition">
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- CONTENT card -->
-                        <div class="card-content hidden mt-5 pt-4">
-
-                            <div class="grid grid-cols-2 gap-6 text-sm px-4">
-
-                                <!-- kiri -->
-                                <div class="space-y-2 pl-2 ">
-                                    <p><span class="font-bold">NIK :</span> 113105</p>
-
-                                    <p>
-                                        <span class="font-bold">Program Studi :</span>
-                                        RKS
-                                    </p>
-
-                                    <p>
-                                        <span class="font-bold">Pendidikan Terakhir :</span>
-                                        S4
-                                    </p>
-
-                                    <p>
-                                        <span class="font-bold">Email :</span>
-                                        <u>wardanas@polibatam.ac.id</u>
-                                    </p>
-                                </div>
-
-                                <!-- kanan -->
-                                <div class="pr-2">
-                                    <h3 class="text-[#123CFF] font-bold mb-2">
-                                        Riwayat Pendidikan
-                                    </h3>
-
-                                    <p class="text-gray-700">
-                                        S1 ITB : Teknik infromatika
-                                    </p>
-
-                                    <p class="text-gray-700 mt-2">
-                                        S2 UGM : Teknologi Informasi
-                                    </p>
-
-                                    <p class="mt-2">
-                                        <span class="font-bold">Bidang :</span>
-                                        Ilmu Komputer
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
         </div>
 
     </main>
 
-        <!-- MODAL TAMBAH DOSEN -->
-        <div id="modalTambahDosen1" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
 
-            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
-                <!-- Tombol Close -->
-                <button onclick="closeTambahModal(1)"
-                    class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
-                    ✕
-                </button>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
-                    Tambah Dosen
-                </h2>
 
-                <form action="#" method="POST">
-                    @csrf
 
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+{{-- Modal --}}
 
-                        <!-- KIRI -->
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                            <input type="text" name="nama" placeholder="Masukkan Nama"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
-                            <select name="jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Status Jabatan--</option>
-                                <option>Dosen</option>
-                                <option>Kepala Program Studi</option>
-                            </select>
-                        </div>
+{{-- Tambah --}}
+<div id="modalTambahDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+    <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                            <input type="text" name="nik" placeholder="Masukkan NIK"
+        <!-- Tombol Close -->
+        <button onclick="closeTambahModal()"
+            class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
+            ✕
+        </button>
+
+        <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
+            Tambah Dosen
+        </h2>
+
+        <form action="{{ route('admin.kelola-dosen.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+
+                <!-- KIRI -->
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Nama</label>
+                    <input type="text" name="nama_dosen" placeholder="Masukkan Nama"
+                        class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
+                    <select name="status_jabatan"
+                        class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                        <option>--Pilih Status Jabatan--</option>
+                        <option>Kepala Program Studi</option>
+                        <option>Dosen</option>
+                        <option>Laboran</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">NIK</label>
+                    <input type="text" name="NIK" placeholder="Masukkan NIK"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
+
+                <label for="id_prodi">
+                    <span>Program Studi</span>
+                    <select name="id_prodi" id="id_prodi"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none" required>
+                        <option value="">Pilih Program Studi yang di kelola</option>
+                        @foreach($list_prodi as $prodi)
+                            <option value="{{ $prodi->id_prodi }}">
+                                {{ $prodi->nama_prodi }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Email</label>
+                    <input type="email" name="email" placeholder="Masukkan Email"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
+                    <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                        <option>--Pilih Pendidikan Terakhir--</option>
+                        <option>D3</option>
+                        <option>D4</option>
+                        <option>S1</option>
+                        <option>S2</option>
+                        <option>S3</option>
+                    </select>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+                    </div>
+                    <div id="riwayat-container">
+                        <input type="text" name="riwayat_pendidikan[]" placeholder="Masukkan Riwayat Pendidikan"
+                            class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- BIDANG SPESIALIS -->
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
+                        <button
+                            onclick="tambahSpesialis()"
+                            type="button"
+                            class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none">
+                            +
+                        </button>
+                    </div>
+                    <div id="spesialis-container">
+                        <!-- Input default, tidak bisa dihapus -->
+                        <div class="flex items-center gap-2">
+                            <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
                                 class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
+                    </div>
+                </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Program Studi</label>
-                            <select name="program_studi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Program Studi--</option>
-                                <option>Teknologi Rekayasa Perangkat Lunak</option>
-                            </select>
-                        </div>
+                <!-- FOTO DOSEN -->
+                <div class="flex flex-col">
+                    <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Email</label>
-                            <input type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
+                    <input type="file" name="foto_dosen" id="fotoDosen" class="hidden">
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select name="pendidikan_terakhir"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Pendidikan Terakhir--</option>
-                                <option>S1</option>
-                                <option>S2</option>
-                                <option>S3</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="riwayat_pendidikan" placeholder="Masukkan Riwayat Pendidikan"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="bidang_spesialis" placeholder="Masukkan Bidang Spesialis"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-                        <!-- FOTO DOSEN (KIRI) -->
-                        <div class="flex flex-col">
-                            <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
-
-                            <input type="file" name="foto_dosen" id="fotoDosen" class="hidden">
-
-                            <label for="fotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+                    <label for="fotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
                         bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
-                                Upload foto
-                            </label>
-                        </div>
+                        Upload foto
+                    </label>
+                </div>
 
-                    </div>
-
-                    <div class="flex justify-center mt-8">
-                        <button type="button"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
             </div>
-        </div>
-        <!-- MODAL edit dosen card 1 -->
-        <div id="modalEditDosen1" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
 
-            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
-
-                <!-- Tombol Close -->
-                <button onclick="closeEditDosen(1)"
-                    class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
-                    ✕
+            <div class="flex justify-center mt-8">
+                <button type="submit"
+                    class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                    Simpan
                 </button>
+            </div>
+        </form>
+    </div>
+</div>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
-                    Tambah Dosen
-                </h2>
 
-                <form action="#" method="POST">
-                    @csrf
 
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
 
-                        <!-- KIRI -->
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                            <input type="text" name="nama" placeholder="Masukkan Nama"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
-                            <select name="jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Status Jabatan--</option>
-                                <option>Dosen</option>
-                                <option>Kepala Program Studi</option>
-                            </select>
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                            <input type="text" name="nik" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Program Studi</label>
-                            <select name="program_studi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Program Studi--</option>
-                                <option>Teknologi Rekayasa Perangkat Lunak</option>
-                            </select>
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Email</label>
-                            <input type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select name="pendidikan_terakhir"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Pendidikan Terakhir--</option>
-                                <option>S1</option>
-                                <option>S2</option>
-                                <option>S3</option>
-                            </select>
-                        </div>
 
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="riwayat_pendidikan" placeholder="Masukkan Riwayat Pendidikan"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
 
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="bidang_spesialis" placeholder="Masukkan Bidang Spesialis"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-                        <!-- FOTO DOSEN -->
-                        <div class="flex flex-col">
-                            <label class="text-[#1F4AA8] font-semibold text-sm mb-2">
-                                Foto Dosen
-                            </label>
 
-                            <!-- input hidden -->
-                            <input type="file" id="editFotoDosen" class="hidden" onchange="handleEditFile(this)">
+{{-- Edit --}}
+<div id="modalEditDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+    <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
-                            <!-- BOX FILE -->
-                            <div id="editFileBox" class="flex items-center justify-between w-[260px] px-4 py-2 
-                                    rounded-xl border border-gray-300 bg-gray-50 shadow-sm">
+        <!-- Tombol Close -->
+        <button onclick="closeEditModal()"
+            class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
+            ✕
+        </button>
 
-                                <!-- kiri -->
-                                <div class="flex items-center gap-3">
-                                    <img src="{{ asset('images/icon-image.svg') }}" class="w-5 h-5">
+        <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
+            Edit Dosen
+        </h2>
 
-                                    <div>
-                                        <p id="editFileName" class="text-sm font-semibold text-black">
-                                            foto.png
-                                        </p>
-                                        <p id="editFileSize" class="text-xs text-gray-400">
-                                            100 kb
-                                        </p>
-                                    </div>
-                                </div>
+        <form id="editDosenForm" action="" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-                                <!-- kanan -->
-                                <div class="flex items-center gap-2">
+            <div class="grid grid-cols-2 gap-x-8 gap-y-4">
 
-                                    <!-- ganti -->
-                                    <label for="editFotoDosen" class="text-blue-500 text-sm cursor-pointer">
-                                        Ganti
-                                    </label>
+                <!-- KIRI -->
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Nama</label>
+                    <input id="edit_nama_dosen" type="text" name="nama_dosen" placeholder="Masukkan Nama"
+                        class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
 
-                                    <!-- hapus -->
-                                    <button type="button" onclick="removeEditFile()">
-                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-4 h-4 opacity-60">
-                                    </button>
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
+                    <select id="edit_jabatan" name="status_jabatan"
+                        class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                        <option>--Pilih Status Jabatan--</option>
+                        <option>Kepala Program Studi</option>
+                        <option>Dosen</option>
+                        <option>Laboran</option>
+                    </select>
+                </div>
 
-                                </div>
-                            </div>
-                        </div>
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">NIK</label>
+                    <input id="edit_nik" type="text" name="NIK" placeholder="Masukkan NIK"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
 
+                <label for="id_prodi">
+                    <span>Program Studi</span>
+                    <select id="edit_id_prodi" name="id_prodi"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none" required>
+                        <option value="">Pilih Program Studi yang di kelola</option>
+                        @foreach($list_prodi as $prodi)
+                            <option value="{{ $prodi->id_prodi }}">
+                                {{ $prodi->nama_prodi }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Email</label>
+                    <input id="edit_email" type="email" name="email" placeholder="Masukkan Email"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
+                    <select  name="pendidikan_terakhir" id="edit_pendidikan_terakhir"
+                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                        <option>--Pilih Pendidikan Terakhir--</option>
+                        <option>D3</option>
+                        <option>D4</option>
+                        <option>S1</option>
+                        <option>S2</option>
+                        <option>S3</option>
+                    </select>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
                     </div>
+                    <div id="edit-riwayat-container">
+                        <input type="text" name="riwayat_pendidikan[]" placeholder="Masukkan Riwayat Pendidikan"
+                            class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                    </div>
+                </div>
 
-                    <div class="flex justify-center mt-8">
-                        <button type="button"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
-                            Simpan
+
+
+                <!-- BIDANG SPESIALIS -->
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
+                        <button
+                            onclick="tambahSpesialisEdit()"
+                            type="button"
+                            class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none">
+                            +
                         </button>
                     </div>
-                </form>
+                    <div id="edit-spesialis-container">
+                        <!-- Input default, tidak bisa dihapus -->
+                        <div class="flex items-center gap-2">
+                            <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOTO DOSEN -->
+                <div class="flex flex-col">
+                    <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label> 
+
+                    <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
+                    <label for="editFotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
+                        Upload foto
+                    </label>
+                </div>
+
             </div>
-        </div>
-        <!-- MODAL edit dosen card 2 -->
-        <div id="modalEditDosen2" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
 
-            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
-
-                <!-- Tombol Close -->
-                <button onclick="closeEditDosen(2)"
-                    class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
-                    ✕
+            <div class="flex justify-center mt-8">
+                <button type="submit"
+                    class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                    Simpan
                 </button>
-
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
-                    Tambah Dosen
-                </h2>
-
-                <form action="#" method="POST">
-                    @csrf
-
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
-
-                        <!-- KIRI -->
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                            <input type="text" name="nama" placeholder="Masukkan Nama"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
-                            <select name="jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Status Jabatan--</option>
-                                <option>Dosen</option>
-                                <option>Kepala Program Studi</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                            <input type="text" name="nik" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Program Studi</label>
-                            <select name="program_studi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Program Studi--</option>
-                                <option>Teknologi Rekayasa Perangkat Lunak</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Email</label>
-                            <input type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select name="pendidikan_terakhir"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Pendidikan Terakhir--</option>
-                                <option>S1</option>
-                                <option>S2</option>
-                                <option>S3</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="riwayat_pendidikan" placeholder="Masukkan Riwayat Pendidikan"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <div class="flex items-center justify-between">
-                                <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-                                <button type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm">
-                                    <img src="{{ asset('images/icon-plus.svg') }}" alt="">
-                                </button>
-                            </div>
-                            <input type="text" name="bidang_spesialis" placeholder="Masukkan Bidang Spesialis"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-                        <!-- FOTO DOSEN -->
-                        <div class="flex flex-col">
-                            <label class="text-[#1F4AA8] font-semibold text-sm mb-2">
-                                Foto Dosen
-                            </label>
-
-                            <!-- input hidden -->
-                            <input type="file" id="editFotoDosen" class="hidden" onchange="handleEditFile(this)">
-
-                            <!-- BOX FILE -->
-                            <div id="editFileBox" class="flex items-center justify-between w-[260px] px-4 py-2 
-                                    rounded-xl border border-gray-300 bg-gray-50 shadow-sm">
-
-                                <!-- kiri -->
-                                <div class="flex items-center gap-3">
-                                    <img src="{{ asset('images/icon-image.svg') }}" class="w-5 h-5">
-
-                                    <div>
-                                        <p id="editFileName" class="text-sm font-semibold text-black">
-                                            foto.png
-                                        </p>
-                                        <p id="editFileSize" class="text-xs text-gray-400">
-                                            100 kb
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- kanan -->
-                                <div class="flex items-center gap-2">
-
-                                    <!-- ganti -->
-                                    <label for="editFotoDosen" class="text-blue-500 text-sm cursor-pointer">
-                                        Ganti
-                                    </label>
-
-                                    <!-- hapus -->
-                                    <button type="button" onclick="removeEditFile()">
-                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-4 h-4 opacity-60">
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="flex justify-center mt-8">
-                        <button type="button"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
             </div>
-        </div>
+        </form>
+    </div>
+</div>
+
     </body>
     <script src="{{ asset('js/dosen.js') }}"></script>
 </x-layout.layout>
