@@ -229,7 +229,7 @@ function kurangkur() {
 }
 
 
-//silabus
+
 function openModalSilabus(id) {
     const modal = document.getElementById(`modalSilabus${id}`);
     modal.classList.remove("hidden");
@@ -261,6 +261,5 @@ function simpansilabus() {
         popup.classList.add("hidden");
     }, 3000);
 }
-
 
 
