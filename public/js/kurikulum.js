@@ -53,7 +53,7 @@ function kurangTambah() {
 
 
 
-    
+
 
 // EDIT
 
@@ -61,7 +61,7 @@ function kurangTambah() {
 let valueEdit = 0;
 
 //modaleditkurikulum
-function openEditModal(btn, id_kurikulum ,nama_kurikulum, tahun_mulai , status_kurikulum , total_semester ) {
+function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_kurikulum, total_semester) {
     const modal = document.getElementById("editKurikulum");
 
     modal.classList.remove("hidden");
@@ -124,26 +124,6 @@ function hapusKurikulum(id_kurikulum) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //togle
 function toggleSemester(kurikulumId, semesterId) {
     const content = document.getElementById(`semesterContent${kurikulumId}-${semesterId}`);
@@ -183,12 +163,84 @@ function closeModalMatkul(kurikulumId, semesterId) {
     modal.classList.remove("flex");
 }
 
+//tambah silabus
+
+const fileInput = document.getElementById("fileUpload");
+const fileName = document.getElementById("fileName");
+const dropArea = document.getElementById("dropArea");
+
+const uploadIcon = document.getElementById("uploadIcon");
+const fileIcon = document.getElementById("fileIcon");
+const uploadText = document.getElementById("uploadText");
+const removeBtn = document.getElementById("removeFile");
+
+// === SET FILE ===
+function setFile(file) {
+    fileName.textContent = file.name;
+
+    // sembunyi upload
+    uploadIcon.classList.add("hidden");
+    uploadText.classList.add("hidden");
+
+    // tampil file icon & tombol hapus
+    fileIcon.classList.remove("hidden");
+    removeBtn.classList.remove("hidden");
+}
+
+// === REMOVE FILE ===
+function removeFile() {
+    fileInput.value = "";
+    fileName.textContent = "";
+
+    uploadIcon.classList.remove("hidden");
+    uploadText.classList.remove("hidden");
+
+    fileIcon.classList.add("hidden");
+    removeBtn.classList.add("hidden");
+}
+
+// klik browse
+fileInput.addEventListener("change", function () {
+    if (this.files.length > 0) {
+        setFile(this.files[0]);
+    }
+});
+
+// drag over
+dropArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropArea.classList.add("bg-blue-50");
+});
+
+// drag leave
+dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("bg-blue-50");
+});
+
+// drop file
+dropArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropArea.classList.remove("bg-blue-50");
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        fileInput.files = files;
+        setFile(files[0]);
+    }
+});
+
+// tombol hapus
+removeBtn.addEventListener("click", removeFile);
+
+
 // editmatakuliah semester 
 function openEditMatakuliah(id) {
     const modal = document.getElementById(`modalEditMatakuliah${id}`);
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 }
+
+
 // tutup modal edit
 function closeEditMatakuliah(id) {
     const modal = document.getElementById(`modalEditMatakuliah${id}`);
@@ -205,7 +257,7 @@ function saveEditMatkuliah() {
     setTimeout(() => {
         popup.classList.add("hidden");
     }, 3000);
-}   
+}
 
 
 
