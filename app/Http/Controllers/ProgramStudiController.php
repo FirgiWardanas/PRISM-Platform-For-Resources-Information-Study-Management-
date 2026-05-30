@@ -89,9 +89,20 @@ class ProgramStudiController extends Controller
      */
     public function destroy($id)
     {
-    $prodi = Prodi::findOrFail($id);
-    $prodi->delete();
+        $prodi = Prodi::findOrFail($id);
 
-    return redirect()->back();
+        $adaKurikulumAktif = $prodi->kurikulums()
+            ->where('status_kurikulum', 'aktif')
+            ->exists();
+
+        if ($adaKurikulumAktif) {
+            return redirect()->back()
+                ->with('error', 'Prodi tidak dapat dihapus karena masih memiliki kurikulum aktif.');
+        }
+
+        $prodi->delete();
+
+        return redirect()->back()
+            ->with('success', 'Prodi berhasil dihapus.');
     }
 }

@@ -19,8 +19,9 @@ return new class extends Migration
             $table->enum('jenjang_pendidikan', ['D3', 'D4','S1','S2','S3']);
 
             $table->foreign('id_prodi')
-                  ->references('id_prodi')->on('prodi')
-                  ->onDelete('restrict')->onUpdate('cascade');
+                ->references('id_prodi')->on('prodi')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
