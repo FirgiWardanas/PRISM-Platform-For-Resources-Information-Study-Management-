@@ -27,7 +27,7 @@
                         <div class="flex items-center gap-4">
                             <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">
 
-                                <img src="{{ asset('images/dosen2.png') }}" class="w-14 h-14 rounded-full object-cover">
+                                <img src="{{ asset('storage/' . $dosen->foto_dosen) }}" class="w-14 h-14 rounded-full object-cover">
 
                                 <div class="flex-1">
                                     <h2
@@ -43,21 +43,22 @@
                             <!-- ICON -->
                             <div class="flex items-center gap-3">
                                 <div class="flex items-center gap-2">
-                                    <button type="button" onclick="openEditModal(this,
-                                    '{{ $dosen->id_dosen }}',
-                                    '{{ $dosen->id_prodi }}',
-                                    '{{ $dosen->nama_dosen }}',
-                                    '{{ $dosen->status_jabatan }}',
-                                    '{{ $dosen->jenjang_pendidikan }}',
-                                    '{{ $dosen->NIK }}',
-                                    '{{ $dosen->email }}',
-                                    @json($dosen->riwayatPendidikans),
-                                    @json($dosen->bidangSpesialis),
-                                    '{{ $dosen->prodi->nama_prodi }}')">
-                                        <img src="{{ asset('images/icon-edit.svg') }}" class="w-5 h-5 cursor-pointer">
-                                    </button>
+                            <button type="button"
+                                class="btn-edit w-5 h-5 cursor-pointer"
+                                data-id="{{ $dosen->id_dosen }}"
+                                data-id-prodi="{{ $dosen->id_prodi }}"
+                                data-nama="{{ $dosen->nama_dosen }}"
+                                data-jabatan="{{ $dosen->status_jabatan }}"
+                                data-pendidikan="{{ $dosen->jenjang_pendidikan }}"
+                                data-nik="{{ $dosen->NIK }}"
+                                data-email="{{ $dosen->email }}"
+                                data-riwayat='@json($dosen->riwayatPendidikans)'
+                                data-spesialis='@json($dosen->bidangSpesialis)'
+                                data-prodi="{{ $dosen->prodi->nama_prodi }}">
+                                <img src="{{ asset('images/icon-edit.svg') }}">
+                            </button>
 
-                                    <button>
+                                    <button onclick="hapusData('{{ $dosen->id_dosen }}')">
                                         <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
                                     </button>
                                 </div>
@@ -196,16 +197,16 @@
                 </div>
 
                 <div>
-                    <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                    <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
-                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        <option>--Pilih Pendidikan Terakhir--</option>
-                        <option>D3</option>
-                        <option>D4</option>
-                        <option>S1</option>
-                        <option>S2</option>
-                        <option>S3</option>
-                    </select>
+                <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
+                <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
+                    class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                    <option value="">--Pilih Pendidikan Terakhir--</option>
+                    <option value="D3">D3</option>
+                    <option value="D4">D4</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
                 </div>
 
                 <div>
@@ -238,11 +239,13 @@
                     </div>
                 </div>
 
+
+
                 <!-- FOTO DOSEN -->
                 <div class="flex flex-col">
                     <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
 
-                    <input type="file" name="foto_dosen" id="fotoDosen" class="hidden">
+                    <input type="file" name="foto_dosen" id="fotoDosen" class="hidden" accept="image/png, image/jpg, img/jpeg">
 
                     <label for="fotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
                         bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
@@ -274,7 +277,7 @@
 
 
 {{-- Edit --}}
-<div id="modalEditDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+<div id="modalEditDosen" class="fixed inset-0 bg-black/40  hidden  items-center justify-center z-50">
     <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
         <!-- Tombol Close -->
@@ -287,16 +290,16 @@
             Edit Dosen
         </h2>
 
-        <form id="editDosenForm" action="" method="POST" enctype="multipart/form-data">
+        <form id="editDosenForm"  method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-2 gap-x-8 gap-y-4">
 
-                <!-- KIRI -->
                 <div>
                     <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                    <input id="edit_nama_dosen" type="text" name="nama_dosen" placeholder="Masukkan Nama"
+                    <input id="edit_nama_dosen" type="text" name="nama_dosen"
+                        placeholder="Masukkan Nama"
                         class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                 </div>
 
@@ -313,15 +316,17 @@
 
                 <div>
                     <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                    <input id="edit_nik" type="text" name="NIK" placeholder="Masukkan NIK"
+                    <input id="edit_nik" type="text" name="NIK"
+                        placeholder="Masukkan NIK"
                         class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                 </div>
 
-                <label for="id_prodi">
+                <label for="edit_id_prodi">
                     <span>Program Studi</span>
                     <select id="edit_id_prodi" name="id_prodi"
                         class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none" required>
                         <option value="">Pilih Program Studi yang di kelola</option>
+
                         @foreach($list_prodi as $prodi)
                             <option value="{{ $prodi->id_prodi }}">
                                 {{ $prodi->nama_prodi }}
@@ -332,61 +337,55 @@
 
                 <div>
                     <label class="text-[#325098] font-semibold text-sm">Email</label>
-                    <input id="edit_email" type="email" name="email" placeholder="Masukkan Email"
+                    <input id="edit_email" type="email" name="email"
+                        placeholder="Masukkan Email"
                         class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                 </div>
 
                 <div>
                     <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                    <select  name="pendidikan_terakhir" id="edit_pendidikan_terakhir"
-                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        <option>--Pilih Pendidikan Terakhir--</option>
-                        <option>D3</option>
-                        <option>D4</option>
-                        <option>S1</option>
-                        <option>S2</option>
-                        <option>S3</option>
-                    </select>
+<select name="jenjang_pendidikan" id="edit_pendidikan_terakhir"
+    onchange="aturRiwayatEdit(this.value)"
+    class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+    <option value="">--Pilih Pendidikan Terakhir--</option>
+    <option value="D3">D3</option>
+    <option value="D4">D4</option>
+    <option value="S1">S1</option>
+    <option value="S2">S2</option>
+    <option value="S3">S3</option>
+</select>
                 </div>
 
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
-                    </div>
-                    <div id="edit-riwayat-container">
-                        <input type="text" name="riwayat_pendidikan[]" placeholder="Masukkan Riwayat Pendidikan"
-                            class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                    </div>
+            <div>
+                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+
+                <div id="edit-riwayat-container">
+                    {{-- Diisi otomatis oleh JS --}}
                 </div>
+            </div>
 
-
-
-                <!-- BIDANG SPESIALIS -->
                 <div>
                     <div class="flex items-center gap-2 mb-1">
                         <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-                        <button
-                            onclick="tambahSpesialisEdit()"
-                            type="button"
+
+                        <button onclick="tambahSpesialisEdit()" type="button"
                             class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none">
                             +
                         </button>
                     </div>
+
                     <div id="edit-spesialis-container">
-                        <!-- Input default, tidak bisa dihapus -->
-                        <div class="flex items-center gap-2">
-                            <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
+                        {{-- Diisi otomatis oleh JS --}}
                     </div>
                 </div>
 
-                <!-- FOTO DOSEN -->
                 <div class="flex flex-col">
-                    <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label> 
+                    <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
 
                     <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
-                    <label for="editFotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+
+                    <label for="editFotoDosen"
+                        class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
                         bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
                         Upload foto
                     </label>
@@ -403,6 +402,23 @@
         </form>
     </div>
 </div>
+
+
+
+{{-- HAPUS --}}
+
+    {{-- Hapus --}}
+    @foreach ( $dosens as $dosen )
+    
+
+    <form id="deleteForm{{ $dosen->id_dosen }}" action="{{ route('admin.kelola-dosen.destroy', $dosen->id_dosen) }}" 
+        method="POST" 
+        class="hidden">
+    @csrf
+    @method('DELETE')
+</form>
+
+    @endforeach
 
     </body>
     <script src="{{ asset('js/dosen.js') }}"></script>
