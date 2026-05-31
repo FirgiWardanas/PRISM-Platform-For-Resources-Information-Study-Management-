@@ -23,7 +23,7 @@
                     <a href="/admin/kurikulum"
                         class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
                         <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1 ">Kurikulum</a>
-                    <a href="/admin/matakuliah"
+                    <a href="/admin/matakuliah_halaman"
                         class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
                         <img src="{{ asset('images/untuk kurikulum putih.svg') }}" class="h-4 w-4">matakuliah</a>
                     <a href="/admin/profile-tim-kurikulum"

@@ -152,9 +152,13 @@ function closeAllSemester(kurikulumId) {
 }
 //open modal matkul
 function openModalMatkul(kurikulumId, semesterId) {
-    const modal = document.getElementById(`modalMatkul${kurikulumId}-${semesterId}`);
+    const modal = document.getElementById(`modalMatkul`);
     modal.classList.remove("hidden");
     modal.classList.add("flex");
+
+    // Set hidden input values
+    document.getElementById('hiddenKurikulumId').value = kurikulumId;
+    document.getElementById('hiddenSemesterId').value = semesterId;
 }
 
 function closeModalMatkul(kurikulumId, semesterId) {
@@ -313,5 +317,3 @@ function simpansilabus() {
         popup.classList.add("hidden");
     }, 3000);
 }
-
-
