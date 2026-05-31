@@ -84,3 +84,47 @@ document.addEventListener("DOMContentLoaded", function () {
     setupImagePreview('input-footer', 'preview-footer');
 
 });
+
+//ketua jurusan
+//tambah
+function openModal() {
+    const modal = document.getElementById('modalProfil');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeModal() {
+    const modal = document.getElementById('modalProfil');
+
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+}
+//edit
+function editProfil(button) {
+
+    const card = button.closest('.profil-card');
+
+    const judul =
+        card.querySelector('.judul-profil').innerText;
+
+    const deskripsi =
+        card.querySelector('.deskripsi-profil').innerText;
+
+    document.getElementById('editJudul').value = judul;
+    document.getElementById('editDeskripsi').value = deskripsi;
+
+    const modal = document.getElementById('modalEditProfil');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+}
+function closeModalEdit() {
+
+    const modal = document.getElementById('modalEditProfil');
+
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+
+}
