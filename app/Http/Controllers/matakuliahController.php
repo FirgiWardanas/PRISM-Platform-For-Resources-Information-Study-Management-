@@ -13,6 +13,8 @@ class matakuliahController extends Controller
         return view('admin.tim_kurikulum.matakuliah', compact('matakuliahs'));
     }
 
+    public function create() {}
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,6 +26,10 @@ class matakuliahController extends Controller
 
         return redirect()->back()->with('success', 'Matakuliah berhasil ditambahkan.');
     }
+
+    public function show(string $id) {}
+
+    public function edit(string $id) {}
 
     public function update(Request $request, string $id)
     {
@@ -38,15 +44,15 @@ class matakuliahController extends Controller
     }
 
     public function destroy(string $id)
-{
-    try {
-        Matakuliah::where('id_MK', $id)->delete();
-        return redirect()->back()->with('success', 'Matakuliah berhasil dihapus.');
-    } catch (\Illuminate\Database\QueryException $e) {
-        if ($e->getCode() === '23000') {
-            return redirect()->back()->with('error', 'Matakuliah tidak dapat dihapus karena masih digunakan di kurikulum.');
+    {
+        try {
+            Matakuliah::where('id_MK', $id)->delete();
+            return redirect()->back()->with('success', 'Matakuliah berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() === '23000') {
+                return redirect()->back()->with('error', 'Matakuliah tidak dapat dihapus karena masih digunakan di kurikulum.');
+            }
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus matakuliah.');
         }
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus matakuliah.');
     }
-}
 }
