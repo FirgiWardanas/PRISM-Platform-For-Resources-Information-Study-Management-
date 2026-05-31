@@ -13,6 +13,8 @@ use App\Http\Controllers\TpController;
 use App\Http\Controllers\TrmController;
 use App\Http\Controllers\TrplController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\DetailKurikulumController;
+use App\Http\Controllers\SilabusController;
 use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
 use App\Http\Controllers\matakuliahController;
@@ -67,6 +69,20 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
         Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
         Route::resource('/matakuliah', matakuliahController::class);
         Route::resource('/kustomisasi', kustomisasiController::class);
+
+        // Detail Kurikulum — add / edit / remove a course from a semester
+        Route::post('/kurikulum/{kurikulum}/detail', [DetailKurikulumController::class, 'store'])
+            ->name('detail-kurikulum.store');
+        Route::put('/detail-kurikulum/{detail}', [DetailKurikulumController::class, 'update'])
+            ->name('detail-kurikulum.update');
+        Route::delete('/detail-kurikulum/{detail}', [DetailKurikulumController::class, 'destroy'])
+            ->name('detail-kurikulum.destroy');
+
+        // Silabus — create / update / delete syllabus for a course mapping
+        Route::post('/silabus/{detail}', [SilabusController::class, 'storeOrUpdate'])
+            ->name('silabus.storeOrUpdate');
+        Route::delete('/silabus/{silabus}', [SilabusController::class, 'destroy'])
+            ->name('silabus.destroy');
     });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kurikulum;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
@@ -12,8 +13,15 @@ class KurikulumController extends Controller
      */
     public function index()
     {
-        $kurikulums = Kurikulum::with('prodi','detailKurikulums')->where('id_prodi',auth()->guard()->id_prodi)->get();
-        return view('admin.tim_kurikulum.kurikulum',compact('kurikulums'));
+        $kurikulums = Kurikulum::with([
+            'prodi',
+            'detailKurikulums.matakuliah',
+            'detailKurikulums.silabus',
+        ])->where('id_prodi', auth()->user()->id_prodi)->get();
+
+        $matakuliahs = Matakuliah::all();
+
+        return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
 
     /**
