@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Dosen extends Model
 {
@@ -13,7 +14,6 @@ class Dosen extends Model
     public    $timestamps = false;
 
     protected $fillable = [
-        'id_user',
         'id_prodi',
         'nama_dosen',
         'NIK',
@@ -42,4 +42,9 @@ class Dosen extends Model
     {
         return $this->hasMany(RiwayatPendidikan::class, 'id_dosen', 'id_dosen');
     }
-}
+
+
+    }
+
+
+    

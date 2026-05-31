@@ -22,7 +22,7 @@
                     <div class="space-y-1 z-10 pr-[260px]">
 
                         <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
-                            HELLO Name!
+                            HELLO {{ $user->nama }}!
                         </p>
 
                         <h2 class="text-4xl font-extrabold tracking-tight">
@@ -30,7 +30,7 @@
                         </h2>
 
                         <p class="text-[11px] pt-4 opacity-75 font-medium">
-                            1 Januari 2026
+                            {{ $tanggal }}
                         </p>
 
                     </div>
@@ -71,7 +71,7 @@
                                 </p>
 
                                 <h1 class="text-[40px] font-extrabold text-[#044894] leading-none">
-                                    7
+                                    {{ $jumlah_prodi }}
                                 </h1>
 
                             </div>
@@ -105,7 +105,7 @@
                                 </p>
 
                                 <h1 class="text-[40px] font-extrabold text-[#5100C6] leading-none">
-                                    4
+                                    {{ $jumlah_dosen }}
                                 </h1>
 
                             </div>
@@ -139,7 +139,7 @@
                                 </p>
 
                                 <h1 class="text-[40px] font-extrabold text-[#A900C7] leading-none">
-                                    32
+                                    {{ $jumlah_akun }}
                                 </h1>
 
                             </div>
@@ -180,40 +180,23 @@
 
                             </div>
 
-                            <!-- CHART -->
-                            <div class="flex-1 h-full relative flex flex-col justify-between">
 
-                                <div id="prodi-bars-container"
-                                    class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1">
-                                </div>
+                    <!-- CHART -->
+                    <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
 
-                                <!-- SCALE -->
-                                <div
-                                    class="absolute inset-x-0 bottom-0 top-0 flex justify-between text-[9px] font-bold text-gray-400 pointer-events-none items-end">
+                        <!-- SCALE LINES (background) -->
+                        <div id="scale-container" class="absolute inset-x-0 top-0 bottom-6 flex justify-between pointer-events-none">
+                        </div>
 
-                                    <div class="h-full border-r border-gray-100 relative flex items-end w-0">
-                                        <span class="absolute top-full pt-1 -left-1">0</span>
-                                    </div>
+                        <!-- BARS -->
+                        <div id="prodi-bars-container" class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1">
+                        </div>
 
-                                    <div class="h-full border-r border-gray-100 relative flex items-end w-0">
-                                        <span class="absolute top-full pt-1 -left-1">1</span>
-                                    </div>
+                        <!-- ANGKA SKALA BAWAH -->
+                        <div id="scale-numbers" class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
+                        </div>
 
-                                    <div class="h-full border-r border-gray-100 relative flex items-end w-0">
-                                        <span class="absolute top-full pt-1 -left-1">2</span>
-                                    </div>
-
-                                    <div class="h-full border-r border-gray-100 relative flex items-end w-0">
-                                        <span class="absolute top-full pt-1 -left-1">3</span>
-                                    </div>
-
-                                    <div class="h-full relative flex items-end w-0">
-                                        <span class="absolute top-full pt-1 -left-1">4</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
+                    </div>
 
                         </div>
 
@@ -225,91 +208,68 @@
 
         </main>
     </div>
-    <script>
-
-        // GRAFIK KURIKULUM
-        const dataProdi = [
-
-            {
-                prodi: "GM",
-                jumlah: 1,
-                width: "w-[23%]",
-                bgGradient: "from-[#E555FF] to-[#A900C7]"
-            },
-
-            {
-                prodi: "Animasi",
-                jumlah: 2,
-                width: "w-[46%]",
-                bgGradient: "from-[#9A55FF] to-[#7928CA]"
-            },
-
-            {
-                prodi: "RKS",
-                jumlah: 2,
-                width: "w-[46%]",
-                bgGradient: "from-[#9A55FF] to-[#6B00FF]"
-            },
-
-            {
-                prodi: "TP",
-                jumlah: 2,
-                width: "w-[46%]",
-                bgGradient: "from-[#7928CA] to-[#5100C6]"
-            },
-
-            {
-                prodi: "TRM",
-                jumlah: 3,
-                width: "w-[69%]",
-                bgGradient: "from-[#4364F7] to-[#3307CC]"
-            },
-
-            {
-                prodi: "TRPL",
-                jumlah: 3,
-                width: "w-[69%]",
-                bgGradient: "from-[#067AFA] to-[#044894]"
-            },
-
-            {
-                prodi: "IF",
-                jumlah: 4,
-                width: "w-[92%]",
-                bgGradient: "from-[#0088FF] to-[#0052D4]"
-            }
-
+    
+<script>
+    const dataProdi = @json($Prodis->map(function($prodi) {
+        return [
+            'prodi'  => $prodi->kode_prodi,
+            'jumlah' => $prodi->kurikulums->count(),
         ];
+    }));
 
-        const prodiContainer = document.getElementById("prodi-bars-container");
+    const gradients = [
+        'from-[#E555FF] to-[#A900C7]',
+        'from-[#9A55FF] to-[#7928CA]',
+        'from-[#9A55FF] to-[#6B00FF]',
+        'from-[#7928CA] to-[#5100C6]',
+        'from-[#4364F7] to-[#3307CC]',
+        'from-[#067AFA] to-[#044894]',
+        'from-[#0088FF] to-[#0052D4]',
+    ];
 
-        dataProdi.forEach(item => {
+    const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
+    const offsetLeft = 48; // w-10 (40px) + gap-2 (8px)
 
-            const rowGroup = document.createElement("div");
+    // isi bar
+    const prodiContainer = document.getElementById("prodi-bars-container");
+    dataProdi.forEach((item, index) => {
+        const persen = Math.round((item.jumlah / maxJumlah) * 100);
+        const gradient = gradients[index % gradients.length];
 
-            rowGroup.className =
-                "flex items-center w-full text-[9px] font-bold text-gray-700";
+        const rowGroup = document.createElement("div");
+        rowGroup.className = "flex items-center w-full text-[9px] font-bold text-gray-700 gap-2";
+        rowGroup.innerHTML = `
+            <span class="w-10 text-left text-gray-800 shrink-0">${item.prodi}</span>
+            <div class="flex-1 bg-gray-100 h-3 rounded-full relative">
+                <div class="bg-gradient-to-r ${gradient} h-full rounded-full transition-all duration-500"
+                    style="width: ${persen}%"></div>
+            </div>
+        `;
+        prodiContainer.appendChild(rowGroup);
+    });
 
-            rowGroup.innerHTML = `
-                <span class="w-12 text-right pr-2 text-gray-800">
-                    ${item.prodi}
-                </span>
+    // garis skala + angka bawah
+    const scaleContainer = document.getElementById("scale-container");
+    const scaleNumbers   = document.getElementById("scale-numbers");
 
-                <div class="flex-1 bg-gray-50 h-4 rounded-full overflow-hidden relative flex items-center">
+    for (let i = 0; i <= maxJumlah; i++) {
+        const persen = (i / maxJumlah) * 100;
+        const leftPos = `calc(${offsetLeft}px + ${persen}% * (100% - ${offsetLeft}px) / 100%)`;
 
-                    <div class="bg-gradient-to-r ${item.bgGradient} h-full rounded-full ${item.width} transition-all duration-500"></div>
+        // garis vertikal
+        const line = document.createElement("div");
+        line.className = "absolute top-0 bottom-0 border-r border-gray-100";
+        line.style.left = leftPos;
+        scaleContainer.appendChild(line);
 
-                    <span class="absolute left-full pl-2 text-gray-600 font-bold">
-                        ${item.jumlah}
-                    </span>
+        // angka bawah
+        const num = document.createElement("div");
+        num.className = "absolute text-[9px] font-bold text-gray-400";
+        num.style.left = leftPos;
+        num.innerHTML = `<span class="-translate-x-1/2 block">${i}</span>`;
+        scaleNumbers.appendChild(num);
+    }
+</script>
 
-                </div>
-            `;
-
-            prodiContainer.appendChild(rowGroup);
-
-        });
-
-    </script>
     </body>
     </x-layout.layout>

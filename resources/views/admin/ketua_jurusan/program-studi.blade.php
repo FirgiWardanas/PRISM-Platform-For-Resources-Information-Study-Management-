@@ -22,6 +22,12 @@
         {{ session('pesan') }}
     </div>
 @endif
+
+@if (session('error'))
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-3">
+        {{ session('error') }}
+    </div>
+@endif
                 
                 @foreach ( $prodi as $p )
                 

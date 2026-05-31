@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Storage;
 
 class Prodi extends Model
 {
@@ -24,6 +25,8 @@ class Prodi extends Model
     protected $casts = [
         'status_prodi' => 'string',
     ];
+
+    
 
     public function user(): HasOne
     {
@@ -54,4 +57,21 @@ class Prodi extends Model
     {
         return $this->hasOne(Kustomisasi::class, 'id_prodi', 'id_prodi');
     }
+
+
+protected static function booted()
+{
+    static::deleting(function ($prodi) {
+        // loop semua dosen milik prodi ini
+        $prodi->dosens()->each(function ($dosen) {
+            // hapus foto dari storage
+            if ($dosen->foto_dosen) {
+                Storage::disk('public')->delete($dosen->foto_dosen);
+            }
+        });
+
+        // baru hapus dosennya (cascade ke riwayat & spesialis)
+        $prodi->dosens()->delete();
+    });}
 }
+
