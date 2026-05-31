@@ -312,8 +312,7 @@
                             <label class="font-semibold text-[#3307CC]">Header</label>
                             <p class="text-sm text-[#3307CC] mb-2">Upload gambar header program studi</p>
 
-                            <div id="preview-header" 
-                                class="w-full h-40 border-2 border-dashed rounded-xl 
+                            <div id="preview-header" class="w-full h-40 border-2 border-dashed rounded-xl 
                                 flex items-center justify-center overflow-hidden p-3">
                                 <img src="{{ asset('images/icon-upload.svg') }}">
                             </div>
@@ -336,8 +335,7 @@
                             <label class="font-semibold text-[#3307CC]">Footer</label>
                             <p class="text-sm text-[#3307CC] mb-2">Upload gambar footer program studi</p>
 
-                            <div id="preview-footer"
-                                class="w-full h-40 border-2 border-dashed rounded-xl 
+                            <div id="preview-footer" class="w-full h-40 border-2 border-dashed rounded-xl 
                                 flex items-center justify-center overflow-hidden p-3">
                                 <img src="{{ asset('images/icon-upload.svg') }}">
                             </div>
@@ -356,8 +354,182 @@
                         </div>
 
                     </div>
-                </div>
+                    <!-- Header -->
+                    <div class="flex items-center gap-3 mb-6 mt-10">
+                        <h2 class="text-xl font-semibold text-[#3307CC]">
+                            Profil Lulusan
+                        </h2>
+
+                        <button onclick="openModal()"
+                            class="h-6 w-6 rounded-md bg-[#3307CC] text-white flex items-center justify-center hover:opacity-90">
+
+                            <img src="{{ asset('images/icon-plus.svg') }}" alt="Tambah Profil Lulusan" class="w-3 h-3">
+                        </button>
+                    </div>
+
+                    <!-- Container Card -->
+                    <div id="profil-lulusan-container" class="grid grid-cols-2 gap-6">
+
+                        <!-- Card 1 -->
+                        <div class="profil-card bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+
+                            <div class="flex justify-between items-start">
+
+                                <h3 class=" judul-profil font-semibold text-[#3307CC]">
+                                    Programmer
+                                </h3>
+
+                                <div class="flex gap-1">
+
+                                    <button type="button" onclick="editProfil(this)">
+                                        <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4">
+                                    </button>
+
+                                    <button type="button">
+                                        <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <p class="deskripsi-profil text-xs text-gray-500 mt-2 leading-relaxed">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Nobis eum, quasi voluptas nulla temporibus suscipit
+                                obcaecati repudiandae quam accusamus dicta totam.
+                            </p>
+
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="profil-card bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+
+                            <div class="flex justify-between items-start">
+
+                                <h3 class="judul-profil font-semibold text-[#3307CC]">
+                                    UI & UX Designer
+                                </h3>
+
+                                <div class="flex gap-1">
+
+                                    <button type="button" onclick="editProfil(this)">
+                                        <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4">
+                                    </button>
+
+                                    <button type="button">
+                                        <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <p class=" deskripsi-profil text-xs text-gray-500 mt-2 leading-relaxed">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Nobis eum, quasi voluptas nulla temporibus suscipit
+                                obcaecati repudiandae quam accusamus dicta totam.
+                            </p>
+
+                        </div>
+
+                    </div>
             </main>
+        </div>
+        <!-- Modal Tambah Profil Lulusan -->
+        <div id="modalProfil" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
+
+            <div class="bg-white rounded-2xl w-[500px] p-8 relative shadow-xl">
+
+                <!-- Tombol Close -->
+                <button onclick="closeModal()"
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white  cursor-pointer">
+
+                    ✕
+                </button>
+
+                <!-- Judul -->
+                <h2 class="text-center text-2xl font-semibold text-[#3307CC] mb-8">
+                    Tambah Profil Lulusan
+                </h2>
+
+                <!-- Nama Profil -->
+                <div class="mb-5">
+                    <label class="block text-[#3307CC] font-medium mb-2">
+                        Judul
+                    </label>
+
+                    <input type="text" placeholder="Masukkan nama profil lulusan" class="w-full h-11 px-4 border border-gray-300 rounded-xl
+                focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20">
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <label class="block text-[#3307CC] font-medium mb-2">
+                        Deskripsi
+                    </label>
+
+                    <textarea rows="5" placeholder="Masukkan deskripsi profil lulusan" class="w-full p-4 border border-gray-300 rounded-xl resize-none
+                focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20"></textarea>
+                </div>
+
+                <!-- Button Simpan -->
+                <div class="flex justify-center mt-8">
+                    <button class="px-10 py-2 rounded-full bg-gradient-to-r
+                from-[#1597FF] to-[#3307CC]
+                text-white font-medium">
+                        Simpan
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal Edit Profil Lulusan -->
+        <div id="modalEditProfil" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
+
+            <div class="bg-white rounded-2xl w-[500px] p-8 relative shadow-xl">
+
+                <!-- Tombol Close -->
+                <button onclick="closeModalEdit()"
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white  cursor-pointer">
+
+                    ✕
+                </button>
+
+                <!-- Judul -->
+                <h2 class="text-center text-2xl font-semibold text-[#3307CC] mb-8">
+                    Edit Profil Lulusan
+                </h2>
+
+                <!-- Nama Profil -->
+                <div class="mb-5">
+                    <label class="block text-[#3307CC] font-medium mb-2">
+                        Judul
+                    </label>
+
+                    <input id="editJudul" type="text" placeholder="Masukkan nama profil lulusan" class="w-full h-11 px-4 border border-gray-300 rounded-xl
+                focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20">
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <label class="block text-[#3307CC] font-medium mb-2">
+                        Deskripsi
+                    </label>
+
+                    <textarea id="editDeskripsi" rows="5" placeholder="Masukkan deskripsi profil lulusan" class="w-full p-4 border border-gray-300 rounded-xl resize-none
+                focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20"></textarea>
+                </div>
+
+                <!-- Button Simpan -->
+                <div class="flex justify-center mt-8">
+                    <button class="px-10 py-2 rounded-full bg-gradient-to-r
+                from-[#1597FF] to-[#3307CC]
+                text-white font-medium">
+                        Simpan
+                    </button>
+                </div>
+
+            </div>
         </div>
     </body>
     <script src="{{ asset('js/kustomisasi.js') }}"></script>
