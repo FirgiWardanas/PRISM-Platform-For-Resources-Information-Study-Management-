@@ -12,7 +12,7 @@ class KurikulumController extends Controller
      */
     public function index()
     {
-        $kurikulums = Kurikulum::with('prodi','detailKurikulums')->where('id_prodi',auth()->guard()->id_prodi)->get();
+        $kurikulums = Kurikulum::with('prodi','detailKurikulums')->where('id_prodi',auth()->user()->id_prodi)->get();
         return view('admin.tim_kurikulum.kurikulum',compact('kurikulums'));
     }
 

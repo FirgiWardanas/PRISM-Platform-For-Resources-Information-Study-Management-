@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->foreign('id_MK')
                   ->references('id_MK')->on('matakuliah')
-                  ->onDelete('restrict')->onUpdate('cascade');
+                  ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

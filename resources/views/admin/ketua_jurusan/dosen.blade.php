@@ -268,14 +268,6 @@
 
 
 
-
-
-
-
-
-
-
-
 {{-- Edit --}}
 <div id="modalEditDosen" class="fixed inset-0 bg-black/40  hidden  items-center justify-center z-50">
     <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
@@ -419,6 +411,20 @@
 </form>
 
     @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </body>
     <script src="{{ asset('js/dosen.js') }}"></script>
