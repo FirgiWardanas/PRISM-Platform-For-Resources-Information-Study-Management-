@@ -1,319 +1,292 @@
 function showKurikulum(id) {
-
-    // sembunyikan semua
-    document.querySelectorAll(".kurikulum-content").forEach(el => {
-        el.classList.add("hidden");
-    });
-
-    // tampilkan yang dipilih
-    document.getElementById(`kurikulum-${id}`)
-        .classList.remove("hidden");
+    document.querySelectorAll('.kurikulum-content').forEach(el => el.classList.add('hidden'));
+    const panel = document.getElementById(`kurikulum-${id}`);
+    if (panel) panel.classList.remove('hidden');
 }
 
-
-
-
-
-
-// TAMBAH
-
-// tambahkurikulum
 function openTambahKurikulum() {
-    document.getElementById("tambahkurikulum").classList.remove("hidden");
-    document.getElementById("tambahkurikulum").classList.add("flex");
+    const modal = document.getElementById('tambahkurikulum');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function closeTambahKurikulum() {
-    document.getElementById("tambahkurikulum").classList.add("hidden");
-    document.getElementById("tambahkurikulum").classList.remove("flex");
+    const modal = document.getElementById('tambahkurikulum');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 
-
-// Semester
+// Stepper semester tambah
 let valueTambah = 0;
 
 function updateUITambah() {
-    document.getElementById("valueBoxTambah").innerText = valueTambah;
-    document.getElementById("semesterInputTambah").value = valueTambah;
+    document.getElementById('valueBoxTambah').innerText = valueTambah;
+    document.getElementById('semesterInputTambah').value = valueTambah;
 }
 
 function tambahTambah() {
-    valueTambah++;
-    updateUITambah();
+    if (valueTambah < 8) { valueTambah++; updateUITambah(); }
 }
 
 function kurangTambah() {
-    if (valueTambah > 0) {
-        valueTambah--;
-        updateUITambah();
-    }
+    if (valueTambah > 0) { valueTambah--; updateUITambah(); }
 }
-
-
-
-
-
-
-
-// EDIT
-
 
 let valueEdit = 0;
 
-//modaleditkurikulum
 function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_kurikulum, total_semester) {
-    const modal = document.getElementById("editKurikulum");
+    const modal = document.getElementById('editKurikulum');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+    document.getElementById('nama_kurikulum').value   = nama_kurikulum;
+    document.getElementById('tahun_mulai').value      = tahun_mulai;
+    document.getElementById('status_kurikulum').value = status_kurikulum;
 
-    // isi form edit
-    document.getElementById("nama_kurikulum").value = nama_kurikulum;
-    document.getElementById("tahun_mulai").value = tahun_mulai;
+    valueEdit = parseInt(total_semester, 10);
+    document.getElementById('valueBoxEdit').innerText  = valueEdit;
+    document.getElementById('semesterInputEdit').value = valueEdit;
 
-    // isi select status
-    document.getElementById("status_kurikulum").value = status_kurikulum;
-
-    valueEdit = total_semester;
-
-    document.getElementById("valueBoxEdit").innerText = total_semester;
-
-    document.getElementById("semesterInputEdit").value = total_semester;
-
-    // set action form ke route update (dynamic)
-    document.getElementById("formEdit").action = `/admin/kurikulum/${id_kurikulum}`;
+    // Arahkan form ke kurikulum yang dipilih
+    document.getElementById('formEdit').action = `/admin/kurikulum/${id_kurikulum}`;
 }
-
 
 function closeEditKurikulum() {
-    document.getElementById("editKurikulum").classList.add("hidden");
-    document.getElementById("editKurikulum").classList.remove("flex");
+    const modal = document.getElementById('editKurikulum');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 
-
-
 function updateUIEdit() {
-    document.getElementById("valueBoxEdit").innerText = valueEdit;
-    document.getElementById("semesterInputEdit").value = valueEdit;
+    document.getElementById('valueBoxEdit').innerText  = valueEdit;
+    document.getElementById('semesterInputEdit').value = valueEdit;
 }
 
 function tambahEdit() {
-    valueEdit++;
-    updateUIEdit();
+    if (valueEdit < 8) { valueEdit++; updateUIEdit(); }
 }
 
 function kurangEdit() {
-    if (valueEdit > 0) {
-        valueEdit--;
-        updateUIEdit();
-    }
+    if (valueEdit > 0) { valueEdit--; updateUIEdit(); }
 }
 
-
-
-
-
-
-
-
-// Hapus
-
 function hapusKurikulum(id_kurikulum) {
-    if (confirm("Yakin mau menghapus kurikulum ini?")) {
+    if (confirm('Yakin ingin menghapus kurikulum ini?\nSemua data semester dan silabus terkait juga akan terhapus secara permanen.')) {
         document.getElementById(`deleteForm_${id_kurikulum}`).submit();
     }
 }
 
-//togle
 function toggleSemester(kurikulumId, semesterId) {
     const content = document.getElementById(`semesterContent${kurikulumId}-${semesterId}`);
-    const icon = document.getElementById(`iconarrow${kurikulumId}-${semesterId}`);
-    const btn = document.getElementById(`btnTambah${kurikulumId}-${semesterId}`);
+    const icon    = document.getElementById(`iconarrow${kurikulumId}-${semesterId}`);
+    const btn     = document.getElementById(`btnTambah${kurikulumId}-${semesterId}`);
 
-    const isOpen = !content.classList.contains("hidden");
-
+    const isOpen = !content.classList.contains('hidden');
     closeAllSemester(kurikulumId);
 
     if (!isOpen) {
-        content.classList.remove("hidden");
-        icon.classList.add("rotate-180");
-        btn.classList.remove("hidden");
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+        btn.classList.remove('hidden');
     }
 }
-
-
 
 function closeAllSemester(kurikulumId) {
     for (let i = 1; i <= 8; i++) {
-        document.getElementById(`semesterContent${kurikulumId}-${i}`)?.classList.add("hidden");
-        document.getElementById(`iconarrow${kurikulumId}-${i}`)?.classList.remove("rotate-180");
-        document.getElementById(`btnTambah${kurikulumId}-${i}`)?.classList.add("hidden");
-    }
-}
-//open modal matkul
-function openModalMatkul(kurikulumId, semesterId) {
-    const modal = document.getElementById(`modalMatkul`);
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-
-    // Set hidden input values
-    document.getElementById('hiddenKurikulumId').value = kurikulumId;
-    document.getElementById('hiddenSemesterId').value = semesterId;
-}
-
-function closeModalMatkul(kurikulumId, semesterId) {
-    const modal = document.getElementById(`modalMatkul${kurikulumId}-${semesterId}`);
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-}
-
-//tambah silabus
-
-const fileInput = document.getElementById("fileUpload");
-const fileName = document.getElementById("fileName");
-const dropArea = document.getElementById("dropArea");
-
-const uploadIcon = document.getElementById("uploadIcon");
-const fileIcon = document.getElementById("fileIcon");
-const uploadText = document.getElementById("uploadText");
-const removeBtn = document.getElementById("removeFile");
-
-// === SET FILE ===
-function setFile(file) {
-    fileName.textContent = file.name;
-
-    // sembunyi upload
-    uploadIcon.classList.add("hidden");
-    uploadText.classList.add("hidden");
-
-    // tampil file icon & tombol hapus
-    fileIcon.classList.remove("hidden");
-    removeBtn.classList.remove("hidden");
-}
-
-// === REMOVE FILE ===
-function removeFile() {
-    fileInput.value = "";
-    fileName.textContent = "";
-
-    uploadIcon.classList.remove("hidden");
-    uploadText.classList.remove("hidden");
-
-    fileIcon.classList.add("hidden");
-    removeBtn.classList.add("hidden");
-}
-
-// klik browse
-fileInput.addEventListener("change", function () {
-    if (this.files.length > 0) {
-        setFile(this.files[0]);
-    }
-});
-
-// drag over
-dropArea.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropArea.classList.add("bg-blue-50");
-});
-
-// drag leave
-dropArea.addEventListener("dragleave", () => {
-    dropArea.classList.remove("bg-blue-50");
-});
-
-// drop file
-dropArea.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropArea.classList.remove("bg-blue-50");
-
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        fileInput.files = files;
-        setFile(files[0]);
-    }
-});
-
-// tombol hapus
-removeBtn.addEventListener("click", removeFile);
-
-
-// editmatakuliah semester 
-function openEditMatakuliah(id) {
-    const modal = document.getElementById(`modalEditMatakuliah${id}`);
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-}
-
-
-// tutup modal edit
-function closeEditMatakuliah(id) {
-    const modal = document.getElementById(`modalEditMatakuliah${id}`);
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-}
-
-function saveEditMatkuliah() {
-    closeEditMatakuliah();
-
-    const popup = document.getElementById("popupSuksesEditMatakuliah");
-    popup.classList.remove("hidden");
-
-    setTimeout(() => {
-        popup.classList.add("hidden");
-    }, 3000);
-}
-
-
-
-//
-let valueKur = 0;
-
-function updateKurUI() {
-    document.getElementById("valueKurBox").innerText = valueKur;
-}
-
-function tambahkur() {
-    valueKur++;
-    updateKurUI();
-}
-
-function kurangkur() {
-    if (valueKur > 0) {
-        valueKur--;
-        updateKurUI();
+        document.getElementById(`semesterContent${kurikulumId}-${i}`)?.classList.add('hidden');
+        document.getElementById(`iconarrow${kurikulumId}-${i}`)?.classList.remove('rotate-180');
+        document.getElementById(`btnTambah${kurikulumId}-${i}`)?.classList.add('hidden');
     }
 }
 
+function openModalTambahMatkul(kurikulumId, semester) {
+    // Arahkan form ke endpoint kurikulum yang dipilih
+    const form = document.getElementById('formTambahMatkul');
+    form.action = `/admin/kurikulum/${kurikulumId}/detail`;
 
+    form.reset();
 
-function openModalSilabus(id) {
-    const modal = document.getElementById(`modalSilabus${id}`);
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+    // Isi ulang semester setelah reset
+    document.getElementById('inputTambahSemester').value = semester;
+
+    resetTambahFileArea();
+
+    const modal = document.getElementById('modalTambahMatkul');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
-function closeModalSilabus(id) {
-    const modal = document.getElementById(`modalSilabus${id}`);
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+function closeModalTambahMatkul() {
+    const modal = document.getElementById('modalTambahMatkul');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
-//js autosize table
+
+function resetTambahFileArea() {
+    document.getElementById('uploadTextTambah').classList.remove('hidden');
+    document.getElementById('uploadIconTambah').classList.remove('hidden');
+    document.getElementById('fileIconTambah').classList.add('hidden');
+    document.getElementById('fileNameTambah').textContent = '';
+    document.getElementById('removeTambahFile').classList.add('hidden');
+}
+
+function removeTambahFile() {
+    document.getElementById('tambahFileRps').value = '';
+    resetTambahFileArea();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const tambahFileInput = document.getElementById('tambahFileRps');
+    if (tambahFileInput) {
+        tambahFileInput.addEventListener('change', function () {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                document.getElementById('uploadTextTambah').classList.add('hidden');
+                document.getElementById('uploadIconTambah').classList.add('hidden');
+                document.getElementById('fileIconTambah').classList.remove('hidden');
+                document.getElementById('removeTambahFile').classList.remove('hidden');
+                document.getElementById('fileNameTambah').textContent = file.name;
+            }
+        });
+    }
+
+    const silabusFileInput = document.getElementById('silabusFileRps');
+    if (silabusFileInput) {
+        silabusFileInput.addEventListener('change', function () {
+            const nameEl = document.getElementById('silabusNewFileName');
+            const textEl = document.getElementById('uploadTextSilabus');
+            const iconEl = document.getElementById('uploadIconSilabus');
+            if (this.files.length > 0) {
+                nameEl.textContent = 'File dipilih: ' + this.files[0].name;
+                nameEl.classList.remove('hidden');
+                if (textEl) textEl.classList.add('hidden');
+                if (iconEl) iconEl.classList.add('hidden');
+            } else {
+                nameEl.classList.add('hidden');
+                if (textEl) textEl.classList.remove('hidden');
+                if (iconEl) iconEl.classList.remove('hidden');
+            }
+        });
+    }
+
+    // Tutup modal saat klik backdrop
+    ['modalTambahMatkul', 'modalEditMatkul', 'modalSilabus',
+     'tambahkurikulum', 'editKurikulum'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('click', function (e) {
+            if (e.target === el) {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            }
+        });
+    });
+});
+
+function openModalEditMatkul(imgEl) {
+    const d = imgEl.dataset;
+
+    // Arahkan form ke baris detail yang dipilih
+    document.getElementById('formEditMatkul').action = `/admin/detail-kurikulum/${d.idDetail}`;
+
+    // Isi semua field dari data atribut
+    document.getElementById('editIdMK').value           = d.idMk;
+    document.getElementById('editSemester').value       = d.semester;
+    document.getElementById('editSks').value            = d.sks;
+    document.getElementById('editBobotTeori').value     = d.bobotTeori;
+    document.getElementById('editBobotPraktikum').value = d.bobotPraktikum;
+    document.getElementById('editSesiTeori').value      = d.sesiTeori;
+    document.getElementById('editSesiPraktikum').value  = d.sesiPraktikum;
+    document.getElementById('editStatusMatkul').value   = d.statusMatkul;
+
+    const modal = document.getElementById('modalEditMatkul');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeModalEditMatkul() {
+    const modal = document.getElementById('modalEditMatkul');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+function hapusDetailKurikulum(id_detail) {
+    if (confirm('Yakin ingin menghapus matakuliah ini dari kurikulum?\nData silabus terkait juga akan ikut terhapus.')) {
+        document.getElementById(`deleteDetailForm_${id_detail}`).submit();
+    }
+}
+
+function openModalSilabus(imgEl) {
+    const d = imgEl.dataset;
+
+    document.getElementById('silabusNamaMK').textContent = d.namaMk  || '-';
+    document.getElementById('silabusKode').textContent   = d.kode    || '-';
+    document.getElementById('silabusSks').textContent    = d.sks     || '-';
+    document.getElementById('silabusIdHidden').value     = d.idSilabus || '';
+
+    const deskripsiEl = document.getElementById('silabusDeskripsi');
+    const cpmEl       = document.getElementById('silabusCpm');
+    const cpkEl       = document.getElementById('silabusCpk');
+    const bahanEl     = document.getElementById('silabusBahanPustaka');
+
+    deskripsiEl.value = d.deskripsi    || '';
+    cpmEl.value       = d.cpm          || '';
+    cpkEl.value       = d.cpk          || '';
+    bahanEl.value     = d.bahanPustaka || '';
+
+    const fileContainer = document.getElementById('silabusFileContainer');
+    if (d.fileRps) {
+        const filePath = d.fileRps.startsWith('public/') ? d.fileRps.replace(/^public\//, '') : d.fileRps;
+        document.getElementById('silabusFileName').textContent = filePath.split('/').pop();
+        document.getElementById('silabusFileLink').href        = `/storage/${filePath}`;
+        fileContainer.classList.remove('hidden');
+    } else {
+        fileContainer.classList.add('hidden');
+    }
+
+    const newFileNameEl = document.getElementById('silabusNewFileName');
+    newFileNameEl.textContent = '';
+    newFileNameEl.classList.add('hidden');
+    document.getElementById('silabusFileRps').value = '';
+
+    const textEl = document.getElementById('uploadTextSilabus');
+    const iconEl = document.getElementById('uploadIconSilabus');
+    if (textEl) textEl.classList.remove('hidden');
+    if (iconEl) iconEl.classList.remove('hidden');
+
+    const form = document.getElementById('formSilabus');
+    if (form) form.action = d.action || `/admin/silabus/${d.idDetail}`;
+    document.getElementById('silabusDetailId').value = d.idDetail;
+
+    // Tampilkan modal dulu
+    const modal = document.getElementById('modalSilabus');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    // autoResize setelah modal tampil
+    requestAnimationFrame(() => {
+        [deskripsiEl, cpmEl, cpkEl, bahanEl].forEach(autoResize);
+    });
+}
+
+function closeModalSilabus() {
+    const modal = document.getElementById('modalSilabus');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+function deleteExistingSilabusFile() {
+    if (confirm('Yakin ingin menghapus silabus/RPS ini?')) {
+        const silabusId = document.getElementById('silabusIdHidden').value;
+        if (silabusId) {
+            const form = document.getElementById('deleteSilabusForm');
+            form.action = `/admin/silabus/${silabusId}`;
+            form.submit();
+        }
+    }
+}
+
 function autoResize(el) {
-    el.style.height = "auto";
-    el.style.height = el.scrollHeight + "px";
-}
-function tambahRPS(id) {
-    const upload = document.getElementById(`uploadArea${id}`);
-    upload.classList.toggle("hidden");
-}
-//simpansilabus
-function simpansilabus() {
-    closeModalSilabus();
-
-    const popup = document.getElementById("popupSuksesSilabus");
-    popup.classList.remove("hidden");
-
-    setTimeout(() => {
-        popup.classList.add("hidden");
-    }, 3000);
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
 }

@@ -13,28 +13,26 @@ use App\Http\Controllers\TpController;
 use App\Http\Controllers\TrmController;
 use App\Http\Controllers\TrplController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\DetailKurikulumController;
+use App\Http\Controllers\SilabusController;
 use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
 use App\Http\Controllers\matakuliahController;
 use App\Http\Controllers\ProfileKajurController;
 use App\Http\Controllers\ProfileTimController;
 use App\Http\Controllers\KustomisasiController;
-use App\Models\Kustomisasi;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/laravel', function () {
     return view('welcome');
 });
 
-// Landing Page Jurusan
 Route::resource('/', JurusanController::class);
 
-// Login
 Route::get('/admin/login', [LoginController::class, 'index'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'store'])->name('login.store');
 Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
 
-// Ketua Jurusan
 Route::middleware(['auth', 'role:ketua_jurusan'])
     ->prefix('admin')
     ->name('admin.')
@@ -44,16 +42,8 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
         Route::resource('/kelola-dosen', DosenController::class);
-
-        // Transfer Ketua Jurusan
-        Route::prefix('transfer')->name('transfer.')->group(function () {
-            Route::post('verify',   [ProfileKajurController::class, 'verify'])->name('verify');
-            Route::post('initiate', [ProfileKajurController::class, 'initiateTransfer'])->name('initiate');
-            Route::post('cancel',   [ProfileKajurController::class, 'cancelTransfer'])->name('cancel');
-        });
     });
 
-// Tim Kurikulum
 Route::middleware(['auth', 'role:tim_kurikulum'])
     ->prefix('admin')
     ->name('admin.')
@@ -63,15 +53,20 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
         Route::resource('/profile-tim-kurikulum', ProfileTimController::class);
         Route::resource('/matakuliah', matakuliahController::class);
         Route::resource('/kustomisasi', KustomisasiController::class);
+
+        Route::post('/kurikulum/{kurikulum}/detail', [DetailKurikulumController::class, 'store'])
+            ->name('detail-kurikulum.store');
+        Route::put('/detail-kurikulum/{detail}', [DetailKurikulumController::class, 'update'])
+            ->name('detail-kurikulum.update');
+        Route::delete('/detail-kurikulum/{detail}', [DetailKurikulumController::class, 'destroy'])
+            ->name('detail-kurikulum.destroy');
+
+        Route::post('/silabus/{detail}', [SilabusController::class, 'storeOrUpdate'])
+            ->name('silabus.storeOrUpdate');
+        Route::delete('/silabus/{silabus}', [SilabusController::class, 'destroy'])
+            ->name('silabus.destroy');
     });
 
-// Konfirmasi Transfer (di luar auth, ketua baru belum punya sesi)
-Route::prefix('transfer')->name('transfer.')->group(function () {
-    Route::get('confirm/{token}',  [ProfileKajurController::class, 'showConfirmPage'])->name('confirm');
-    Route::post('confirm/{token}', [ProfileKajurController::class, 'processConfirm'])->name('confirm.process');
-});
-
-// Halaman Prodi
 Route::resource('/informatika', IfController::class);
 Route::resource('/geomatika', GmController::class);
 Route::resource('/animasi', AnController::class);
