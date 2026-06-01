@@ -17,9 +17,7 @@ class Kustomisasi extends Model
         'secondary_color',
         'tertiary_color',
         'quaternary_color',
-        'header',
-        'footer',
-        'ring',
+
     ];
 
     public function prodi(): BelongsTo
