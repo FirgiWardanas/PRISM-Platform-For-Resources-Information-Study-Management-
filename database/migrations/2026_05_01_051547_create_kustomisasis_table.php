@@ -15,8 +15,6 @@ return new class extends Migration
             $table->string('secondary_color', 20)->nullable();
             $table->string('tertiary_color', 20)->nullable();
             $table->string('quaternary_color', 20)->nullable();
-            $table->string('header', 255)->nullable();
-            $table->string('footer', 255)->nullable();
 
             $table->foreign('id_prodi')
                   ->references('id_prodi')->on('prodi')
