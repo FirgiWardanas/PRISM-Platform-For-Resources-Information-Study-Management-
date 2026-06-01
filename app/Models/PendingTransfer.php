@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PendingTransfer extends Model
 {
+
+    protected $primaryKey = 'id_transfer';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'id_user',
         'new_email',
@@ -14,6 +20,8 @@ class PendingTransfer extends Model
         'is_used',
     ];
 
+    
+
     // Otomatis cast kolom ini ke tipe yang sesuai
     protected $casts = [
         'expires_at' => 'datetime',
@@ -21,7 +29,7 @@ class PendingTransfer extends Model
     ];
 
     // Relasi ke model User
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
