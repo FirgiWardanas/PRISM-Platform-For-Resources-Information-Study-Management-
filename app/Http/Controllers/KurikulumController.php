@@ -35,13 +35,13 @@ class KurikulumController extends Controller
 
         Kurikulum::where('id_prodi', $idProdi)->update(['status_kurikulum' => 'tidak aktif']);
 
-        Kurikulum::create([
-            'id_prodi'        => $idProdi,
-            'nama_kurikulum'  => $request->nama_kurikulum,
-            'tahun_mulai'     => $request->tahun_mulai,
-            'total_semester'  => $request->total_semester,
-            'status_kurikulum' => $request->status_kurikulum,
-        ]);
+       Kurikulum::create([
+        'id_prodi'         => $idProdi,
+        'nama_kurikulum'   => $request->nama_kurikulum,
+        'tahun_mulai'      => $request->tahun_mulai,
+        'total_semester'   => $request->total_semester,
+        'status_kurikulum' => $request->status_kurikulum ?? 'aktif', // ← default 'aktif'
+    ]);
 
         return redirect()->back();
     }

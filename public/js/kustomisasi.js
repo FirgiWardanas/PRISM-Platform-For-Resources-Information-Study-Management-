@@ -1,130 +1,155 @@
-function setupColor(inputPicker, inputText, previewBox) {
+// =============================================
+// COLOR PICKER SYNC
+// =============================================
+['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
+    const picker  = document.getElementById('picker-' + name);
+    const input   = document.getElementById('input-' + name);
+    const preview = document.getElementById('preview-' + name);
 
-    const picker = document.getElementById(inputPicker);
-    const input = document.getElementById(inputText);
-    const preview = document.getElementById(previewBox);
+    if (!picker || !input || !preview) return;
 
-    // dari picker
     picker.addEventListener('input', function () {
         input.value = this.value;
         preview.style.backgroundColor = this.value;
     });
 
-    // dari input manual
     input.addEventListener('input', function () {
-        preview.style.backgroundColor = this.value;
+        const val = this.value;
+        if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+            picker.value = val;
+            preview.style.backgroundColor = val;
+        }
     });
-
-}
-document.addEventListener("DOMContentLoaded", function () {
-
-    setupColor('picker-primary', 'input-primary', 'preview-primary');
-
-    setupColor('picker-secondary', 'input-secondary', 'preview-secondary');
-
-    setupColor('picker-tertiary', 'input-tertiary', 'preview-tertiary');
-
-    setupColor('picker-quaternary', 'input-quaternary', 'preview-quaternary');
-
 });
 
-
+// =============================================
+// IMAGE PREVIEW
+// =============================================
 function setupImagePreview(inputId, previewId) {
-    const input = document.getElementById(inputId);
+    const input   = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
+
+    if (!input || !preview) return;
 
     input.addEventListener('change', function () {
         const file = this.files[0];
+        if (!file) return;
 
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                preview.innerHTML = `
-                    <div class="relative w-full h-full">
-                        
-                        <!-- gambar -->
-                        <img src="${e.target.result}" 
-                             class="w-full h-full object-contain rounded-xl">
-
-                        <!-- tombol hapus -->
-                        <button onclick="removeImage('${inputId}', '${previewId}')" 
-                            class="absolute top-1 right-1 bg-white border border-red-300 rounded-md p-1 shadow hover:bg-red-100">
-                            
-                            <img src="/images/icon-hapus (merah).svg" class="w-4 h-4">
-                        </button>
-
-                    </div>
-                `;
-            }
-
-            reader.readAsDataURL(file);
-        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = `
+                <div class="relative w-full h-full">
+                    <img src="${e.target.result}" class="w-full h-full object-contain rounded-xl">
+                    <button type="button"
+                        onclick="removeImage('${inputId}', '${previewId}')"
+                        class="absolute top-1 right-1 bg-white border border-red-300 rounded-md p-1 shadow hover:bg-red-100">
+                        <img src="/images/icon-hapus (merah).svg" class="w-4 h-4">
+                    </button>
+                </div>
+            `;
+        };
+        reader.readAsDataURL(file);
     });
 }
-// hapus
+
 function removeImage(inputId, previewId) {
-    const input = document.getElementById(inputId);
+    const input   = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
 
-    // reset input file
-    input.value = "";
-
-    // balikin ke icon upload awal
-    preview.innerHTML = `
-        <img src="/images/icon-upload.svg" class="w-17 h-17 ">
-    `;
+    if (input)   input.value = '';
+    if (preview) preview.innerHTML = `<img src="/images/icon-upload.svg" class="w-17 h-17">`;
 }
-document.addEventListener("DOMContentLoaded", function () {
 
-    setupImagePreview('input-logo', 'preview-logo');
+document.addEventListener('DOMContentLoaded', function () {
+    setupImagePreview('input-logo',      'preview-logo');
     setupImagePreview('input-ilustrasi', 'preview-ilustrasi');
-    setupImagePreview('input-icon', 'preview-icon');
-    setupImagePreview('input-header', 'preview-header');
-    setupImagePreview('input-footer', 'preview-footer');
-
+    setupImagePreview('input-icon',      'preview-icon');
 });
 
-//ketua jurusan
-//tambah
+// =============================================
+// MODAL PROFIL LULUSAN
+// =============================================
 function openModal() {
-    const modal = document.getElementById('modalProfil');
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    const m = document.getElementById('modalProfil');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
 }
 
 function closeModal() {
-    const modal = document.getElementById('modalProfil');
-
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
+    const m = document.getElementById('modalProfil');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
 }
-//edit
+
 function editProfil(button) {
+    const id        = button.dataset.id;
+    const judul     = button.dataset.judul;
+    const deskripsi = button.dataset.deskripsi;
 
-    const card = button.closest('.profil-card');
+    document.getElementById('editJudul').value       = judul;
+    document.getElementById('editDeskripsi').value   = deskripsi;
+    document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
 
-    const judul =
-        card.querySelector('.judul-profil').innerText;
-
-    const deskripsi =
-        card.querySelector('.deskripsi-profil').innerText;
-
-    document.getElementById('editJudul').value = judul;
-    document.getElementById('editDeskripsi').value = deskripsi;
-
-    const modal = document.getElementById('modalEditProfil');
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-
+    const m = document.getElementById('modalEditProfil');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
 }
+
 function closeModalEdit() {
+    const m = document.getElementById('modalEditProfil');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+}
 
-    const modal = document.getElementById('modalEditProfil');
+// Tutup modal kalau klik di luar
+['modalProfil', 'modalEditProfil'].forEach(function (id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', function (e) {
+        if (e.target === el) {
+            el.classList.add('hidden');
+            el.classList.remove('flex');
+        }
+    });
+});
 
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
+// =============================================
+// RESET FORM — mengosongkan semua field
+// =============================================
+function resetForm() {
+    if (!confirm('Yakin ingin mereset semua perubahan?')) return;
 
+    // Kosongkan semua textarea
+    document.querySelectorAll('#formKustomisasi textarea').forEach(function (el) {
+        el.value = '';
+    });
+
+    // Kosongkan semua input text
+    document.querySelectorAll('#formKustomisasi input[type="text"]').forEach(function (el) {
+        el.value = '';
+    });
+
+    // Reset status ke draft
+    const status = document.querySelector('select[name="status_prodi"]');
+    if (status) status.value = 'draft';
+
+    // Reset warna ke hitam
+    ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
+        const input   = document.getElementById('input-' + name);
+        const picker  = document.getElementById('picker-' + name);
+        const preview = document.getElementById('preview-' + name);
+        if (!input || !picker || !preview) return;
+
+        input.value = '#000000';
+        picker.value = '#000000';
+        preview.style.backgroundColor = '#000000';
+    });
+
+    // Reset preview gambar
+    ['logo', 'ilustrasi', 'icon'].forEach(function (name) {
+        const input   = document.getElementById('input-' + name);
+        const preview = document.getElementById('preview-' + name);
+        if (input)   input.value = '';
+        if (preview) preview.innerHTML = `<img src="/images/icon-upload.svg" class="w-17 h-17">`;
+    });
 }

@@ -2,64 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class TampilanProgramStudiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function show(string $kode)
     {
-        return View('prodi.ProgramStudi');
-    }
+        $prodi = Prodi::with([
+            'kustomisasi',
+            'detailProdi.profilLulusans',   
+            'dosens.riwayatPendidikans',
+            'dosens.bidangSpesialis',
+            'kurikulums' => function ($q) {
+                $q->with([
+                    'detailKurikulums.matakuliah',
+                    'detailKurikulums.silabus',
+                ]);
+            },
+        ])
+        ->where('kode_prodi', $kode)
+        ->where('status_prodi', 'published')
+        ->firstOrFail();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $kurikulumAktif = $prodi->kurikulums
+            ->where('status_kurikulum', 'aktif')
+            ->first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $kurikulumTidakAktif = $prodi->kurikulums
+            ->where('status_kurikulum', 'tidak aktif');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $semuaProdi = Prodi::where('status_prodi', 'published')
+        ->select('kode_prodi', 'nama_prodi')
+        ->get();
+        
+        return view('prodi.show', compact(
+            'prodi',
+            'kurikulumAktif',
+            'kurikulumTidakAktif',
+            'semuaProdi'
+        ));
     }
 }

@@ -1,17 +1,10 @@
 <?php
 
 use App\Http\Controllers\AkunController;
-use App\Http\Controllers\AnController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\GmController;
-use App\Http\Controllers\IfController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgramStudiController;
-use App\Http\Controllers\RksController;
-use App\Http\Controllers\TpController;
-use App\Http\Controllers\TrmController;
-use App\Http\Controllers\TrplController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\DetailKurikulumController;
 use App\Http\Controllers\SilabusController;
@@ -21,6 +14,7 @@ use App\Http\Controllers\matakuliahController;
 use App\Http\Controllers\ProfileKajurController;
 use App\Http\Controllers\ProfileTimController;
 use App\Http\Controllers\KustomisasiController;
+use App\Http\Controllers\TampilanProgramStudiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/laravel', function () {
@@ -33,6 +27,9 @@ Route::get('/admin/login', [LoginController::class, 'index'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'store'])->name('login.store');
 Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
 
+// Halaman dinamis prodi
+Route::get('/prodi/{kode}', [TampilanProgramStudiController::class, 'show'])->name('prodi.show');
+
 Route::middleware(['auth', 'role:ketua_jurusan'])
     ->prefix('admin')
     ->name('admin.')
@@ -43,14 +40,11 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
         Route::resource('/kelola-dosen', DosenController::class);
 
-        
-        // Transfer Ketua Jurusan
         Route::prefix('transfer')->name('transfer.')->group(function () {
             Route::post('verify',   [ProfileKajurController::class, 'verify'])->name('verify');
             Route::post('initiate', [ProfileKajurController::class, 'initiateTransfer'])->name('initiate');
             Route::post('cancel',   [ProfileKajurController::class, 'cancelTransfer'])->name('cancel');
         });
-        
     });
 
 Route::middleware(['auth', 'role:tim_kurikulum'])
@@ -73,12 +67,10 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
             ->name('silabus.storeOrUpdate');
         Route::delete('/silabus/{silabus}', [SilabusController::class, 'destroy'])
             ->name('silabus.destroy');
+        Route::post('/profil-lulusan', [KustomisasiController::class, 'storeProfilLulusan'])
+            ->name('profil-lulusan.store');
+        Route::put('/profil-lulusan/{id}', [KustomisasiController::class, 'updateProfilLulusan'])
+            ->name('profil-lulusan.update');
+        Route::delete('/profil-lulusan/{id}', [KustomisasiController::class, 'destroyProfilLulusan'])
+            ->name('profil-lulusan.destroy');
     });
-
-Route::resource('/informatika', IfController::class);
-Route::resource('/geomatika', GmController::class);
-Route::resource('/animasi', AnController::class);
-Route::resource('/tr-multimedia', TrmController::class);
-Route::resource('/rekayasa-keamanan-siber', RksController::class);
-Route::resource('/tr-perangkat-lunak', TrplController::class);
-Route::resource('/teknologi-permainan', TpController::class);
