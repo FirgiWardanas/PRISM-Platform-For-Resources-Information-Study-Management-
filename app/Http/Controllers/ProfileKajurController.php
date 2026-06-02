@@ -21,7 +21,6 @@ class ProfileKajurController extends Controller
         $pendingTransfer = PendingTransfer::where('id_user', $user->id_user)
             ->where('is_used', false)
             ->where('expires_at', '>', now())
-            ->latest()
             ->first();
 
         return view('admin.ketua_jurusan.profil', compact('user', 'pendingTransfer'));
