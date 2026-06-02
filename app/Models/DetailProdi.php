@@ -18,6 +18,7 @@ class DetailProdi extends Model
         'misi',
         'deskripsi_prodi',
         'logo',
+        'ilustrasi',
         'icon_lulusan',
     ];
 
