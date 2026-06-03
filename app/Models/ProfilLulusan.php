@@ -15,6 +15,7 @@ class ProfilLulusan extends Model
         'id_detail_prodi',
         'judul_lulusan',
         'deskripsi_lulusan',
+        'icon_lulusan',
     ];
 
     public function detailProdi(): BelongsTo
