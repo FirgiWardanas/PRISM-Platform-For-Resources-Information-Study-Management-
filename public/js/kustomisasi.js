@@ -61,9 +61,43 @@ function removeImage(inputId, previewId) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    setupImagePreview('input-logo', 'preview-logo');
+    // Preview gambar kustomisasi
+    setupImagePreview('input-logo',      'preview-logo');
     setupImagePreview('input-ilustrasi', 'preview-ilustrasi');
-    setupImagePreview('input-icon', 'preview-icon');
+    setupImagePreview('input-icon',      'preview-icon');
+
+    // =============================================
+    // PREVIEW FOTO PROFIL LULUSAN
+    // =============================================
+    const inputTambah = document.getElementById('input-icon-tambah');
+    if (inputTambah) {
+        inputTambah.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = document.getElementById('img-preview-tambah');
+                img.src = e.target.result;
+                img.className = 'w-full h-full object-cover';
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const inputEdit = document.getElementById('input-icon-edit');
+    if (inputEdit) {
+        inputEdit.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = document.getElementById('img-preview-edit');
+                img.src = e.target.result;
+                img.className = 'w-full h-full object-cover';
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 });
 
 // =============================================
@@ -101,6 +135,30 @@ function closeModalEdit() {
     m.classList.remove('flex');
 }
 
+// Satu fungsi editProfil saja (hapus yang lama)
+function editProfil(btn) {
+    const id        = btn.dataset.id;
+    const judul     = btn.dataset.judul;
+    const deskripsi = btn.dataset.deskripsi;
+    const icon      = btn.dataset.icon;
+
+    document.getElementById('editJudul').value     = judul;
+    document.getElementById('editDeskripsi').value = deskripsi;
+    document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
+
+    const imgEdit = document.getElementById('img-preview-edit');
+    if (icon && icon !== 'null' && icon !== '') {
+        imgEdit.src = '/storage/' + icon;
+        imgEdit.className = 'w-full h-full object-cover';
+    } else {
+        imgEdit.src = '/images/icon-upload.svg';
+        imgEdit.className = 'w-8 h-8 opacity-40';
+    }
+
+    document.getElementById('modalEditProfil').classList.remove('hidden');
+    document.getElementById('modalEditProfil').classList.add('flex');
+}
+
 // Tutup modal kalau klik di luar
 ['modalProfil', 'modalEditProfil'].forEach(function (id) {
     const el = document.getElementById(id);
@@ -114,26 +172,22 @@ function closeModalEdit() {
 });
 
 // =============================================
-// RESET FORM — mengosongkan semua field
+// RESET FORM
 // =============================================
 function resetForm() {
     if (!confirm('Yakin ingin mereset semua perubahan?')) return;
 
-    // Kosongkan semua textarea
     document.querySelectorAll('#formKustomisasi textarea').forEach(function (el) {
         el.value = '';
     });
 
-    // Kosongkan semua input text
     document.querySelectorAll('#formKustomisasi input[type="text"]').forEach(function (el) {
         el.value = '';
     });
 
-    // Reset status ke draft
     const status = document.querySelector('select[name="status_prodi"]');
     if (status) status.value = 'draft';
 
-    // Reset warna ke hitam
     ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
         const input = document.getElementById('input-' + name);
         const picker = document.getElementById('picker-' + name);
@@ -145,7 +199,6 @@ function resetForm() {
         preview.style.backgroundColor = '#000000';
     });
 
-    // Reset preview gambar
     ['logo', 'ilustrasi', 'icon'].forEach(function (name) {
         const input = document.getElementById('input-' + name);
         const preview = document.getElementById('preview-' + name);

@@ -133,10 +133,10 @@
                     </button>
                 </div>
                 <div class="flex justify-center">
-                    @if($prodi->detailProdi?->icon_lulusan)
-                        <img src="{{ Storage::url($prodi->detailProdi->icon_lulusan) }}"
-                            class="w-52 sm:w-64 md:w-80 lg:w-[420px] drop-shadow-xl hover:scale-105 transition duration-300">
-                    @endif
+                    @if($prodi->detailProdi?->ilustrasi)
+                <img src="{{ Storage::url($prodi->detailProdi->ilustrasi) }}"
+                    class="w-52 sm:w-64 md:w-80 lg:w-[420px] drop-shadow-xl hover:scale-105 transition duration-300">
+                @endif
                 </div>
             </div>
         </section>
@@ -216,8 +216,11 @@
             <div class="relative w-full h-full">
                 @forelse($prodi->detailProdi?->profilLulusans ?? [] as $profil)
                     <div class="slide absolute left-1/2 w-[90%] md:w-[700px] h-[380px] md:h-[300px] rounded-3xl profil-slide flex flex-col md:flex-row items-center justify-center md:justify-start px-6 md:px-10 shadow-2xl transition-all duration-500">
-                        @if($prodi->detailProdi?->icon_lulusan)
-                            <img src="{{ Storage::url($prodi->detailProdi->icon_lulusan) }}" class="w-32 md:w-56">
+                       @php
+                            $fotoLulusan = $profil->icon_lulusan ?? $prodi->detailProdi?->icon_lulusan;
+                        @endphp
+                        @if($fotoLulusan)
+                            <img src="{{ Storage::url($fotoLulusan) }}" class="w-32 md:w-56 rounded-2xl object-cover">
                         @endif
                         <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
                             <h1 class="text-2xl md:text-4xl font-bold">{{ $profil->judul_lulusan }}</h1>

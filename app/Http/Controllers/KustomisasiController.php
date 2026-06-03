@@ -115,17 +115,30 @@ class KustomisasiController extends Controller
 
     // Edit profil lulusan
     public function updateProfilLulusan(Request $request, string $id)
-    {
-        $request->validate([
-            'judul_lulusan'     => 'required|string|max:255',
-            'deskripsi_lulusan' => 'required|string',
-        ]);
+   {
+    $request->validate([
+        'judul_lulusan'     => 'required|string|max:255',
+        'deskripsi_lulusan' => 'required|string',
+        'icon_lulusan'      => 'nullable|image|max:2048',
+    ]);
 
-        ProfilLulusan::where('id_lulusan', $id)->update([
-            'judul_lulusan'     => $request->judul_lulusan,
-            'deskripsi_lulusan' => $request->deskripsi_lulusan,
-        ]);
+    $profil = ProfilLulusan::where('id_lulusan', $id)->firstOrFail();
 
-        return redirect()->back()->with('success', 'Profil lulusan berhasil diperbarui.');
+    $data = [
+        'judul_lulusan'     => $request->judul_lulusan,
+        'deskripsi_lulusan' => $request->deskripsi_lulusan,
+    ];
+
+    if ($request->hasFile('icon_lulusan')) {
+        if ($profil->icon_lulusan) {
+            Storage::disk('public')->delete($profil->icon_lulusan);
+        }
+        $data['icon_lulusan'] = $request->file('icon_lulusan')
+            ->store('profil_lulusan/icon', 'public');
+    }
+
+    $profil->update($data);
+
+    return redirect()->back()->with('success', 'Profil lulusan berhasil diperbarui.');
     }
 }
