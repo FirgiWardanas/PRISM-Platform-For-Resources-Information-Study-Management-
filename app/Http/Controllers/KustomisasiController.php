@@ -21,67 +21,69 @@ class KustomisasiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'deskripsi_prodi'  => 'nullable|string',
-            'visi'             => 'nullable|string',
-            'misi'             => 'nullable|string',
-            'logo'             => 'nullable|image|max:2048',
-            'ilustrasi'        => 'nullable|image|max:2048',
-            'icon_lulusan'     => 'nullable|image|max:2048',
-            'primary_color'    => 'nullable|string|max:20',
-            'secondary_color'  => 'nullable|string|max:20',
-            'tertiary_color'   => 'nullable|string|max:20',
-            'quaternary_color' => 'nullable|string|max:20',
-            'status_prodi'     => 'nullable|in:draft,published',
-        ]);
-
-        $idProdi = auth()->user()->id_prodi;
-
-        // Simpan/update kustomisasi warna
-        $kustomisasi = Kustomisasi::updateOrCreate(
-            ['id_prodi' => $idProdi],
-            [
-                'primary_color'    => $request->primary_color,
-                'secondary_color'  => $request->secondary_color,
-                'tertiary_color'   => $request->tertiary_color,
-                'quaternary_color' => $request->quaternary_color,
-            ]
-        );
-
-        // Simpan/update detail prodi
-        $detailProdi = DetailProdi::firstOrNew(['id_prodi' => $idProdi]);
-
-        $detailProdi->deskripsi_prodi = $request->deskripsi_prodi;
-        $detailProdi->visi            = $request->visi;
-        $detailProdi->misi            = $request->misi;
-
-        if ($request->hasFile('logo')) {
-            if ($detailProdi->logo) Storage::disk('public')->delete($detailProdi->logo);
-            $detailProdi->logo = $request->file('logo')->store('prodi/logo', 'public');
-        }
-
-        if ($request->hasFile('ilustrasi')) {
-            if ($detailProdi->ilustrasi) Storage::disk('public')->delete($detailProdi->ilustrasi);
-            $detailProdi->ilustrasi = $request->file('ilustrasi')->store('prodi/ilustrasi', 'public');
-        }
-
-        if ($request->hasFile('icon_lulusan')) {
-            if ($detailProdi->icon_lulusan) Storage::disk('public')->delete($detailProdi->icon_lulusan);
-            $detailProdi->icon_lulusan = $request->file('icon_lulusan')->store('prodi/icon', 'public');
-        }
-
-        $detailProdi->save();
-
-        // Update status prodi
-        if ($request->filled('status_prodi')) {
-            Prodi::where('id_prodi', $idProdi)->update([
-                'status_prodi' => $request->status_prodi,
-            ]);
-        }
-
-        return redirect()->back()->with('success', 'Kustomisasi berhasil disimpan.');
+   {
+    $idProdi = auth()->user()->id_prodi;
+    
+    // Kalau kustomisasi sudah ada, jalankan logic update langsung
+    $this->simpanData($request, $idProdi);
+    
+    return redirect()->back()->with('success', 'Kustomisasi berhasil disimpan.');
     }
+
+    private function simpanData(Request $request, $idProdi)
+    {
+    $request->validate([
+        'deskripsi_prodi'  => 'nullable|string',
+        'visi'             => 'nullable|string',
+        'misi'             => 'nullable|string',
+        'logo'             => 'nullable|image|max:2048',
+        'ilustrasi'        => 'nullable|image|max:2048',
+        'icon_lulusan'     => 'nullable|image|max:2048',
+        'primary_color'    => 'nullable|string|max:20',
+        'secondary_color'  => 'nullable|string|max:20',
+        'tertiary_color'   => 'nullable|string|max:20',
+        'quaternary_color' => 'nullable|string|max:20',
+        'status_prodi'     => 'nullable|in:draft,published',
+    ]);
+
+    Kustomisasi::updateOrCreate(
+        ['id_prodi' => $idProdi],
+        [
+            'primary_color'    => $request->primary_color,
+            'secondary_color'  => $request->secondary_color,
+            'tertiary_color'   => $request->tertiary_color,
+            'quaternary_color' => $request->quaternary_color,
+        ]
+    );
+
+    $detailProdi = DetailProdi::firstOrNew(['id_prodi' => $idProdi]);
+    $detailProdi->deskripsi_prodi = $request->deskripsi_prodi;
+    $detailProdi->visi            = $request->visi;
+    $detailProdi->misi            = $request->misi;
+
+    if ($request->hasFile('logo')) {
+        if ($detailProdi->logo) Storage::disk('public')->delete($detailProdi->logo);
+        $detailProdi->logo = $request->file('logo')->store('prodi/logo', 'public');
+    }
+
+    if ($request->hasFile('ilustrasi')) {
+        if ($detailProdi->ilustrasi) Storage::disk('public')->delete($detailProdi->ilustrasi);
+        $detailProdi->ilustrasi = $request->file('ilustrasi')->store('prodi/ilustrasi', 'public');
+    }
+
+    if ($request->hasFile('icon_lulusan')) {
+        if ($detailProdi->icon_lulusan) Storage::disk('public')->delete($detailProdi->icon_lulusan);
+        $detailProdi->icon_lulusan = $request->file('icon_lulusan')->store('prodi/icon', 'public');
+    }
+
+    $detailProdi->save();
+
+    if ($request->filled('status_prodi')) {
+        Prodi::where('id_prodi', $idProdi)->update([
+            'status_prodi' => $request->status_prodi,
+        ]);
+    }
+}
 
     // Tambah profil lulusan
     public function storeProfilLulusan(Request $request)
