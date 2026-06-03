@@ -1,15 +1,15 @@
 <x-layout.layout>
-    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}')">
+
+    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
+        style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
+        <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
+        </div>
         <!-- Main Content -->
-        <main class="flex-1 p-6 space-y-6 ml-72">
+        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             <!-- Header -->
             <x-admin.header>Dashboard</x-admin.header>
-
-            
-            
-            
             <!-- Welcome Banner -->
             <!-- CONTENT -->
             <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
@@ -17,15 +17,15 @@
                 <!-- WELCOME -->
                 <div class="relative bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF]
                     text-white px-7 rounded-[24px] shadow-sm overflow-hidden
-                    flex items-center min-h-[170px]">
+                    flex flex-col md:flex-row items-center min-h-[170px] p-6">
 
-                    <div class="space-y-1 z-10 pr-[260px]">
+                    <div class="space-y-1 z-10 md:pr-[260px]">
 
                         <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
                             HELLO {{ $user->nama }}!
                         </p>
 
-                        <h2 class="text-4xl font-extrabold tracking-tight">
+                        <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">
                             Welcome Back
                         </h2>
 
@@ -37,14 +37,15 @@
 
                     <div class="absolute right-0 top-5 h-full flex items-end">
 
-                        <img src="{{ asset('images/illustrasi_welcome.png') }}" alt="" class="h-[190px] object-contain">
+                        <img src="{{ asset('images/illustrasi_welcome.png') }}" alt=""
+                            class="h-[120px] md:h-[190px] object-contain">
 
                     </div>
 
                 </div>
 
                 <!-- CARD -->
-                <div class="grid grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
                     <!-- PROGRAM STUDI -->
                     <div class="bg-white rounded-[24px] p-5 border border-[#DDE8FF]
@@ -70,7 +71,7 @@
                                     Program Studi
                                 </p>
 
-                                <h1 class="text-[40px] font-extrabold text-[#044894] leading-none">
+                                <h1 class="text-3xl md:text-[40px] font-extrabold text-[#044894] leading-none">
                                     {{ $jumlah_prodi }}
                                 </h1>
 
@@ -104,7 +105,7 @@
                                     Dosen
                                 </p>
 
-                                <h1 class="text-[40px] font-extrabold text-[#5100C6] leading-none">
+                                <h1 class="text-3xl md:text-[40px] font-extrabold text-[#5100C6] leading-none">
                                     {{ $jumlah_dosen }}
                                 </h1>
 
@@ -138,7 +139,7 @@
                                     Akun
                                 </p>
 
-                                <h1 class="text-[40px] font-extrabold text-[#A900C7] leading-none">
+                                <h1 class="text-3xl md:text-[40px] font-extrabold text-[#A900C7] leading-none">
                                     {{ $jumlah_akun }}
                                 </h1>
 
@@ -153,13 +154,14 @@
                 <!-- GRAFIK KURIKULUM -->
                 <div class="grid grid-cols-1 gap-5">
 
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center max-w-2xl">
+                    <div
+                        class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-2xl">
 
                         <h4 class="text-xs font-bold text-[#001286] mb-6 text-center w-full">
                             Jumlah kurikulum per program studi
                         </h4>
 
-                        <div class="flex w-full pr-2 h-56 relative pl-10">
+                        <div class="flex w-full pr-2 h-56 md:h-64 relative pl-8 md:pl-10">
 
                             <!-- LABEL -->
                             <div class="absolute left-0 top-0 bottom-6 flex items-center">
@@ -181,22 +183,25 @@
                             </div>
 
 
-                    <!-- CHART -->
-                    <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
+                            <!-- CHART -->
+                            <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
 
-                        <!-- SCALE LINES (background) -->
-                        <div id="scale-container" class="absolute inset-x-0 top-0 bottom-6 flex justify-between pointer-events-none">
-                        </div>
+                                <!-- SCALE LINES (background) -->
+                                <div id="scale-container"
+                                    class="absolute inset-x-0 top-0 bottom-6 flex justify-between pointer-events-none">
+                                </div>
 
-                        <!-- BARS -->
-                        <div id="prodi-bars-container" class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1">
-                        </div>
+                                <!-- BARS -->
+                                <div id="prodi-bars-container"
+                                    class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1">
+                                </div>
 
-                        <!-- ANGKA SKALA BAWAH -->
-                        <div id="scale-numbers" class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
-                        </div>
+                                <!-- ANGKA SKALA BAWAH -->
+                                <div id="scale-numbers"
+                                    class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
+                                </div>
 
-                    </div>
+                            </div>
 
                         </div>
 
@@ -207,69 +212,105 @@
             </div>
 
         </main>
-    </div>
-    
-<script>
-    const dataProdi = @json($Prodis->map(function($prodi) {
-        return [
-            'prodi'  => $prodi->kode_prodi,
-            'jumlah' => $prodi->kurikulums->count(),
-        ];
-    }));
+        </div>
 
-    const gradients = [
-        'from-[#E555FF] to-[#A900C7]',
-        'from-[#9A55FF] to-[#7928CA]',
-        'from-[#9A55FF] to-[#6B00FF]',
-        'from-[#7928CA] to-[#5100C6]',
-        'from-[#4364F7] to-[#3307CC]',
-        'from-[#067AFA] to-[#044894]',
-        'from-[#0088FF] to-[#0052D4]',
-    ];
+        <script>
+            const dataProdi = @json($Prodis->map(function ($prodi) {
+                return [
+                    'prodi' => $prodi->kode_prodi,
+                    'jumlah' => $prodi->kurikulums->count(),
+                ];
+            }));
 
-    const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
-    const offsetLeft = 48; // w-10 (40px) + gap-2 (8px)
+            const gradients = [
+                'from-[#E555FF] to-[#A900C7]',
+                'from-[#9A55FF] to-[#7928CA]',
+                'from-[#9A55FF] to-[#6B00FF]',
+                'from-[#7928CA] to-[#5100C6]',
+                'from-[#4364F7] to-[#3307CC]',
+                'from-[#067AFA] to-[#044894]',
+                'from-[#0088FF] to-[#0052D4]',
+            ];
 
-    // isi bar
-    const prodiContainer = document.getElementById("prodi-bars-container");
-    dataProdi.forEach((item, index) => {
-        const persen = Math.round((item.jumlah / maxJumlah) * 100);
-        const gradient = gradients[index % gradients.length];
+            const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
+            const offsetLeft = 48; // w-10 (40px) + gap-2 (8px)
 
-        const rowGroup = document.createElement("div");
-        rowGroup.className = "flex items-center w-full text-[9px] font-bold text-gray-700 gap-2";
-        rowGroup.innerHTML = `
+            // isi bar
+            const prodiContainer = document.getElementById("prodi-bars-container");
+            dataProdi.forEach((item, index) => {
+                const persen = Math.round((item.jumlah / maxJumlah) * 100);
+                const gradient = gradients[index % gradients.length];
+
+                const rowGroup = document.createElement("div");
+                rowGroup.className = "flex items-center w-full text-[9px] font-bold text-gray-700 gap-2";
+                rowGroup.innerHTML = `
             <span class="w-10 text-left text-gray-800 shrink-0">${item.prodi}</span>
             <div class="flex-1 bg-gray-100 h-3 rounded-full relative">
                 <div class="bg-gradient-to-r ${gradient} h-full rounded-full transition-all duration-500"
                     style="width: ${persen}%"></div>
             </div>
         `;
-        prodiContainer.appendChild(rowGroup);
-    });
+                prodiContainer.appendChild(rowGroup);
+            });
 
-    // garis skala + angka bawah
-    const scaleContainer = document.getElementById("scale-container");
-    const scaleNumbers   = document.getElementById("scale-numbers");
+            // garis skala + angka bawah
+            const scaleContainer = document.getElementById("scale-container");
+            const scaleNumbers = document.getElementById("scale-numbers");
 
-    for (let i = 0; i <= maxJumlah; i++) {
-        const persen = (i / maxJumlah) * 100;
-        const leftPos = `calc(${offsetLeft}px + ${persen}% * (100% - ${offsetLeft}px) / 100%)`;
+            for (let i = 0; i <= maxJumlah; i++) {
+                const persen = (i / maxJumlah) * 100;
+                const leftPos = `calc(${offsetLeft}px + ${persen}% * (100% - ${offsetLeft}px) / 100%)`;
 
-        // garis vertikal
-        const line = document.createElement("div");
-        line.className = "absolute top-0 bottom-0 border-r border-gray-100";
-        line.style.left = leftPos;
-        scaleContainer.appendChild(line);
+                // garis vertikal
+                const line = document.createElement("div");
+                line.className = "absolute top-0 bottom-0 border-r border-gray-100";
+                line.style.left = leftPos;
+                scaleContainer.appendChild(line);
 
-        // angka bawah
-        const num = document.createElement("div");
-        num.className = "absolute text-[9px] font-bold text-gray-400";
-        num.style.left = leftPos;
-        num.innerHTML = `<span class="-translate-x-1/2 block">${i}</span>`;
-        scaleNumbers.appendChild(num);
-    }
-</script>
+                // angka bawah
+                const num = document.createElement("div");
+                num.className = "absolute text-[9px] font-bold text-gray-400";
+                num.style.left = leftPos;
+                num.innerHTML = `<span class="-translate-x-1/2 block">${i}</span>`;
+                scaleNumbers.appendChild(num);
+            }
+            const menuBtn = document.getElementById('menuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-[120%]');
+                overlay.classList.toggle('hidden');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-[120%]');
+                overlay.classList.add('hidden');
+            });
+
+            const profileBtn = document.getElementById('profileBtn');
+            const profileCard = document.getElementById('profileCard');
+
+            profileBtn.addEventListener('click', function (e) {
+
+                e.stopPropagation();
+
+                profileCard.classList.toggle('hidden');
+
+            });
+
+            profileCard.addEventListener('click', function (e) {
+
+                e.stopPropagation();
+
+            });
+
+            document.addEventListener('click', function () {
+
+                profileCard.classList.add('hidden');
+
+            });
+        </script>
 
     </body>
-    </x-layout.layout>
+</x-layout.layout>

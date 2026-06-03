@@ -10,7 +10,7 @@ function closeTambahModal() {
     modal.classList.remove("flex");
 }
 
-function openEditModal(btn, id_user,nama, nip, email, id_prodi ,nama_prodi) {
+function openEditModal(btn, id_user, nama, nip, email, id_prodi, nama_prodi) {
     const modal = document.getElementById("modaledit");
 
     modal.classList.remove("hidden");
@@ -45,3 +45,38 @@ function hapusData(id_user) {
         document.getElementById(`deleteForm${id_user}`).submit();
     }
 }
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-[120%]');
+    overlay.classList.toggle('hidden');
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-[120%]');
+    overlay.classList.add('hidden');
+});
+const profileBtn = document.getElementById('profileBtn');
+const profileCard = document.getElementById('profileCard');
+
+profileBtn.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+    profileCard.classList.toggle('hidden');
+
+});
+
+profileCard.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+});
+
+document.addEventListener('click', function () {
+
+    profileCard.classList.add('hidden');
+
+});
