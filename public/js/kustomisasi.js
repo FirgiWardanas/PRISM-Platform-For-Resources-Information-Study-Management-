@@ -135,7 +135,7 @@ function closeModalEdit() {
     m.classList.remove('flex');
 }
 
-// Satu fungsi editProfil saja (hapus yang lama)
+// Satu fungsi editProfil 
 function editProfil(btn) {
     const id        = btn.dataset.id;
     const judul     = btn.dataset.judul;
