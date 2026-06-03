@@ -2,64 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kurikulum;
+use App\Models\Prodi;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 
 class DashboardKurikulumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $user = auth()->user();
+        $idProdi = $user->id_prodi;
 
-    return view('admin.tim_kurikulum.dashboard');
-    }
+        // ── Stat Cards ──────────────────────────────────────────────
+        // Jumlah seluruh prodi di sistem
+        $jumlahProdi = Prodi::count();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Jumlah kurikulum milik prodi user ini
+        $jumlahKurikulum = Kurikulum::where('id_prodi', $idProdi)->count();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Kurikulum aktif milik prodi user
+        $kurikulumAktif = Kurikulum::with([
+                'detailKurikulums.matakuliah',
+                'detailKurikulums.silabus',
+            ])
+            ->where('id_prodi', $idProdi)
+            ->where('status_kurikulum', 'aktif')
+            ->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Jumlah total matakuliah unik di kurikulum aktif
+        $jumlahMatakuliah = $kurikulumAktif
+            ? $kurikulumAktif->detailKurikulums->count()
+            : 0;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // ── SKS per Semester (dari kurikulum aktif) ──────────────────
+        $sksPerSemester = [];
+        if ($kurikulumAktif) {
+            $grouped = $kurikulumAktif->detailKurikulums->groupBy('semester');
+            for ($i = 1; $i <= $kurikulumAktif->total_semester; $i++) {
+                $sksPerSemester[$i] = $grouped->get($i, collect())->sum('sks');
+            }
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // ── Kategori Matakuliah (dari kurikulum aktif) ───────────────
+        $kategoriMatakuliah = [
+            'langsung'       => 0,
+            'tidak langsung' => 0,
+            'pendukung'      => 0,
+        ];
+        if ($kurikulumAktif) {
+            foreach ($kurikulumAktif->detailKurikulums as $detail) {
+                $kat = $detail->status_matkul;
+                if (array_key_exists($kat, $kategoriMatakuliah)) {
+                    $kategoriMatakuliah[$kat]++;
+                }
+            }
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // ── Semua kurikulum (untuk accordion) ───────────────────────
+        // Gunakan kurikulum aktif saja di dashboard; tampilkan per semester
+        $semesterData = [];
+        if ($kurikulumAktif) {
+            $grouped = $kurikulumAktif->detailKurikulums->groupBy('semester');
+            for ($i = 1; $i <= $kurikulumAktif->total_semester; $i++) {
+                $semesterData[$i] = $grouped->get($i, collect());
+            }
+        }
+
+        return view('admin.tim_kurikulum.dashboard', compact(
+            'jumlahProdi',
+            'jumlahKurikulum',
+            'jumlahMatakuliah',
+            'kurikulumAktif',
+            'sksPerSemester',
+            'kategoriMatakuliah',
+            'semesterData',
+        ));
     }
 }
