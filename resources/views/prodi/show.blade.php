@@ -25,17 +25,19 @@
             --color-quaternary: {{ $quaternary }};
         }
         .navbar-bg   { background-color: var(--color-primary); }
-        .btn-login   { background: linear-gradient(to right, var(--color-quaternary), var(--color-secondary)); }
+        .btn-login   { background: var(--color-quaternary) }
         .btn-login:hover { opacity: 0.85; }
         .nav-hover:hover { color: var(--color-quaternary); }
         .text-primary-color  { color: var(--color-primary); }
         .text-secondary-color { color: var(--color-secondary); }
         .text-tertiary-color  { color: var(--color-tertiary); }
-        .profil-slide { background: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary)); }
-        .tab-bg        { background-color: color-mix(in srgb, var(--color-tertiary) 40%, white); }
+        .profil-slide { background: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary), var(--color-tertiary)); }
+        .tab-bg {background-color: color-mix(in srgb, var(--color-secondary) 20%, white); color: var(--color-primary);
+        }
+        #tab1:checked + label,#tab2:checked + label {background-color: color-mix(in srgb, var(--color-secondary) 60%, white);color: white;
+        }
         .tab-active-bg { background-color: color-mix(in srgb, var(--color-secondary) 60%, white); }
         .tab-text      { color: var(--color-primary); }
-        .copyright-bg  { background: linear-gradient(to right, var(--color-tertiary), var(--color-secondary)); }
         .visi-nomor    { color: color-mix(in srgb, var(--color-tertiary) 60%, white); }
     </style>
 </head>
@@ -47,19 +49,28 @@
 
         {{-- SVG Header sebagai background --}}
         <div class="absolute inset-0 z-0">
-            <svg class="w-full h-full" viewBox="0 0 1441 935" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="1440" height="935" fill="url(#headerGrad)"/>
-                <rect x="1" y="783" width="1440" height="152" fill="url(#headerGrad2)"/>
+           <svg class="w-full h-full" viewBox="0 0 1441 750" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background utama -->
+                <rect width="1440" height="750" fill="url(#headerGrad)"/>
+                <!-- Fade putih -->
+                <rect width="1440" height="750" fill="url(#fadeWhite)"/>
                 <defs>
-                    <linearGradient id="headerGrad" x1="1052" y1="935" x2="626.726" y2="-2.37117" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="{{ $tertiary }}"/>
-                        <stop offset="0.485577" stop-color="{{ $secondary }}"/>
-                        <stop offset="1" stop-color="{{ $primary }}"/>
+                    <!-- Gradient utama -->
+                    <linearGradient id="headerGrad" x1="1052" y1="750" x2="626" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="{{ $tertiary }}"/>
+                        <stop offset="45%" stop-color="{{ $secondary }}"/>
+                        <stop offset="100%" stop-color="{{ $primary }}"/>
                     </linearGradient>
-                    <linearGradient id="headerGrad2" x1="672.5" y1="783" x2="675.299" y2="934.902" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="white" stop-opacity="0"/>
-                        <stop offset="0.5" stop-color="white" stop-opacity="0.28"/>
-                        <stop offset="1" stop-color="white"/>
+                    <!-- Fade putih yang sangat smooth -->
+                    <linearGradient id="fadeWhite" x1="720" y1="0" x2="720" y2="750" gradientUnits="userSpaceOnUse">
+                        <stop offset="30%" stop-color="white" stop-opacity="0"/>
+                        <stop offset="45%" stop-color="white" stop-opacity="0.02"/>
+                        <stop offset="60%" stop-color="white" stop-opacity="0.08"/>
+                        <stop offset="72%" stop-color="white" stop-opacity="0.18"/>
+                        <stop offset="82%" stop-color="white" stop-opacity="0.35"/>
+                        <stop offset="90%" stop-color="white" stop-opacity="0.60"/>
+                        <stop offset="96%" stop-color="white" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="white" stop-opacity="1"/>
                     </linearGradient>
                 </defs>
             </svg>
@@ -116,8 +127,9 @@
                     @endif
                     <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">{{ $prodi->nama_prodi }}</h1>
                     <h3 class="text-sm sm:text-base md:text-lg lg:text-2xl text-white/60 font-semibold">Program Studi {{ $prodi->jenjang }}</h3>
-                    <button class="btn-login shadow-2xl px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-lg font-bold mt-5 transition hover:scale-105 cursor-pointer">
-                        Selengkapnya
+                    <button class="btn-login shadow-2xl px-12 md:px-12  py-3 md:py-3 rounded-full text-sm md:text-lg font-bold mt-5 transition hover:scale-105 cursor-pointer">
+                        <a href="#kurikulum">
+                        Kurikulum</a>
                     </button>
                 </div>
                 <div class="flex justify-center">
@@ -143,9 +155,14 @@
     <section id="visimisi" class="py-20 relative overflow-hidden flex flex-col justify-center items-center mb-40">
 
         {{-- Ring dekorasi SVG kiri --}}
-        <div class="absolute top-20 -left-20 w-80 z-0">
-            <svg width="439" height="439" viewBox="0 0 439 439" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="219.5" cy="219.5" r="179.5" stroke="url(#ringGradLeft)" stroke-width="80"/>
+        <div class="absolute top-25 -left-12 w-40 sm:w-50 md:w-60 lg:w-80 z-0">
+            <svg class="w-full h-auto"
+                viewBox="0 0 439 439"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="219.5" cy="219.5" r="179.5"
+                        stroke="url(#ringGradLeft)"
+                        stroke-width="80"/>
                 <defs>
                     <linearGradient id="ringGradLeft" x1="105.605" y1="35.4126" x2="433.895" y2="321.087" gradientUnits="userSpaceOnUse">
                         <stop stop-color="{{ $primary }}"/>
@@ -157,9 +174,14 @@
         </div>
 
         {{-- Ring dekorasi SVG kanan --}}
-        <div class="absolute bottom-0 -right-20 w-80 z-0">
-            <svg width="439" height="439" viewBox="0 0 439 439" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="219.5" cy="219.5" r="179.5" stroke="url(#ringGradRight)" stroke-width="80"/>
+        <div class="absolute bottom-0 -right-12 w-40 sm:w-50 md:w-60 lg:w-80 z-0">
+            <svg class="w-full h-auto"
+                viewBox="0 0 439 439"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="219.5" cy="219.5" r="179.5"
+                        stroke="url(#ringGradRight)"
+                        stroke-width="80"/>
                 <defs>
                     <linearGradient id="ringGradRight" x1="105.605" y1="35.4126" x2="433.895" y2="321.087" gradientUnits="userSpaceOnUse">
                         <stop stop-color="{{ $primary }}"/>
@@ -374,7 +396,7 @@
     @foreach($semuaProdi as $p)
         <li>
             <a href="{{ route('prodi.show', $p->kode_prodi) }}"
-               class="hover:text-white transition duration-200 {{ $p->kode_prodi === $prodi->kode_prodi ? 'text-white font-bold' : 'text-white/80' }}">
+               class="hover:text-white transition duration-200 {{ $p->kode_prodi === $prodi->kode_prodi ? 'text-white' : 'text-white opacity-80' }}">
                 {{ $p->nama_prodi }}
             </a>
         </li>
@@ -383,11 +405,36 @@
             </div>
             <div>
                 <h2 class="font-semibold text-lg mb-3">Menu</h2>
-                <ul class="space-y-2 text-sm text-white/80">
-                    <li>Beranda</li>
-                    <li>Tentang Kami</li>
-                    <li>Program Studi</li>
-                    <li>Kontak</li>
+                <ul class="space-y-2 text-sm">
+                    <li>
+                        <a href="#home" class="text-white/80 hover:text-white transition duration-200">
+                            Beranda
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#tentang" class="text-white/80 hover:text-white transition duration-200">
+                            Tentang Kami
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#visimisi" class="text-white/80 hover:text-white transition duration-200">
+                            Visi Misi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#kurikulum" class="text-white/80 hover:text-white transition duration-200">
+                            Kurikulum
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#dosen" class="text-white/80 hover:text-white transition duration-200">
+                            Dosen
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div>
@@ -401,7 +448,7 @@
             </div>
         </div>
 
-        <div class="relative z-10 copyright-bg text-center text-sm py-2">
+        <div class="relative z-10 copyright-bg text-center text-sm py-2 bg-gradient-to-r from-[#470398] via-[#1F41A9] to-[#00A5FE]">
             ©2026 Platform for Resource & Study Management
         </div>
     </footer>
