@@ -193,3 +193,39 @@ function hapusData(id_dosen) {
         document.getElementById(`deleteForm${id_dosen}`).submit();
     }
 }
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-[120%]');
+    overlay.classList.toggle('hidden');
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-[120%]');
+    overlay.classList.add('hidden');
+});
+
+const profileBtn = document.getElementById('profileBtn');
+const profileCard = document.getElementById('profileCard');
+
+profileBtn.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+    profileCard.classList.toggle('hidden');
+
+});
+
+profileCard.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+});
+
+document.addEventListener('click', function () {
+
+    profileCard.classList.add('hidden');
+
+});
