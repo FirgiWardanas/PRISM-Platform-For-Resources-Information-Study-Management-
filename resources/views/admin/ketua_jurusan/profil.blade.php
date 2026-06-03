@@ -2,11 +2,14 @@
 
     <body class="font-montserrat bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
+        {{-- sidebar --}}
         <x-admin.sidebar></x-admin.sidebar>
 
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
+        {{-- main content --}}
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+            {{-- header --}}
             <x-admin.header>Kelola Akun</x-admin.header>
 
             <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
@@ -32,8 +35,7 @@
                 </div>
 
                 {{-- Baris bawah --}}
-                <div
-                    class="mt-8 flex flex-col gap-3 md:absolute md:bottom-6 md:left-8 md:right-8 md:flex-row md:justify-between">
+                <div class="mt-8 flex flex-col gap-3 md:absolute md:bottom-6 md:left-8 md:right-8 md:flex-row md:justify-between">
 
                     <div>
                         @if($pendingTransfer)
