@@ -310,6 +310,7 @@
                 profileCard.classList.add('hidden');
 
             });
+
         </script>
 
     </body>
