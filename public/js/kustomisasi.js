@@ -2,8 +2,8 @@
 // COLOR PICKER SYNC
 // =============================================
 ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
-    const picker  = document.getElementById('picker-' + name);
-    const input   = document.getElementById('input-' + name);
+    const picker = document.getElementById('picker-' + name);
+    const input = document.getElementById('input-' + name);
     const preview = document.getElementById('preview-' + name);
 
     if (!picker || !input || !preview) return;
@@ -26,7 +26,7 @@
 // IMAGE PREVIEW
 // =============================================
 function setupImagePreview(inputId, previewId) {
-    const input   = document.getElementById(inputId);
+    const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
 
     if (!input || !preview) return;
@@ -53,17 +53,17 @@ function setupImagePreview(inputId, previewId) {
 }
 
 function removeImage(inputId, previewId) {
-    const input   = document.getElementById(inputId);
+    const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
 
-    if (input)   input.value = '';
+    if (input) input.value = '';
     if (preview) preview.innerHTML = `<img src="/images/icon-upload.svg" class="w-17 h-17">`;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    setupImagePreview('input-logo',      'preview-logo');
+    setupImagePreview('input-logo', 'preview-logo');
     setupImagePreview('input-ilustrasi', 'preview-ilustrasi');
-    setupImagePreview('input-icon',      'preview-icon');
+    setupImagePreview('input-icon', 'preview-icon');
 });
 
 // =============================================
@@ -82,12 +82,12 @@ function closeModal() {
 }
 
 function editProfil(button) {
-    const id        = button.dataset.id;
-    const judul     = button.dataset.judul;
+    const id = button.dataset.id;
+    const judul = button.dataset.judul;
     const deskripsi = button.dataset.deskripsi;
 
-    document.getElementById('editJudul').value       = judul;
-    document.getElementById('editDeskripsi').value   = deskripsi;
+    document.getElementById('editJudul').value = judul;
+    document.getElementById('editDeskripsi').value = deskripsi;
     document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
 
     const m = document.getElementById('modalEditProfil');
@@ -135,8 +135,8 @@ function resetForm() {
 
     // Reset warna ke hitam
     ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
-        const input   = document.getElementById('input-' + name);
-        const picker  = document.getElementById('picker-' + name);
+        const input = document.getElementById('input-' + name);
+        const picker = document.getElementById('picker-' + name);
         const preview = document.getElementById('preview-' + name);
         if (!input || !picker || !preview) return;
 
@@ -147,9 +147,54 @@ function resetForm() {
 
     // Reset preview gambar
     ['logo', 'ilustrasi', 'icon'].forEach(function (name) {
-        const input   = document.getElementById('input-' + name);
+        const input = document.getElementById('input-' + name);
         const preview = document.getElementById('preview-' + name);
-        if (input)   input.value = '';
+        if (input) input.value = '';
         if (preview) preview.innerHTML = `<img src="/images/icon-upload.svg" class="w-17 h-17">`;
     });
 }
+//mobile
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-[120%]');
+    overlay.classList.toggle('hidden');
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-[120%]');
+    overlay.classList.add('hidden');
+});
+
+
+function toggleProfileCard() {
+    document
+        .getElementById('profileCard')
+        .classList
+        .toggle('hidden');
+}
+//mobile
+const profileBtn = document.getElementById('profileBtn');
+const profileCard = document.getElementById('profileCard');
+
+profileBtn.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+    profileCard.classList.toggle('hidden');
+
+});
+
+profileCard.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+});
+
+document.addEventListener('click', function () {
+
+    profileCard.classList.add('hidden');
+
+});

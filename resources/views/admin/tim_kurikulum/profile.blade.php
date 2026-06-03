@@ -1,62 +1,28 @@
 <x-layout.layout>
 
     <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
+        {{-- sidebbar --}}
+        <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
+        <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
+        </div>
+        <!-- Main -->
+        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+            {{-- header --}}
+            <x-admin.header_kurikulum>Profile</x-admin.header-kurikulum>
 
-        <div class="flex h-screen p-4">
+                <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
-            <!-- Sidebar -->
-            <aside class="w-64 rounded-3xl bg-white p-5 shadow-lg border border-gray-300">
-                <div class="mb-10 flex items-center gap-3">
-                    <div class="h-12 w-20 rounded-full bg-cover bg-center"
-                        style="background-image: url('{{ asset('images/logo prism.svg') }}');"></div>
-                    <div>
-                        <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
-                        <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
-                    </div>
-                </div>
-
-                        <nav class="space-y-3">
-                <a href="/admin/tim-kurikulum"
-                    class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                    <img src="{{ asset('images/Structure.svg') }}" class="h-4 w-4">Dashboard</a>
-                <a href="/admin/kurikulum"
-                    class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                    <img src="{{ asset('images/icon-kurikulum(biru).svg') }}" class="h-4 w-4 mb-1">Kurikulum</a>
-                <a href="/admin/matakuliah"
-                    class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                    <img src="{{ asset('images/icon-matakuliah.svg') }}" class="h-4 w-4">Matakuliah</a>
-                <a href="/admin/kustomisasi"
-                    class="flex items-center gap-0 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200">
-                    <img src="{{ asset('images/icon-kustomisasi (biru).svg') }}" class="h-4 w-4">Kustomisasi</a>
-                <a href="/admin/profile-tim-kurikulum"
-                    class="flex items-center gap-0 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow">
-                    <img src="{{ asset('images/icon-profile (putih).svg') }}" class="h-4 w-4">Profile</a>
-            </nav>
-            </aside>
-
-            <!-- Main -->
-            <main class="ml-6 flex-1">
-
-                <div class="flex items-start justify-between mb-6">
-                    <h1 class="text-2xl font-semibold">Profile</h1>
-                    <div class="flex flex-col items-end gap-6">
-                        <img src="{{ asset('images/Profile Circle.svg') }}" alt="profil"
-                            class="w-12 h-12 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
-                    </div>
-                </div>
-
-                <div class="relative flex justify-between rounded-2xl bg-white p-10 shadow-xl h-[300px] border border-gray-300">
-
-                    <!-- Pensil -->
-                    <button onclick="openModal()"
-                        class="absolute top-5 right-5 text-gray-500 hover:text-blue-500 text-xl w-6 h-6 cursor-pointer">
-                        <img src="{{ asset('images/update button.png') }}" alt="icon" width="20" height="20">
+                    <!-- Edit -->
+                    <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer">
+                        <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20">
                     </button>
 
                     <!-- Kiri -->
-                    <div class="flex items-center gap-8">
-                        <div class="h-20 w-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-500"></div>
-                        <div class="text-sm text-gray-700 space-y-1">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <img src="{{ asset('images/Profile-Circle.png') }}" alt="profil"
+                            class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
+
+                        <div class="text-sm text-gray-700 space-y-1 text-center md:text-left">
                             <h2 class="text-lg font-semibold mb-2">{{ $user->nama }}</h2>
                             <p>Nama : <span>{{ $user->nama }}</span></p>
                             <p>NIP : <span>{{ $user->nip }}</span></p>
@@ -66,21 +32,21 @@
                     </div>
 
                     <!-- Logout -->
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}" class="mt-6 md:absolute md:bottom-6 md:right-8">
                         @csrf
                         <button type="submit"
-                            class="flex items-center gap-1 mt-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white shadow hover:opacity-90">
-                            Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4">
+                            class="w-full md:w-auto flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer">
+                            Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 mt-1">
                         </button>
                     </form>
 
                 </div>
 
-            </main>
-        </div>
+        </main>
 
-        <!-- MODAL -->
-        <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
+
+        <!-- MODAL edit profile -->
+        <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
 
                 <button onclick="closeModal()"
@@ -100,33 +66,33 @@
                             <span>Nama</span>
                             <input type="text" name="nama" value="{{ $user->nama }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                                 @error('nama')
-                                    <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
-                                @enderror
+                            @error('nama')
+                                <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
+                            @enderror
                         </label>
                         <label>
                             <span>NIP</span>
                             <input type="text" name="nip" value="{{ $user->nip }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                                @error('nip')
-                                    <p class="text-red-500 text-xs mb-2">NIP sudah digunakan, silakan gunakan NIP lain.</p>
-                                @enderror
+                            @error('nip')
+                                <p class="text-red-500 text-xs mb-2">NIP sudah digunakan, silakan gunakan NIP lain.</p>
+                            @enderror
                         </label>
                         <label>
                             <span>Email</span>
                             <input type="email" name="email" value="{{ $user->email }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                                @error('email')
-                                    <p class="text-red-500 text-xs mb-2">Email sudah digunakan, silakan gunakan email lain.</p>
-                                @enderror   
+                            @error('email')
+                                <p class="text-red-500 text-xs mb-2">Email sudah digunakan, silakan gunakan email lain.</p>
+                            @enderror
                         </label>
                         <label>
                             <span>Password Baru (kosongkan jika tidak diubah)</span>
                             <input type="password" name="password" placeholder="Masukkan Password Baru"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-5">
-                                  @error('password')
-                                        <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
-                                    @enderror
+                            @error('password')
+                                <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
+                            @enderror
                         </label>
                         <div class="flex justify-center">
                             <button type="submit"
@@ -140,45 +106,91 @@
             </div>
         </div>
         <!-- POPUP SUCCESS -->
-        <div id="successPopup" class="fixed top-5 right-5 hidden bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg">
+        <div id="successPopup"
+            class="fixed top-5 right-5 hidden bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg">
             ✅ Data berhasil disimpan
         </div>
 
     </body>
-     <script>
+    <script>
         @if(session('success'))
-        document.addEventListener('DOMContentLoaded', function() {
-            const popup = document.getElementById('successPopup');
-            popup.classList.remove('hidden');
-            setTimeout(function() {
-                popup.classList.add('hidden');
-            }, 3000);
-        });
+            document.addEventListener('DOMContentLoaded', function () {
+                const popup = document.getElementById('successPopup');
+                popup.classList.remove('hidden');
+                setTimeout(function () {
+                    popup.classList.add('hidden');
+                }, 3000);
+            });
         @endif
 
         @if(session('info'))
-        document.addEventListener('DOMContentLoaded', function() {
-            openModal();
-            alert('{{ session("info") }}');
-        });
+            document.addEventListener('DOMContentLoaded', function () {
+                openModal();
+                alert('{{ session("info") }}');
+            });
         @endif
 
         @if($errors->any())
-        document.addEventListener('DOMContentLoaded', function() {
-            openModal();
-        });
+            document.addEventListener('DOMContentLoaded', function () {
+                openModal();
+            });
         @endif
 
-        function openModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+            function openModal() {
+                const modal = document.getElementById('modal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
 
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
+        //mobile
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-[120%]');
+            overlay.classList.toggle('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-[120%]');
+            overlay.classList.add('hidden');
+        });
+
+
+        function toggleProfileCard() {
+            document
+                .getElementById('profileCard')
+                .classList
+                .toggle('hidden');
+        }
+        //mobile
+        const profileBtn = document.getElementById('profileBtn');
+        const profileCard = document.getElementById('profileCard');
+
+        profileBtn.addEventListener('click', function (e) {
+
+            e.stopPropagation();
+
+            profileCard.classList.toggle('hidden');
+
+        });
+
+        profileCard.addEventListener('click', function (e) {
+
+            e.stopPropagation();
+
+        });
+
+        document.addEventListener('click', function () {
+
+            profileCard.classList.add('hidden');
+
+        });
     </script>
 </x-layout.layout>
