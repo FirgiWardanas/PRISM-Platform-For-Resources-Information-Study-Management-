@@ -16,8 +16,8 @@
     <nav class="space-y-3">
         {{-- dashboar --}}
         <a href="/admin/ketua-jurusan" class="{{ request()->is('admin/ketua-jurusan')
-    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'
-    : 'flex items-center gap-0.5 rounded-full px-4 py-3 text-blue-600 hover:bg-gray-100' }}">
+    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
+    : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
             <img src="{{ request()->is('admin/ketua-jurusan')
     ? asset('images/icon-dashboard (putih).svg')
@@ -27,8 +27,8 @@
         </a>
         {{-- program-studi --}}
         <a href="/admin/program-studi" class="{{ request()->is('admin/program-studi')
-    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'
-    : 'flex items-center gap-0.5 rounded-full px-4 py-3 text-blue-600 hover:bg-gray-100' }}">
+    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
+    : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
             <img src="{{ request()->is('admin/program-studi')
     ? asset('images/icon-program studi(putih).svg')
@@ -38,8 +38,8 @@
         </a>
         {{-- akun --}}
         <a href="/admin/akun" class="{{ request()->is('admin/akun')
-    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'
-    : 'flex items-center gap-0.5 rounded-full px-4 py-3 text-blue-600 hover:bg-gray-100' }}">
+    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
+    : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
             <img src="{{ request()->is('admin/akun')
     ? asset('images/icon-dosen(putih).svg')
@@ -49,8 +49,8 @@
         </a>
         {{-- kelola-dosen --}}
         <a href="/admin/kelola-dosen" class="{{ request()->is('admin/kelola-dosen')
-    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'
-    : 'flex items-center gap-0.5 rounded-full px-4 py-3 text-blue-600 hover:bg-gray-100' }}">
+    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
+    : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
             <img src="{{ request()->is('admin/kelola-dosen')
     ? asset('images/icon-akun(putih).svg')
@@ -60,8 +60,8 @@
         </a>
         {{-- profile --}}
         <a href="/admin/profile-ketua-jurusan" class="{{ request()->is('admin/profile-ketua-jurusan')
-    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] px-4 py-3 text-white shadow'
-    : 'flex items-center gap-0.5 rounded-full px-4 py-3 text-blue-600 hover:bg-gray-100' }}">
+    ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
+    : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
             <img src="{{ request()->is('admin/profile-ketua-jurusan')
     ? asset('images/icon-profil(putih).svg')

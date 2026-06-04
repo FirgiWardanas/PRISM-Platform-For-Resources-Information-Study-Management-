@@ -9,15 +9,15 @@
         <!-- Main Content -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             <!-- Header -->
-            <x-admin.header>Kelola Akun </x-admin.header>
+            <x-admin.header>Program Studi</x-admin.header>
 
+            <div class="flex justify-end">
+                <button onclick="openTambahModal()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
+                    Tambah +
+                </button>
+            </div>
 
-            <button onclick="openTambahModal()"
-                class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
-                Tambah +
-            </button>
-            </div>
-            </div>
 
             <!-- LIST CARD -->
             <div class="space-y-4">
@@ -48,10 +48,10 @@
 
                             <div class="flex gap-2 ml-4">
                                 <button onclick="openEditModal(this,
-                                            '{{ $p->id_prodi }}',
-                                            '{{ $p->kode_prodi }}',
-                                            '{{ $p->nama_prodi }}',
-                                            '{{ $p->jenjang }}')"
+                                                        '{{ $p->id_prodi }}',
+                                                        '{{ $p->kode_prodi }}',
+                                                        '{{ $p->nama_prodi }}',
+                                                        '{{ $p->jenjang }}')"
                                     class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm cursor-pointer">
                                     Edit
                                 </button>
@@ -72,10 +72,10 @@
 
                             <div class="flex flex-col gap-2 mt-4">
                                 <button onclick="openEditModal(this,
-                                            '{{ $p->id_prodi }}',
-                                            '{{ $p->kode_prodi }}',
-                                            '{{ $p->nama_prodi }}',
-                                            '{{ $p->jenjang }}')"
+                                                        '{{ $p->id_prodi }}',
+                                                        '{{ $p->kode_prodi }}',
+                                                        '{{ $p->nama_prodi }}',
+                                                        '{{ $p->jenjang }}')"
                                     class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
                                     Edit
                                 </button>
