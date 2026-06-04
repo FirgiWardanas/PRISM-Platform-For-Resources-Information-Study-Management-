@@ -74,3 +74,9 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
         Route::delete('/profil-lulusan/{id}', [KustomisasiController::class, 'destroyProfilLulusan'])
             ->name('profil-lulusan.destroy');
     });
+
+
+    Route::prefix('transfer')->name('transfer.')->group(function () {
+    Route::get('confirm/{token}',  [ProfileKajurController::class, 'showConfirmPage'])->name('confirm');
+    Route::post('confirm/{token}', [ProfileKajurController::class, 'processConfirm'])->name('confirm.process');
+});
