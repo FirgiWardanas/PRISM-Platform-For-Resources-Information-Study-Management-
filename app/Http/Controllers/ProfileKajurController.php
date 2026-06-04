@@ -26,6 +26,17 @@ class ProfileKajurController extends Controller
         return view('admin.ketua_jurusan.profil', compact('user', 'pendingTransfer'));
     }
 
+
+    public function show($id)
+{
+    $user = User::findOrFail($id);
+
+    return view(
+        'admin.ketua_jurusan.profil',
+        compact('user')
+    );
+}
+
     // ── Update profil biasa ───────────────────────────────────────────────
     public function update(Request $request, $id)
     {
@@ -33,8 +44,8 @@ class ProfileKajurController extends Controller
 
         $request->validate([
             'nama'     => 'required|string|max:255',
-            'nip'      => 'required|unique:users,nip,' . $user->id_user . ',id_user',
-            'email'    => 'required|email|unique:users,email,' . $user->id_user . ',id_user',
+            'nip'      => 'required|unique:user,nip,' . $user->id_user . ',id_user',
+            'email'    => 'required|email|unique:user,email,' . $user->id_user . ',id_user',
             'password' => 'nullable|min:6',
         ]);
 
