@@ -10,7 +10,7 @@
         {{-- main content --}}
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header>Kelola Akun</x-admin.header>
+            <x-admin.header>Profile</x-admin.header>
 
             <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
