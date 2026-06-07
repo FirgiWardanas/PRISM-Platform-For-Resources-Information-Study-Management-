@@ -56,7 +56,7 @@
     </div>
 
     {{-- COPYRIGHT --}}
-    <div class="bg-gradient-to-r from-[#FF7700] to-[#FFA600] text-center text-sm py-2">
+    <div class="bg-gradient-to-r from-[#470398] via-[#1F41A9] to-[#00A5FE] text-center text-sm py-2">
         ©2026 Platform for Resource & Study Management
     </div>
 
