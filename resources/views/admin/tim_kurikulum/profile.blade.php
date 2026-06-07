@@ -27,7 +27,6 @@
                             <p>Nama : <span>{{ $user->nama }}</span></p>
                             <p>NIP : <span>{{ $user->nip }}</span></p>
                             <p>Email : <span>{{ $user->email }}</span></p>
-                            <p>Password : <span>••••••••</span></p>
                         </div>
                     </div>
 

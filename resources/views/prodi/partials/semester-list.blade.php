@@ -59,6 +59,20 @@
                                                     "bahan_pustaka": "{{ addslashes($detail->silabus?->bahan_pustaka ?? '') }}",
                                                     "file_rps":      "{{ $detail->silabus?->file_rps ?? '' }}"
                                                 })'>
+                                                @if($detail->silabus?->file_rps)
+                                        <a href="{{ Storage::url($detail->silabus->file_rps) }}"
+                                        download
+                                        title="Download RPS"
+                                        class="text-blue-600 hover:text-blue-800 transition">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 sm:w-5 h-4 sm:h-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2
+                                                        M7 10l5 5 5-5
+                                                        M12 15V3"/>
+                                            </svg>
+                                        </a>
+                                    @endif
                                         </td>
                                     </tr>
                                 @empty

@@ -37,41 +37,41 @@
                     {{-- ── STAT CARDS ── --}}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-                        {{-- Program Studi --}}
+                        {{-- Kurikulum --}}
                         <div
                             class="bg-white rounded-[24px] p-5 border border-[#DDE8FF] shadow-[#0447945a] shadow-lg relative overflow-hidden">
                             <div
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#067AFA] to-[#044894]">
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">
-                                    <img src="{{ asset('images/logo-prodi(biru).png') }}" alt="">
+                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">    
+                                   <img class="relative bottom-1" src="{{ asset('images/logo-kurikulum(ungu).png') }}"
+                                        alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#044894] font-semibold text-sm">Program Studi</p>
+                                    <p class="text-[#044894] font-semibold text-sm">Kurikulum</p>
                                     <h1 class="text-[40px] font-extrabold text-[#044894] leading-none">
-                                        {{ $jumlahProdi }}
+                                        {{ $jumlahKurikulum }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Kurikulum --}}
-                        <div
-                            class="bg-white rounded-[24px] p-5 border border-[#E8D7FF] shadow-[#5200c663] shadow-lg relative overflow-hidden">
+                        {{-- MataKuliah --}}
+                         <div
+                            class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c6] shadow-lg relative overflow-hidden">
                             <div
-                                class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9A55FF] to-[#5100C6]">
+                                class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9a55ff] to-[#5100c6]">
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 rounded-full bg-[#9955ff7a] flex items-center justify-center">
-                                    <img class="relative bottom-1" src="{{ asset('images/logo-kurikulum(ungu).png') }}"
-                                        alt="">
+                                    <img src="{{ asset('images/Book (1).png') }}" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#5100C6] font-semibold text-sm">Kurikulum</p>
-                                    <h1 class="text-[40px] font-extrabold text-[#5100C6] leading-none">
-                                        {{ $jumlahKurikulum }}
-                                    </h1>
+                                    <p class="text-[#5100c6] font-semibold text-sm">Total Mata Kuliah</p>
+                                    <h1 class="text-[40px] font-extrabold text-[#5100c6] leading-none">
+                                        {{ $jumlahMatakuliah }}
+                                    </h1>   
                                 </div>
                             </div>
                         </div>
@@ -87,14 +87,13 @@
                                     <img src="{{ asset('images/logo-matakuliah(ungu).png') }}" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#A900C7] font-semibold text-sm">Mata Kuliah</p>
+                                    <p class="text-[#A900C7] font-semibold text-sm">Mata Kuliah Aktif</p>
                                     <h1 class="text-[40px] font-extrabold text-[#A900C7] leading-none">
-                                        {{ $jumlahMatakuliah }}
+                                        {{ $jumlahMatakuliahAktif }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     {{-- ── CHART + KATEGORI ── --}}

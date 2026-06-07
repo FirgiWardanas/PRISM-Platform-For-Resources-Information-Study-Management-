@@ -30,7 +30,6 @@
                         <p>NIP : {{ $user->nip }}</p>
                         <p>Email : {{ $user->email }}</p>
                         <p>Program studi : Teknik Informatika</p>
-                        <p>Password : ••••••••</p>
                     </div>
                 </div>
 

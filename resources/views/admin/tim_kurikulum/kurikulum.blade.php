@@ -381,26 +381,37 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
 
-                        {{-- PILIH MATAKULIAH --}}
-                        <div class="col-span-2">
-                            <label class="block">
-                                <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
-                                <div class="relative mt-1">
-                                    <select name="id_MK"
-                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
-                                        required>
-                                        <option value="">-- Pilih Matakuliah --</option>
-                                        @foreach($matakuliahs as $mk)
-                                            <option value="{{ $mk->id_MK }}">{{ $mk->kode_matkul }} — {{ $mk->nama_matkul }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
+                       {{-- PILIH MATAKULIAH --}}
+                            <div class="col-span-2">
+                                <label class="block">
+                                    <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
+                                    <div class="relative mt-1" x-data="mkSearch()">
+                                        <input type="hidden" name="id_MK" :value="selectedId">
+                                        <input
+                                            type="text"
+                                            x-model="query"
+                                            @input="search()"
+                                            @focus="open = true; filtered = all"
+                                            @click.outside="open = false"
+                                            @keydown.escape="open = false"
+                                            placeholder="Cari kode / nama matakuliah..."
+                                            class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
+                                        />
+                                        <ul x-show="open && filtered.length > 0" x-transition
+                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                                            <template x-for="mk in filtered" :key="mk.id">
+                                                <li @click="select(mk)"
+                                                    class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
+                                                    x-text="mk.label"></li>
+                                            </template>
+                                        </ul>
+                                        <div x-show="open && query.length > 0 && filtered.length === 0"
+                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
+                                            Matakuliah tidak ditemukan.
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </div>
+                                </label>
+                            </div>
 
                         {{-- KATEGORI --}}
                         <label class="block">
@@ -543,26 +554,37 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
 
-                        {{-- PILIH MATAKULIAH --}}
-                        <div class="col-span-2">
-                            <label class="block">
-                                <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
-                                <div class="relative mt-1">
-                                    <select name="id_MK" id="editIdMK"
-                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
-                                        required>
-                                        <option value="">-- Pilih Matakuliah --</option>
-                                        @foreach($matakuliahs as $mk)
-                                            <option value="{{ $mk->id_MK }}">{{ $mk->kode_matkul }} — {{ $mk->nama_matkul }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
-                                    </div>
+                       {{-- PILIH MATAKULIAH --}}
+                    <div class="col-span-2">
+                        <label class="block">
+                            <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
+                            <div class="relative mt-1" x-data="mkSearch()">
+                                <input type="hidden" name="id_MK" :value="selectedId">
+                                <input
+                                    type="text"
+                                    x-model="query"
+                                    @input="search()"
+                                    @focus="open = true; filtered = all"
+                                    @click.outside="open = false"
+                                    @keydown.escape="open = false"
+                                    placeholder="Cari kode / nama matakuliah..."
+                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
+                                />
+                                <ul x-show="open && filtered.length > 0" x-transition
+                                    class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                                    <template x-for="mk in filtered" :key="mk.id">
+                                        <li @click="select(mk)"
+                                            class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
+                                            x-text="mk.label"></li>
+                                    </template>
+                                </ul>
+                                <div x-show="open && query.length > 0 && filtered.length === 0"
+                                    class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
+                                    Matakuliah tidak ditemukan.
                                 </div>
-                            </label>
-                        </div>
+                            </div>
+                        </label>
+                    </div>
 
                         {{-- KATEGORI --}}
                         <label class="block">
@@ -765,7 +787,36 @@
                 @method('DELETE')
             </form>
         </div>
-
+    <script>
+function mkSearch() {
+    return {
+        query: '',
+        selectedId: '',
+        open: false,
+        all: @json($matakuliahs->map(fn($mk) => [
+            'id'    => $mk->id_MK,
+            'label' => $mk->kode_matkul . ' — ' . $mk->nama_matkul,
+        ])),
+        filtered: [],
+        search() {
+            this.selectedId = '';
+            const q = this.query.toLowerCase();
+            this.filtered = q
+                ? this.all.filter(mk => mk.label.toLowerCase().includes(q))
+                : this.all;
+        },
+        select(mk) {
+            this.selectedId = mk.id;
+            this.query      = mk.label;
+            this.open       = false;
+            this.filtered   = [];
+        },
+        init() {
+            this.filtered = this.all;
+        }
+    }
+}
+</script>
     </body>
     <script src="{{ asset('js/kurikulum.js') }}"></script>
 </x-layout.layout>
