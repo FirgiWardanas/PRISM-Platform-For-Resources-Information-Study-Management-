@@ -16,7 +16,6 @@ function closeTambahKurikulum() {
     modal.classList.remove('flex');
 }
 
-// Stepper semester tambah
 let valueTambah = 0;
 
 function updateUITambah() {
@@ -47,7 +46,6 @@ function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_ku
     document.getElementById('valueBoxEdit').innerText = valueEdit;
     document.getElementById('semesterInputEdit').value = valueEdit;
 
-    // Arahkan form ke kurikulum yang dipilih
     document.getElementById('formEdit').action = `/admin/kurikulum/${id_kurikulum}`;
 }
 
@@ -100,16 +98,24 @@ function closeAllSemester(kurikulumId) {
 }
 
 function openModalTambahMatkul(kurikulumId, semester) {
-    // Arahkan form ke endpoint kurikulum yang dipilih
     const form = document.getElementById('formTambahMatkul');
     form.action = `/admin/kurikulum/${kurikulumId}/detail`;
 
     form.reset();
 
-    // Isi ulang semester setelah reset
     document.getElementById('inputTambahSemester').value = semester;
 
     resetTambahFileArea();
+
+    // Reset Alpine search tambah
+    const mkSearchEl = document.querySelector('#modalTambahMatkul [x-data]');
+    if (mkSearchEl) {
+        const alpine = Alpine.$data(mkSearchEl);
+        alpine.query = '';
+        alpine.selectedId = '';
+        alpine.open = false;
+        alpine.filtered = alpine.all;
+    }
 
     const modal = document.getElementById('modalTambahMatkul');
     modal.classList.remove('hidden');
@@ -169,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Tutup modal saat klik backdrop
     ['modalTambahMatkul', 'modalEditMatkul', 'modalSilabus',
         'tambahkurikulum', 'editKurikulum'].forEach(function (id) {
             const el = document.getElementById(id);
@@ -186,11 +191,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function openModalEditMatkul(imgEl) {
     const d = imgEl.dataset;
 
-    // Arahkan form ke baris detail yang dipilih
     document.getElementById('formEditMatkul').action = `/admin/detail-kurikulum/${d.idDetail}`;
 
-    // Isi semua field dari data atribut
-    document.getElementById('editIdMK').value = d.idMk;
     document.getElementById('editSemester').value = d.semester;
     document.getElementById('editSks').value = d.sks;
     document.getElementById('editBobotTeori').value = d.bobotTeori;
@@ -198,6 +200,16 @@ function openModalEditMatkul(imgEl) {
     document.getElementById('editSesiTeori').value = d.sesiTeori;
     document.getElementById('editSesiPraktikum').value = d.sesiPraktikum;
     document.getElementById('editStatusMatkul').value = d.statusMatkul;
+
+    // Sync ke Alpine search edit
+    const mkSearchEl = document.querySelector('#modalEditMatkul [x-data]');
+    if (mkSearchEl) {
+        const alpine = Alpine.$data(mkSearchEl);
+        alpine.query = `${d.kode} — ${d.nama}`;
+        alpine.selectedId = d.idMk;
+        alpine.open = false;
+        alpine.filtered = alpine.all;
+    }
 
     const modal = document.getElementById('modalEditMatkul');
     modal.classList.remove('hidden');
@@ -258,12 +270,10 @@ function openModalSilabus(imgEl) {
     if (form) form.action = d.action || `/admin/silabus/${d.idDetail}`;
     document.getElementById('silabusDetailId').value = d.idDetail;
 
-    // Tampilkan modal dulu
     const modal = document.getElementById('modalSilabus');
     modal.classList.remove('hidden');
     modal.classList.add('flex');
 
-    // autoResize setelah modal tampil
     requestAnimationFrame(() => {
         [deskripsiEl, cpmEl, cpkEl, bahanEl].forEach(autoResize);
     });
@@ -290,7 +300,8 @@ function autoResize(el) {
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
 }
-//mobile
+
+// Mobile
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
@@ -305,33 +316,22 @@ overlay.addEventListener('click', () => {
     overlay.classList.add('hidden');
 });
 
-
 function toggleProfileCard() {
-    document
-        .getElementById('profileCard')
-        .classList
-        .toggle('hidden');
+    document.getElementById('profileCard').classList.toggle('hidden');
 }
-//mobile
+
 const profileBtn = document.getElementById('profileBtn');
 const profileCard = document.getElementById('profileCard');
 
 profileBtn.addEventListener('click', function (e) {
-
     e.stopPropagation();
-
     profileCard.classList.toggle('hidden');
-
 });
 
 profileCard.addEventListener('click', function (e) {
-
     e.stopPropagation();
-
 });
 
 document.addEventListener('click', function () {
-
     profileCard.classList.add('hidden');
-
 });

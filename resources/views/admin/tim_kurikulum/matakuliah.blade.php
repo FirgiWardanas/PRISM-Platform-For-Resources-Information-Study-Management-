@@ -16,7 +16,6 @@
                             class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow flex items-center gap-1 cursor-pointer">
                             Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="h-4 w-4">
                         </button>
-
                     </div>
                 </div>
 
@@ -191,6 +190,11 @@
             if (confirm('Yakin ingin menghapus matakuliah ini?')) {
                 document.getElementById(`deleteForm_${id}`).submit();
             }
+        }
+        // Auto dismiss toast error setelah 6 detik
+        const toast = document.getElementById('toastError');
+        if (toast) {
+            setTimeout(() => toast.remove(), 6000);
         }
         // Tutup modal klik backdrop
         ['modalTambah', 'modalEdit'].forEach(id => {
