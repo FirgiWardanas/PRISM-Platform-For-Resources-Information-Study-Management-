@@ -64,7 +64,7 @@
                                 </div>
 
                                 <!-- ICON DROPDOWN -->
-                                <button class="ml-3">
+                                <button onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
                                     <img src="{{ asset('images/icon-dropdown.svg') }}"
                                         class="icon-arrow h-5 w-5 transition">
                                 </button>
