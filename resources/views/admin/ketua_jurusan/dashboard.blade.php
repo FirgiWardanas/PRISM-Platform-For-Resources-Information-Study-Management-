@@ -26,7 +26,7 @@
                         </p>
 
                         <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">
-                            Welcome Back
+                            Selamat Datang Kembali
                         </h2>
 
                         <p class="text-[11px] pt-4 opacity-75 font-medium">
@@ -155,7 +155,7 @@
                 <div class="grid grid-cols-1 gap-5">
 
                     <div
-                        class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-2xl">
+                        class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-full">
 
                         <h4 class="text-xs font-bold text-[#001286] mb-6 text-center w-full">
                             Jumlah kurikulum per program studi

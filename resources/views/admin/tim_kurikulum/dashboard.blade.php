@@ -23,7 +23,7 @@
                             <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
                                 HELLO {{ strtoupper(auth()->user()->nama) }}!
                             </p>
-                            <h2 class="text-4xl font-extrabold tracking-tight">Welcome Back</h2>
+                            <h2 class="text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
                             <p class="text-[11px] pt-4 opacity-75 font-medium">
                                 {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                             </p>
