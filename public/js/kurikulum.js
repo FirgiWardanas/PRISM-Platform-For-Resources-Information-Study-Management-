@@ -335,3 +335,43 @@ profileCard.addEventListener('click', function (e) {
 document.addEventListener('click', function () {
     profileCard.classList.add('hidden');
 });
+
+document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
+    const sks = parseFloat(document.querySelector('#formTambahMatkul input[name="sks"]').value) || 0;
+    const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
+    const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
+
+    if (bobotTeori + bobotPraktikum !== sks) {
+        e.preventDefault();
+        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+    }
+});
+
+document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
+    const sks = parseFloat(document.getElementById('editSks').value) || 0;
+    const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
+    const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
+
+    if (bobotTeori + bobotPraktikum !== sks) {
+        e.preventDefault();
+        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+    }
+});
+
+function showToastError(message) {
+    // Hapus toast lama kalau ada
+    const existing = document.getElementById('toastValidasiError');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'toastValidasiError';
+    toast.className = 'fixed top-5 right-5 z-[9999] bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium flex items-start gap-3';
+    toast.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
+    `;
+    document.body.appendChild(toast);
+
+    // Auto hilang setelah 4 detik
+    setTimeout(() => toast.remove(), 4000);
+}
