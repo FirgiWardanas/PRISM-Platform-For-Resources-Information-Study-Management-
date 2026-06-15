@@ -73,7 +73,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inputTambah) {
         inputTambah.addEventListener('change', function () {
             const file = this.files[0];
-            if (!file) return;
+            const nameEl = document.getElementById('nama-file-tambah');
+            if (!file) {
+                if(nameEl) nameEl.innerText = '';
+                return;
+            }
+            if(nameEl) nameEl.innerText = file.name;
             const reader = new FileReader();
             reader.onload = e => {
                 const img = document.getElementById('img-preview-tambah');
@@ -88,7 +93,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inputEdit) {
         inputEdit.addEventListener('change', function () {
             const file = this.files[0];
-            if (!file) return;
+            const nameEl = document.getElementById('nama-file-edit');
+            if (!file) {
+                if(nameEl) nameEl.innerText = '';
+                return;
+            }
+            if(nameEl) nameEl.innerText = file.name;
             const reader = new FileReader();
             reader.onload = e => {
                 const img = document.getElementById('img-preview-edit');
@@ -107,6 +117,18 @@ function openModal() {
     const m = document.getElementById('modalProfil');
     m.classList.remove('hidden');
     m.classList.add('flex');
+    
+    // Reset form dan preview
+    const form = m.querySelector('form');
+    if(form) form.reset();
+    
+    const imgTambah = document.getElementById('img-preview-tambah');
+    if(imgTambah) {
+        imgTambah.src = '/images/icon-upload.svg';
+        imgTambah.className = 'w-8 h-8 opacity-40';
+    }
+    const nameTambah = document.getElementById('nama-file-tambah');
+    if(nameTambah) nameTambah.innerText = '';
 }
 
 function closeModal() {
@@ -115,19 +137,7 @@ function closeModal() {
     m.classList.remove('flex');
 }
 
-function editProfil(button) {
-    const id = button.dataset.id;
-    const judul = button.dataset.judul;
-    const deskripsi = button.dataset.deskripsi;
 
-    document.getElementById('editJudul').value = judul;
-    document.getElementById('editDeskripsi').value = deskripsi;
-    document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
-
-    const m = document.getElementById('modalEditProfil');
-    m.classList.remove('hidden');
-    m.classList.add('flex');
-}
 
 function closeModalEdit() {
     const m = document.getElementById('modalEditProfil');
@@ -147,13 +157,23 @@ function editProfil(btn) {
     document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
 
     const imgEdit = document.getElementById('img-preview-edit');
+    const nameEdit = document.getElementById('nama-file-edit');
+    
     if (icon && icon !== 'null' && icon !== '') {
         imgEdit.src = '/storage/' + icon;
         imgEdit.className = 'w-full h-full object-cover';
+        if (nameEdit) {
+            const filename = icon.split('/').pop();
+            nameEdit.innerText = 'File saat ini: ' + filename;
+        }
     } else {
         imgEdit.src = '/images/icon-upload.svg';
         imgEdit.className = 'w-8 h-8 opacity-40';
+        if (nameEdit) nameEdit.innerText = 'Belum ada foto';
     }
+    
+    const inputIconEdit = document.getElementById('input-icon-edit');
+    if(inputIconEdit) inputIconEdit.value = '';
 
     document.getElementById('modalEditProfil').classList.remove('hidden');
     document.getElementById('modalEditProfil').classList.add('flex');
