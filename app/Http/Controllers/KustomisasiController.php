@@ -89,19 +89,26 @@ class KustomisasiController extends Controller
     public function storeProfilLulusan(Request $request)
     {
         $request->validate([
-            'judul_lulusan'    => 'required|string|max:255',
+            'judul_lulusan'     => 'required|string|max:255',
             'deskripsi_lulusan' => 'required|string',
+            'icon_lulusan'      => 'nullable|image|max:2048',
         ]);
 
         $idProdi = auth()->user()->id_prodi;
 
         $detailProdi = DetailProdi::firstOrCreate(['id_prodi' => $idProdi]);
 
-        ProfilLulusan::create([
+        $data = [
             'id_detail_prodi'   => $detailProdi->id_detail_prodi,
             'judul_lulusan'     => $request->judul_lulusan,
             'deskripsi_lulusan' => $request->deskripsi_lulusan,
-        ]);
+        ];
+
+        if ($request->hasFile('icon_lulusan')) {
+            $data['icon_lulusan'] = $request->file('icon_lulusan')->store('profil_lulusan/icon', 'public');
+        }
+
+        ProfilLulusan::create($data);
 
         return redirect()->back()->with('success', 'Profil lulusan berhasil ditambahkan.');
     }

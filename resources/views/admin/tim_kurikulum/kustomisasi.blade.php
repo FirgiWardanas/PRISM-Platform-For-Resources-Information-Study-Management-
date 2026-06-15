@@ -1,4 +1,4 @@
-﻿<x-layout.layout>
+<x-layout.layout>
     <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
         {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
@@ -181,26 +181,36 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @forelse($prodi->detailProdi?->profilLulusans ?? [] as $profil)
-                            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-                                <div class="flex justify-between items-start">
-                                    <h3 class="font-semibold text-[#3307CC]">{{ $profil->judul_lulusan }}</h3>
-                                    <div class="flex gap-1">
-                                        <button type="button" onclick="editProfil(this)"
-                                            data-id="{{ $profil->id_lulusan }}"
-                                            data-judul="{{ $profil->judul_lulusan }}"
-                                            data-deskripsi="{{ $profil->deskripsi_lulusan }}">
-                                            <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4">
-                                        </button>
-                                        <form action="{{ route('admin.profil-lulusan.destroy', $profil->id_lulusan) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus profil lulusan ini?')">
-                                                <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
-                                            </button>
-                                        </form>
+                            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-start gap-4">
+                                @if($profil->icon_lulusan)
+                                    <img src="{{ Storage::url($profil->icon_lulusan) }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0">
+                                @else
+                                    <div class="w-12 h-12 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <img src="{{ asset('images/icon-upload.svg') }}" class="w-6 h-6 opacity-40">
                                     </div>
+                                @endif
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-semibold text-[#3307CC]">{{ $profil->judul_lulusan }}</h3>
+                                        <div class="flex gap-1">
+                                            <button type="button" onclick="editProfil(this)"
+                                                data-id="{{ $profil->id_lulusan }}"
+                                                data-judul="{{ $profil->judul_lulusan }}"
+                                                data-deskripsi="{{ $profil->deskripsi_lulusan }}"
+                                                data-icon="{{ $profil->icon_lulusan }}">
+                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4">
+                                            </button>
+                                            <form action="{{ route('admin.profil-lulusan.destroy', $profil->id_lulusan) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Yakin ingin menghapus profil lulusan ini?')">
+                                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2 leading-relaxed">{{ $profil->deskripsi_lulusan }}</p>
                                 </div>
-                                <p class="text-xs text-gray-500 mt-2 leading-relaxed">{{ $profil->deskripsi_lulusan }}</p>
                             </div>
                         @empty
                             <div class="col-span-2 text-center text-gray-400 italic text-sm py-4">
@@ -239,6 +249,7 @@
                                     Upload Foto
                                 </button>
                                 <p class="text-xs text-gray-400 mt-1">Format PNG/JPG (Max 2MB)</p>
+                                <p id="nama-file-tambah" class="text-xs text-[#3307CC] font-medium mt-1 truncate max-w-[200px]"></p>
                             </div>
                         </div>
                     </div>
@@ -277,6 +288,7 @@
                                     Ganti Foto
                                 </button>
                                 <p class="text-xs text-gray-400 mt-1">Kosongkan jika tidak ingin mengubah</p>
+                                <p id="nama-file-edit" class="text-xs text-[#3307CC] font-medium mt-1 truncate max-w-[200px]"></p>
                             </div>
                         </div>
                     </div>
