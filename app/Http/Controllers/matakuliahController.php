@@ -7,11 +7,21 @@ use Illuminate\Http\Request;
 
 class matakuliahController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-    $matakuliahs = Matakuliah::orderBy('kode_matkul')->get(); 
-    $jumlahMatakuliah = $matakuliahs->count();
-    return view('admin.tim_kurikulum.matakuliah', compact('matakuliahs', 'jumlahMatakuliah'));
+        $search = $request->get('search');
+
+        $matakuliahs = Matakuliah::when($search, function ($query, $search) {
+                $query->where('kode_matkul', 'like', "%{$search}%")
+                      ->orWhere('nama_matkul', 'like', "%{$search}%");
+            })
+            ->orderBy('kode_matkul')
+            ->paginate(10)
+            ->withQueryString();
+
+        $jumlahMatakuliah = Matakuliah::count();
+
+        return view('admin.tim_kurikulum.matakuliah', compact('matakuliahs', 'jumlahMatakuliah', 'search'));
     }
 
     public function create() {}
@@ -48,11 +58,9 @@ class matakuliahController extends Controller
     {
         $mk = Matakuliah::where('id_MK', $id)->firstOrFail();
 
-        // Cek apakah matakuliah sedang dipakai di kurikulum manapun
         $jumlahPakai = $mk->detailKurikulums()->count();
 
         if ($jumlahPakai > 0) {
-            // Ambil nama-nama kurikulum yang memakainya
             $namaKurikulum = $mk->detailKurikulums()
                 ->with('kurikulum')
                 ->get()
