@@ -14,7 +14,7 @@
             <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4">
                 <h2 class="text-2xl font-bold text-gray-800">Akun</h2>
                 <button onclick="openTambahModal()"
-                    class="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
+                    class="w-full sm:w-auto bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                     Tambah +
                 </button>
             </div>
@@ -73,7 +73,7 @@
         <div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTambahModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -151,7 +151,7 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mt-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                class="w-40 mt-4 rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -168,7 +168,7 @@
         <div id="modaledit" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeEditModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -218,7 +218,7 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>

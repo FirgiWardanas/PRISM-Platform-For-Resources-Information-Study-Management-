@@ -13,7 +13,7 @@
                 <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
                     <!-- Edit -->
-                    <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer">
+                    <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                         <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20">
                     </button>
 
@@ -35,7 +35,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="mt-6 md:absolute md:bottom-6 md:right-8">
                         @csrf
                         <button type="submit"
-                            class="w-full md:w-auto flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer">
+                            class="w-full md:w-auto flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 mt-1">
                         </button>
                     </form>
@@ -50,7 +50,7 @@
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
 
                 <button onclick="closeModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -96,7 +96,7 @@
                         </label>
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white cursor-pointer">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>

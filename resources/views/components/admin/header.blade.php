@@ -53,7 +53,7 @@
             <div class="flex flex-col sm:flex-row gap-2 mt-5">
 
                 <a href="/admin/profile-ketua-jurusan"
-                    class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-slate-400 text-white">
+                    class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-500 text-white hover:scale-[1.025] transition-all">
                     Selengkapnya
                 </a>
 
@@ -62,7 +62,7 @@
                     @csrf
 
                     <button type="submit"
-                        class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow">
+                        class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow hover:scale-[1.025] transition-all">
                         Logout
                     </button>
 

@@ -38,15 +38,15 @@
                 <div class="flex flex-col lg:flex-row gap-4">
 
                     {{-- DAFTAR KURIKULUM --}}
-                    <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0">
+                    <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2">
                         <button id="btnTambahKurikulum" onclick="openTambahKurikulum()"
-                            class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer">
+                            class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Tambah <img src="{{ asset('images/icon-plus.svg') }}">
                         </button>
 
                         @foreach($kurikulums as $kurikulum)
                             <div onclick="showKurikulum({{ $kurikulum->id_kurikulum }})"
-                                class="bg-gradient-to-r from-[#4363E3] to-[#9A55FF] text-white p-4 rounded-lg cursor-pointer text-center lg:text-left">
+                                class="bg-gradient-to-r from-[#4363E3] to-[#9A55FF] text-white p-4 rounded-lg cursor-pointer text-center lg:text-left hover:scale-[1.025] transition-all hover:opacity-70">
                                 Kurikulum {{ $kurikulum->nama_kurikulum }}
                             </div>
                         @endforeach
@@ -73,7 +73,7 @@
                                     class="text-xl font-bold bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent mx-auto">
                                     Kurikulum {{ $kurikulum->nama_kurikulum }}({{ $kurikulum->tahun_mulai }})
                                 </h2>
-                                <div class="flex gap-3">
+                                <div class="flex gap-3 ">
                                     <button onclick="openEditModal(
                                                 this,
                                                 '{{ $kurikulum->id_kurikulum }}',
@@ -83,10 +83,10 @@
                                                 '{{ $kurikulum->total_semester }}'
                                             )">
                                         <img src="{{ asset('images/icon-edit.png') }}" alt="edit"
-                                            class="w-6 h-6 cursor-pointer">
+                                            class="w-6 h-6 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-60">
                                     </button>
                                     <img src="{{ asset('images/icon-hapus.png') }}" alt="hapus"
-                                        class="w-7 h-7 cursor-pointer"
+                                        class="w-7 h-7 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-60"
                                         onclick="hapusKurikulum('{{ $kurikulum->id_kurikulum }}')">
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                         <div class="flex justify-end">
                                             <button id="btnTambah{{ $kurikulum->id_kurikulum }}-{{ $i }}"
                                                 onclick="openModalTambahMatkul({{ $kurikulum->id_kurikulum }}, {{ $i }})"
-                                                class="hidden mt-2 text-sm bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-2 py-1 rounded-lg shadow flex items-center justify-center gap-1 cursor-pointer">
+                                                class="hidden mt-2 text-sm bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-2 py-1 rounded-lg shadow flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                                 Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="h-5 w-5">
                                             </button>
                                         </div>
@@ -253,7 +253,7 @@
         <div id="tambahkurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTambahKurikulum()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Tambah Kurikulum</h2>
                 <div class="max-w-lg text-sm">
                     <form action="{{ route('admin.kurikulum.store') }}" method="POST">
@@ -291,7 +291,7 @@
                         </label>
                         <div class="flex justify-center mt-4">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -304,7 +304,7 @@
         <div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeEditKurikulum()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
                 <div class="max-w-lg text-sm">
                     <form id="formEdit" method="POST">
@@ -353,7 +353,7 @@
                         </label>
                         <div class="flex justify-center mt-4">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -377,7 +377,7 @@
                 class="w-[95%] max-w-[800px] max-h-[90vh] bg-white rounded-2xl p-8 shadow-xl relative mx-auto overflow-y-auto">
 
                 <button type="button" onclick="closeModalTambahMatkul()"
-                    class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer">✕</button>
+                    class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer hover:scale-[1.025] transition-all">✕</button>
 
                 <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Tambah Matakuliah</h2>
 
@@ -536,7 +536,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90 transition cursor-pointer">
+                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90  cursor-pointer hover:scale-[1.025] transition-all">
                             Simpan
                         </button>
                     </div>
@@ -549,7 +549,7 @@
             <div class="w-[800px] bg-white rounded-2xl p-8 shadow-xl relative mx-auto">
 
                 <button type="button" onclick="closeModalEditMatkul()"
-                    class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer">✕</button>
+                    class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 cursor-pointer hover:scale-[1.025] transition-all">✕</button>
 
                 <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Update Matakuliah</h2>
 
@@ -646,7 +646,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90 transition cursor-pointer">
+                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90 transition cursor-pointer hover:scale-[1.025] ">
                             Simpan
                         </button>
                     </div>
@@ -661,7 +661,7 @@
                 <div class="flex justify-center items-center py-3 relative border-b border-gray-200">
                     <h2 class="text-lg font-semibold text-[#1B4597]">Kelola Silabus</h2>
                     <button onclick="closeModalSilabus()"
-                        class="absolute right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer">✕</button>
+                        class="absolute right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-700">✕</button>
                 </div>
 
                 <div class="p-5 overflow-y-auto max-h-[75vh]">
@@ -780,7 +780,7 @@
 
                         <div class="flex justify-center py-6">
                             <button type="submit"
-                                class="px-8 py-2 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow cursor-pointer">
+                                class="px-8 py-2 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>

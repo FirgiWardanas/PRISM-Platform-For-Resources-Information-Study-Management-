@@ -13,7 +13,7 @@
 
             <div class="flex justify-end">
                 <button onclick="openTambahModal()"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                     Tambah +
                 </button>
             </div>
@@ -88,7 +88,7 @@
                                     '{{ $p->kode_prodi }}',
                                     '{{ $p->nama_prodi }}',
                                     '{{ $p->jenjang }}')"
-                                class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer">
+                                class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer hover:scale-[1.025] transition-all">
 
                                 <img src="{{ asset('images/icon-edit(ungu).svg') }}"
                                     class="w-5 h-5" alt="">
@@ -96,7 +96,7 @@
 
                             <button
                                 onclick="hapusData('{{ $p->id_prodi }}')"
-                                class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg cursor-pointer">
+                                class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg cursor-pointer hover:scale-[1.025] transition-all ">
 
                                 <img src="{{ asset('images/icon-hapus(ungu).svg') }}"
                                     class="w-6 h-6" alt="">
@@ -132,7 +132,7 @@
         <div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTambahModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -180,7 +180,7 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -195,7 +195,7 @@
         <div id="modaledit" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeEditModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -232,7 +232,7 @@
 
                             <div class="flex justify-center">
                                 <button type="submit"
-                                    class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                    class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                     Simpan
                                 </button>
                             </div>

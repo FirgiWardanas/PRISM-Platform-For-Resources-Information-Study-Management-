@@ -14,7 +14,7 @@
             <div class="space-y-4 max-w-[930px] mx-auto px-4 sm:px-0">
                 <div class="flex justify-center sm:justify-end mb-4">
                     <button onclick="openTambahModal()"
-                        class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer">
+                        class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all ">
                         Tambah +
                     </button>
 
@@ -48,7 +48,7 @@
                             <!-- ICON -->
                             <div class="flex items-center gap-3">
                                 <div class="flex items-center gap-2">
-                                    <button type="button" class="btn-edit w-5 h-5 cursor-pointer"
+                                    <button type="button" class="btn-edit w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
                                         data-id="{{ $dosen->id_dosen }}" data-id-prodi="{{ $dosen->id_prodi }}"
                                         data-nama="{{ $dosen->nama_dosen }}" data-jabatan="{{ $dosen->status_jabatan }}"
                                         data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
@@ -58,7 +58,7 @@
                                         <img src="{{ asset('images/icon-edit.svg') }}">
                                     </button>
 
-                                    <button onclick="hapusData('{{ $dosen->id_dosen }}')">
+                                    <button onclick="hapusData('{{ $dosen->id_dosen }}')" class="hover:scale-[1.025] transition-all hover:opacity-90">
                                         <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
                                     </button>
                                 </div>
@@ -150,7 +150,7 @@
 
                 <!-- Tombol Close -->
                 <button onclick="closeTambahModal()"
-                    class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -235,7 +235,7 @@
                             <div class="flex items-center gap-2 mb-1">
                                 <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
                                 <button onclick="tambahSpesialis()" type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none">
+                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
                                     +
                                 </button>
                             </div>
@@ -258,7 +258,7 @@
                                 accept="image/png, image/jpg, img/jpeg">
 
                             <label for="fotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
+                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all " >
                                 Upload foto
                             </label>
                         </div>
@@ -267,7 +267,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>
@@ -284,7 +284,7 @@
 
                 <!-- Tombol Close -->
                 <button onclick="closeEditModal()"
-                    class="absolute top-4 right-4 bg-[#123CFF] text-white w-8 h-8 rounded-full font-bold cursor-pointer">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -369,7 +369,7 @@
                                 <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
 
                                 <button onclick="tambahSpesialisEdit()" type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none">
+                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
                                     +
                                 </button>
                             </div>
@@ -385,7 +385,7 @@
                             <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
 
                             <label for="editFotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF]">
+                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
                                 Upload foto
                             </label>
                         </div>
@@ -394,7 +394,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>
