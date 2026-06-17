@@ -52,11 +52,11 @@
     </div>
 
     <!-- RIGHT SIDE LOGIN -->
-    <div class="w-full lg:w-[42%] bg-[#dbd5ff]  flex items-center justify-center px-6 sm:px-10 lg:px-16 py-12 lg:py-0">
+    <div class="w-full lg:w-[42%] bg-[#e8e4ff]  flex items-center justify-center px-6 sm:px-10 lg:px-16 py-12 lg:py-0">
 
         <div class="w-full max-w-md">
 
-            <h1 class="text-[#2800ca] text-4xl md:text-5xl font-bold mb-3">
+            <h1 class="text-[#0007ca] text-4xl md:text-5xl font-bold mb-3">
                 Login
             </h1>
 

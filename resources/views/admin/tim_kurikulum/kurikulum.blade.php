@@ -63,9 +63,15 @@
 
                             {{-- JUDUL --}}
                             <div class="flex flex-col md:flex-row gap-3 md:justify-between md:items-center mb-4">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <h2 class="font-semibold text-gray-400">Status : </h2>
+                                    <div class="bg-[#0088FF] rounded-full px-4 py-1">
+                                        <h2 class="font-bold text-white ">{{ $kurikulum->status_kurikulum }}</h2>
+                                    </div>
+                                </div>
                                 <h2
                                     class="text-xl font-bold bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent mx-auto">
-                                    Kurikulum {{ $kurikulum->nama_kurikulum }}
+                                    Kurikulum {{ $kurikulum->nama_kurikulum }}({{ $kurikulum->tahun_mulai }})
                                 </h2>
                                 <div class="flex gap-3">
                                     <button onclick="openEditModal(
