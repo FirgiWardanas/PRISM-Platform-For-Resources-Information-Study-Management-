@@ -21,7 +21,7 @@
 <div class="flex flex-col lg:flex-row min-h-screen">
 
     <!-- LEFT SIDE (TETAP ADA DI MOBILE) -->
-    <div class="w-full lg:w-[58%] relative bg-[url('{{ asset('images/17.png') }}')] bg-cover bg-center">
+    <div class="w-full lg:w-[58%] relative bg-[url('{{ asset('images/bg-loginn.png') }}')] bg-cover bg-center">
 
         <!-- overlay biar teks kebaca -->
         <div class="absolute inset-0 bg-black/10"></div>
@@ -52,15 +52,15 @@
     </div>
 
     <!-- RIGHT SIDE LOGIN -->
-    <div class="w-full lg:w-[42%] bg-[#e0f4ff] flex items-center justify-center px-6 sm:px-10 lg:px-16 py-12 lg:py-0">
+    <div class="w-full lg:w-[42%] bg-[#dbd5ff]  flex items-center justify-center px-6 sm:px-10 lg:px-16 py-12 lg:py-0">
 
         <div class="w-full max-w-md">
 
-            <h1 class="text-[#0054ca] text-4xl md:text-5xl font-bold mb-3">
+            <h1 class="text-[#2800ca] text-4xl md:text-5xl font-bold mb-3">
                 Login
             </h1>
 
-            <p class="text-[#0080c5] mb-10 md:mb-14">
+            <p class="text-[#4f00c5] mb-10 md:mb-14">
                 Enter your account details
             </p>
 
@@ -69,18 +69,18 @@
 
                 <!-- EMAIL -->
                 <div>
-                    <label class="block text-[#0080c5] mb-2">
+                    <label class="block text-[#4f00c5] mb-2">
                         Email
                     </label>
 
                     <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" required
                         class="w-full px-4 py-3 rounded-xl
-                        bg-[#0054ca]/10
+                       bg-[#0054ca]/10
                         border border-[#0054ca]/20
                         text-[#0054ca]
                         placeholder:text-[#0054ca]/50
                         backdrop-blur-md
-                        focus:border-cyan-300
+                        focus:border-violet-300
                         focus:ring-2 focus:ring-cyan-300/40
                         outline-none transition">
                     @error('email')
@@ -90,7 +90,7 @@
 
                 <!-- PASSWORD -->
                 <div>
-                    <label class="block text-[#0080c5] mb-2">
+                    <label class="block text-[#4f00c5] mb-2">
                         Password
                     </label>
 
@@ -98,12 +98,12 @@
 
                         <input type="password" name="password" id="password" placeholder="Enter your password" required
                             class="w-full px-4 py-3 rounded-xl
-                            bg-[#0054ca]/10
-                            border border-[#0054ca]/20
-                            text-[#0054ca]
-                            placeholder:text-[#0054ca]/50
+                           bg-[#0054ca]/10
+                        border border-[#0054ca]/20
+                        text-[#0054ca]
+                        placeholder:text-[#0054ca]/50
                             backdrop-blur-md
-                            focus:border-cyan-300
+                            focus:border-violet-300
                             focus:ring-2 focus:ring-cyan-300/40
                             outline-none transition">
 
@@ -114,7 +114,7 @@
 
                     </div>
 
-                    <a href="{{ url('/') }}" class="block text-[#0080c5] mt-4 text-sm hover:underline">
+                    <a href="{{ url('/') }}" class="block text-[#4f00c5] mt-4 text-sm hover:underline">
                         &larr; Kembali ke halaman utama
                     </a>
                 </div>
