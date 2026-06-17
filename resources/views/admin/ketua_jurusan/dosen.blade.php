@@ -21,12 +21,65 @@
 
                 </div>
 
+                <form method="GET" action="{{ route('admin.kelola-dosen.index') }}"
+                    class="flex items-center gap-3 flex-wrap mb-5 mt-5  ">
+
+                    <!-- Search -->
+                    <div class="relative flex-[2] min-w-[200px]">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </span>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari nama dosen..."
+                            class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
+                                    bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
+                    </div>
+
+                    <!-- Filter Prodi -->
+                    <select name="prodi"
+                            class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
+                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
+                                focus:ring-blue-300 cursor-pointer">
+                        <option value="">Semua Prodi</option>
+                        @foreach($list_prodi as $p)
+                            <option value="{{ $p->id_prodi }}" {{ request('prodi') == $p->id_prodi ? 'selected' : '' }}>
+                                {{ $p->nama_prodi }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <!-- Filter Jabatan -->
+                    <select name="jabatan"
+                            class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
+                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
+                                focus:ring-blue-300 cursor-pointer">
+                        <option value="">Semua Jabatan</option>
+                        <option value="dosen"        {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
+                        <option value="kaprodi"      {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi</option>
+                        <option value="laboran"      {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
+                    </select>
+
+                    <button type="submit"
+                            class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white
+                                text-sm font-semibold rounded-2xl hover:opacity-90 transition">
+                        Cari
+                    </button>
+
+                    @if(request('search') || request('prodi') || request('jabatan'))
+                        <a href="{{ route('admin.kelola-dosen.index') }}"
+                        class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
+                                bg-white hover:bg-blue-50 transition">
+                            Reset
+                        </a>
+                    @endif
+                </form>
+
                 @foreach ($dosens as $dosen)
                     <!-- CARD DOSEN 1 -->
                     <div class="card bg-white rounded-[32px] shadow-xl border border-gray-300 p-5">
-
-
-
                         <!-- HEADER -->
                         <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                             <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">

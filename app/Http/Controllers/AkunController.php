@@ -12,18 +12,24 @@ class AkunController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+
+    $search = $request->get('search');
+
     $list_prodi = Prodi::whereNotIn('id_prodi', function ($query) {
     $query->select('id_prodi')
             ->from('user')
             ->where('role', 'tim_kurikulum');
     })->get();
 
-    $akuns = User::where('role','tim_kurikulum')->with('prodis')->paginate(1);
+    $akuns = User::where('role','tim_kurikulum')->with('prodis')
+    ->when($search, function($query, $search) {
+        $query->where('nama', 'LIKE', "%{$search}%");
+        })->paginate(1);
 
 
-    return view('admin.ketua_jurusan.akun', compact('list_prodi','akuns'));
+    return view('admin.ketua_jurusan.akun', compact('list_prodi','akuns','search'));
     }
 
     /**

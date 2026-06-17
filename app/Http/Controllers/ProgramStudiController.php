@@ -13,12 +13,18 @@ class ProgramStudiController extends Controller
     public function index(Request $request)
     {   
 
-        $search = $request->search;
+        $search = $request->get('search');
         
 
-        $prodi = Prodi::paginate(2);
+        $prodi = Prodi::query()
+        ->when($search, function($query, $search) {
+        $query->where('kode_prodi', 'LIKE', "%{$search}%")
+                ->orWhere('nama_prodi', 'LIKE', "%{$search}%");
+        })
+        ->paginate(2)
+        ->withQueryString();
 
-        return view('admin.ketua_jurusan.program-studi', compact('prodi'));
+        return view('admin.ketua_jurusan.program-studi', compact('prodi','search'));
     }
 
     /**
