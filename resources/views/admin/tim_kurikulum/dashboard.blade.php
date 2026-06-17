@@ -45,7 +45,7 @@
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">    
-                                   <img class="relative bottom-1" src="{{ asset('images/logo-kurikulum(ungu).png') }}"
+                                   <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
                                         alt="">
                                 </div>
                                 <div>
@@ -59,7 +59,7 @@
 
                         {{-- MataKuliah --}}
                          <div
-                            class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c6] shadow-lg relative overflow-hidden">
+                            class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c663] shadow-lg relative overflow-hidden">
                             <div
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9a55ff] to-[#5100c6]">
                             </div>
@@ -195,7 +195,7 @@
 
                     {{-- ── KURIKULUM ACCORDION ── --}}
                     <div class="bg-white p-5 rounded-2xl shadow-lg">
-                        <div class="flex flex-col md:flex-row items-center gap-3 md:justify-between">
+                        <div class="flex flex-col md:flex-row items-center gap-3 md:justify-between mb-4">
                             <div></div>
                             <h1
                                 class="text-xl font-bold bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent mx-auto">
@@ -206,7 +206,7 @@
                                 @endif
                             </h1>
                             <a href="/admin/kurikulum"
-                                class="px-4 py-2 w-full md:w-auto  bg-gradient-to-r from-[#0282FD] to-[#3502CA] hover:scale-110 text-white rounded-full transition flex justify-center items-center gap-1 text-sm">
+                                class=" px-4 py-2 w-full md:w-auto  bg-gradient-to-r from-[#0282FD] to-[#3502CA] hover:scale-110 text-white rounded-full transition flex justify-center items-center gap-1 text-sm">
                                 Selengkapnya
                                 <img class="w-5 h-5" src="{{ asset('images/panah1.png') }}" alt="">
                             </a>
