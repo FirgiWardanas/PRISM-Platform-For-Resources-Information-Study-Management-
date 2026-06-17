@@ -11,17 +11,17 @@
 
             <div class="flex flex-col sm:flex-row justify-end gap-2 mb-3 mt-3">
                 <a href="/prodi/{{ $prodi->kode_prodi }}" target="_blank"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 transition">
+                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 transition hover:scale-[1.025] ">
                     <img src="{{ asset('images/icon-preview.svg') }}" class="h-5 w-5">
                     <span class="text-[#3307CC]">Preview</span>
                 </a>
                 <button type="button" onclick="resetForm()"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200">
+                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200 hover:scale-[1.025] transition-all">
                     <img src="{{ asset('images/icon-reset.svg') }}" class="w-5 h-5">
                     <span class="text-[#3307CC]">Reset</span>
                 </button>
                 <button type="submit" form="formKustomisasi"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition">
+                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition hover:scale-[1.025] ">
                     <img src="{{ asset('images/icon-simpan perubahan.svg') }}" class="mt-2 w-5 h-5">
                     <span class="text-white">Simpan Perubahan</span>
                 </button>
@@ -33,7 +33,7 @@
                     class="fixed top-5 right-5 z-[999] bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium flex items-start gap-3">
                     <span>{{ session('success') }}</span>
                     <button onclick="document.getElementById('toastSuccess').remove()"
-                        class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
+                        class="text-white font-bold text-lg leading-none cursor-pointer hover:scale-[1.025] transition-all">✕</button>
                 </div>
             @endif
 
@@ -77,7 +77,7 @@
                                     <input type="file" id="input-ilustrasi" name="ilustrasi" class="hidden" accept="image/*">
                                     <div>
                                         <button type="button" onclick="document.getElementById('input-ilustrasi').click()"
-                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition">
+                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025]">
                                             Upload Gambar
                                         </button>
                                         <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
@@ -107,7 +107,7 @@
                                     <input type="file" id="input-logo" name="logo" class="hidden" accept="image/*">
                                     <div>
                                         <button type="button" onclick="document.getElementById('input-logo').click()"
-                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition">
+                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] ">
                                             Upload Logo
                                         </button>
                                         <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
@@ -174,7 +174,7 @@
                 <div class="bg-white p-5 shadow-lg border border-gray-300 rounded-2xl mt-6 mb-6">
                     <div class="flex items-center gap-3 mb-6">
                         <h2 class="text-xl font-semibold text-[#3307CC]">Profil Lulusan</h2>
-                        <button onclick="openModal()" class="h-6 w-6 rounded-md bg-[#3307CC] text-white flex items-center justify-center hover:opacity-90 cursor-pointer">
+                        <button onclick="openModal()" class="h-6 w-6 rounded-md bg-[#3307CC] text-white flex items-center justify-center hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             <img src="{{ asset('images/icon-plus.svg') }}" class="w-3 h-3">
                         </button>
                     </div>
@@ -198,13 +198,13 @@
                                                 data-judul="{{ $profil->judul_lulusan }}"
                                                 data-deskripsi="{{ $profil->deskripsi_lulusan }}"
                                                 data-icon="{{ $profil->icon_lulusan }}">
-                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4">
+                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4 hover:scale-[1.025] transition-all">
                                             </button>
                                             <form action="{{ route('admin.profil-lulusan.destroy', $profil->id_lulusan) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Yakin ingin menghapus profil lulusan ini?')">
-                                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5 hover:scale-[1.025] transition-all">
                                                 </button>
                                             </form>
                                         </div>
@@ -225,7 +225,7 @@
         {{-- MODAL TAMBAH PROFIL LULUSAN --}}
         <div id="modalProfil" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
             <div class="bg-white rounded-2xl w-[95%] max-w-[500px] p-4 md:p-8 relative shadow-xl">
-                <button onclick="closeModal()" class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                <button onclick="closeModal()" class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="text-center text-2xl font-semibold text-[#3307CC] mb-8">Tambah Profil Lulusan</h2>
                 <form action="{{ route('admin.profil-lulusan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -245,7 +245,7 @@
                             </div>
                             <div>
                                 <input type="file" id="input-icon-tambah" name="icon_lulusan" class="hidden" accept="image/*">
-                                <button type="button" onclick="document.getElementById('input-icon-tambah').click()" class="px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50">
+                                <button type="button" onclick="document.getElementById('input-icon-tambah').click()" class="px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 hover:scale-[1.025] transition-all">
                                     Upload Foto
                                 </button>
                                 <p class="text-xs text-gray-400 mt-1">Format PNG/JPG (Max 2MB)</p>
@@ -254,7 +254,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-8">
-                        <button type="submit" class="px-10 py-2 rounded-full bg-gradient-to-r from-[#1597FF] to-[#3307CC] text-white font-medium cursor-pointer">Simpan</button>
+                        <button type="submit" class="px-10 py-2 rounded-full bg-gradient-to-r from-[#1597FF] to-[#3307CC] text-white font-medium cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -263,7 +263,7 @@
         {{-- MODAL EDIT PROFIL LULUSAN --}}
         <div id="modalEditProfil" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
             <div class="bg-white rounded-2xl w-[95%] max-w-[500px] p-4 md:p-8 relative shadow-xl">
-                <button onclick="closeModalEdit()" class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                <button onclick="closeModalEdit()" class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="text-center text-2xl font-semibold text-[#3307CC] mb-8">Edit Profil Lulusan</h2>
                 <form id="formEditProfil" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -284,7 +284,7 @@
                             </div>
                             <div>
                                 <input type="file" id="input-icon-edit" name="icon_lulusan" class="hidden" accept="image/*">
-                                <button type="button" onclick="document.getElementById('input-icon-edit').click()" class="px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50">
+                                <button type="button" onclick="document.getElementById('input-icon-edit').click()" class="px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 hover:scale-[1.025] transition-all">
                                     Ganti Foto
                                 </button>
                                 <p class="text-xs text-gray-400 mt-1">Kosongkan jika tidak ingin mengubah</p>
@@ -293,7 +293,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-8">
-                        <button type="submit" class="px-10 py-2 rounded-full bg-gradient-to-r from-[#1597FF] to-[#3307CC] text-white font-medium cursor-pointer">Simpan</button>
+                        <button type="submit" class="px-10 py-2 rounded-full bg-gradient-to-r from-[#1597FF] to-[#3307CC] text-white font-medium cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">Simpan</button>
                     </div>
                 </form>
             </div>

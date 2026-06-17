@@ -33,7 +33,7 @@
 
                 {{-- Tombol Tambah --}}
                 <button onclick="openTambahModal()"
-                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow flex items-center gap-1 cursor-pointer whitespace-nowrap">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow flex items-center gap-1 cursor-pointer whitespace-nowrap hover:scale-[1.025] transition-all hover:opacity-90 ">
                     Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="h-4 w-4">
                 </button>
             </div>
@@ -59,7 +59,7 @@
                     class="fixed top-5 right-5 z-[999] bg-red-500 text-white px-6 py-4 rounded-xl shadow-lg text-sm font-medium max-w-sm flex items-start gap-3">
                     <span class="flex-1">{{ session('error') }}</span>
                     <button onclick="document.getElementById('toastError').remove()"
-                        class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
+                        class="text-white font-bold text-lg leading-none cursor-pointer hover:scale-[1.025] transition-all">✕</button>
                 </div>
             @endif
 
@@ -73,10 +73,10 @@
                                 <p>{{ $mk->nama_matkul }}</p>
                             </div>
                             <div class="flex items-center gap-3 ml-4">
-                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-5 h-5 cursor-pointer"
+                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
                                     onclick="openEditModal('{{ $mk->id_MK }}', '{{ addslashes($mk->kode_matkul) }}', '{{ addslashes($mk->nama_matkul) }}')"
                                     alt="edit">
-                                <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-6 h-6 cursor-pointer"
+                                <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-6 h-6 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
                                     onclick="hapusMatakuliah('{{ $mk->id_MK }}')" alt="hapus">
                             </div>
                         </div>
@@ -170,7 +170,7 @@
         <div id="modalTambah" class="fixed inset-0 hidden items-center justify-center bg-black/40 z-50">
             <div class="w-[90%] max-w-[460px] bg-white rounded-2xl p-5 sm:p-8 shadow-xl relative">
                 <button onclick="closeTambahModal()"
-                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer">✕</button>
+                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-700">✕</button>
                 <h2 class="text-center text-lg font-bold text-[#1B4597] mb-6">Tambah Matakuliah</h2>
                 <form action="{{ route('admin.matakuliah.store') }}" method="POST">
                     @csrf
@@ -190,7 +190,7 @@
                     </div>
                     <div class="flex justify-center mt-6">
                         <button type="submit"
-                            class="px-10 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow cursor-pointer">
+                            class="px-10 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>
@@ -202,7 +202,7 @@
         <div id="modalEdit" class="fixed inset-0 hidden items-center justify-center bg-black/40 z-50">
             <div class="w-[90%] max-w-[460px] bg-white rounded-2xl p-5 sm:p-8 shadow-xl relative">
                 <button onclick="closeEditModal()"
-                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer">✕</button>
+                    class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-700">✕</button>
                 <h2 class="text-center text-lg font-bold text-[#1B4597] mb-6">Edit Matakuliah</h2>
                 <form id="formEdit" method="POST">
                     @csrf
@@ -223,7 +223,7 @@
                     </div>
                     <div class="flex justify-center mt-6">
                         <button type="submit"
-                            class="px-10 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow cursor-pointer">
+                            class="px-10 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>

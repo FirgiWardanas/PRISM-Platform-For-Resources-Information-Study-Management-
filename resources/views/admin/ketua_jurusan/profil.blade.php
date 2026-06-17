@@ -16,7 +16,7 @@
 
                 {{-- tombol edit --}}
                 <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer">
-                    <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20">
+                    <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20" hover:scale-[1.025] transition-all hover:opacity-90>
                 </button>
 
                 {{-- Baris atas --}}
@@ -49,7 +49,7 @@
                                 </p>
 
                                 <button onclick="cancelTransfer()"
-                                    class="mt-2 text-xs text-red-500 hover:text-red-700 underline">
+                                    class="mt-2 text-xs text-red-500 hover:text-red-700 underline hover:scale-[1.025] transition-all ">
                                     Batalkan Transfer
                                 </button>
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                         @else
                             <button onclick="openVerifyModal()"
-                                class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90">
+                                class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90">
                                 Ubah Ketua Jurusan
                             </button>
                         @endif
@@ -68,7 +68,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                            class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer">
+                            class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
                             Logout ↗
                         </button>
                     </form>
@@ -82,7 +82,7 @@
         <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-[#1B4597]">Update Profile</h2>
                 <form method="POST" action="{{ route('admin.profile-ketua-jurusan.update', $user->id_user) }}">
                     @csrf @method('PUT')
@@ -112,7 +112,7 @@
                     </label>
                     <div class="flex justify-center">
                         <button type="submit"
-                            class="w-40 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white cursor-pointer">
+                            class="w-40 rounded-xl bg-gradient-to-r bg-gradient-to-r from-[#0284FD] to-[#3207CC]  py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>
@@ -124,7 +124,7 @@
         <div id="verifyModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeVerifyModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-[#1B4597]">Verifikasi Akun</h2>
                 <div id="verifyError" class="hidden bg-red-100 text-red-600 p-3 rounded-lg text-sm mb-4"></div>
                 <label class="block mb-3">
@@ -139,7 +139,7 @@
                 </label>
                 <div class="flex justify-center">
                     <button onclick="submitVerify()"
-                        class="w-40 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white cursor-pointer">
+                        class="w-40 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC]  py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                         Verifikasi
                     </button>
                 </div>
@@ -150,7 +150,7 @@
         <div id="transferModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTransferModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer">✕</button>
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-[#1B4597]">Ubah Ketua Jurusan</h2>
                 <div id="transferError" class="hidden bg-red-100 text-red-600 p-3 rounded-lg text-sm mb-4"></div>
                 <label class="block mb-5">
@@ -160,7 +160,7 @@
                 </label>
                 <div class="flex justify-center">
                     <button onclick="submitTransfer()"
-                        class="w-40 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white cursor-pointer">
+                        class="w-40 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC]  py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                         Kirim
                     </button>
                 </div>
