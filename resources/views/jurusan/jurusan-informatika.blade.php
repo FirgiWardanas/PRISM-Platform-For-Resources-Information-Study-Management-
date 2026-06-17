@@ -18,15 +18,15 @@
       <div class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF] w-full rounded-3xl text-white py-4 sm:py-6 md:py-8 px-3 sm:px-8 md:px-12 flex justify-evenly items-start gap-3 sm:gap-8 md:gap-12">
         <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
           <h1 class="text-[10px] sm:text-sm font-bold">Tahun berdiri</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">0000</h1>
+          <h1 class="text-base sm:text-xl md:text-2xl font-bold">2000</h1>
           <p class="text-[9px] sm:text-xs text-center leading-tight">
-            Lorem ipsum dolor sit amet consectetur
+            [isi ini]
           </p>
         </div>
 
         <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
           <h1 class="text-[10px] sm:text-sm font-bold">Program Studi</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">7</h1>
+          <h1 class="text-base sm:text-xl md:text-2xl font-bold">{{ $jumlah_prodi }}</h1>
 
           <button class="bg-gradient-to-r from-[#ff7700] to-[#ffa600]
       shadow-lg px-3 sm:px-6 md:px-8 py-1 sm:py-3 rounded-full
@@ -37,7 +37,7 @@
 
         <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
           <h1 class="text-[10px] sm:text-sm font-bold">Jumlah Dosen</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">0000</h1>
+          <h1 class="text-base sm:text-xl md:text-2xl font-bold">{{ $jumlah_dosen }}</h1>
           <p class="text-[9px] sm:text-xs text-center leading-tight">
             Lorem ipsum dolor sit amet consectetur
           </p>

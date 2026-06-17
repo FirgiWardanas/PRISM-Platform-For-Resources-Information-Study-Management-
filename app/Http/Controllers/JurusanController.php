@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Prodi;
+use App\Models\Dosen;
 
 class JurusanController extends Controller
 {
@@ -11,7 +13,12 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        return view('jurusan.jurusan-informatika');
+        // get count of published prodi
+        $jumlah_prodi = Prodi::where('status_prodi', 'published')->count();
+        $jumlah_dosen = Dosen::whereHas('prodi',function($q){
+            $q->where('status_prodi', 'published');
+        })->count();
+        return view('jurusan.jurusan-informatika', compact('jumlah_prodi','jumlah_dosen'));
     }
 
     /**
