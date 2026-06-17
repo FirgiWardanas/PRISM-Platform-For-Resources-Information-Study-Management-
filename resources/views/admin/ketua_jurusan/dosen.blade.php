@@ -122,6 +122,16 @@
 
 
             </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+                <p class="text-sm text-gray-500">
+                    Menampilkan {{ $dosens->firstItem() }} -
+                    {{ $dosens->lastItem() }}
+                    dari {{ $dosens->total() }} data
+                </p>
+
+                {{ $dosens->links() }}
+            </div>
             </div>
 
         </main>
