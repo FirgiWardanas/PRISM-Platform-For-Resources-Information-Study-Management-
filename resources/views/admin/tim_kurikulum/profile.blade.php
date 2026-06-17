@@ -22,11 +22,12 @@
                         <img src="{{ asset('images/Profile-Circle.png') }}" alt="profil"
                             class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
 
-                        <div class="text-sm text-gray-700 space-y-1 text-center md:text-left">
-                            <h2 class="text-lg font-semibold mb-2">{{ $user->nama }}</h2>
+                        <div class="text-sm text-gray-700 space-y-4 text-center md:text-left font-semibold">
+                            <h2 class="text-xl font-bold mb-2 bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent">{{ $user->nama }}</h2>
                             <p>Nama : <span>{{ $user->nama }}</span></p>
                             <p>NIP : <span>{{ $user->nip }}</span></p>
                             <p>Email : <span>{{ $user->email }}</span></p>
+                            <p>Program Studi : <span>{{ $user->prodis->nama_prodi ?? '-' }}</span></p>
                         </div>
                     </div>
 
