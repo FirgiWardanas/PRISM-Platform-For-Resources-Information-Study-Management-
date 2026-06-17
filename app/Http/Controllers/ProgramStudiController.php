@@ -10,9 +10,14 @@ class ProgramStudiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $prodi = Prodi::all();
+
+        $search = $request->search;
+        
+
+        $prodi = Prodi::paginate(2);
+
         return view('admin.ketua_jurusan.program-studi', compact('prodi'));
     }
 

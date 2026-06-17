@@ -20,7 +20,7 @@ class AkunController extends Controller
             ->where('role', 'tim_kurikulum');
     })->get();
 
-    $akuns = User::where('role','tim_kurikulum')->with('prodis')->get();
+    $akuns = User::where('role','tim_kurikulum')->with('prodis')->paginate(1);
 
 
     return view('admin.ketua_jurusan.akun', compact('list_prodi','akuns'));

@@ -16,7 +16,7 @@ class DosenController extends Controller
      */
     public function index()
     {   
-        $dosens = Dosen::with('bidangSpesialis','riwayatPendidikans','prodi')->get();
+        $dosens = Dosen::with('bidangSpesialis','riwayatPendidikans','prodi')->paginate(2);
         $list_prodi = Prodi::all();
         return view('admin.ketua_jurusan.dosen' ,compact('dosens','list_prodi'));
     }

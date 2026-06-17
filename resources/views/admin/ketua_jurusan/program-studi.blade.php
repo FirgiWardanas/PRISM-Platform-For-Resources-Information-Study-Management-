@@ -19,6 +19,7 @@
             </div>
 
 
+
             <!-- LIST CARD -->
             <div class="space-y-4">
                 @if(session('pesan'))
@@ -33,62 +34,90 @@
                     </div>
                 @endif
 
+
+<div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300">
+    <div class="overflow-x-auto overflow-y-auto max-h-[70vh]">
+
+        <table class="w-full">
+            <thead class="sticky top-0 bg-white">
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                        Kode
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                        Nama Prodi
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                        Jenjang
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                        Status
+                    </th>
+                    <th class="px-8 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-100">
                 @foreach ($prodi as $p)
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-4 py-3 text-sm text-gray-700">
+                            {{ $p->kode_prodi }}
+                        </td>
 
-                    <!-- CARD -->
-                    <div class="bg-white rounded-xl p-4 shadow border border-gray-300">
-                        {{-- dekstop --}}
-                        <div class="hidden md:flex justify-between items-center">
-                            <div class="grid grid-cols-[100px_1fr_150px_100px] text-sm flex-1">
-                                <p>{{ $p->kode_prodi }}</p>
-                                <p>{{ $p->nama_prodi }}</p>
-                                <p>{{ $p->jenjang }}</p>
-                                <p>{{ $p->status_prodi  }}</p>
-                            </div>
+                        <td class="px-4 py-3 text-sm text-gray-700">
+                            {{ $p->nama_prodi }}
+                        </td>
 
-                            <div class="flex gap-2 ml-4">
-                                <button onclick="openEditModal(this,
-                                                        '{{ $p->id_prodi }}',
-                                                        '{{ $p->kode_prodi }}',
-                                                        '{{ $p->nama_prodi }}',
-                                                        '{{ $p->jenjang }}')"
-                                    class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm cursor-pointer">
-                                    Edit
-                                </button>
-                                <button type="button" onclick="hapusData('{{ $p->id_prodi }}')"
-                                    class="bg-gradient-to-r from-[#FF003C] to-[#D60067] text-white px-3 py-1 rounded-lg text-sm cursor-pointer">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
-                        {{-- mobile --}}
-                        <div class="md:hidden">
-                            <div class="space-y-2 text-sm">
-                                <p><span class="font-semibold">Kode:</span> {{ $p->kode_prodi }}</p>
-                                <p><span class="font-semibold">Program Studi:</span> {{ $p->nama_prodi }}</p>
-                                <p><span class="font-semibold">Jenjang:</span> {{ $p->jenjang }}</p>
-                                <p><span class="font-semibold">Status:</span> {{ $p->status_prodi }}</p>
-                            </div>
+                        <td class="px-4 py-3 text-sm text-gray-700">
+                            {{ $p->jenjang }}
+                        </td>
 
-                            <div class="flex flex-col gap-2 mt-4">
-                                <button onclick="openEditModal(this,
-                                                        '{{ $p->id_prodi }}',
-                                                        '{{ $p->kode_prodi }}',
-                                                        '{{ $p->nama_prodi }}',
-                                                        '{{ $p->jenjang }}')"
-                                    class="bg-gradient-to-r from-[#4863E6] to-[#9855FE] text-white px-3 py-1 rounded-lg text-sm">
-                                    Edit
-                                </button>
-                                <button type="button" onclick="hapusData('{{ $p->id_prodi }}')"
-                                    class="bg-gradient-to-r from-[#FF003C] to-[#D60067] text-white px-3 py-1 rounded-lg text-sm">
-                                    Hapus
-                                </button>
-                            </div>
+                        <td class="px-4 py-3">
+                            <span
+                                class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-lg">
+                                {{ $p->status_prodi }}
+                            </span>
+                        </td>
 
-                        </div>
-                    </div>
+                        <td class="px-4 py-3 flex gap-2">
+                            <button
+                                onclick="openEditModal(this,
+                                    '{{ $p->id_prodi }}',
+                                    '{{ $p->kode_prodi }}',
+                                    '{{ $p->nama_prodi }}',
+                                    '{{ $p->jenjang }}')"
+                                class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer">
 
+                                <img src="{{ asset('images/icon-edit(ungu).svg') }}"
+                                    class="w-5 h-5" alt="">
+                            </button>
+
+                            <button
+                                onclick="hapusData('{{ $p->id_prodi }}')"
+                                class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg cursor-pointer">
+
+                                <img src="{{ asset('images/icon-hapus(ungu).svg') }}"
+                                    class="w-6 h-6" alt="">
+                            </button>
+                        </td>
+                    </tr>
                 @endforeach
+            </tbody>
+        </table>
+
+    </div>
+
+    {{-- Pagination --}}
+    <div class="border-t border-gray-100 mt-4 pt-4">
+        {{ $prodi->withQueryString()->links() }}
+    </div>
+</div>
+
+
+
+
             </div>
 
         </main>

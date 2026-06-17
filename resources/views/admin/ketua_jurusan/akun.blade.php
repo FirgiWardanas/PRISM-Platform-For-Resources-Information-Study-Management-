@@ -55,7 +55,14 @@
                         </tbody>
                     </table>
                 </div>
+                                {{-- Pagination --}}
+    <div class="border-t border-gray-100 mt-4 pt-4">
+        {{ $akuns->withQueryString()->links() }}
+    </div>
             </div>
+
+
+</div>
         </main>
 
 
