@@ -14,12 +14,24 @@ class DosenController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {   
-        $dosens = Dosen::with('bidangSpesialis','riwayatPendidikans','prodi')->paginate(2);
-        $list_prodi = Prodi::all();
-        return view('admin.ketua_jurusan.dosen' ,compact('dosens','list_prodi'));
-    }
+    public function index(Request $request)
+    {
+        
+            $search  = $request->get('search');
+            $prodi   = $request->get('prodi');
+            $jabatan = $request->get('jabatan');
+
+            $dosens = Dosen::with('bidangSpesialis','riwayatPendidikans','prodi')
+                    ->when($search, fn($q) => $q->where('nama_dosen', 'LIKE', "%{$search}%"))
+                    ->when($prodi,  fn($q) => $q->where('id_prodi', $prodi))
+                    ->when($jabatan, fn($q) => $q->where('status_jabatan', $jabatan))
+            ->paginate(2)
+            ->withQueryString();
+
+            $list_prodi = Prodi::all();
+
+            return view('admin.ketua_jurusan.dosen' ,compact('dosens','list_prodi'));
+        }
 
     /**
      * Show the form for creating a new resource.
