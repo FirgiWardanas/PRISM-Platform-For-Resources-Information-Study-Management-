@@ -7,10 +7,10 @@
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+        <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
             <!-- Header -->
             <x-admin.header>Dashboard</x-admin.header>
-            <!-- Welcome Banner -->
+          
             <!-- CONTENT -->
             <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 
@@ -35,7 +35,7 @@
 
                     </div>
 
-                    <div class="absolute right-0 top-5 h-full flex items-end">
+                    <div class="absolute -right-5 top-5 h-full flex items-end">
 
                         <img src="{{ asset('images/illustrasi_welcome.png') }}" alt=""
                             class="h-[120px] md:h-[190px] object-contain">

@@ -44,8 +44,6 @@
 
                 <p>Email : {{ Auth::user()->email }}</p>
 
-                <p>Program Studi : Teknik Informatika</p>
-
                 <p>Password : ••••••••</p>
 
             </div>

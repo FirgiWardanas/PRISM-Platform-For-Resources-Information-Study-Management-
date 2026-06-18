@@ -9,10 +9,10 @@
         <!-- Main Content -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             <!-- Header -->
-            <x-admin.header>Kelola Dosen</x-admin.header>
+            <x-admin.header>Akun</x-admin.header>
 
-            <div class="space-y-4 max-w-[930px] mx-auto px-4 sm:px-0">
-                <div class="flex justify-center sm:justify-end mb-4">
+            <div class="space-y-4 px-0">
+                <div class="flex justify-end mb-4">
                     <button onclick="openTambahModal()"
                         class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer">
                         Tambah +
@@ -29,18 +29,16 @@
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
                         <input type="text" name="search" value="{{ request('search') }}"
-                            placeholder="Cari nama dosen..."
-                            class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
+                            placeholder="Cari nama dosen..." class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
                                     bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
                     </div>
 
                     <!-- Filter Prodi -->
-                    <select name="prodi"
-                            class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
+                    <select name="prodi" class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
                                 rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
                                 focus:ring-blue-300 cursor-pointer">
                         <option value="">Semua Prodi</option>
@@ -52,26 +50,24 @@
                     </select>
 
                     <!-- Filter Jabatan -->
-                    <select name="jabatan"
-                            class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
+                    <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
                                 rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
                                 focus:ring-blue-300 cursor-pointer">
                         <option value="">Semua Jabatan</option>
-                        <option value="dosen"        {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
-                        <option value="kaprodi"      {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi</option>
-                        <option value="laboran"      {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
+                        <option value="dosen" {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
+                        <option value="kaprodi" {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program
+                            Studi</option>
+                        <option value="laboran" {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
                     </select>
 
-                    <button type="submit"
-                            class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white
-                                text-sm font-semibold rounded-2xl hover:opacity-90 transition">
+                    <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white
+                                text-sm font-semibold rounded-2xl hover:opacity-90 transition cursor-pointer">
                         Cari
                     </button>
 
                     @if(request('search') || request('prodi') || request('jabatan'))
-                        <a href="{{ route('admin.kelola-dosen.index') }}"
-                        class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
-                                bg-white hover:bg-blue-50 transition">
+                        <a href="{{ route('admin.kelola-dosen.index') }}" class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
+                                    bg-white hover:bg-blue-50 transition">
                             Reset
                         </a>
                     @endif
@@ -82,7 +78,7 @@
                     <div class="card bg-white rounded-[32px] shadow-xl border border-gray-300 p-5">
                         <!-- HEADER -->
                         <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                            <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">
+                            <div class="flex items-center gap-4 flex-1">
 
                                 <img src="{{ asset('storage/' . $dosen->foto_dosen) }}"
                                     class="-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover">
@@ -117,7 +113,8 @@
                                 </div>
 
                                 <!-- ICON DROPDOWN -->
-                                <button onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
+                                <button onclick="toggleCard(this)"
+                                    class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
                                     <img src="{{ asset('images/icon-dropdown.svg') }}"
                                         class="icon-arrow h-5 w-5 transition">
                                 </button>
@@ -320,7 +317,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                            class="bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-semibold px-10 py-2 rounded-xl">
                             Simpan
                         </button>
                     </div>
@@ -447,7 +444,7 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl">
+                            class="bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-semibold px-10 py-2 rounded-xl">
                             Simpan
                         </button>
                     </div>

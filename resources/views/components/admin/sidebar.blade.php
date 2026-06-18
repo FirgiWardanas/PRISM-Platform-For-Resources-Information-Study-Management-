@@ -56,7 +56,7 @@
     ? asset('images/icon-akun(putih).svg')
     : asset('images/icon-akun(biru).svg') }}" alt="Kelola-dosen" class="w-4 h-4">
 
-            <span>Kelola dosen</span>
+            <span>Akun</span>
         </a>
         {{-- profile --}}
         <a href="/admin/profile-ketua-jurusan" class="{{ request()->is('admin/profile-ketua-jurusan')

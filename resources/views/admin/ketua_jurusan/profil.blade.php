@@ -29,12 +29,11 @@
                         <p>Nama : {{ $user->nama }}</p>
                         <p>NIP : {{ $user->nip }}</p>
                         <p>Email : {{ $user->email }}</p>
-                        <p>Program studi : Teknik Informatika</p>
                     </div>
                 </div>
 
                 {{-- Baris bawah --}}
-                <div class="mt-8 flex flex-col gap-3 md:absolute md:bottom-6 md:left-8 md:right-8 md:flex-row md:justify-between">
+                <div class="mt-8 flex flex-col md:flex-row md:justify-between md:items-end gap-3">
 
                     <div>
                         @if($pendingTransfer)

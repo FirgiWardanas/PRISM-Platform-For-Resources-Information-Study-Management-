@@ -13,12 +13,10 @@
 
             <div class="flex justify-end">
                 <button onclick="openTambahModal()"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer">
                     Tambah +
                 </button>
             </div>
-
-
 
             <!-- LIST CARD -->
             <div class="space-y-4">
@@ -34,123 +32,112 @@
                     </div>
                 @endif
 
-                
-                <form method="GET" action="{{ route('admin.program-studi.index') }}" 
+                <form method="GET" action="{{ route('admin.program-studi.index') }}"
                     class="flex items-center gap-3 mb-5">
-                    
+
                     <div class="relative flex-1 max-w-md">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </span>
-                        <input 
-                            type="text" 
-                            name="search" 
-                            value="{{ $search }}" 
-                            placeholder="Cari prodi atau kode prodi..."
-                            class="w-full pl-9 pr-4 py-2.5 text-sm border border-purple-200 rounded-xl 
+                        <input type="text" name="search" value="{{ $search }}"
+                            placeholder="Cari prodi atau kode prodi..." class="w-full pl-9 pr-4 py-2.5 text-sm border border-purple-200 rounded-xl 
                                 bg-white focus:outline-none focus:ring-2 focus:ring-purple-300 
-                                text-gray-700 shadow-sm"
-                        >
+                                text-gray-700 shadow-sm">
                     </div>
 
-                    <button type="submit"
-                        class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-500 
+                    <button type="submit" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-500 
                             to-purple-500 text-white text-sm font-semibold rounded-xl 
-                            hover:opacity-90 transition shadow-sm">
+                            hover:opacity-90 transition shadow-sm cursor-pointer">
                         Cari
                     </button>
 
                     @if($search)
-                        <a href="{{ route('admin.program-studi.index') }}"
-                        class="px-4 py-2.5 text-sm text-purple-600 border border-purple-200 
-                                rounded-xl bg-white hover:bg-purple-50 transition">
+                        <a href="{{ route('admin.program-studi.index') }}" class="px-4 py-2.5 text-sm text-purple-600 border border-purple-200 
+                                    rounded-xl bg-white hover:bg-purple-50 transition">
                             Reset
                         </a>
                     @endif
                 </form>
 
-<div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300">
-    <div class="overflow-x-auto overflow-y-auto max-h-[70vh]">
+                <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300">
+                    <div class="overflow-x-auto overflow-y-auto max-h-[70vh]">
 
-        <table class="w-full">
-            <thead class="sticky top-0 bg-white">
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
-                        Kode
-                    </th>
-                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
-                        Nama Prodi
-                    </th>
-                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
-                        Jenjang
-                    </th>
-                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
-                        Status
-                    </th>
-                    <th class="px-8 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
-                        Aksi
-                    </th>
-                </tr>
-            </thead>
+                        <table class="w-full">
+                            <thead class="sticky top-0 bg-white">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                                        Kode
+                                    </th>
+                                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                                        Nama Prodi
+                                    </th>
+                                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                                        Jenjang
+                                    </th>
+                                    <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                                        Status
+                                    </th>
+                                    <th class="px-8 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
+                                        Aksi
+                                    </th>
+                                </tr>
+                            </thead>
 
-            <tbody class="divide-y divide-gray-100">
-                @foreach ($prodi as $p)
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="px-4 py-3 text-sm text-gray-700">
-                            {{ $p->kode_prodi }}
-                        </td>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach ($prodi as $p)
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-4 py-3 text-sm text-gray-700">
+                                            {{ $p->kode_prodi }}
+                                        </td>
 
-                        <td class="px-4 py-3 text-sm text-gray-700">
-                            {{ $p->nama_prodi }}
-                        </td>
+                                        <td class="px-4 py-3 text-sm text-gray-700">
+                                            {{ $p->nama_prodi }}
+                                        </td>
 
-                        <td class="px-4 py-3 text-sm text-gray-700">
-                            {{ $p->jenjang }}
-                        </td>
+                                        <td class="px-4 py-3 text-sm text-gray-700">
+                                            {{ $p->jenjang }}
+                                        </td>
 
-                        <td class="px-4 py-3">
-                            <span
-                                class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-lg">
-                                {{ $p->status_prodi }}
-                            </span>
-                        </td>
+                                        <td class="px-4 py-3">
+                                            <span
+                                                class="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-lg">
+                                                {{ $p->status_prodi }}
+                                            </span>
+                                        </td>
 
-                        <td class="px-4 py-3 flex gap-2">
-                            <button
-                                onclick="openEditModal(this,
-                                    '{{ $p->id_prodi }}',
-                                    '{{ $p->kode_prodi }}',
-                                    '{{ $p->nama_prodi }}',
-                                    '{{ $p->jenjang }}')"
-                                class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer">
+                                        <td class="px-4 py-3 flex gap-2">
+                                            <button onclick="openEditModal(this,
+                                        '{{ $p->id_prodi }}',
+                                        '{{ $p->kode_prodi }}',
+                                        '{{ $p->nama_prodi }}',
+                                        '{{ $p->jenjang }}')"
+                                                class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer">
 
-                                <img src="{{ asset('images/icon-edit(ungu).svg') }}"
-                                    class="w-5 h-5" alt="">
-                            </button>
+                                                <img src="{{ asset('images/icon-edit(ungu).svg') }}" class="w-5 h-5" alt="">
+                                            </button>
 
-                            <button
-                                onclick="hapusData('{{ $p->id_prodi }}')"
-                                class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg cursor-pointer">
+                                            <button onclick="hapusData('{{ $p->id_prodi }}')"
+                                                class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg cursor-pointer">
 
-                                <img src="{{ asset('images/icon-hapus(ungu).svg') }}"
-                                    class="w-6 h-6" alt="">
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                                                <img src="{{ asset('images/icon-hapus(ungu).svg') }}" class="w-6 h-6"
+                                                    alt="">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 
-    </div>
+                    </div>
 
-    {{-- Pagination --}}
-    <div class="border-t border-gray-100 mt-4 pt-4">
-        {{ $prodi->withQueryString()->links() }}
-    </div>
-</div>
+                    {{-- Pagination --}}
+                    <div class="border-t border-gray-100 mt-4 pt-4">
+                        {{ $prodi->withQueryString()->links() }}
+                    </div>
+                </div>
 
 
 
@@ -173,7 +160,7 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
                     Tambah Progarm Studi
                 </h2>
 
@@ -217,7 +204,7 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                class="w-35 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white py-2 mt-2 font-semibold">
                                 Simpan
                             </button>
                         </div>
@@ -236,7 +223,7 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
                     Ubah Program Studi
                 </h2>
 
@@ -269,7 +256,7 @@
 
                             <div class="flex justify-center">
                                 <button type="submit"
-                                    class="w-40 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-2 text-white">
+                                    class="w-35 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white py-2 mt-2 font-semibold">
                                     Simpan
                                 </button>
                             </div>
