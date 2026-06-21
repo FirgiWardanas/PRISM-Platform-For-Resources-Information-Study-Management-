@@ -197,12 +197,12 @@
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-6 z-10">
             <div class="bg-white rounded-2xl shadow-md p-6 md:p-10 text-center hover:scale-105 transition flex flex-col items-center">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 visi-nomor">01</h1>
-                <p class="font-bold text-primary-color mb-3 text-lg md:text-xl">Visi Prodi {{ $prodi->nama_prodi }}</p>
+                <p class="font-bold text-primary-color mb-3 text-xl md:text-2xl">Visi Prodi</p>
                 <p class="text-sm md:text-base text-justify leading-relaxed">{{ $prodi->detailProdi?->visi }}</p>
             </div>
             <div class="bg-white rounded-2xl shadow-md p-6 md:p-10 text-center hover:scale-105 transition flex flex-col items-center">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 visi-nomor">02</h1>
-                <p class="font-bold text-primary-color mb-3 text-lg md:text-xl">Misi Prodi {{ $prodi->nama_prodi }}</p>
+                <p class="font-bold text-primary-color mb-3 text-xl md:text-2xl">Misi Prodi</p>
                 <p class="text-sm md:text-base text-justify leading-relaxed">{{ $prodi->detailProdi?->misi }}</p>
             </div>
         </div>
