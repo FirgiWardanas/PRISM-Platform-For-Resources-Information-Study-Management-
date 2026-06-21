@@ -13,6 +13,8 @@ return new class extends Migration
             $table->unsignedInteger('id_detail_prodi');
             $table->string('judul_lulusan', 255);
             $table->text('deskripsi_lulusan')->nullable();
+            $table->string('icon_lulusan', 255)->nullable();
+
 
             $table->foreign('id_detail_prodi')
                   ->references('id_detail_prodi')->on('detail_prodi')
