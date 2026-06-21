@@ -197,37 +197,7 @@
             $secondary = $prodi->kustomisasi->secondary_color ?? '#01C7B8';
             $tertiary = $prodi->kustomisasi->tertiary_color ?? '#1BE1D1';
 
-            $logoUrl = null;
-            if ($prodi->detailProdi?->logo) {
-                $logoUrl = Storage::url($prodi->detailProdi->logo);
-            } else {
-                $nameLower = strtolower($prodi->nama_prodi);
-                if (str_contains($nameLower, 'informatika')) {
-                    $logoUrl = asset('images/logo-if.png');
-                } elseif (str_contains($nameLower, 'geomatika')) {
-                    $logoUrl = asset('images/logo-gm.png');
-                } elseif (str_contains($nameLower, 'animasi')) {
-                    $logoUrl = asset('images/logo-an.png');
-                } elseif (str_contains($nameLower, 'multimedia')) {
-                    $logoUrl = asset('images/logo-trm.png');
-                } elseif (str_contains($nameLower, 'siber') || str_contains($nameLower, 'keamanan')) {
-                    $logoUrl = asset('images/logo-rks.png');
-                } elseif (str_contains($nameLower, 'perangkat lunak') || str_contains($nameLower, 'software')) {
-                    $logoUrl = asset('images/logo-trpl.png');
-                } elseif (str_contains($nameLower, 'permainan') || str_contains($nameLower, 'game')) {
-                    $logoUrl = asset('images/logo-tp.png');
-                }
-            }
-
-            // Initials fallback
-            $initials = '';
-            if (!$logoUrl) {
-                $words = explode(' ', $prodi->nama_prodi);
-                foreach ($words as $word) {
-                    $initials .= strtoupper(substr($word, 0, 1));
-                }
-                $initials = substr($initials, 0, 3);
-            }
+            $logoUrl = $prodi->detailProdi?->logo ? Storage::url($prodi->detailProdi->logo) : null;
           @endphp
 
           <div class="w-[250px] sm:w-full mx-auto relative bg-white rounded-2xl shadow-md p-4 md:p-6 text-center overflow-hidden hover:scale-105 transition flex flex-col items-center justify-between min-h-[340px]">
@@ -248,10 +218,6 @@
             <div class="z-10 flex items-center justify-center h-28 my-auto">
               @if($logoUrl)
                 <img src="{{ $logoUrl }}" class="w-20 md:w-28 h-20 md:h-28 object-contain">
-              @else
-                <div class="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl md:text-3xl shadow-inner" style="background-color: {{ $primary }}">
-                  {{ $initials }}
-                </div>
               @endif
             </div>
 
