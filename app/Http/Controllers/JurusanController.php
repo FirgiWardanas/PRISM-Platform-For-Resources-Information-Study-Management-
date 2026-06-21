@@ -18,7 +18,12 @@ class JurusanController extends Controller
         $jumlah_dosen = Dosen::whereHas('prodi',function($q){
             $q->where('status_prodi', 'published');
         })->count();
-        return view('jurusan.jurusan-informatika', compact('jumlah_prodi','jumlah_dosen'));
+        
+        $prodis = Prodi::with(['kustomisasi', 'detailProdi'])
+            ->where('status_prodi', 'published')
+            ->get();
+
+        return view('jurusan.jurusan-dinamis', compact('jumlah_prodi', 'jumlah_dosen', 'prodis'));
     }
 
     /**

@@ -449,22 +449,22 @@
                         <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label class="block">
                                 <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" value="0" step="1.0" min="0"
+                                <input type="number" name="bobot_teori" value="" step="1.0" min="0"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" value="0" step="1.0" min="0"
+                                <input type="number" name="bobot_praktikum" value="" step="1.0" min="0"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Jam/sesi teori</span>
-                                <input type="number" name="sesi_teori" value="0" min="0"
+                                <input type="number" name="sesi_teori" value="" min="0"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Jam/sesi praktikum</span>
-                                <input type="number" name="sesi_praktikum" value="0" min="0"
+                                <input type="number" name="sesi_praktikum" value="" min="0"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                         </div>
