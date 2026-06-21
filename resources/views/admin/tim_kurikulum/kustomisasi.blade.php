@@ -55,11 +55,49 @@
                                 </div>
                             </div>
 
+                            {{-- DESKRIPSI --}}
+                            <div class="col-span-1 md:col-span-2">
+                                <label class="font-semibold text-[#3307CC]">Deskripsi</label>
+                                <p class="mt-3 text-sm text-[#3307CC]">Deskripsi program studi</p>
+                                <textarea name="deskripsi_prodi" class="w-full h-28 mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan deskripsi program studi">{{ $prodi->detailProdi?->deskripsi_prodi }}</textarea>
+                            </div>
+
+
+                            {{-- VISI --}}
+                            <div >
+                                <label class="font-semibold text-[#3307CC]">Visi</label>
+                                <p class="mt-3 text-sm text-[#3307CC]">Visi program studi</p>
+                                <textarea name="visi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan visi program studi">{{ $prodi->detailProdi?->visi }}</textarea>
+                            </div>
+
                             {{-- MISI --}}
                             <div>
                                 <label class="font-semibold text-[#3307CC]">Misi</label>
                                 <p class="mt-3 text-sm text-[#3307CC]">Misi program studi</p>
                                 <textarea name="misi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan misi program studi">{{ $prodi->detailProdi?->misi }}</textarea>
+                            </div>
+                            
+                            {{-- LOGO --}}
+                            <div>
+                                <label class="font-semibold text-[#3307CC]">Logo</label>
+                                <p class="mt-3 text-sm text-[#3307CC]">Upload logo program studi</p>
+                                <div class="flex flex-col sm:flex-row items-center gap-6 mt-2">
+                                    <div id="preview-logo" class="w-28 h-28 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center overflow-hidden">
+                                        @if($prodi->detailProdi?->logo)
+                                            <img src="{{ Storage::url($prodi->detailProdi->logo) }}" class="w-full h-full object-cover">
+                                        @else
+                                            <img src="{{ asset('images/icon-upload.svg') }}">
+                                        @endif
+                                    </div>
+                                    <input type="file" id="input-logo" name="logo" class="hidden" accept="image/*">
+                                    <div>
+                                        <button type="button" onclick="document.getElementById('input-logo').click()"
+                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] ">
+                                            Upload Logo
+                                        </button>
+                                        <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
+                                    </div>
+                                </div>
                             </div>
 
                             {{-- ILUSTRASI --}}
@@ -85,42 +123,7 @@
                                 </div>
                             </div>
 
-                            {{-- DESKRIPSI --}}
-                            <div>
-                                <label class="font-semibold text-[#3307CC]">Deskripsi</label>
-                                <p class="mt-3 text-sm text-[#3307CC]">Deskripsi program studi</p>
-                                <textarea name="deskripsi_prodi" class="w-full h-28 mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan deskripsi program studi">{{ $prodi->detailProdi?->deskripsi_prodi }}</textarea>
-                            </div>
-
-                            {{-- LOGO --}}
-                            <div>
-                                <label class="font-semibold text-[#3307CC]">Logo</label>
-                                <p class="mt-3 text-sm text-[#3307CC]">Upload logo program studi</p>
-                                <div class="flex flex-col sm:flex-row items-center gap-6 mt-2">
-                                    <div id="preview-logo" class="w-28 h-28 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center overflow-hidden">
-                                        @if($prodi->detailProdi?->logo)
-                                            <img src="{{ Storage::url($prodi->detailProdi->logo) }}" class="w-full h-full object-cover">
-                                        @else
-                                            <img src="{{ asset('images/icon-upload.svg') }}">
-                                        @endif
-                                    </div>
-                                    <input type="file" id="input-logo" name="logo" class="hidden" accept="image/*">
-                                    <div>
-                                        <button type="button" onclick="document.getElementById('input-logo').click()"
-                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] ">
-                                            Upload Logo
-                                        </button>
-                                        <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- VISI --}}
-                            <div class="col-span-1 md:col-span-2">
-                                <label class="font-semibold text-[#3307CC]">Visi</label>
-                                <p class="mt-3 text-sm text-[#3307CC]">Visi program studi</p>
-                                <textarea name="visi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan visi program studi">{{ $prodi->detailProdi?->visi }}</textarea>
-                            </div>
+                            
 
                             {{-- WARNA PRIMARY --}}
                             <div>
