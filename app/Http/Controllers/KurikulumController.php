@@ -14,7 +14,7 @@ class KurikulumController extends Controller
             'prodi',
             'detailKurikulums.matakuliah',
             'detailKurikulums.silabus',
-        ])->where('id_prodi', auth()->user()->id_prodi)->get();
+        ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
 
         $matakuliahs = Matakuliah::all();
 
@@ -25,10 +25,15 @@ class KurikulumController extends Controller
 
     public function store(Request $request)
     {
+        $prodi = auth()->guard()->user()->prodis;
+
+        $totalSemester = match ($prodi->jenjang) {
+        'D3' => 6,
+        'D4' => 8,
+    };
         $request->validate([
             'nama_kurikulum' => 'required',
             'tahun_mulai'    => 'required',
-            'total_semester' => 'required',
         ]);
 
         $idProdi = auth()->guard()->user()->id_prodi;
@@ -39,8 +44,8 @@ class KurikulumController extends Controller
         'id_prodi'         => $idProdi,
         'nama_kurikulum'   => $request->nama_kurikulum,
         'tahun_mulai'      => $request->tahun_mulai,
-        'total_semester'   => $request->total_semester,
-        'status_kurikulum' => $request->status_kurikulum ?? 'aktif', // ← default 'aktif'
+        'total_semester'   => $totalSemester,
+        'status_kurikulum' => $request->status_kurikulum ?? 'aktif', 
     ]);
 
         return redirect()->back();

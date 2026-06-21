@@ -264,25 +264,7 @@
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
                                 required>
                         </label>
-                        <label>
-                            <span class="text-sm">Semester</span>
-                            <div
-                                class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit">
-                                <div id="valueBoxTambah"
-                                    class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
-                                    0
-                                </div>
-                                <input type="hidden" name="total_semester" id="semesterInputTambah" value="0">
-                                <div class="flex flex-col justify-center">
-                                    <button type="button" onclick="tambahTambah()" class="rotate-180 h-5 w-5">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
-                                    </button>
-                                    <button type="button" onclick="kurangTambah()" class="h-5 w-5">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
-                                    </button>
-                                </div>
-                            </div>
-                        </label>
+
                         <div class="flex justify-center mt-4">
                             <button type="submit"
                                 class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer">
@@ -325,25 +307,6 @@
                                 <option value="aktif">Aktif</option>
                                 <option value="tidak aktif">Tidak Aktif</option>
                             </select>
-                        </label>
-                        <label>
-                            <span class="text-sm">Semester</span>
-                            <div
-                                class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit">
-                                <div id="valueBoxEdit"
-                                    class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
-                                    0
-                                </div>
-                                <input type="hidden" name="total_semester" id="semesterInputEdit" value="0">
-                                <div class="flex flex-col justify-center">
-                                    <button type="button" onclick="tambahEdit()" class="rotate-180 h-5 w-5">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
-                                    </button>
-                                    <button type="button" onclick="kurangEdit()" class="h-5 w-5">
-                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
-                                    </button>
-                                </div>
-                            </div>
                         </label>
                         <div class="flex justify-center mt-4">
                             <button type="submit"
