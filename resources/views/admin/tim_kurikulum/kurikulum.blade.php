@@ -433,7 +433,7 @@
                         </div>
 
                         {{-- DESKRIPSI --}}
-                        <label class="block mt-4">
+                        <label class="block mt-4 col-span-2">
                             <span>Deskripsi</span>
                             <textarea name="deskripsi" placeholder="Masukkan deskripsi matakuliah"
                                 class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
@@ -441,7 +441,7 @@
                         </label>
 
                         {{-- CPM --}}
-                        <label class="block mt-4">
+                        <label class="block mt-4 col-span-2">
                             <span>Capaian Pembelajaran Umum</span>
                             <textarea name="cpm" placeholder="Masukkan capaian pembelajaran umum"
                                 class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
@@ -449,7 +449,7 @@
                         </label>
 
                         {{-- CPK --}}
-                        <label class="block mt-2">
+                        <label class="block mt-2 col-span-2">
                             <span>Capaian Pembelajaran Khusus</span>
                             <textarea name="cpk" placeholder="Masukkan capaian pembelajaran khusus"
                                 class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
@@ -457,7 +457,7 @@
                         </label>
 
                         {{-- DAFTAR PUSTAKA --}}
-                        <label class="block mt-2">
+                        <label class="block mt-2 col-span-2">
                             <span>Daftar Pustaka</span>
                             <textarea name="bahan_pustaka" placeholder="Masukkan daftar pustaka matakuliah"
                                 class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
