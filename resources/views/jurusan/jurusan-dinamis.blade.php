@@ -179,10 +179,10 @@
     <section id="programStudi" class="py-20 relative overflow-hidden flex flex-col justify-center items-center mb-60">
 
       <!-- DEKORASI BULAT -->
-      <div class="absolute top-40 -left-20 w-80 ">
+      <div class="absolute bottom-0 -right-12 w-40 sm:w-50 md:w-60 lg:w-80 z-0">
         <img src="{{ asset('images/ring.png') }}" alt="">
       </div>
-      <div class="absolute bottom-50 -right-20 w-80 ">
+      <div class="absolute top-25 -left-12 w-40 sm:w-50 md:w-60 lg:w-80 z-0">
         <img src="{{ asset('images/ring.png') }}" alt="">
       </div>
 
@@ -192,79 +192,85 @@
       <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-6 w-full">
 
         @foreach($prodis as $prodi)
-          @php
-            $primary = $prodi->kustomisasi->primary_color ?? '#00766D';
-            $secondary = $prodi->kustomisasi->secondary_color ?? '#01C7B8';
-            $tertiary = $prodi->kustomisasi->tertiary_color ?? '#1BE1D1';
+        @php
+        $primary = $prodi->kustomisasi->primary_color ?? '#00766D';
+        $secondary = $prodi->kustomisasi->secondary_color ?? '#01C7B8';
+        $tertiary = $prodi->kustomisasi->tertiary_color ?? '#1BE1D1';
 
-            $logoUrl = null;
-            if ($prodi->detailProdi?->logo) {
-                $logoUrl = Storage::url($prodi->detailProdi->logo);
-            } else {
-                $nameLower = strtolower($prodi->nama_prodi);
-                if (str_contains($nameLower, 'informatika')) {
-                    $logoUrl = asset('images/logo-if.png');
-                } elseif (str_contains($nameLower, 'geomatika')) {
-                    $logoUrl = asset('images/logo-gm.png');
-                } elseif (str_contains($nameLower, 'animasi')) {
-                    $logoUrl = asset('images/logo-an.png');
-                } elseif (str_contains($nameLower, 'multimedia')) {
-                    $logoUrl = asset('images/logo-trm.png');
-                } elseif (str_contains($nameLower, 'siber') || str_contains($nameLower, 'keamanan')) {
-                    $logoUrl = asset('images/logo-rks.png');
-                } elseif (str_contains($nameLower, 'perangkat lunak') || str_contains($nameLower, 'software')) {
-                    $logoUrl = asset('images/logo-trpl.png');
-                } elseif (str_contains($nameLower, 'permainan') || str_contains($nameLower, 'game')) {
-                    $logoUrl = asset('images/logo-tp.png');
-                }
-            }
+        $logoUrl = null;
+        if ($prodi->detailProdi?->logo) {
+        $logoUrl = Storage::url($prodi->detailProdi->logo);
+        } else {
+        $nameLower = strtolower($prodi->nama_prodi);
+        if (str_contains($nameLower, 'informatika')) {
+        $logoUrl = asset('images/logo-if.png');
+        } elseif (str_contains($nameLower, 'geomatika')) {
+        $logoUrl = asset('images/logo-gm.png');
+        } elseif (str_contains($nameLower, 'animasi')) {
+        $logoUrl = asset('images/logo-an.png');
+        } elseif (str_contains($nameLower, 'multimedia')) {
+        $logoUrl = asset('images/logo-trm.png');
+        } elseif (str_contains($nameLower, 'siber') || str_contains($nameLower, 'keamanan')) {
+        $logoUrl = asset('images/logo-rks.png');
+        } elseif (str_contains($nameLower, 'perangkat lunak') || str_contains($nameLower, 'software')) {
+        $logoUrl = asset('images/logo-trpl.png');
+        } elseif (str_contains($nameLower, 'permainan') || str_contains($nameLower, 'game')) {
+        $logoUrl = asset('images/logo-tp.png');
+        }
+        }
 
-            // Initials fallback
-            $initials = '';
-            if (!$logoUrl) {
-                $words = explode(' ', $prodi->nama_prodi);
-                foreach ($words as $word) {
-                    $initials .= strtoupper(substr($word, 0, 1));
-                }
-                $initials = substr($initials, 0, 3);
-            }
-          @endphp
+        // Initials fallback
+        $initials = '';
+        if (!$logoUrl) {
+        $words = explode(' ', $prodi->nama_prodi);
+        foreach ($words as $word) {
+        $initials .= strtoupper(substr($word, 0, 1));
+        }
+        $initials = substr($initials, 0, 3);
+        }
+        @endphp
 
-          <div class="w-[250px] sm:w-full mx-auto relative bg-white rounded-2xl shadow-md p-4 md:p-6 text-center overflow-hidden hover:scale-105 transition flex flex-col items-center justify-between min-h-[340px]">
-            <!-- Wave background (secondary color with low opacity) -->
-            <div class="absolute bottom-0 left-0 w-full h-[50%] pointer-events-none z-0">
-              <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,50 C20,35 40,35 60,55 C80,75 90,65 100,50 L100,100 L0,100 Z" fill="{{ $secondary }}" fill-opacity="0.15" />
-              </svg>
-            </div>
-
-            <!-- Title & Jenjang -->
-            <div class="z-10 w-full flex flex-col items-center">
-              <h1 class="font-bold text-xl line-clamp-2" style="color: {{ $primary }}">{{ $prodi->nama_prodi }}</h1>
-              <p class="font-semibold text-sm mb-3" style="color: {{ $primary }}">{{ $prodi->jenjang }}</p>
-            </div>
-
-            <!-- Logo  -->
-            <div class="z-10 flex items-center justify-center h-28 my-auto">
-              @if($logoUrl)
-                <img src="{{ $logoUrl }}" class="w-20 md:w-28 h-20 md:h-28 object-contain">
-              @else
-                <div class="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl md:text-3xl shadow-inner" style="background-color: {{ $primary }}">
-                  {{ $initials }}
-                </div>
-              @endif
-            </div>
-
-            <!-- Action Button  -->
-            <div class="z-10 mt-4">
-              <a href="{{ route('prodi.show', $prodi->kode_prodi) }}">
-                <button class="shadow-2xl px-8 py-3 rounded-full text-xs font-bold text-white transition duration-200 hover:scale-105 hover:cursor-pointer hover:opacity-90"
-                        style="background: linear-gradient(135deg, {{ $secondary }}, {{ $tertiary }})">
-                  Selengkapnya
-                </button>
-              </a>
-            </div>
+        <div class="w-[250px] sm:w-full mx-auto relative bg-white rounded-2xl shadow-md p-4 md:p-6 text-center overflow-hidden hover:scale-105 transition flex flex-col items-center justify-between ">
+          <!-- SVG Background -->
+          <div class="absolute inset-0 pointer-events-none z-0">
+            <svg class="w-full h-full" viewBox="0 0 541 418">
+              <defs>
+                <mask id="circleMask">
+                  <circle cx="184" cy="441" r="250" fill="white" />
+                  <circle cx="464" cy="388" r="150" fill="white" />
+                </mask>
+              </defs>
+              <rect x="-70" y="191" width="688" height="508" fill="{{ $secondary }}" fill-opacity="0.18" mask="url(#circleMask)" />
+            </svg>
           </div>
+
+          <!-- Title & Jenjang -->
+          <div class="z-10 w-full flex flex-col items-center">
+            <h1 class="font-bold text-lg md:text-xl line-clamp-2" style="color: {{ $primary }}">{{ $prodi->nama_prodi }}</h1>
+            <p class="font-semibold text-sm mb-3" style="color: {{ $primary }}">{{ $prodi->jenjang }}</p>
+          </div>
+
+          <!-- Logo  -->
+          <div class="z-10 flex items-center justify-center h-28 my-auto">
+            @if($logoUrl)
+            <img src="{{ $logoUrl }}" class="w-24 md:w-28 h-24 md:h-28 object-contain">
+            @else
+            <div class="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-extrabold text-2xl md:text-3xl shadow-inner" style="background-color: {{ $primary }}">
+              {{ $initials }}
+            </div>
+            @endif
+          </div>
+
+          <!-- Action Button  -->
+          <div class="z-10 mt-2">
+            <a href="{{ route('prodi.show', $prodi->kode_prodi) }}">
+              <button class="shadow-2xl px-8 py-3 rounded-full text-xs font-bold text-white transition duration-200 hover:scale-105 hover:cursor-pointer hover:opacity-90"
+                style="background: linear-gradient(135deg, {{ $secondary }}, {{ $tertiary }})">
+                Selengkapnya
+              </button>
+            </a>
+          </div>
+        </div>
         @endforeach
 
       </div>
