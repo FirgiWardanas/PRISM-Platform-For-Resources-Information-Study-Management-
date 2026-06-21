@@ -28,8 +28,8 @@ class DetailKurikulum extends Model
         'semester'        => 'integer',
         'sesi_teori'      => 'integer',
         'sesi_praktikum'  => 'integer',
-        'bobot_teori'     => 'decimal:2',
-        'bobot_praktikum' => 'decimal:2',
+        'bobot_teori'     => 'integer',
+        'bobot_praktikum' => 'integer',
         'sks'             => 'integer',
         'status_matkul'   => 'string',
     ];
