@@ -49,10 +49,26 @@ function closeEditModal() {
 // HAPUS DATA (BACKEND)
 // =======================
 function hapusData(id) {
-    if (confirm("Yakin mau hapus data ini?")) {
-        document.getElementById(`deleteForm${id}`).submit();
-    }
+    Swal.fire({
+        title: 'Hapus Program Studi?',
+        html: `
+            Data Program Studi akan dihapus secara permanen.<br><br>
+            Pastikan tidak ada data penting yang masih bergantung pada Program Studi ini.
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Ya, Hapus'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm${id}`).submit();
+        }
+
+    });
 }
+
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
