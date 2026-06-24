@@ -226,7 +226,7 @@
                             <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select name="status_jabatan"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Status Jabatan--</option>
+                                <option value="" >--Pilih Status Jabatan--</option>
                                 <option>Kepala Program Studi</option>
                                 <option>Dosen</option>
                                 <option>Laboran</option>
@@ -243,7 +243,7 @@
                             <span>Program Studi</span>
                             <select name="id_prodi" id="id_prodi"
                                 class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none"
-                                required>
+                                >
                                 <option value="">Pilih Program Studi yang di kelola</option>
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
@@ -361,7 +361,7 @@
                             <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select id="edit_jabatan" name="status_jabatan"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option>--Pilih Status Jabatan--</option>
+                                <option value="" >--Pilih Status Jabatan--</option>
                                 <option>Kepala Program Studi</option>
                                 <option>Dosen</option>
                                 <option>Laboran</option>
@@ -378,7 +378,7 @@
                             <span>Program Studi</span>
                             <select id="edit_id_prodi" name="id_prodi"
                                 class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none"
-                                required>
+                                >
                                 <option value="">Pilih Program Studi yang di kelola</option>
 
                                 @foreach($list_prodi as $prodi)

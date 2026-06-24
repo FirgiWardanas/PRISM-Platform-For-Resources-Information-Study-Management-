@@ -29,7 +29,7 @@
 
 
 
-
+{{-- NOTIFIKASI LOGIN --}}
 @if(session('login_success'))
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 @endif
 
+
+{{-- NOTIFIKASI INSERT UPDATE DELETE BERHASIL --}}
 @if(session('success'))
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -65,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 @endif
 
+
+{{-- NOTIFIKASI VALIDASI ADA YANG SALAH --}}
 @if($errors->any())
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -82,6 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 @endif
 
+
+{{-- VALIDASI TERJADI ERROR --}}
 @if(session('error'))
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -96,5 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endif
+
 
 </html>

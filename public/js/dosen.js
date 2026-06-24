@@ -189,10 +189,26 @@ function buatRowSpesialis(value = '') {
 }
 
 function hapusData(id_dosen) {
-    if (confirm("Yakin mau menghapus data dosen berikut?")) {
-        document.getElementById(`deleteForm${id_dosen}`).submit();
-    }
+    Swal.fire({
+        title: 'Yakin ingin menghapus data dosen?',
+        html: 'Data dosen yang dihapus tidak dapat dikembalikan.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm${id_dosen}`).submit();
+        }
+
+    });
 }
+
+
+
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
