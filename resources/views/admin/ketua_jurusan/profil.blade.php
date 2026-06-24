@@ -10,7 +10,9 @@
         {{-- main content --}}
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header>Profile</x-admin.header>
+            <x-admin.header>
+                <div class="font-bold">Profile</div>
+            </x-admin.header>
 
             <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
@@ -29,12 +31,11 @@
                         <p>Nama : {{ $user->nama }}</p>
                         <p>NIP : {{ $user->nip }}</p>
                         <p>Email : {{ $user->email }}</p>
-                        <p>Program studi : Teknik Informatika</p>
                     </div>
                 </div>
 
                 {{-- Baris bawah --}}
-                <div class="mt-8 flex flex-col gap-3 md:absolute md:bottom-6 md:left-8 md:right-8 md:flex-row md:justify-between">
+                <div class="mt-8 flex flex-col gap-3 md:flex-row md:justify-between md:items-end">
 
                     <div>
                         @if($pendingTransfer)
@@ -59,7 +60,7 @@
                             </div>
                         @else
                             <button onclick="openVerifyModal()"
-                                class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
                                 Ubah Ketua Jurusan
                             </button>
                         @endif

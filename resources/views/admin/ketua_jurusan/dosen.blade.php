@@ -9,171 +9,171 @@
         <!-- Main Content -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             <!-- Header -->
-            <x-admin.header>Kelola Dosen</x-admin.header>
-
-            <div class="space-y-4 max-w-[930px] mx-auto px-4 sm:px-0">
-                <div class="flex justify-center sm:justify-end mb-4">
-                    <button onclick="openTambahModal()"
-                        class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all ">
-                        Tambah +
-                    </button>
+            <x-admin.header>
+                <div class="font-bold">Kelola Dosen</div>
+            </x-admin.header>
 
 
-                </div>
-
-                <form method="GET" action="{{ route('admin.kelola-dosen.index') }}"
-                    class="flex items-center gap-3 flex-wrap mb-5 mt-5  ">
-
-                    <!-- Search -->
-                    <div class="relative flex-[2] min-w-[200px]">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </span>
-                        <input type="text" name="search" value="{{ request('search') }}"
-                            placeholder="Cari nama dosen..."
-                            class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
-                                    bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
-                    </div>
-
-                    <!-- Filter Prodi -->
-                    <select name="prodi"
-                            class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
-                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
-                                focus:ring-blue-300 cursor-pointer">
-                        <option value="">Semua Prodi</option>
-                        @foreach($list_prodi as $p)
-                            <option value="{{ $p->id_prodi }}" {{ request('prodi') == $p->id_prodi ? 'selected' : '' }}>
-                                {{ $p->nama_prodi }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <!-- Filter Jabatan -->
-                    <select name="jabatan"
-                            class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
-                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
-                                focus:ring-blue-300 cursor-pointer">
-                        <option value="Kepala Program Studi" @selected(request('jabatan') == 'Kepala Program Studi')>Kepala Program Studi</option>
-                        <option value="Dosen"                @selected(request('jabatan') == 'Dosen')>Dosen</option>
-                        <option value="Laboran"              @selected(request('jabatan') == 'Laboran')>Laboran</option>
-                    </select>
-
-                    <button type="submit"
-                            class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white
-                                text-sm font-semibold rounded-2xl hover:opacity-90 transition">
-                        Cari
-                    </button>
-
-                    @if(request('search') || request('prodi') || request('jabatan'))
-                        <a href="{{ route('admin.kelola-dosen.index') }}"
-                        class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
-                                bg-white hover:bg-blue-50 transition">
-                            Reset
-                        </a>
-                    @endif
-                </form>
-
-                @foreach ($dosens as $dosen)
-                    <!-- CARD DOSEN 1 -->
-                    <div class="card bg-white rounded-[32px] shadow-xl border border-gray-300 p-5">
-                        <!-- HEADER -->
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                            <div onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer">
-
-                                <img src="{{ asset('storage/' . $dosen->foto_dosen) }}"
-                                    class="-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover">
-
-                                <div class="flex-1">
-                                    <h2
-                                        class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold break-words hover:bg-gray-200">
-                                        {{ $dosen->nama_dosen }}
-                                    </h2>
-                                    <p class="text-gray-500 text-sm font-semibold">
-                                        {{ $dosen->status_jabatan }} {{ $dosen->prodi->nama_prodi }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- ICON -->
-                            <div class="flex items-center gap-3">
-                                <div class="flex items-center gap-2">
-                                    <button type="button" class="btn-edit w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
-                                        data-id="{{ $dosen->id_dosen }}" data-id-prodi="{{ $dosen->id_prodi }}"
-                                        data-nama="{{ $dosen->nama_dosen }}" data-jabatan="{{ $dosen->status_jabatan }}"
-                                        data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
-                                        data-email="{{ $dosen->email }}" data-riwayat='@json($dosen->riwayatPendidikans)'
-                                        data-spesialis='@json($dosen->bidangSpesialis)'
-                                        data-prodi="{{ $dosen->prodi->nama_prodi }}">
-                                        <img src="{{ asset('images/icon-edit.svg') }}">
-                                    </button>
-
-                                    <button onclick="hapusData('{{ $dosen->id_dosen }}')" class="hover:scale-[1.025] transition-all hover:opacity-90">
-                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
-                                    </button>
-                                </div>
-
-                                <!-- ICON DROPDOWN -->
-                                <button onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
-                                    <img src="{{ asset('images/icon-dropdown.svg') }}"
-                                        class="icon-arrow h-5 w-5 transition">
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- CONTENT -->
-                        <div class="card-content hidden mt-5 pt-4">
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm px-4">
-
-                                <!-- kiri -->
-                                <div class="space-y-2 pl-2 ">
-                                    <p><span class="font-bold">NIK :</span> {{ $dosen->NIK }}</p>
-
-                                    <p>
-                                        <span class="font-bold">Program Studi :</span>
-                                        {{ $dosen->prodi->nama_prodi }}
-                                    </p>
-
-                                    <p>
-                                        <span class="font-bold">Pendidikan Terakhir :</span>
-                                        {{ $dosen->jenjang_pendidikan }}
-                                    </p>
-
-                                    <p>
-                                        <span class="font-bold">Email :</span>
-                                        <u>{{ $dosen->email }}</u>
-                                    </p>
-                                </div>
-
-                                <!-- kanan -->
-                                <div class="pr-2">
-                                    <h3 class="text-[#123CFF] font-bold mb-2">
-                                        Riwayat Pendidikan
-                                    </h3>
-
-                                    @foreach ($dosen->riwayatPendidikans as $riwayat)
-
-                                        <p class="text-gray-700">
-                                            {{ $riwayat->deskripsi_riwayat  }}
-                                        </p>
-
-                                    @endforeach
-                                    <p class="mt-2">
-                                        <span class="font-bold">Bidang :</span>
-                                        {{ $dosen->bidangSpesialis->pluck('deskripsi_bidang')->implode(', ') }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="flex justify-end">
+                <button onclick="openTambahModal()"
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all ">
+                    Tambah +
+                </button>
 
 
             </div>
+
+            <form method="GET" action="{{ route('admin.kelola-dosen.index') }}"
+                class="flex items-center gap-3 flex-wrap mb-5 mt-5  ">
+
+                <!-- Search -->
+                <div class="relative flex-[2] min-w-[200px]">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama dosen..."
+                        class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
+                                    bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
+                </div>
+
+                <!-- Filter Prodi -->
+                <select name="prodi" class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
+                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
+                                focus:ring-blue-300 cursor-pointer">
+                    <option value="">Semua Prodi</option>
+                    @foreach($list_prodi as $p)
+                        <option value="{{ $p->id_prodi }}" {{ request('prodi') == $p->id_prodi ? 'selected' : '' }}>
+                            {{ $p->nama_prodi }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Filter Jabatan -->
+                <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
+                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
+                                focus:ring-blue-300 cursor-pointer">
+                    <option value="">Semua Jabatan</option>
+                    <option value="dosen" {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
+                    <option value="kaprodi" {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi
+                    </option>
+                    <option value="laboran" {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
+                </select>
+
+                <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white
+                                text-sm font-semibold rounded-2xl hover:opacity-90 transition">
+                    Cari
+                </button>
+
+                @if(request('search') || request('prodi') || request('jabatan'))
+                    <a href="{{ route('admin.kelola-dosen.index') }}" class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
+                                        bg-white hover:bg-blue-50 transition">
+                        Reset
+                    </a>
+                @endif
+            </form>
+
+            @foreach ($dosens as $dosen)
+                <!-- CARD DOSEN 1 -->
+                <div class="card bg-white rounded-[32px] shadow-xl border border-gray-300 p-5">
+                    <!-- HEADER -->
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div class="flex items-center gap-4 flex-1">
+
+                            <img src="{{ asset('storage/' . $dosen->foto_dosen) }}"
+                                class="-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover">
+
+                            <div class="flex-1">
+                                <h2
+                                    class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold break-words hover:bg-gray-200">
+                                    {{ $dosen->nama_dosen }}
+                                </h2>
+                                <p class="text-gray-500 text-sm font-semibold">
+                                    {{ $dosen->status_jabatan }} {{ $dosen->prodi->nama_prodi }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- ICON -->
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2">
+                                <button type="button"
+                                    class="btn-edit w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
+                                    data-id="{{ $dosen->id_dosen }}" data-id-prodi="{{ $dosen->id_prodi }}"
+                                    data-nama="{{ $dosen->nama_dosen }}" data-jabatan="{{ $dosen->status_jabatan }}"
+                                    data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
+                                    data-email="{{ $dosen->email }}" data-riwayat='@json($dosen->riwayatPendidikans)'
+                                    data-spesialis='@json($dosen->bidangSpesialis)'
+                                    data-prodi="{{ $dosen->prodi->nama_prodi }}">
+                                    <img src="{{ asset('images/icon-edit.svg') }}">
+                                </button>
+
+                                <button onclick="hapusData('{{ $dosen->id_dosen }}')"
+                                    class="hover:scale-[1.025] transition-all hover:opacity-90">
+                                    <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
+                                </button>
+                            </div>
+
+                            <!-- ICON DROPDOWN -->
+                            <button onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
+                                <img src="{{ asset('images/icon-dropdown.svg') }}" class="icon-arrow h-5 w-5 transition">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="card-content hidden mt-5 pt-4">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm px-4">
+
+                            <!-- kiri -->
+                            <div class="space-y-2 pl-2 ">
+                                <p><span class="font-bold">NIK :</span> {{ $dosen->NIK }}</p>
+
+                                <p>
+                                    <span class="font-bold">Program Studi :</span>
+                                    {{ $dosen->prodi->nama_prodi }}
+                                </p>
+
+                                <p>
+                                    <span class="font-bold">Pendidikan Terakhir :</span>
+                                    {{ $dosen->jenjang_pendidikan }}
+                                </p>
+
+                                <p>
+                                    <span class="font-bold">Email :</span>
+                                    <u>{{ $dosen->email }}</u>
+                                </p>
+                            </div>
+
+                            <!-- kanan -->
+                            <div class="pr-2">
+                                <h3 class="text-[#123CFF] font-bold mb-2">
+                                    Riwayat Pendidikan
+                                </h3>
+
+                                @foreach ($dosen->riwayatPendidikans as $riwayat)
+
+                                    <p class="text-gray-700">
+                                        {{ $riwayat->deskripsi_riwayat  }}
+                                    </p>
+
+                                @endforeach
+                                <p class="mt-2">
+                                    <span class="font-bold">Bidang :</span>
+                                    {{ $dosen->bidangSpesialis->pluck('deskripsi_bidang')->implode(', ') }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+
+
 
             <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
                 <p class="text-sm text-gray-500">
@@ -309,8 +309,9 @@
                             <input type="file" name="foto_dosen" id="fotoDosen" class="hidden"
                                 accept="image/png, image/jpg, img/jpeg">
 
-                            <label for="fotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all " >
+                            <label for="fotoDosen"
+                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
                                 Upload foto
                             </label>
                         </div>
@@ -436,7 +437,8 @@
 
                             <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
 
-                            <label for="editFotoDosen" class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+                            <label for="editFotoDosen"
+                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
                         bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
                                 Upload foto
                             </label>
