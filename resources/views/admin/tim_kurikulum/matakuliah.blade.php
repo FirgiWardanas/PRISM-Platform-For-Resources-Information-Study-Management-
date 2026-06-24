@@ -14,20 +14,29 @@
             <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 mb-4">
                 {{-- Search Bar --}}
                 <form method="GET" action="{{ route('admin.matakuliah.index') }}" class="flex-1 max-w-sm">
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex-1">
+                            <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                                </svg>
+                            </span>
+                            <input
+                                type="text"
+                                name="search"
+                                value="{{ $search ?? '' }}"
+                                placeholder="Cari kode atau nama matakuliah..."
+                                class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                            >
+                        </div>
+                        <button type="submit"
+                            class="flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white text-sm rounded-lg shadow hover:opacity-90 hover:scale-[1.025] transition-all whitespace-nowrap cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
                             </svg>
-                        </span>
-                        <input
-                            type="text"
-                            name="search"
-                            value="{{ $search ?? '' }}"
-                            placeholder="Cari kode atau nama matakuliah..."
-                            class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                        >
+                            Cari
+                        </button>
                     </div>
                 </form>
 
