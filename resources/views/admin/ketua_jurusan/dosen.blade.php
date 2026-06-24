@@ -56,10 +56,9 @@
                             class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
                                 rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
                                 focus:ring-blue-300 cursor-pointer">
-                        <option value="">Semua Jabatan</option>
-                        <option value="dosen"        {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
-                        <option value="kaprodi"      {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi</option>
-                        <option value="laboran"      {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
+                        <option value="Kepala Program Studi" @selected(request('jabatan') == 'Kepala Program Studi')>Kepala Program Studi</option>
+                        <option value="Dosen"                @selected(request('jabatan') == 'Dosen')>Dosen</option>
+                        <option value="Laboran"              @selected(request('jabatan') == 'Laboran')>Laboran</option>
                     </select>
 
                     <button type="submit"
