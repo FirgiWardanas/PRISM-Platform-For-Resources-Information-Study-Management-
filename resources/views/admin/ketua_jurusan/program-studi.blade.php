@@ -20,8 +20,6 @@
                 </button>
             </div>
 
-
-
             <!-- LIST CARD -->
             <div class="space-y-4">
                 @if(session('pesan'))
@@ -35,7 +33,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
 
                 <form method="GET" action="{{ route('admin.program-studi.index') }}"
                     class="flex items-center gap-3 mb-5">
@@ -160,7 +157,7 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
                     Tambah Progarm Studi
                 </h2>
 
@@ -223,7 +220,7 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
                     Ubah Program Studi
                 </h2>
 

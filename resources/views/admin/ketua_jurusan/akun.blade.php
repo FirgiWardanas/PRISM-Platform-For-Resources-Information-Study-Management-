@@ -114,7 +114,7 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
                     Tambah Akun Tim Kurikulum
                 </h2>
 
@@ -209,8 +209,8 @@
                     ✕
                 </button>
 
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">
-                    Edit Akun Pengelola
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">
+                    Ubah Akun Pengelola
                 </h2>
 
                 <div class="max-w-lg text-sm">
