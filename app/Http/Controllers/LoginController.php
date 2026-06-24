@@ -43,9 +43,19 @@ class LoginController extends Controller
     private function redirectByRole(string $role)
     {
         return match($role) {
-            'ketua_jurusan' => redirect()->route('admin.ketua-jurusan.index'),
-            'tim_kurikulum' => redirect()->route('admin.tim-kurikulum.index'),
-            default         => redirect()->route('login')->withErrors(['email' => 'Role tidak dikenali.']),
+            'ketua_jurusan' => redirect()
+                ->route('admin.ketua-jurusan.index')
+                ->with('login_success', 'Selamat datang kembali!'),
+
+            'tim_kurikulum' => redirect()
+                ->route('admin.tim-kurikulum.index')
+                ->with('login_success', 'Selamat datang kembali!'),
+
+            default => redirect()
+                ->route('login')
+                ->withErrors([
+                    'email' => 'Role tidak dikenali.'
+                ]),
         };
     }
 }
