@@ -278,5 +278,5 @@
 
     <x-layout.footer></x-layout.footer>
   </body>
-  <script src="{{ asset('js/jurusan-informatika.js') }}"></script>
+
 </x-layout.layout>
