@@ -128,17 +128,17 @@
                             <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
                                 placeholder="Masukkan Nama Pengelola"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
 
                         <!-- NIP -->
                         <label for="nip">
                             <span>NIP</span>
-                            <input type="text" name="nip" id="nip" value="{{ old('nip') }}"
+                            <input type="number" name="nip" id="nip" value="{{ old('nip') }}"
                                 placeholder="Masukkan NIP Pengelola"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <!-- email -->
@@ -147,7 +147,7 @@
                             <input type="email" name="email" id="email" value="{{ old('email') }}"
                                 placeholder="Masukkan e-mail Pengelola"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <!-- Program Studi -->
@@ -155,7 +155,7 @@
                             <span>Program Studi</span>
                             <select name="id_prodi" id="id_prodi"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                                 <option value="">Pilih Program Studi yang di kelola</option>
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
@@ -171,7 +171,7 @@
                             <input type="password" name="password" id="password"
                                 placeholder="Masukkan Password Pengelola"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <!-- Konfirmasi Password -->
@@ -180,7 +180,7 @@
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 placeholder="Konfirmasi Password"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
 
@@ -223,21 +223,21 @@
                             <span>Nama</span>
                             <input type="text" id="editnama" name="nama"
                                 class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <label for="editnip">
                             <span>NIP</span>
-                            <input type="text" id="editnip" name="nip"
+                            <input type="number" id="editnip" name="nip"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <label for="editemail">
                             <span>Email</span>
                             <input type="email" id="editemail" name="email"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <label for="editprodi">

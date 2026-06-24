@@ -171,7 +171,7 @@
                             <input type="text" name="kode_prodi" id="Kode" value="{{ old('kode_prodi') }}"
                                 placeholder="Masukkan kode program studi"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <!-- NAMA -->
@@ -180,7 +180,7 @@
                             <input type="text" name="nama_prodi" id="nama" value="{{ old('nama_prodi') }}"
                                 placeholder="Masukkan nama Program Studi"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
 
                         <!-- JENJANG -->
@@ -188,7 +188,7 @@
                             <span>Jenjang</span>
                             <select name="jenjang"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                                 <option value="D4" {{ old('jenjang') == 'D4' ? 'selected' : '' }}>D4</option>
                                 <option value="D3" {{ old('jenjang') == 'D3' ? 'selected' : '' }}>D3</option>
                                 <option value="D2" {{ old('jenjang') == 'D2' ? 'selected' : '' }}>D2</option>
@@ -232,13 +232,13 @@
                             <span>Kode</span>
                             <input type="text" id="editkode" name="kode_prodi" placeholder="Masukkan kode program studi"
                                 class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
                         <label for="nama">
                             <span>Nama</span>
                             <input type="text" id="editnama" name="nama_prodi" placeholder="Masukkan nama Program Studi"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
+                                >
                         </label>
                         <label for="jenjang">
                             <span>Jenjang</span>

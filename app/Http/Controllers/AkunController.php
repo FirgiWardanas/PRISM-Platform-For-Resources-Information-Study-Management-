@@ -50,10 +50,27 @@ class AkunController extends Controller
             'id_prodi' => 'required',
             'nama' => 'required',
             'nip' => 'required|unique:User,nip',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:User,email',
             'password' => 'required|confirmed',
             'role' => 'required'
+        ], [
+            'id_prodi.required' => 'Program studi wajib dipilih.',
+
+            'nama.required' => 'Nama wajib diisi.',
+
+            'nip.required' => 'NIP wajib diisi.',
+            'nip.unique' => 'NIP sudah digunakan.',
+
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+
+            'password.required' => 'Password wajib diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+
+            'role.required' => 'Role wajib dipilih.',
         ]); 
+    try {
 
         User::create([
             'id_prodi' => $request->id_prodi,
@@ -64,7 +81,18 @@ class AkunController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('success', 'Data pengelola berhasil ditambahkan.');
+
+    } catch (\Exception $e) {
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('error', 'Terjadi kesalahan saat menyimpan data pengelola.');
+
+    }
     }
 
     /**
@@ -87,23 +115,49 @@ class AkunController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'nip' => 'required',
-            'email' => 'required',
-            'id_prodi' => 'required'
-        ]);
+        {
 
-        User::where('id_user',$id)->update([
-            'nama'=>$request->nama,
-            'nip'=>$request->nip,
-            'email'=>$request->email,
-            'id_prodi'=>$request->id_prodi
-        ]);
+            $request->validate([
+                'nama' => 'required',
+                'nip' => 'required|unique:user,nip,' . $id . ',id_user',
+                'email' => 'required|email|unique:user,email,' . $id . ',id_user',
+                'id_prodi' => 'required'
+            ], [
+                'id_prodi.required' => 'Role Program studi wajib dipilih.',
 
-        return redirect()->back();
-    }
+                'nama.required' => 'Nama wajib diisi.',
+
+                'nip.required' => 'NIP wajib diisi.',
+                'nip.unique' => 'NIP sudah digunakan.',
+
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+            ]);
+            try {
+
+                User::where('id_user', $id)->update([
+                    'id_prodi' => $request->id_prodi,
+                    'nama' => $request->nama,
+                    'nip' => $request->nip,
+                    'email' => $request->email,
+                ]);
+
+                return redirect()
+                    ->back()
+                    ->with('success', 'Data pengguna berhasil diperbarui.');
+
+            } catch (\Exception $e) {
+
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', 'Terjadi kesalahan saat memperbarui data pengguna.');
+
+            }
+        }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -113,7 +167,7 @@ class AkunController extends Controller
     $akun = User::findOrFail($id);
     $akun->delete();
 
-    return redirect()->back();
+    return redirect()->back()->with('success','Akun Pengelola Berhasil di Hapus');
     }
 
 }

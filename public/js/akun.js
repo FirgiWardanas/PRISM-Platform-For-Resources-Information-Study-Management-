@@ -40,11 +40,27 @@ function closeEditModal() {
     modal.classList.remove("flex");
 }
 
-function hapusData(id_user) {
-    if (confirm("Yakin mau menghapus akun ini?")) {
-        document.getElementById(`deleteForm${id_user}`).submit();
-    }
+function hapusData(id) {
+    Swal.fire({
+        title: 'Yakin ingin menghapus akun pengelola?',
+        text: 'Seluruh akses login untuk akun ini akan dicabut secara permanen.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm${id}`).submit();
+        }
+    });
 }
+
+
+
+
+
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
