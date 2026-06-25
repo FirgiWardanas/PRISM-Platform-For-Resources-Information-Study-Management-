@@ -24,12 +24,23 @@ class DetailKurikulumController extends Controller
             ->firstOrFail();
 
         $detailData = $request->only([
-            'id_MK', 'semester', 'sks',
-            'bobot_teori', 'bobot_praktikum',
-            'sesi_teori', 'sesi_praktikum',
+            'id_MK',
+            'semester',
+            'bobot_teori',
+            'bobot_praktikum',
+            'sesi_teori',
+            'sesi_praktikum',
             'status_matkul',
-            'deskripsi', 'cpm', 'cpk', 'bahan_pustaka',
+            'deskripsi',
+            'cpm',
+            'cpk',
+            'bahan_pustaka',
         ]);
+
+        // Hitung SKS otomatis
+        $detailData['sks'] =
+            (int) $request->bobot_teori +
+            (int) $request->bobot_praktikum;
 
         if ($request->hasFile('file_rps')) {
             $detailData['file_rps'] = $request->file('file_rps')
@@ -54,12 +65,22 @@ class DetailKurikulumController extends Controller
         $detail = DetailKurikulum::findOrFail($detailId);
 
         $detail->kurikulum()
-               ->where('id_prodi', auth()->guard()->user()->id_prodi)
-               ->firstOrFail();
+            ->where('id_prodi', auth()->guard()->user()->id_prodi)
+            ->firstOrFail();
 
-        $detail->update($request->validated());
+        $data = $request->validated();
 
-        return redirect()->back()->with('success', 'Data matakuliah berhasil diperbarui.');
+        // Hitung SKS otomatis
+        $data['sks'] =
+            (int) ($data['bobot_teori'] ?? 0) +
+            (int) ($data['bobot_praktikum'] ?? 0);
+
+        $detail->update($data);
+
+        return redirect()->back()->with(
+            'success',
+            'Data matakuliah berhasil diperbarui.'
+        );
     }
 
     /*
