@@ -15,7 +15,8 @@
 
     <nav class="space-y-3">
         {{-- dashboar --}}
-        <a href="/admin/ketua-jurusan" class="{{ request()->is('admin/ketua-jurusan')
+        <a href="/admin/ketua-jurusan"
+            class="{{ request()->is('admin/ketua-jurusan')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
@@ -26,7 +27,8 @@
             <span>Dashboard</span>
         </a>
         {{-- program-studi --}}
-        <a href="/admin/program-studi" class="{{ request()->is('admin/program-studi')
+        <a href="/admin/program-studi"
+            class="{{ request()->is('admin/program-studi')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
@@ -37,7 +39,8 @@
             <span>Program studi</span>
         </a>
         {{-- akun --}}
-        <a href="/admin/akun" class="{{ request()->is('admin/akun')
+        <a href="/admin/akun"
+            class="{{ request()->is('admin/akun')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
@@ -48,7 +51,8 @@
             <span>Dosen</span>
         </a>
         {{-- kelola-dosen --}}
-        <a href="/admin/kelola-dosen" class="{{ request()->is('admin/kelola-dosen')
+        <a href="/admin/kelola-dosen"
+            class="{{ request()->is('admin/kelola-dosen')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 
@@ -56,10 +60,11 @@
     ? asset('images/icon-akun(putih).svg')
     : asset('images/icon-akun(biru).svg') }}" alt="Kelola-dosen" class="w-4 h-4">
 
-            <span>Kelola dosen</span>
+            <span>Akun</span>
         </a>
         {{-- profile --}}
-        <a href="/admin/profile-ketua-jurusan" class="{{ request()->is('admin/profile-ketua-jurusan')
+        <a href="/admin/profile-ketua-jurusan"
+            class="{{ request()->is('admin/profile-ketua-jurusan')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-100' }}">
 

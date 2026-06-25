@@ -16,7 +16,7 @@ class StoreDetailKurikulumRequest extends FormRequest
         return [
             'id_MK'           => ['required', 'integer', 'exists:matakuliah,id_MK'],
             'semester'        => ['required', 'integer', 'between:1,8'],
-            'sks'             => ['required', 'integer', 'min:1', 'max:10'],
+            'sks'             => ['nullable', 'numeric'],
             'bobot_teori'     => ['nullable', 'numeric', 'min:0', 'max:99.99'],
             'bobot_praktikum' => ['nullable', 'numeric', 'min:0', 'max:99.99'],
             'sesi_teori'      => ['nullable', 'integer', 'min:0', 'max:255'],
@@ -24,7 +24,7 @@ class StoreDetailKurikulumRequest extends FormRequest
             'status_matkul'   => ['required', 'in:langsung,tidak langsung,pendukung'],
             'deskripsi'       => ['nullable', 'string', 'max:5000'],
             'cpm'             => ['nullable', 'string', 'max:5000'],
-            'cpk'             => ['nullable', 'string', 'max:5000'],
+            'cpk'             => ['nullab   le', 'string', 'max:5000'],
             'bahan_pustaka'   => ['nullable', 'string', 'max:5000'],
             'file_rps'        => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
         ];

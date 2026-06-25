@@ -86,7 +86,7 @@ public function store(StoreDetailKurikulumRequest $request, string $kurikulumId)
 
         // Langsung pakai id_MK dari dropdown
         $detailData = $request->validated();
-
+        $detailData['sks'] = ($detailData['bobot_teori'] ?? 0) + ($detailData['bobot_praktikum'] ?? 0);
         $detail->update($detailData);
 
         return redirect()->back()->with('success', 'Data matakuliah berhasil diperbarui.');
