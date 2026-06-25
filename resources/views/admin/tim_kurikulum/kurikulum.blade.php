@@ -150,20 +150,19 @@
 
                                                                     {{-- SILABUS --}}
                                                                     <td class="p-2 flex justify-center items-center">
-                                                                        <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
-                                                                            class="cursor-pointer"
-                                                                            data-id-detail="{{ $detail->id_detail }}"
-                                                                            data-action="{{ route('admin.silabus.storeOrUpdate', $detail->id_detail) }}"
-                                                                            data-id-silabus="{{ $detail->silabus?->id_silabus ?? '' }}"
-                                                                            data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
-                                                                            data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
-                                                                            data-sks="{{ e($detail->sks) }}"
-                                                                            data-deskripsi="{{ e($detail->silabus?->deskripsi ?? '') }}"
-                                                                            data-cpm="{{ e($detail->silabus?->cpm ?? '') }}"
-                                                                            data-cpk="{{ e($detail->silabus?->cpk ?? '') }}"
-                                                                            data-bahan-pustaka="{{ e($detail->silabus?->bahan_pustaka ?? '') }}"
-                                                                            data-file-rps="{{ e($detail->silabus?->file_rps ?? '') }}"
-                                                                            onclick="openModalSilabus(this)">
+                                                                    <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
+                                                                        class="cursor-pointer"
+                                                                        data-id-detail="{{ $detail->id_detail }}"
+                                                                        data-action="{{ route('admin.detail-kurikulum.updateSilabus', $detail->id_detail) }}"
+                                                                        data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
+                                                                        data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
+                                                                        data-sks="{{ e($detail->sks) }}"
+                                                                        data-deskripsi="{{ e($detail->deskripsi ?? '') }}"
+                                                                        data-cpm="{{ e($detail->cpm ?? '') }}"
+                                                                        data-cpk="{{ e($detail->cpk ?? '') }}"
+                                                                        data-bahan-pustaka="{{ e($detail->bahan_pustaka ?? '') }}"
+                                                                        data-file-rps="{{ e($detail->file_rps ?? '') }}"
+                                                                        onclick="openModalSilabus(this)">
                                                                     </td>
 
                                                                     {{-- AKSI --}}
@@ -670,7 +669,7 @@
                                     Semester</td>
                                 <td class="border border-gray-400 p-2 text-center align-top">:</td>
                                 <td class="border border-gray-400 p-2">
-                                    <input type="hidden" id="silabusIdHidden">
+
                                     {{-- FILE EXISTING --}}
                                     <div id="silabusFileContainer" class="mb-2 hidden">
                                         <div
@@ -730,10 +729,11 @@
                 </div>
             </div>
             {{-- FORM HAPUS SILABUS --}}
-            <form id="deleteSilabusForm" method="POST" class="hidden">
-                @csrf
-                @method('DELETE')
-            </form>
+        <form id="deleteSilabusForm" method="POST" class="hidden">
+            @csrf
+            @method('DELETE')
+            {{-- action diisi dinamis oleh JS pakai route destroyFileRps --}}
+        </form>
         </div>
     <script>
 function mkSearch() {

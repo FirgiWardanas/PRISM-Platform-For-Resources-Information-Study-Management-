@@ -223,9 +223,24 @@ function closeModalEditMatkul() {
 }
 
 function hapusDetailKurikulum(id_detail) {
-    if (confirm('Yakin ingin menghapus matakuliah ini dari kurikulum?\nData silabus terkait juga akan ikut terhapus.')) {
-        document.getElementById(`deleteDetailForm_${id_detail}`).submit();
-    }
+    Swal.fire({
+        title: 'Hapus Mata Kuliah?',
+        html: `
+            Mata kuliah akan dihapus dari kurikulum.<br><br>
+            Data silabus yang terkait juga akan ikut terhapus secara permanen.
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Ya, Hapus'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteDetailForm_${id_detail}`).submit();
+        }
+
+    });
 }
 
 function openModalSilabus(imgEl) {
@@ -234,7 +249,7 @@ function openModalSilabus(imgEl) {
     document.getElementById('silabusNamaMK').textContent = d.namaMk || '-';
     document.getElementById('silabusKode').textContent = d.kode || '-';
     document.getElementById('silabusSks').textContent = d.sks || '-';
-    document.getElementById('silabusIdHidden').value = d.idSilabus || '';
+    // HAPUS baris ini → document.getElementById('silabusIdHidden').value = d.idSilabus || '';
 
     const deskripsiEl = document.getElementById('silabusDeskripsi');
     const cpmEl = document.getElementById('silabusCpm');
@@ -267,7 +282,7 @@ function openModalSilabus(imgEl) {
     if (iconEl) iconEl.classList.remove('hidden');
 
     const form = document.getElementById('formSilabus');
-    if (form) form.action = d.action || `/admin/silabus/${d.idDetail}`;
+    if (form) form.action = d.action; // d.action sudah diset dari blade ke route updateSilabus
     document.getElementById('silabusDetailId').value = d.idDetail;
 
     const modal = document.getElementById('modalSilabus');
@@ -286,11 +301,11 @@ function closeModalSilabus() {
 }
 
 function deleteExistingSilabusFile() {
-    if (confirm('Yakin ingin menghapus silabus/RPS ini?')) {
-        const silabusId = document.getElementById('silabusIdHidden').value;
-        if (silabusId) {
+    if (confirm('Yakin ingin menghapus file RPS ini?')) {
+        const detailId = document.getElementById('silabusDetailId').value;
+        if (detailId) {
             const form = document.getElementById('deleteSilabusForm');
-            form.action = `/admin/silabus/${silabusId}`;
+            form.action = `/admin/detail-kurikulum/${detailId}/file-rps`;
             form.submit();
         }
     }
@@ -341,20 +356,25 @@ document.getElementById('formTambahMatkul').addEventListener('submit', function(
     const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
     const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
 
-    if (bobotTeori + bobotPraktikum !== sks) {
-        e.preventDefault();
-        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
+        if (bobotTeori + bobotPraktikum !== sks) {
+            e.preventDefault();
+            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+        }
     }
 });
+
 
 document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
     const sks = parseFloat(document.getElementById('editSks').value) || 0;
     const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
     const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
 
-    if (bobotTeori + bobotPraktikum !== sks) {
-        e.preventDefault();
-        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
+        if (bobotTeori + bobotPraktikum !== sks) {
+            e.preventDefault();
+            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+        }
     }
 });
 
