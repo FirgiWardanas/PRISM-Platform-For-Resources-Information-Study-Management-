@@ -351,31 +351,29 @@ document.addEventListener('click', function () {
     profileCard.classList.add('hidden');
 });
 
-document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
-    const sks = parseFloat(document.querySelector('#formTambahMatkul input[name="sks"]').value) || 0;
-    const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
-    const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
+function hitungSksTambah() {
+    const teori = parseFloat(document.getElementById('tambahBobotTeori').value) || 0;
+    const praktikum = parseFloat(document.getElementById('tambahBobotPraktikum').value) || 0;
+    const total = teori + praktikum;
+    document.getElementById('tambahSks').value = total;
+}
 
-    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
-        if (bobotTeori + bobotPraktikum !== sks) {
-            e.preventDefault();
-            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
-        }
-    }
+function hitungSksEdit() {
+    const teori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
+    const praktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
+    const total = teori + praktikum;
+    document.getElementById('editSks').value = total;
+}
+
+document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
+    // SKS sudah dihitung otomatis dari bobot_teori + bobot_praktikum
+    hitungSksTambah();
 });
 
 
 document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
-    const sks = parseFloat(document.getElementById('editSks').value) || 0;
-    const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
-    const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
-
-    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
-        if (bobotTeori + bobotPraktikum !== sks) {
-            e.preventDefault();
-            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
-        }
-    }
+    // SKS dihitung otomatis dari bobot_teori + bobot_praktikum sebelum submit
+    hitungSksEdit();
 });
 
 function showToastError(message) {
