@@ -14,7 +14,6 @@ class DetailKurikulum extends Model
     protected $fillable = [
         'id_kurikulum',
         'id_MK',
-        'id_silabus',
         'semester',
         'sesi_teori',
         'sesi_praktikum',
@@ -22,6 +21,12 @@ class DetailKurikulum extends Model
         'bobot_praktikum',
         'status_matkul',
         'sks',
+        // INI YANG BELUM ADA — tambah kolom silabus
+        'deskripsi',
+        'cpm',
+        'cpk',
+        'bahan_pustaka',
+        'file_rps',
     ];
 
     protected $casts = [
@@ -52,12 +57,5 @@ class DetailKurikulum extends Model
         );
     }
 
-    public function silabus(): BelongsTo
-    {
-        return $this->belongsTo(
-            Silabus::class,
-            'id_silabus',
-            'id_silabus'
-        );
-    }
+
 }

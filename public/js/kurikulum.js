@@ -105,9 +105,6 @@ function openModalTambahMatkul(kurikulumId, semester) {
 
     document.getElementById('inputTambahSemester').value = semester;
 
-    // Reset SKS hidden
-    document.getElementById('tambahSks').value = '';
-
     resetTambahFileArea();
 
     // Reset Alpine search tambah
@@ -143,22 +140,6 @@ function removeTambahFile() {
     document.getElementById('tambahFileRps').value = '';
     resetTambahFileArea();
 }
-
-// ─── HITUNG SKS OTOMATIS ────────────────────────────────────────────────────
-
-function hitungSksTambah() {
-    const teori     = parseFloat(document.getElementById('tambahBobotTeori')?.value)     || 0;
-    const praktikum = parseFloat(document.getElementById('tambahBobotPraktikum')?.value) || 0;
-    document.getElementById('tambahSks').value = teori + praktikum;
-}
-
-function hitungSksEdit() {
-    const teori     = parseFloat(document.getElementById('editBobotTeori')?.value)     || 0;
-    const praktikum = parseFloat(document.getElementById('editBobotPraktikum')?.value) || 0;
-    document.getElementById('editSks').value = teori + praktikum;
-}
-
-// ────────────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function () {
     const tambahFileInput = document.getElementById('tambahFileRps');
@@ -212,24 +193,22 @@ function openModalEditMatkul(imgEl) {
 
     document.getElementById('formEditMatkul').action = `/admin/detail-kurikulum/${d.idDetail}`;
 
-    document.getElementById('editSemester').value       = d.semester;
-    document.getElementById('editBobotTeori').value     = d.bobotTeori     ?? 0;
-    document.getElementById('editBobotPraktikum').value = d.bobotPraktikum ?? 0;
-    document.getElementById('editSesiTeori').value      = d.sesiTeori      ?? 0;
-    document.getElementById('editSesiPraktikum').value  = d.sesiPraktikum  ?? 0;
-    document.getElementById('editStatusMatkul').value   = d.statusMatkul;
-
-    // Hitung SKS otomatis saat buka modal edit
-    hitungSksEdit();
+    document.getElementById('editSemester').value = d.semester;
+    document.getElementById('editSks').value = d.sks;
+    document.getElementById('editBobotTeori').value = d.bobotTeori;
+    document.getElementById('editBobotPraktikum').value = d.bobotPraktikum;
+    document.getElementById('editSesiTeori').value = d.sesiTeori;
+    document.getElementById('editSesiPraktikum').value = d.sesiPraktikum;
+    document.getElementById('editStatusMatkul').value = d.statusMatkul;
 
     // Sync ke Alpine search edit
     const mkSearchEl = document.querySelector('#modalEditMatkul [x-data]');
     if (mkSearchEl) {
         const alpine = Alpine.$data(mkSearchEl);
-        alpine.query      = `${d.kode} — ${d.nama}`;
+        alpine.query = `${d.kode} — ${d.nama}`;
         alpine.selectedId = d.idMk;
-        alpine.open       = false;
-        alpine.filtered   = alpine.all;
+        alpine.open = false;
+        alpine.filtered = alpine.all;
     }
 
     const modal = document.getElementById('modalEditMatkul');
@@ -244,34 +223,49 @@ function closeModalEditMatkul() {
 }
 
 function hapusDetailKurikulum(id_detail) {
-    if (confirm('Yakin ingin menghapus matakuliah ini dari kurikulum?\nData silabus terkait juga akan ikut terhapus.')) {
-        document.getElementById(`deleteDetailForm_${id_detail}`).submit();
-    }
+    Swal.fire({
+        title: 'Hapus Mata Kuliah?',
+        html: `
+            Mata kuliah akan dihapus dari kurikulum.<br><br>
+            Data silabus yang terkait juga akan ikut terhapus secara permanen.
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Ya, Hapus'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteDetailForm_${id_detail}`).submit();
+        }
+
+    });
 }
 
 function openModalSilabus(imgEl) {
     const d = imgEl.dataset;
 
     document.getElementById('silabusNamaMK').textContent = d.namaMk || '-';
-    document.getElementById('silabusKode').textContent   = d.kode   || '-';
-    document.getElementById('silabusSks').textContent    = d.sks    || '-';
-    document.getElementById('silabusIdHidden').value     = d.idSilabus || '';
+    document.getElementById('silabusKode').textContent = d.kode || '-';
+    document.getElementById('silabusSks').textContent = d.sks || '-';
+    // HAPUS baris ini → document.getElementById('silabusIdHidden').value = d.idSilabus || '';
 
     const deskripsiEl = document.getElementById('silabusDeskripsi');
-    const cpmEl       = document.getElementById('silabusCpm');
-    const cpkEl       = document.getElementById('silabusCpk');
-    const bahanEl     = document.getElementById('silabusBahanPustaka');
+    const cpmEl = document.getElementById('silabusCpm');
+    const cpkEl = document.getElementById('silabusCpk');
+    const bahanEl = document.getElementById('silabusBahanPustaka');
 
-    deskripsiEl.value = d.deskripsi    || '';
-    cpmEl.value       = d.cpm          || '';
-    cpkEl.value       = d.cpk          || '';
-    bahanEl.value     = d.bahanPustaka || '';
+    deskripsiEl.value = d.deskripsi || '';
+    cpmEl.value = d.cpm || '';
+    cpkEl.value = d.cpk || '';
+    bahanEl.value = d.bahanPustaka || '';
 
     const fileContainer = document.getElementById('silabusFileContainer');
     if (d.fileRps) {
         const filePath = d.fileRps.startsWith('public/') ? d.fileRps.replace(/^public\//, '') : d.fileRps;
         document.getElementById('silabusFileName').textContent = filePath.split('/').pop();
-        document.getElementById('silabusFileLink').href        = `/storage/${filePath}`;
+        document.getElementById('silabusFileLink').href = `/storage/${filePath}`;
         fileContainer.classList.remove('hidden');
     } else {
         fileContainer.classList.add('hidden');
@@ -288,7 +282,7 @@ function openModalSilabus(imgEl) {
     if (iconEl) iconEl.classList.remove('hidden');
 
     const form = document.getElementById('formSilabus');
-    if (form) form.action = d.action || `/admin/silabus/${d.idDetail}`;
+    if (form) form.action = d.action; // d.action sudah diset dari blade ke route updateSilabus
     document.getElementById('silabusDetailId').value = d.idDetail;
 
     const modal = document.getElementById('modalSilabus');
@@ -307,11 +301,11 @@ function closeModalSilabus() {
 }
 
 function deleteExistingSilabusFile() {
-    if (confirm('Yakin ingin menghapus silabus/RPS ini?')) {
-        const silabusId = document.getElementById('silabusIdHidden').value;
-        if (silabusId) {
+    if (confirm('Yakin ingin menghapus file RPS ini?')) {
+        const detailId = document.getElementById('silabusDetailId').value;
+        if (detailId) {
             const form = document.getElementById('deleteSilabusForm');
-            form.action = `/admin/silabus/${silabusId}`;
+            form.action = `/admin/detail-kurikulum/${detailId}/file-rps`;
             form.submit();
         }
     }
@@ -341,7 +335,7 @@ function toggleProfileCard() {
     document.getElementById('profileCard').classList.toggle('hidden');
 }
 
-const profileBtn  = document.getElementById('profileBtn');
+const profileBtn = document.getElementById('profileBtn');
 const profileCard = document.getElementById('profileCard');
 
 profileBtn.addEventListener('click', function (e) {
@@ -357,43 +351,40 @@ document.addEventListener('click', function () {
     profileCard.classList.add('hidden');
 });
 
-// Validasi submit — pastikan SKS sudah terisi (hasil hitung bobot)
-document.getElementById('formTambahMatkul').addEventListener('submit', function (e) {
-    const bobotTeori     = parseFloat(document.getElementById('tambahBobotTeori')?.value)     || 0;
-    const bobotPraktikum = parseFloat(document.getElementById('tambahBobotPraktikum')?.value) || 0;
-    const total          = bobotTeori + bobotPraktikum;
+document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
+    const sks = parseFloat(document.querySelector('#formTambahMatkul input[name="sks"]').value) || 0;
+    const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
+    const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
 
-    if (total <= 0) {
-        e.preventDefault();
-        showToastError('Bobot SKS teori dan/atau praktikum harus diisi. SKS akan dihitung otomatis.');
-        return;
+    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
+        if (bobotTeori + bobotPraktikum !== sks) {
+            e.preventDefault();
+            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+        }
     }
-
-    // Pastikan hidden SKS terisi sebelum submit
-    document.getElementById('tambahSks').value = total;
 });
 
-document.getElementById('formEditMatkul').addEventListener('submit', function (e) {
-    const bobotTeori     = parseFloat(document.getElementById('editBobotTeori')?.value)     || 0;
-    const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum')?.value) || 0;
-    const total          = bobotTeori + bobotPraktikum;
 
-    if (total <= 0) {
-        e.preventDefault();
-        showToastError('Bobot SKS teori dan/atau praktikum harus diisi. SKS akan dihitung otomatis.');
-        return;
+document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
+    const sks = parseFloat(document.getElementById('editSks').value) || 0;
+    const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
+    const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
+
+    if (sks > 0 && (bobotTeori > 0 || bobotPraktikum > 0)) {
+        if (bobotTeori + bobotPraktikum !== sks) {
+            e.preventDefault();
+            showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
+        }
     }
-
-    // Pastikan hidden SKS terisi sebelum submit
-    document.getElementById('editSks').value = total;
 });
 
 function showToastError(message) {
+    // Hapus toast lama kalau ada
     const existing = document.getElementById('toastValidasiError');
     if (existing) existing.remove();
 
     const toast = document.createElement('div');
-    toast.id        = 'toastValidasiError';
+    toast.id = 'toastValidasiError';
     toast.className = 'fixed top-5 right-5 z-[9999] bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium flex items-start gap-3';
     toast.innerHTML = `
         <span>${message}</span>
@@ -401,5 +392,6 @@ function showToastError(message) {
     `;
     document.body.appendChild(toast);
 
+    // Auto hilang setelah 4 detik
     setTimeout(() => toast.remove(), 4000);
 }
