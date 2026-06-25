@@ -22,6 +22,33 @@ class DetailKurikulumController extends Controller
         $kurikulum = Kurikulum::where('id_kurikulum', $kurikulumId)
             ->where('id_prodi', auth()->guard()->user()->id_prodi)
             ->firstOrFail();
+          $sudahDipakai = DetailKurikulum::where('id_kurikulum', $kurikulumId)
+        ->where('id_MK', $request->id_MK)
+        ->where('semester', '!=', $request->semester)
+        ->exists();
+
+    if ($sudahDipakai) {
+        $semesterYangDipakai = DetailKurikulum::where('id_kurikulum', $kurikulumId)
+            ->where('id_MK', $request->id_MK)
+            ->where('semester', '!=', $request->semester)
+            ->pluck('semester')
+            ->sort()
+            ->join(', ');
+
+        return redirect()->back()
+            ->withInput()
+            ->with('error', "Matakuliah ini sudah digunakan di semester {$semesterYangDipakai} dalam kurikulum ini.");
+    }
+     $duplikat = DetailKurikulum::where('id_kurikulum', $kurikulumId)
+        ->where('id_MK', $request->id_MK)
+        ->where('semester', $request->semester)
+        ->exists();
+
+    if ($duplikat) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Matakuliah ini sudah ada di semester ' . $request->semester . '.');
+    }
 
         $detailData = $request->only([
             'id_MK',
