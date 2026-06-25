@@ -383,15 +383,15 @@
                             </div>
 
                         {{-- KATEGORI --}}
-                        <label class="block">
+                        <label class="block col-span-2">
                             <span>Kategori</span>
                             <div class="relative">
                                 <select name="status_matkul" id="tambahStatusMatkul"
                                     class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
                                     required>
-                                    <option value="">--Pilih--</option>
-                                    <option value="langsung">Wajib</option>
-                                    <option value="tidak langsung">Pilihan</option>
+                                    <option value="">Pilih</option>
+                                    <option value="langsung">Langsung</option>
+                                    <option value="tidak langsung">Tidak Langsung</option>
                                     <option value="pendukung">Pendukung</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
@@ -399,25 +399,21 @@
                                 </div>
                             </div>
                         </label>
+                        {{--SKS--}}
+                        <input type="hidden" name="sks" id="tambahSks">
 
-                        {{-- SKS --}}
-                        <label class="block">
-                            <span>SKS</span>
-                            <input type="number" name="sks" placeholder="Masukkan SKS" min="1" max="10"
-                                class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
-                                required>
-                        </label>
-
-                        {{-- BOBOT DAN SESI --}}
+                        {{-- BOBOT DAN SESI --}}    
                         <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label class="block">
                                 <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" value="" step="1.0" min="0"
+                                <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0" min="0"
+                                    oninput="hitungSksTambah()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
-                            <label class="block">
+                           <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" value="" step="1.0" min="0"
+                                <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value="" step="1.0" min="0"
+                                    oninput="hitungSksTambah()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
@@ -556,7 +552,7 @@
                     </div>
 
                         {{-- KATEGORI --}}
-                        <label class="block">
+                        <label class="block col-span-2">
                             <span>Kategori</span>
                             <div class="relative">
                                 <select name="status_matkul" id="editStatusMatkul"
@@ -573,25 +569,20 @@
                         </label>
 
                         {{-- SKS --}}
-                        <label class="block">
-                            <span>SKS</span>
-                            <input type="number" name="sks" id="editSks" placeholder="Masukkan SKS" min="1" max="10"
-                                class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
-                                required>
-                        </label>
+                       <input type="hidden" name="sks" id="editSks">
 
                         {{-- BOBOT DAN SESI --}}
                         <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label class="block">
                                 <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01"
-                                    min="0"
+                                <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01" min="0"
+                                      oninput="hitungSksEdit()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>
+                            </label>    
                             <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0"
-                                    step="0.01" min="0"
+                                <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0" step="0.01" min="0"
+                                     oninput="hitungSksEdit()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
