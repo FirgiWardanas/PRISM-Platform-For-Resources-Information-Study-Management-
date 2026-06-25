@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Silabus extends Model
 {
     protected $table      = 'silabus';
     protected $primaryKey = 'id_silabus';
-    public    $timestamps = false;
+    public $timestamps    = false;
 
     protected $fillable = [
-        'id_detail',
         'bahan_pustaka',
         'cpk',
         'cpm',
@@ -20,8 +20,12 @@ class Silabus extends Model
         'file_rps',
     ];
 
-    public function detailKurikulum(): BelongsTo
+    public function detailKurikulums(): HasMany
     {
-        return $this->belongsTo(DetailKurikulum::class, 'id_detail', 'id_detail');
+        return $this->hasMany(
+            DetailKurikulum::class,
+            'id_silabus',
+            'id_silabus'
+        );
     }
 }

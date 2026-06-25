@@ -22,7 +22,6 @@ class TampilanProgramStudiController extends Controller
             },
         ])
         ->where('kode_prodi', $kode)
-        ->where('status_prodi', 'published')
         ->firstOrFail();
 
         $kurikulumAktif = $prodi->kurikulums

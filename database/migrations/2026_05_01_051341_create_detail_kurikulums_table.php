@@ -12,6 +12,7 @@ return new class extends Migration
             $table->unsignedInteger('id_detail')->autoIncrement();
             $table->unsignedInteger('id_kurikulum');
             $table->unsignedInteger('id_MK');
+            $table->unsignedInteger('id_silabus');
             $table->unsignedTinyInteger('semester');
             $table->unsignedTinyInteger('sesi_teori')->nullable();
             $table->unsignedTinyInteger('sesi_praktikum')->nullable();
@@ -22,6 +23,10 @@ return new class extends Migration
 
             $table->foreign('id_kurikulum')
                   ->references('id_kurikulum')->on('kurikulum')
+                  ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('id_silabus')
+                  ->references('id_silabus')->on('silabus')
                   ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('id_MK')

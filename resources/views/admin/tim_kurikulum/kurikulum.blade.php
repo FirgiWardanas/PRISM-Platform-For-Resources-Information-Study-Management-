@@ -11,28 +11,6 @@
             {{-- header --}}
             <x-admin.header_kurikulum>Kurikulum</x-admin.header-kurikulum>
 
-                {{-- NOTIFIKASI --}}
-                @if(session('success'))
-                    <div id="toastSuccess"
-                        class="fixed top-5 right-5 z-[999] bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium flex items-start gap-3">
-                        <span>{{ session('success') }}</span>
-                        <button onclick="document.getElementById('toastSuccess').remove()"
-                            class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
-                    </div>
-                @endif
-
-                @if($errors->any())
-                    <div id="toastError"
-                        class="fixed top-5 right-5 z-[999] bg-red-500 text-white px-6 py-4 rounded-xl shadow-lg text-sm font-medium max-w-sm flex items-start gap-3">
-                        <ul class="space-y-1 flex-1">
-                            @foreach($errors->all() as $error)
-                                <li>• {{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button onclick="document.getElementById('toastError').remove()"
-                            class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
-                    </div>
-                @endif
 
 
                 <div class="flex flex-col lg:flex-row gap-4">
@@ -262,13 +240,13 @@
                             <span>Nama Kurikulum</span>
                             <input name="nama_kurikulum" type="text" id="namakur" placeholder="Masukkan nama kurikulum"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
+                                >
                         </label>
                         <label for="tahunmulai">
                             <span>Tahun Mulai</span>
                             <input name="tahun_mulai" type="text" id="tahunmul" placeholder="Masukkan tahun mulai"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
+                                >
                         </label>
 
                         <div class="flex justify-center mt-4">
@@ -333,6 +311,7 @@
                 @method('DELETE')
             </form>
         @endforeach
+        
 
         {{-- MODAL TAMBAH MATAKULIAH --}}
         <div id="modalTambahMatkul" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">

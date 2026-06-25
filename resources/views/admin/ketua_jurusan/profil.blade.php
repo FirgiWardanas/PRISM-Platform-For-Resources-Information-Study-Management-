@@ -197,6 +197,7 @@
         </div>
 
     </body>
+    
     <script>
         const CSRF = '{{ csrf_token() }}';
 
