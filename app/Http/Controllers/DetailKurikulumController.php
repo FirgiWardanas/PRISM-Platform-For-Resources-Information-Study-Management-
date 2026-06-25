@@ -6,75 +6,75 @@ use App\Http\Requests\StoreDetailKurikulumRequest;
 use App\Http\Requests\UpdateDetailKurikulumRequest;
 use App\Models\DetailKurikulum;
 use App\Models\Kurikulum;
+use App\Models\Silabus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class DetailKurikulumController extends Controller
 {
-    public function store(StoreDetailKurikulumRequest $request, string $kurikulumId): RedirectResponse
-    {
-        $kurikulum = Kurikulum::where('id_kurikulum', $kurikulumId)
-            ->where('id_prodi', auth()->user()->id_prodi)
-            ->firstOrFail();
-     $sudahDipakai = DetailKurikulum::where('id_kurikulum', $kurikulumId)
-        ->where('id_MK', $request->id_MK)
-        ->where('semester', '!=', $request->semester)
-        ->exists();
 
-    if ($sudahDipakai) {
-        $semesterYangDipakai = DetailKurikulum::where('id_kurikulum', $kurikulumId)
-            ->where('id_MK', $request->id_MK)
-            ->where('semester', '!=', $request->semester)
-            ->pluck('semester')
-            ->sort()
-            ->join(', ');
 
-        return redirect()->back()
-            ->withInput()
-            ->with('error', "Matakuliah ini sudah digunakan di semester {$semesterYangDipakai} dalam kurikulum ini.");
-    }
-    $duplikat = DetailKurikulum::where('id_kurikulum', $kurikulumId)
-        ->where('id_MK', $request->id_MK)
-        ->where('semester', $request->semester)
-        ->exists();
+public function store(StoreDetailKurikulumRequest $request, string $kurikulumId): RedirectResponse
+{
+    $kurikulum = Kurikulum::where('id_kurikulum', $kurikulumId)
+        ->where('id_prodi', auth()->guard()->user()->id_prodi)
+        ->firstOrFail();
 
-    if ($duplikat) {
-        return redirect()->back()
-            ->withInput()
-            ->with('error', 'Matakuliah ini sudah ada di semester ' . $request->semester . '.');
-    }
-
-        // Langsung pakai id_MK dari dropdown, tidak perlu create/update matakuliah
-        $detailData = $request->only([
-        'id_MK', 'semester',
-        'bobot_teori', 'bobot_praktikum',
-        'sesi_teori', 'sesi_praktikum',
+    $detailData = $request->only([
+        'id_MK',
+        'semester',
+        'sks',
+        'bobot_teori',
+        'bobot_praktikum',
+        'sesi_teori',
+        'sesi_praktikum',
         'status_matkul',
     ]);
-    $detailData['sks'] = ($request->bobot_teori ?? 0) + ($request->bobot_praktikum ?? 0);
-    $detail = $kurikulum->detailKurikulums()->create($detailData);
-        $silabusData = [
-            'deskripsi'     => $request->filled('deskripsi')     ? $request->input('deskripsi')     : null,
-            'cpm'           => $request->filled('cpm')           ? $request->input('cpm')           : null,
-            'cpk'           => $request->filled('cpk')           ? $request->input('cpk')           : null,
-            'bahan_pustaka' => $request->filled('bahan_pustaka') ? $request->input('bahan_pustaka') : null,
-        ];
 
-        $hasSilabusText = collect($silabusData)->filter(fn($v) => $v !== null)->isNotEmpty();
-        $hasSilabusFile = $request->hasFile('file_rps');
+    $silabusData = [
+        'deskripsi'     => $request->filled('deskripsi')
+            ? $request->deskripsi
+            : null,
 
-        if ($hasSilabusText || $hasSilabusFile) {
-            if ($hasSilabusFile) {
-                $silabusData['file_rps'] = $request->file('file_rps')->store('rps', 'public');
-            }
-            $detail->silabus()->updateOrCreate(
-                ['id_detail' => $detail->id_detail],
-                $silabusData
-            );
-        }
+        'cpm'           => $request->filled('cpm')
+            ? $request->cpm
+            : null,
 
-        return redirect()->back()->with('success', 'Matakuliah berhasil ditambahkan ke semester ' . $request->semester . '.');
+        'cpk'           => $request->filled('cpk')
+            ? $request->cpk
+            : null,
+
+        'bahan_pustaka' => $request->filled('bahan_pustaka')
+            ? $request->bahan_pustaka
+            : null,
+    ];
+
+    if ($request->hasFile('file_rps')) {
+        $silabusData['file_rps'] = $request->file('file_rps')
+            ->store('rps', 'public');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Buat Silabus
+    |--------------------------------------------------------------------------
+    */
+    $silabus = Silabus::create($silabusData);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Simpan FK Silabus ke Detail Kurikulum
+    |--------------------------------------------------------------------------
+    */
+    $detailData['id_silabus'] = $silabus->id_silabus;
+
+    $kurikulum->detailKurikulums()->create($detailData);
+
+    return redirect()->back()->with(
+        'success',
+        'Matakuliah berhasil ditambahkan ke semester ' . $request->semester . '.'
+    );
+}
 
     public function update(UpdateDetailKurikulumRequest $request, string $detailId): RedirectResponse
     {

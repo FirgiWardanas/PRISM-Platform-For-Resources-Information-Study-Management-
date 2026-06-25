@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DetailKurikulum extends Model
 {
     protected $table      = 'detail_kurikulum';
     protected $primaryKey = 'id_detail';
-    public    $timestamps = false;
+    public $timestamps    = false;
 
     protected $fillable = [
         'id_kurikulum',
         'id_MK',
+        'id_silabus',
         'semester',
         'sesi_teori',
         'sesi_praktikum',
@@ -36,16 +36,28 @@ class DetailKurikulum extends Model
 
     public function kurikulum(): BelongsTo
     {
-        return $this->belongsTo(Kurikulum::class, 'id_kurikulum', 'id_kurikulum');
+        return $this->belongsTo(
+            Kurikulum::class,
+            'id_kurikulum',
+            'id_kurikulum'
+        );
     }
 
     public function matakuliah(): BelongsTo
     {
-        return $this->belongsTo(Matakuliah::class, 'id_MK', 'id_MK');
+        return $this->belongsTo(
+            Matakuliah::class,
+            'id_MK',
+            'id_MK'
+        );
     }
 
-    public function silabus(): HasOne
+    public function silabus(): BelongsTo
     {
-        return $this->hasOne(Silabus::class, 'id_detail', 'id_detail');
+        return $this->belongsTo(
+            Silabus::class,
+            'id_silabus',
+            'id_silabus'
+        );
     }
 }
