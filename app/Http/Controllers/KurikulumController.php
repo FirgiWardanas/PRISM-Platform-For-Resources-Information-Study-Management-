@@ -25,7 +25,6 @@ class KurikulumController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
         $prodi = auth()->guard()->user()->prodis;
 
         $totalSemester = match ($prodi->jenjang) {
