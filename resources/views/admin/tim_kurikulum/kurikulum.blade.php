@@ -259,7 +259,7 @@
             </div>
         </div>
 
-        {{-- MODAL EDIT KURIKULUM --}}
+
 {{-- MODAL EDIT KURIKULUM --}}
 <div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
     <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
