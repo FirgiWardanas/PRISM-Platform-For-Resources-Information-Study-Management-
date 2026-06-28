@@ -21,18 +21,6 @@
             </div>
 
             <!-- LIST CARD -->
-            <div class="space-y-4">
-                @if(session('pesan'))
-                    <div class="mb-4 rounded bg-green-100 p-3 text-green-700">
-                        {{ session('pesan') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="bg-red-100 text-red-700 p-3 rounded mb-3">
-                        {{ session('error') }}
-                    </div>
-                @endif
 
                 <form method="GET" action="{{ route('admin.program-studi.index') }}"
                     class="flex items-center gap-3 mb-5">
