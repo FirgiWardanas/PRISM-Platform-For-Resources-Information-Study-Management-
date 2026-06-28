@@ -13,7 +13,7 @@
         </h2>
 
         <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold">
-          Teknik Informatika
+          Jurusan Teknik Informatika
         </h1>
 
         <h3 class="text-sm md:text-base lg:text-lg text-white">
