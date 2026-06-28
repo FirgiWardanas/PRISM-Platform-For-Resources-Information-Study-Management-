@@ -11,16 +11,15 @@
       </h1>
 
       <p class="text-center mb-10 sm:mb-12 text-xs sm:text-sm md:text-base max-w-4xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi voluptas
-        nulla temporibus soluta obcaecati repudiandae quam accusamus dicta totam.
+        Jurusan Teknik Informatika berkomitmen menghasilkan lulusan yang unggul, inovatif, dan berintegritas di bidang teknologi informasi melalui pendidikan berkualitas, penelitian, serta pengabdian kepada masyarakat yang selaras dengan perkembangan industri digital.
       </p>
 
       <div class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF] w-full rounded-3xl text-white py-4 sm:py-6 md:py-8 px-3 sm:px-8 md:px-12 flex justify-evenly items-start gap-3 sm:gap-8 md:gap-12">
-        <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
+        <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2 ">
           <h1 class="text-[10px] sm:text-sm font-bold">Tahun berdiri</h1>
           <h1 class="text-base sm:text-xl md:text-2xl font-bold">2000</h1>
-          <p class="text-[9px] sm:text-xs text-center leading-tight">
-            [isi ini]
+          <p class="text-[9px] sm:text-xs text-center leading-tight ">
+            Berdiri sejak tahun 2000 dan terus menghasilkan lulusan yang kompeten di bidang teknologi informasi.
           </p>
         </div>
 
@@ -41,7 +40,7 @@
           <h1 class="text-[10px] sm:text-sm font-bold">Jumlah Dosen</h1>
           <h1 class="text-base sm:text-xl md:text-2xl font-bold">{{ $jumlah_dosen }}</h1>
           <p class="text-[9px] sm:text-xs text-center leading-tight">
-            Lorem ipsum dolor sit amet consectetur
+            Didukung oleh dosen profesional yang berpengalaman di bidang akademik maupun industri.
           </p>
         </div>
 
@@ -176,7 +175,7 @@
 
     </section>
 
-    <section id="programStudi" class="py-20 relative overflow-hidden flex flex-col justify-center items-center mb-60">
+    <section id="programStudi" class="py-20 relative overflow-hidden flex flex-col justify-center items-center">
 
       <!-- DEKORASI BULAT -->
       <div class="absolute bottom-0 -right-12 w-40 sm:w-50 md:w-60 lg:w-80 z-0">
@@ -191,7 +190,7 @@
       <!-- GRID -->
       <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-6 w-full">
 
-        @foreach($prodis as $prodi)
+        @forelse($prodis as $prodi)
         @php
         $primary = $prodi->kustomisasi->primary_color ?? '#00766D';
         $secondary = $prodi->kustomisasi->secondary_color ?? '#01C7B8';
@@ -271,10 +270,119 @@
             </a>
           </div>
         </div>
-        @endforeach
+        @empty
+
+        <div class="col-span-full bg-gray-50 border border-gray-200 rounded-2xl p-12 text-center z-50">
+          <div class="text-6xl mb-4">📚</div>
+
+          <h3 class="text-2xl font-bold text-[#1B4597]">
+            Belum Ada Program Studi
+          </h3>
+
+          <p class="mt-3 text-gray-500">
+            Program studi pada Jurusan Teknik Informatika belum tersedia.
+          </p>
+        </div>
+
+        @endforelse
 
       </div>
     </section>
+    <section id="kontak" class="py-20 relative overflow-hidden flex flex-col justify-center items-center mb-60">
+      <h1 class="text-3xl md:text-5xl font-bold lg:text-5xl mb-3 text-[#1B4597] mb-20">Kontak</h1>
+
+      <div class="max-w-6xl mx-auto px-6">
+
+        <!-- Contact Card -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-10">
+
+          <!-- Phone -->
+          <div
+            class="rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#490097] via-[#203DA6] to-[#00A6FF] p-3 sm:p-5 lg:p-8 text-center shadow-xl relative overflow-hidden">
+
+            <div class="relative z-10">
+              <div
+                class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-3 lg:mb-5">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-[#ffa600]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.56 3.58.56a1 1 0 011 1V20a1 1 0 01-1 1C10.3 21 3 13.7 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.19 2.46.56 3.58a1 1 0 01-.25 1.02l-2.19 2.19z" />
+                </svg>
+              </div>
+
+              <h3 class="text-sm sm:text-lg lg:text-xl font-semibold text-white">
+                Nomor Telepon
+              </h3>
+
+              <p class="text-[10px] sm:text-xs lg:text-sm text-white/60 font-semibold mt-2 break-words">
+                +62 895-6036-62530
+              </p>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div
+            class="rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#490097] via-[#203DA6] to-[#00A6FF] p-3 sm:p-5 lg:p-8 text-center shadow-xl relative overflow-hidden">
+
+            <div class="relative z-10">
+              <div
+                class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-3 lg:mb-5">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-[#ffa600]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-8 5L4 6h16z" />
+                </svg>
+              </div>
+
+              <h3 class="text-sm sm:text-lg lg:text-xl font-semibold text-white">
+                Email
+              </h3>
+
+              <p class="text-[10px] sm:text-xs lg:text-sm text-white/60 font-semibold mt-2 break-all">
+                firgiwardanas257@gmail.com
+              </p>
+            </div>
+          </div>
+
+          <!-- Lokasi -->
+          <div
+            class="rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#490097] via-[#203DA6] to-[#00A6FF] p-3 sm:p-5 lg:p-8 text-center shadow-xl relative overflow-hidden">
+
+            <div class="relative z-10">
+              <div
+                class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-3 lg:mb-5">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-[#ffa600]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z" />
+                </svg>
+              </div>
+
+              <h3 class="text-sm sm:text-lg lg:text-xl font-semibold text-white">
+                Lokasi
+              </h3>
+
+              <p class="text-[10px] sm:text-xs lg:text-sm text-white/60 font-semibold mt-2 break-words">
+                Jl. Ahmad Yani, Batam Kota, Kepulauan Riau
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
 
     <x-layout.footer></x-layout.footer>
   </body>
