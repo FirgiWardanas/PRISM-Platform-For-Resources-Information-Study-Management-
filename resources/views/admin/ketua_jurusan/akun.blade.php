@@ -7,7 +7,7 @@
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72" h-screen overflow-hidden>
             <!-- Header -->
             <x-admin.header>
                 <div class="font-bold">Kelola Akun</div> 
