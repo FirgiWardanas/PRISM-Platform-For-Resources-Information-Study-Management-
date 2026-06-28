@@ -21,7 +21,7 @@ class ProgramStudiController extends Controller
         $query->where('kode_prodi', 'LIKE', "%{$search}%")
                 ->orWhere('nama_prodi', 'LIKE', "%{$search}%");
         })
-        ->paginate(2)
+        ->paginate(6)
         ->withQueryString();
 
         return view('admin.ketua_jurusan.program-studi', compact('prodi','search'));
