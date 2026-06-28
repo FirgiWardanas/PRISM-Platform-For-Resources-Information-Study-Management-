@@ -1,4 +1,4 @@
-<footer id="kontak" class="bg-cover bg-center bg-no-repeat text-white" style="background-image:url('{{ asset('images/footer.png') }}');">
+<footer  class="bg-cover bg-center bg-no-repeat text-white" style="background-image:url('{{ asset('images/footer.png') }}');">
 
     <div class="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
 
@@ -31,14 +31,33 @@
 
         {{-- MENU --}}
         <div>
-            <h2 class="font-semibold text-lg mb-3">Menu</h2>
-            <ul class="space-y-2 text-sm text-white/80">
-                <li>Beranda</li>
-                <li>Tentang Kami</li>
-                <li>Program Studi</li>
-                <li>Kontak</li>
-            </ul>
-        </div>
+                <h2 class="font-semibold text-lg mb-3">Menu</h2>
+                <ul class="space-y-2 text-sm">
+                    <li>
+                        <a href="#home" class="text-white/80 hover:text-white transition duration-200">
+                            Beranda
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#tentang" class="text-white/80 hover:text-white transition duration-200">
+                            Tentang Kami
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#programStudi" class="text-white/80 hover:text-white transition duration-200">
+                            Program Studi
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#kontak" class="text-white/80 hover:text-white transition duration-200">
+                            Kontak
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
         {{-- KONTAK --}}
         <div>
