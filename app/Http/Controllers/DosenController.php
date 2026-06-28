@@ -25,7 +25,7 @@ class DosenController extends Controller
                     ->when($search, fn($q) => $q->where('nama_dosen', 'LIKE', "%{$search}%"))
                     ->when($prodi,  fn($q) => $q->where('id_prodi', $prodi))
                     ->when($jabatan, fn($q) => $q->where('status_jabatan', $jabatan))
-            ->paginate(2)
+            ->paginate(4)
             ->withQueryString();
 
             $list_prodi = Prodi::all();

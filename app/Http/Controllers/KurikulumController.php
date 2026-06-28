@@ -14,7 +14,11 @@ class KurikulumController extends Controller
         $kurikulums = Kurikulum::with([
             'prodi',
             'detailKurikulums.matakuliah',
-        ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
+            'detailKurikulums.silabus',
+        ])->where('id_prodi', auth()->guard()->user()->id_prodi)
+            ->orderByRaw("CASE WHEN status_kurikulum = 'aktif' THEN 0 ELSE 1 END")
+            ->orderByDesc('tahun_mulai')
+            ->get();
 
         
 
@@ -23,7 +27,9 @@ class KurikulumController extends Controller
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
 
-    public function create() {}
+    public function create()
+    {
+    }
 
     public function store(Request $request)
     {
@@ -70,9 +76,13 @@ class KurikulumController extends Controller
         }
     }
 
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+    }
 
-    public function edit(string $id) {}
+    public function edit(string $id)
+    {
+    }
 
     public function update(Request $request, string $id)
     {

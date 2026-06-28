@@ -1,7 +1,41 @@
-function showKurikulum(id) {
-    document.querySelectorAll('.kurikulum-content').forEach(el => el.classList.add('hidden'));
+function showKurikulum(id, element) {
+
+    // Sembunyikan semua panel
+    document.querySelectorAll('.kurikulum-content').forEach(el => {
+        el.classList.add('hidden');
+    });
+
+    // Tampilkan panel
     const panel = document.getElementById(`kurikulum-${id}`);
     if (panel) panel.classList.remove('hidden');
+
+    // Reset semua tombol ke warna default
+    document.querySelectorAll('.kurikulum-item').forEach(item => {
+        item.classList.remove(
+            'bg-gradient-to-r',
+            'from-[#4363E3]',
+            'to-[#9A55FF]',
+            'text-white'
+        );
+
+        item.classList.add(
+            'bg-[#B3C3FF]',
+            'text-[#4562E4]'
+        );
+    });
+
+    // Tombol yang aktif
+    element.classList.remove(
+        'bg-[#B3C3FF]',
+        'text-[#4562E4]'
+    );
+
+    element.classList.add(
+        'bg-gradient-to-r',
+        'from-[#4363E3]',
+        'to-[#9A55FF]',
+        'text-white'
+    );
 }
 
 function openTambahKurikulum() {
@@ -362,7 +396,18 @@ profileCard.addEventListener('click', function (e) {
 document.addEventListener('click', function () {
     profileCard.classList.add('hidden');
 });
+//tutup x ketika mobile
+const closeSidebar = document.getElementById('closeSidebar');
 
+closeSidebar.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-[120%]');
+    overlay.classList.add('hidden');
+});
+
+document.getElementById('formTambahMatkul').addEventListener('submit', function (e) {
+    const sks = parseFloat(document.querySelector('#formTambahMatkul input[name="sks"]').value) || 0;
+    const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
+    const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
 function hitungSksTambah() {
     const teori = parseFloat(document.getElementById('tambahBobotTeori').value) || 0;
     const praktikum = parseFloat(document.getElementById('tambahBobotPraktikum').value) || 0;
@@ -382,6 +427,10 @@ document.getElementById('formTambahMatkul').addEventListener('submit', function(
     hitungSksTambah();
 });
 
+document.getElementById('formEditMatkul').addEventListener('submit', function (e) {
+    const sks = parseFloat(document.getElementById('editSks').value) || 0;
+    const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
+    const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
 
 document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
     // SKS dihitung otomatis dari bobot_teori + bobot_praktikum sebelum submit
@@ -405,3 +454,10 @@ function showToastError(message) {
     // Auto hilang setelah 4 detik
     setTimeout(() => toast.remove(), 4000);
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const first = document.querySelector(".kurikulum-item");
+
+    if (first) {
+        first.click();
+    }
+});

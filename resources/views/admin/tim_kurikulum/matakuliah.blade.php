@@ -1,6 +1,7 @@
 <x-layout.layout>
 
-    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
+    <body class="font-montserrat min-h-screen relative overflow-x-hidden bg-[#FCFCFF]">
+
         {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">

@@ -1,6 +1,6 @@
 <x-layout.layout>
 
-    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
+    <body class="font-montserrat min-h-screen relative overflow-x-hidden bg-[#FCFCFF]">
         {{-- sidebbar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
@@ -8,12 +8,13 @@
         <!-- Main -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header_kurikulum>Profile</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>Profil</x-admin.header-kurikulum>
 
                 <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
                     <!-- Edit -->
-                    <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                    <button onclick="openModal()"
+                        class="absolute top-5 right-5 btn-img cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                         <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20">
                     </button>
 
@@ -23,7 +24,9 @@
                             class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
 
                         <div class="text-sm text-gray-700 space-y-4 text-center md:text-left font-semibold">
-                            <h2 class="text-xl font-bold mb-2 bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent">{{ $user->nama }}</h2>
+                            <h2
+                                class="text-xl font-bold mb-2 bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent">
+                                {{ $user->nama }}</h2>
                             <p>Nama : <span>{{ $user->nama }}</span></p>
                             <p>NIP : <span>{{ $user->nip }}</span></p>
                             <p>Email : <span>{{ $user->email }}</span></p>
@@ -36,7 +39,7 @@
                         @csrf
                         <button type="submit"
                             class="w-full md:w-auto flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                            Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 mt-1">
+                            Keluar <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 mt-1">
                         </button>
                     </form>
 
@@ -171,6 +174,14 @@
 
             profileCard.classList.add('hidden');
 
+        });
+
+        //tutup x ketika mobile
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-[120%]');
+            overlay.classList.add('hidden');
         });
     </script>
 </x-layout.layout>
