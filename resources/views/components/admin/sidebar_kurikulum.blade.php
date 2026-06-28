@@ -7,6 +7,13 @@
             <img src="{{ asset('images/logo prism.png') }}" alt="">
         </div>
 
+        {{-- Tombol tutup (mobile only) --}}
+        <button id="closeSidebar"
+            class="absolute top-2 right-2 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white
+           text-lg hover:bg-blue-600 lg:hidden">
+            ✕
+        </button>
+
         <div>
             <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
             <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
@@ -15,7 +22,8 @@
 
     <nav class="space-y-3">
         {{-- dashboard --}}
-        <a href="/admin/tim-kurikulum" class="{{ request()->is('admin/tim-kurikulum')
+        <a href="/admin/tim-kurikulum"
+            class="{{ request()->is('admin/tim-kurikulum')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200' }}">
 
@@ -23,21 +31,23 @@
     ? asset('images/icon-dashboard (putih).svg')
     : asset('images/Structure.svg') }}" alt="Dashboard" class="w-4 h-4">
 
-            <span>Dashboard</span>
+            <span>Beranda</span>
         </a>
         {{-- kurikulum --}}
-        <a href="/admin/kurikulum" class="{{ request()->is('admin/kurikulum')
+        <a href="/admin/kurikulum"
+            class="{{ request()->is('admin/kurikulum')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200' }}">
 
             <img src="{{ request()->is('admin/kurikulum')
     ? asset('images/icon-kurikulum (putih).svg')
-    : asset('images/icon-kurikulum(biru).svg') }}" alt="Kurikulum" class="w-4 h-4">
+    : asset('images/icon-kurikulum(biru).svg') }}" alt="Kurikulum" class="w-4 h-4 mb-1">
 
             <span>Kurikulum</span>
         </a>
         {{-- mata kuliah --}}
-        <a href="/admin/matakuliah" class="{{ request()->is('admin/matakuliah')
+        <a href="/admin/matakuliah"
+            class="{{ request()->is('admin/matakuliah')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200' }}">
 
@@ -48,7 +58,8 @@
             <span>Mata kuliah</span>
         </a>
         {{-- kustomisasi --}}
-        <a href="/admin/kustomisasi" class="{{ request()->is('admin/kustomisasi')
+        <a href="/admin/kustomisasi"
+            class="{{ request()->is('admin/kustomisasi')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200' }}">
 
@@ -59,7 +70,8 @@
             <span>Kustomisasi</span>
         </a>
         {{-- profile --}}
-        <a href="/admin/profile-tim-kurikulum" class="{{ request()->is('admin/profile-tim-kurikulum')
+        <a href="/admin/profile-tim-kurikulum"
+            class="{{ request()->is('admin/profile-tim-kurikulum')
     ? 'flex items-center gap-0.5 rounded-full bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold px-4 py-3 text-white shadow'
     : 'flex items-center gap-0.5 rounded-full px-4 py-3 bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold hover:bg-gray-200' }}">
 
@@ -67,7 +79,7 @@
     ? asset('images/icon-profil(putih).svg')
     : asset('images/icon-profile(biru).svg') }}" alt="profile" class="w-4 h-4">
 
-            <span>Profile</span>
+            <span>Profil</span>
         </a>
     </nav>
 </aside>

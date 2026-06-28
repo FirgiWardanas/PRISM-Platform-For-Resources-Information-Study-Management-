@@ -62,9 +62,9 @@ function removeImage(inputId, previewId) {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Preview gambar kustomisasi
-    setupImagePreview('input-logo',      'preview-logo');
+    setupImagePreview('input-logo', 'preview-logo');
     setupImagePreview('input-ilustrasi', 'preview-ilustrasi');
-    setupImagePreview('input-icon',      'preview-icon');
+    setupImagePreview('input-icon', 'preview-icon');
 
     // =============================================
     // PREVIEW FOTO PROFIL LULUSAN
@@ -75,10 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const file = this.files[0];
             const nameEl = document.getElementById('nama-file-tambah');
             if (!file) {
-                if(nameEl) nameEl.innerText = '';
+                if (nameEl) nameEl.innerText = '';
                 return;
             }
-            if(nameEl) nameEl.innerText = file.name;
+            if (nameEl) nameEl.innerText = file.name;
             const reader = new FileReader();
             reader.onload = e => {
                 const img = document.getElementById('img-preview-tambah');
@@ -95,10 +95,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const file = this.files[0];
             const nameEl = document.getElementById('nama-file-edit');
             if (!file) {
-                if(nameEl) nameEl.innerText = '';
+                if (nameEl) nameEl.innerText = '';
                 return;
             }
-            if(nameEl) nameEl.innerText = file.name;
+            if (nameEl) nameEl.innerText = file.name;
             const reader = new FileReader();
             reader.onload = e => {
                 const img = document.getElementById('img-preview-edit');
@@ -117,18 +117,18 @@ function openModal() {
     const m = document.getElementById('modalProfil');
     m.classList.remove('hidden');
     m.classList.add('flex');
-    
+
     // Reset form dan preview
     const form = m.querySelector('form');
-    if(form) form.reset();
-    
+    if (form) form.reset();
+
     const imgTambah = document.getElementById('img-preview-tambah');
-    if(imgTambah) {
+    if (imgTambah) {
         imgTambah.src = '/images/icon-upload.svg';
         imgTambah.className = 'w-8 h-8 opacity-40';
     }
     const nameTambah = document.getElementById('nama-file-tambah');
-    if(nameTambah) nameTambah.innerText = '';
+    if (nameTambah) nameTambah.innerText = '';
 }
 
 function closeModal() {
@@ -147,18 +147,18 @@ function closeModalEdit() {
 
 // Satu fungsi editProfil 
 function editProfil(btn) {
-    const id        = btn.dataset.id;
-    const judul     = btn.dataset.judul;
+    const id = btn.dataset.id;
+    const judul = btn.dataset.judul;
     const deskripsi = btn.dataset.deskripsi;
-    const icon      = btn.dataset.icon;
+    const icon = btn.dataset.icon;
 
-    document.getElementById('editJudul').value     = judul;
+    document.getElementById('editJudul').value = judul;
     document.getElementById('editDeskripsi').value = deskripsi;
     document.getElementById('formEditProfil').action = `/admin/profil-lulusan/${id}`;
 
     const imgEdit = document.getElementById('img-preview-edit');
     const nameEdit = document.getElementById('nama-file-edit');
-    
+
     if (icon && icon !== 'null' && icon !== '') {
         imgEdit.src = '/storage/' + icon;
         imgEdit.className = 'w-full h-full object-cover';
@@ -171,9 +171,9 @@ function editProfil(btn) {
         imgEdit.className = 'w-8 h-8 opacity-40';
         if (nameEdit) nameEdit.innerText = 'Belum ada foto';
     }
-    
+
     const inputIconEdit = document.getElementById('input-icon-edit');
-    if(inputIconEdit) inputIconEdit.value = '';
+    if (inputIconEdit) inputIconEdit.value = '';
 
     document.getElementById('modalEditProfil').classList.remove('hidden');
     document.getElementById('modalEditProfil').classList.add('flex');
@@ -270,4 +270,11 @@ document.addEventListener('click', function () {
 
     profileCard.classList.add('hidden');
 
+});
+//tutup x ketika mobile
+const closeSidebar = document.getElementById('closeSidebar');
+
+closeSidebar.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-[120%]');
+    overlay.classList.add('hidden');
 });

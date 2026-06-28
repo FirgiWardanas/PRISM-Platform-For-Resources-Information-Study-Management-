@@ -1,5 +1,5 @@
 <x-layout.layout>
-    <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
+    <body class="font-montserrat min-h-screen relative overflow-x-hidden bg-[#FCFCFF]">
         {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
@@ -16,12 +16,12 @@
                     <span class="text-[#3307CC]">Preview</span>
                 </a>
                 <button type="button" onclick="resetForm()"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200 hover:scale-[1.025] transition-all">
+                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200 hover:scale-[1.025] transition-all cursor-pointer">
                     <img src="{{ asset('images/icon-reset.svg') }}" class="w-5 h-5">
                     <span class="text-[#3307CC]">Reset</span>
                 </button>
                 <button type="submit" form="formKustomisasi"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition hover:scale-[1.025] ">
+                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition hover:scale-[1.025] cursor-pointer">
                     <img src="{{ asset('images/icon-simpan perubahan.svg') }}" class="mt-2 w-5 h-5">
                     <span class="text-white">Simpan Perubahan</span>
                 </button>
@@ -48,7 +48,7 @@
                             <div class="col-span-1 md:col-span-2 flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center">
                                 <div class="flex items-center gap-3">
                                     <label class="font-semibold text-[#3307CC]">Status</label>
-                                    <select name="status_prodi" class="border border-gray-300 rounded-lg px-3 py-1 text-sm">
+                                    <select name="status_prodi" class="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none cursor-pointer">
                                         <option value="draft" {{ $prodi->status_prodi === 'draft' ? 'selected' : '' }}>Draft</option>
                                         <option value="published" {{ $prodi->status_prodi === 'published' ? 'selected' : '' }}>Publish</option>
                                     </select>
@@ -59,7 +59,7 @@
                             <div class="col-span-1 md:col-span-2">
                                 <label class="font-semibold text-[#3307CC]">Deskripsi</label>
                                 <p class="mt-3 text-sm text-[#3307CC]">Deskripsi program studi</p>
-                                <textarea name="deskripsi_prodi" class="w-full h-28 mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan deskripsi program studi">{{ $prodi->detailProdi?->deskripsi_prodi }}</textarea>
+                                <textarea name="deskripsi_prodi" class="w-full h-28 mt-2 p-3 border border-gray-300 shadow-lg focus:outline-none rounded-xl text-sm" placeholder="Masukkan deskripsi program studi">{{ $prodi->detailProdi?->deskripsi_prodi }}</textarea>
                             </div>
 
 
@@ -67,14 +67,14 @@
                             <div >
                                 <label class="font-semibold text-[#3307CC]">Visi</label>
                                 <p class="mt-3 text-sm text-[#3307CC]">Visi program studi</p>
-                                <textarea name="visi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan visi program studi">{{ $prodi->detailProdi?->visi }}</textarea>
+                                <textarea name="visi" class="w-full mt-2 p-3 border border-gray-300 shadow-lg focus:outline-none rounded-xl text-sm" placeholder="Masukkan visi program studi">{{ $prodi->detailProdi?->visi }}</textarea>
                             </div>
 
                             {{-- MISI --}}
                             <div>
                                 <label class="font-semibold text-[#3307CC]">Misi</label>
                                 <p class="mt-3 text-sm text-[#3307CC]">Misi program studi</p>
-                                <textarea name="misi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan misi program studi">{{ $prodi->detailProdi?->misi }}</textarea>
+                                <textarea name="misi" class="w-full mt-2 p-3 border border-gray-300 shadow-lg focus:outline-none rounded-xl text-sm" placeholder="Masukkan misi program studi">{{ $prodi->detailProdi?->misi }}</textarea>
                             </div>
                             
                             {{-- LOGO --}}
@@ -92,7 +92,7 @@
                                     <input type="file" id="input-logo" name="logo" class="hidden" accept="image/*">
                                     <div>
                                         <button type="button" onclick="document.getElementById('input-logo').click()"
-                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] ">
+                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] cursor-pointer">
                                             Upload Logo
                                         </button>
                                         <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
@@ -115,7 +115,7 @@
                                     <input type="file" id="input-ilustrasi" name="ilustrasi" class="hidden" accept="image/*">
                                     <div>
                                         <button type="button" onclick="document.getElementById('input-ilustrasi').click()"
-                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025]">
+                                            class="flex items-center gap-2 px-5 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl hover:bg-purple-50 transition hover:scale-[1.025] cursor-pointer">
                                             Upload Gambar
                                         </button>
                                         <p class="text-xs text-gray-400 mt-2">Format PNG (Max 2MB)</p>
@@ -201,13 +201,13 @@
                                                 data-judul="{{ $profil->judul_lulusan }}"
                                                 data-deskripsi="{{ $profil->deskripsi_lulusan }}"
                                                 data-icon="{{ $profil->icon_lulusan }}">
-                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4 hover:scale-[1.025] transition-all">
+                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4 hover:scale-[1.025] transition-all cursor-pointer">
                                             </button>
                                             <form action="{{ route('admin.profil-lulusan.destroy', $profil->id_lulusan) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="return confirm('Yakin ingin menghapus profil lulusan ini?')">
-                                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5 hover:scale-[1.025] transition-all">
+                                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5 hover:scale-[1.025] transition-all mt-1 cursor-pointer">
                                                 </button>
                                             </form>
                                         </div>
