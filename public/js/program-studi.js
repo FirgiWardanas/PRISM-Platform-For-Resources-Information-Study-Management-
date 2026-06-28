@@ -26,7 +26,7 @@ function openEditModal(btn, id, kode, nama, jenjang) {
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 
-    // isi form edit
+
     document.getElementById("editkode").value = kode;
     document.getElementById("editnama").value = nama;
     document.getElementById("editjenjang").value = jenjang;
