@@ -23,7 +23,18 @@
       }
     </style>
 </head>
+<div class="fixed inset-0 -z-10 overflow-hidden">
 
+    <div class="absolute -bottom-44 -left-44 w-[600px] h-[600px] rounded-full bg-pink-100/30 blur-[220px]">
+    </div>
+
+    <div
+        class="absolute top-1/2 left-[38%] -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[800px] rounded-full bg-[#C5D2FF]/28 blur-[240px]">
+    </div>
+
+    <div class="absolute top-[18%] -right-40 w-[700px] h-[700px] rounded-full bg-cyan-50/30 blur-[220px]"></div>
+
+</div>
 
 {{ $slot }}
 
@@ -31,76 +42,76 @@
 
 {{-- NOTIFIKASI LOGIN --}}
 @if(session('login_success'))
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    window.Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        title: @json(session('login_success')),
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        width: 350,
-        padding: '12px',
-        customClass: {
-            popup: 'text-base'
-        }
-    });
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: @json(session('login_success')),
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                width: 350,
+                padding: '12px',
+                customClass: {
+                    popup: 'text-base'
+                }
+            });
+        });
+    </script>
 @endif
 
 
 {{-- NOTIFIKASI INSERT UPDATE DELETE BERHASIL --}}
 @if(session('success'))
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    window.Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: @json(session('success')),
-        confirmButtonColor: '#16a34a',
-        confirmButtonText: 'OK'
-    });
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: @json(session('success')),
+                confirmButtonColor: '#16a34a',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
 @endif
 
 
 {{-- NOTIFIKASI VALIDASI ADA YANG SALAH --}}
 @if($errors->any())
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    let messages = @json($errors->all());
+            let messages = @json($errors->all());
 
-    Swal.fire({
-        icon: 'error',
-        title: 'Validasi Gagal!',
-        html: messages.map(msg => `• ${msg}`).join('<br>'),
-        confirmButtonColor: '#dc2626'
-    });
+            Swal.fire({
+                icon: 'error',
+                title: 'Validasi Gagal!',
+                html: messages.map(msg => `• ${msg}`).join('<br>'),
+                confirmButtonColor: '#dc2626'
+            });
 
-});
-</script>
+        });
+    </script>
 @endif
 
 
 {{-- VALIDASI TERJADI ERROR --}}
 @if(session('error'))
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops!',
-        text: @json(session('error')),
-        confirmButtonColor: '#dc2626'
-    });
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: @json(session('error')),
+                confirmButtonColor: '#dc2626'
+            });
 
-});
-</script>
+        });
+    </script>
 @endif
 
 

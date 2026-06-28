@@ -1,7 +1,7 @@
 <x-layout.layout>
 
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat h-screen overflow-hidden"
-        style="background-image: url('{{ asset('images/image-7.png') }}');">
+    <body class="font-montserrat min-h-screen relative overflow-x-hidden bg-[#FCFCFF]">
+
         {{-- sidebbar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
@@ -10,27 +10,31 @@
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
 
             {{-- header --}}
-            <x-admin.header_kurikulum>Dashboard</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>Beranda</x-admin.header-kurikulum>
 
                 <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 
                     {{-- ── WELCOME BANNER ── --}}
                     <div class="relative bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF]
-                        text-white px-7 rounded-[24px] overflow-hidden
-                            flex flex-col md:flex-row justify-center md:justify-between
-                            min-h-[170px] p-5 md:px-7">
-                        <div class="space-y-1 z-10 pr-[260px]">
+                    text-white px-7 rounded-[24px] shadow-sm overflow-hidden
+                    flex flex-col md:flex-row items-center min-h-[170px] p-6">
+
+                        <div class="space-y-1 z-10 md:pr-[260px]">
+
                             <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
                                 HELLO {{ strtoupper(auth()->user()->nama) }}!
                             </p>
-                            <h2 class="text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
+
+                            <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
+
                             <p class="text-[11px] pt-4 opacity-75 font-medium">
                                 {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                             </p>
                         </div>
-                        <div class="hidden md:flex absolute right-0 top-5 h-full items-end">
+
+                        <div class="absolute -right-4 top-5 h-full flex items-end">
                             <img src="{{ asset('images/illustrasi_welcome.png') }}" alt=""
-                                class="h-[190px] object-contain">
+                                class="h-[120px] md:h-[190px] object-contain">
                         </div>
                     </div>
 
@@ -44,8 +48,8 @@
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#067AFA] to-[#044894]">
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">    
-                                   <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
+                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">
+                                    <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
                                         alt="">
                                 </div>
                                 <div>
@@ -58,7 +62,7 @@
                         </div>
 
                         {{-- MataKuliah --}}
-                         <div
+                        <div
                             class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c663] shadow-lg relative overflow-hidden">
                             <div
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9a55ff] to-[#5100c6]">
@@ -71,7 +75,7 @@
                                     <p class="text-[#5100c6] font-semibold text-sm">Total Mata Kuliah</p>
                                     <h1 class="text-[40px] font-extrabold text-[#5100c6] leading-none">
                                         {{ $jumlahMatakuliah }}
-                                    </h1>   
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -457,6 +461,13 @@
                 .classList
                 .toggle('hidden');
         }
+        //tutup x ketika mobile
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-[120%]');
+            overlay.classList.add('hidden');
+        });
 
 
 
@@ -482,6 +493,8 @@
             profileCard.classList.add('hidden');
 
         });
+
+        
     </script>
 
 </x-layout.layout>
