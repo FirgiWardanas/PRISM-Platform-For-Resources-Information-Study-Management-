@@ -113,28 +113,8 @@
 
     </body>
     <script>
-        @if(session('success'))
-            document.addEventListener('DOMContentLoaded', function () {
-                const popup = document.getElementById('successPopup');
-                popup.classList.remove('hidden');
-                setTimeout(function () {
-                    popup.classList.add('hidden');
-                }, 3000);
-            });
-        @endif
 
-        @if(session('info'))
-            document.addEventListener('DOMContentLoaded', function () {
-                openModal();
-                alert('{{ session("info") }}');
-            });
-        @endif
 
-        @if($errors->any())
-            document.addEventListener('DOMContentLoaded', function () {
-                openModal();
-            });
-        @endif
 
             function openModal() {
                 const modal = document.getElementById('modal');
