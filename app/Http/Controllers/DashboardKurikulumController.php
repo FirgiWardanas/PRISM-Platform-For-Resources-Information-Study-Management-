@@ -24,7 +24,7 @@ class DashboardKurikulumController extends Controller
         // Kurikulum aktif milik prodi user
         $kurikulumAktif = Kurikulum::with([
                 'detailKurikulums.matakuliah',
-                'detailKurikulums.silabus',
+
             ])
             ->where('id_prodi', $idProdi)
             ->where('status_kurikulum', 'aktif')

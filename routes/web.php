@@ -38,12 +38,6 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
         Route::resource('/kelola-dosen', DosenController::class);
-
-        Route::prefix('transfer')->name('transfer.')->group(function () {
-            Route::post('verify',   [ProfileKajurController::class, 'verify'])->name('verify');
-            Route::post('initiate', [ProfileKajurController::class, 'initiateTransfer'])->name('initiate');
-            Route::post('cancel',   [ProfileKajurController::class, 'cancelTransfer'])->name('cancel');
-        });
     });
 
 Route::middleware(['auth', 'role:tim_kurikulum'])

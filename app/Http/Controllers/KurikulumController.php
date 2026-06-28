@@ -16,6 +16,8 @@ class KurikulumController extends Controller
             'detailKurikulums.matakuliah',
         ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
 
+        
+
         $matakuliahs = Matakuliah::all();
 
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
@@ -94,6 +96,8 @@ class KurikulumController extends Controller
             'status_kurikulum.required' => 'Status kurikulum wajib dipilih.',
         ]);
 
+
+
         try {
             if ($request->status_kurikulum === 'aktif') {
                 Kurikulum::where('id_prodi', $idProdi)
@@ -117,7 +121,16 @@ class KurikulumController extends Controller
 
     public function destroy(string $id)
     {
-        Kurikulum::findOrFail($id)->delete();
-        return redirect()->back();
+        $kurikulum = Kurikulum::findOrFail($id);
+
+        if ($kurikulum->status_kurikulum === 'aktif') {
+            return redirect()->back()
+                ->with('error', 'Kurikulum yang sedang aktif tidak dapat dihapus.');
+        }
+
+        $kurikulum->delete();
+
+        return redirect()->back()
+            ->with('success', 'Kurikulum berhasil dihapus.');
     }
 }

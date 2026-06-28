@@ -34,6 +34,8 @@ function kurangTambah() {
 let valueEdit = 0;
 
 function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_kurikulum, total_semester) {
+
+
     const modal = document.getElementById('editKurikulum');
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -69,9 +71,19 @@ function kurangEdit() {
 }
 
 function hapusKurikulum(id_kurikulum) {
-    if (confirm('Yakin ingin menghapus kurikulum ini?\nSemua data semester dan silabus terkait juga akan terhapus secara permanen.')) {
-        document.getElementById(`deleteForm_${id_kurikulum}`).submit();
-    }
+    Swal.fire({
+        title: 'Yakin ingin menghapus kurikulum ini?',
+        text: 'Semua data semester dan silabus terkait juga akan terhapus secara permanen.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm_${id_kurikulum}`).submit();
+        }
+    });
 }
 
 function toggleSemester(kurikulumId, semesterId) {

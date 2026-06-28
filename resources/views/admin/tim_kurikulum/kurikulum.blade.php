@@ -260,47 +260,73 @@
         </div>
 
         {{-- MODAL EDIT KURIKULUM --}}
-        <div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
-            <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
-                <button onclick="closeEditKurikulum()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
-                <div class="max-w-lg text-sm">
-                    <form id="formEdit" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <label>
-                            <span>Nama Kurikulum</span>
-                            <input type="text" id="nama_kurikulum" name="nama_kurikulum"
-                                placeholder="Masukkan nama kurikulum"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
-                        </label>
-                        <label>
-                            <span>Tahun Mulai</span>
-                            <input type="text" id="tahun_mulai" name="tahun_mulai" placeholder="Masukkan tahun mulai"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
-                        </label>
-                        <label>
-                            <span>Status Kurikulum</span>
-                            <select name="status_kurikulum" id="status_kurikulum"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                required>
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak aktif">Tidak Aktif</option>
-                            </select>
-                        </label>
-                        <div class="flex justify-center mt-4">
-                            <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                                Simpan
+{{-- MODAL EDIT KURIKULUM --}}
+<div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
+    <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+        <button onclick="closeEditKurikulum()"
+            class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
+        <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
+        <div class="max-w-lg text-sm">
+            <form id="formEdit" method="POST">
+                @csrf
+                @method('PUT')
+
+                {{-- WAJIB ADA: hidden input semester --}}
+                <input type="hidden" id="semesterInputEdit" name="total_semester">
+
+                <label>
+                    <span>Nama Kurikulum</span>
+                    <input type="text" id="nama_kurikulum" name="nama_kurikulum"
+                        placeholder="Masukkan nama kurikulum"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                        required>
+                </label>
+                <label>
+                    <span>Tahun Mulai</span>
+                    <input type="text" id="tahun_mulai" name="tahun_mulai"
+                        placeholder="Masukkan tahun mulai"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                        required>
+                </label>
+                <label>
+                    <span>Status Kurikulum</span>
+                    <select name="status_kurikulum" id="status_kurikulum"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                        required>
+                        <option value="aktif">Aktif</option>
+                        <option value="tidak aktif">Tidak Aktif</option>
+                    </select>
+                </label>
+
+                {{-- WAJIB ADA: counter total semester --}}
+                <label class="hidden">
+                    <span class="text-sm hidden">Total Semester</span>
+                    <div class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit mt-1">
+                        <div id="valueBoxEdit"
+                            class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
+                            0
+                        </div>
+                        <div class="flex flex-col">
+                            <button type="button" onclick="tambahEdit()" class="rotate-180 h-5 w-5">
+                                <img src="{{ asset('images/icon-dropdown.svg') }}">
+                            </button>
+                            <button type="button" onclick="kurangEdit()" class="h-5 w-5">
+                                <img src="{{ asset('images/icon-dropdown.svg') }}">
                             </button>
                         </div>
-                    </form>
+                    </div>
+                </label>
+
+                <div class="flex justify-center mt-4">
+                    <button type="submit"
+                        class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                        Simpan
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
 
         {{-- FORM HAPUS KURIKULUM --}}
         @foreach($kurikulums as $kurikulum)
