@@ -11,28 +11,6 @@
             {{-- header --}}
             <x-admin.header_kurikulum>Kurikulum</x-admin.header-kurikulum>
 
-                {{-- NOTIFIKASI --}}
-                @if(session('success'))
-                    <div id="toastSuccess"
-                        class="fixed top-5 right-5 z-[999] bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium flex items-start gap-3">
-                        <span>{{ session('success') }}</span>
-                        <button onclick="document.getElementById('toastSuccess').remove()"
-                            class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
-                    </div>
-                @endif
-
-                @if($errors->any())
-                    <div id="toastError"
-                        class="fixed top-5 right-5 z-[999] bg-red-500 text-white px-6 py-4 rounded-xl shadow-lg text-sm font-medium max-w-sm flex items-start gap-3">
-                        <ul class="space-y-1 flex-1">
-                            @foreach($errors->all() as $error)
-                                <li>• {{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button onclick="document.getElementById('toastError').remove()"
-                            class="text-white font-bold text-lg leading-none cursor-pointer">✕</button>
-                    </div>
-                @endif
 
 
                 <div class="flex flex-col lg:flex-row gap-4">
@@ -172,20 +150,19 @@
 
                                                                     {{-- SILABUS --}}
                                                                     <td class="p-2 flex justify-center items-center">
-                                                                        <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
-                                                                            class="cursor-pointer"
-                                                                            data-id-detail="{{ $detail->id_detail }}"
-                                                                            data-action="{{ route('admin.silabus.storeOrUpdate', $detail->id_detail) }}"
-                                                                            data-id-silabus="{{ $detail->silabus?->id_silabus ?? '' }}"
-                                                                            data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
-                                                                            data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
-                                                                            data-sks="{{ e($detail->sks) }}"
-                                                                            data-deskripsi="{{ e($detail->silabus?->deskripsi ?? '') }}"
-                                                                            data-cpm="{{ e($detail->silabus?->cpm ?? '') }}"
-                                                                            data-cpk="{{ e($detail->silabus?->cpk ?? '') }}"
-                                                                            data-bahan-pustaka="{{ e($detail->silabus?->bahan_pustaka ?? '') }}"
-                                                                            data-file-rps="{{ e($detail->silabus?->file_rps ?? '') }}"
-                                                                            onclick="openModalSilabus(this)">
+                                                                    <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
+                                                                        class="cursor-pointer"
+                                                                        data-id-detail="{{ $detail->id_detail }}"
+                                                                        data-action="{{ route('admin.detail-kurikulum.updateSilabus', $detail->id_detail) }}"
+                                                                        data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
+                                                                        data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
+                                                                        data-sks="{{ e($detail->sks) }}"
+                                                                        data-deskripsi="{{ e($detail->deskripsi ?? '') }}"
+                                                                        data-cpm="{{ e($detail->cpm ?? '') }}"
+                                                                        data-cpk="{{ e($detail->cpk ?? '') }}"
+                                                                        data-bahan-pustaka="{{ e($detail->bahan_pustaka ?? '') }}"
+                                                                        data-file-rps="{{ e($detail->file_rps ?? '') }}"
+                                                                        onclick="openModalSilabus(this)">
                                                                     </td>
 
                                                                     {{-- AKSI --}}
@@ -262,13 +239,13 @@
                             <span>Nama Kurikulum</span>
                             <input name="nama_kurikulum" type="text" id="namakur" placeholder="Masukkan nama kurikulum"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
+                                >
                         </label>
                         <label for="tahunmulai">
                             <span>Tahun Mulai</span>
                             <input name="tahun_mulai" type="number" id="tahunmul" placeholder="Masukkan tahun mulai"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                required>
+                                >
                         </label>
 
                         <div class="flex justify-center mt-4">
@@ -318,12 +295,74 @@
                             <button type="submit"
                                 class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
+
+{{-- MODAL EDIT KURIKULUM --}}
+<div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
+    <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+        <button onclick="closeEditKurikulum()"
+            class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
+        <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
+        <div class="max-w-lg text-sm">
+            <form id="formEdit" method="POST">
+                @csrf
+                @method('PUT')
+
+                {{-- WAJIB ADA: hidden input semester --}}
+                <input type="hidden" id="semesterInputEdit" name="total_semester">
+
+                <label>
+                    <span>Nama Kurikulum</span>
+                    <input type="text" id="nama_kurikulum" name="nama_kurikulum"
+                        placeholder="Masukkan nama kurikulum"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                        required>
+                </label>
+                <label>
+                    <span>Tahun Mulai</span>
+                    <input type="text" id="tahun_mulai" name="tahun_mulai"
+                        placeholder="Masukkan tahun mulai"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                        required>
+                </label>
+                <label>
+                    <span>Status Kurikulum</span>
+                    <select name="status_kurikulum" id="status_kurikulum"
+                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                        required>
+                        <option value="aktif">Aktif</option>
+                        <option value="tidak aktif">Tidak Aktif</option>
+                    </select>
+                </label>
+
+                {{-- WAJIB ADA: counter total semester --}}
+                <label class="hidden">
+                    <span class="text-sm hidden">Total Semester</span>
+                    <div class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit mt-1">
+                        <div id="valueBoxEdit"
+                            class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
+                            0
+                        </div>
+                        <div class="flex flex-col">
+                            <button type="button" onclick="tambahEdit()" class="rotate-180 h-5 w-5">
+                                <img src="{{ asset('images/icon-dropdown.svg') }}">
+                            </button>
+                            <button type="button" onclick="kurangEdit()" class="h-5 w-5">
+                                <img src="{{ asset('images/icon-dropdown.svg') }}">
                             </button>
                         </div>
-                    </form>
+                    </div>
+                </label>
+
+                <div class="flex justify-center mt-4">
+                    <button type="submit"
+                        class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                        Simpan
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
 
         {{-- FORM HAPUS KURIKULUM --}}
         @foreach($kurikulums as $kurikulum)
@@ -333,6 +372,7 @@
                 @method('DELETE')
             </form>
         @endforeach
+        
 
         {{-- MODAL TAMBAH MATAKULIAH --}}
         <div id="modalTambahMatkul" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
@@ -377,7 +417,40 @@
                                 </label>
                             </div>
 
-                            {{-- KATEGORI --}}
+                        {{-- KATEGORI --}}
+                        <label class="block col-span-2">
+                            <span>Kategori</span>
+                            <div class="relative">
+                                <select name="status_matkul" id="tambahStatusMatkul"
+                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
+                                    required>
+                                    <option value="">Pilih</option>
+                                    <option value="langsung">Langsung</option>
+                                    <option value="tidak langsung">Tidak Langsung</option>
+                                    <option value="pendukung">Pendukung</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
+                                    <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
+                                </div>
+                            </div>
+                        </label>
+                        {{--SKS--}}
+                        <input type="hidden" name="sks" id="tambahSks">
+
+                        {{-- BOBOT DAN SESI --}}    
+                        <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <label class="block">
+                                <span class="text-xs">Bobot SKS teori</span>
+                                <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0" min="0"
+                                    oninput="hitungSksTambah()"
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                            </label>
+                           <label class="block">
+                                <span class="text-xs">Bobot SKS praktikum</span>
+                                <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value="" step="1.0" min="0"
+                                    oninput="hitungSksTambah()"
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                            </label>
                             <label class="block">
                                 <span>Kategori</span>
                                 <div class="relative">
@@ -559,6 +632,44 @@
                                         <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
                                     </div>
                                 </div>
+                        {{-- KATEGORI --}}
+                        <label class="block col-span-2">
+                            <span>Kategori</span>
+                            <div class="relative">
+                                <select name="status_matkul" id="editStatusMatkul"
+                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
+                                    required>
+                                    <option value="langsung">Wajib</option>
+                                    <option value="tidak langsung">Pilihan</option>
+                                    <option value="pendukung">Pendukung</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
+                                    <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
+                                </div>
+                            </div>
+                        </label>
+
+                        {{-- SKS --}}
+                       <input type="hidden" name="sks" id="editSks">
+
+                        {{-- BOBOT DAN SESI --}}
+                        <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <label class="block">
+                                <span class="text-xs">Bobot SKS teori</span>
+                                <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01" min="0"
+                                      oninput="hitungSksEdit()"
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                            </label>    
+                            <label class="block">
+                                <span class="text-xs">Bobot SKS praktikum</span>
+                                <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0" step="0.01" min="0"
+                                     oninput="hitungSksEdit()"
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                            </label>
+                            <label class="block">
+                                <span class="text-xs">Jam/sesi teori</span>
+                                <input type="number" name="sesi_teori" id="editSesiTeori" value="0" min="0"
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
 
                             {{-- SKS --}}
@@ -779,6 +890,43 @@
                     }
                 }
             </script>
+            {{-- FORM HAPUS SILABUS --}}
+        <form id="deleteSilabusForm" method="POST" class="hidden">
+            @csrf
+            @method('DELETE')
+            {{-- action diisi dinamis oleh JS pakai route destroyFileRps --}}
+        </form>
+        </div>
+    <script>
+function mkSearch() {
+    return {
+        query: '',
+        selectedId: '',
+        open: false,
+        all: @json($matakuliahs->map(fn($mk) => [
+            'id'    => $mk->id_MK,
+            'label' => $mk->kode_matkul . ' — ' . $mk->nama_matkul,
+        ])),
+        filtered: [],
+        search() {
+            this.selectedId = '';
+            const q = this.query.toLowerCase();
+            this.filtered = q
+                ? this.all.filter(mk => mk.label.toLowerCase().includes(q))
+                : this.all;
+        },
+        select(mk) {
+            this.selectedId = mk.id;
+            this.query      = mk.label;
+            this.open       = false;
+            this.filtered   = [];
+        },
+        init() {
+            this.filtered = this.all;
+        }
+    }
+}
+</script>
     </body>
     <script src="{{ asset('js/kurikulum.js') }}"></script>
 </x-layout.layout>

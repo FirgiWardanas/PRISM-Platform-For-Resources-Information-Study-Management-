@@ -7,7 +7,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\DetailKurikulumController;
-use App\Http\Controllers\SilabusController;
 use App\Http\Controllers\DashboardJurusanController;
 use App\Http\Controllers\DashboardKurikulumController;
 use App\Http\Controllers\matakuliahController;
@@ -39,12 +38,6 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
         Route::resource('/akun', AkunController::class);
         Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
         Route::resource('/kelola-dosen', DosenController::class);
-
-        Route::prefix('transfer')->name('transfer.')->group(function () {
-            Route::post('verify',   [ProfileKajurController::class, 'verify'])->name('verify');
-            Route::post('initiate', [ProfileKajurController::class, 'initiateTransfer'])->name('initiate');
-            Route::post('cancel',   [ProfileKajurController::class, 'cancelTransfer'])->name('cancel');
-        });
     });
 
 Route::middleware(['auth', 'role:tim_kurikulum'])
@@ -63,10 +56,12 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
             ->name('detail-kurikulum.update');
         Route::delete('/detail-kurikulum/{detail}', [DetailKurikulumController::class, 'destroy'])
             ->name('detail-kurikulum.destroy');
-        Route::post('/silabus/{detail}', [SilabusController::class, 'storeOrUpdate'])
-            ->name('silabus.storeOrUpdate');
-        Route::delete('/silabus/{silabus}', [SilabusController::class, 'destroy'])
-            ->name('silabus.destroy');
+        Route::post('/detail-kurikulum/{detail}/silabus', [DetailKurikulumController::class, 'updateSilabus'])
+            ->name('detail-kurikulum.updateSilabus');
+        Route::delete('/detail-kurikulum/{detail}/file-rps', [DetailKurikulumController::class, 'destroyFileRps'])
+            ->name('detail-kurikulum.destroyFileRps');
+
+
         Route::post('/profil-lulusan', [KustomisasiController::class, 'storeProfilLulusan'])
             ->name('profil-lulusan.store');
         Route::put('/profil-lulusan/{id}', [KustomisasiController::class, 'updateProfilLulusan'])

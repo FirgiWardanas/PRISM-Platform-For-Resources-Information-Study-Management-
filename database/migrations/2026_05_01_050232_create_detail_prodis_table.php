@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('deskripsi_prodi')->nullable();
             $table->string('logo', 255)->nullable();
             $table->string('ilustrasi', 255)->nullable();
-            $table->string('icon_lulusan', 255)->nullable();
+
 
             $table->foreign('id_prodi')
                   ->references('id_prodi')->on('prodi')

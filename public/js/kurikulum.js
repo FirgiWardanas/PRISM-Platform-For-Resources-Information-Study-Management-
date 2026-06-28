@@ -68,6 +68,8 @@ function kurangTambah() {
 let valueEdit = 0;
 
 function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_kurikulum, total_semester) {
+
+
     const modal = document.getElementById('editKurikulum');
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -103,9 +105,19 @@ function kurangEdit() {
 }
 
 function hapusKurikulum(id_kurikulum) {
-    if (confirm('Yakin ingin menghapus kurikulum ini?\nSemua data semester dan silabus terkait juga akan terhapus secara permanen.')) {
-        document.getElementById(`deleteForm_${id_kurikulum}`).submit();
-    }
+    Swal.fire({
+        title: 'Yakin ingin menghapus kurikulum ini?',
+        text: 'Semua data semester dan silabus terkait juga akan terhapus secara permanen.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm_${id_kurikulum}`).submit();
+        }
+    });
 }
 
 function toggleSemester(kurikulumId, semesterId) {
@@ -257,9 +269,24 @@ function closeModalEditMatkul() {
 }
 
 function hapusDetailKurikulum(id_detail) {
-    if (confirm('Yakin ingin menghapus matakuliah ini dari kurikulum?\nData silabus terkait juga akan ikut terhapus.')) {
-        document.getElementById(`deleteDetailForm_${id_detail}`).submit();
-    }
+    Swal.fire({
+        title: 'Hapus Mata Kuliah?',
+        html: `
+            Mata kuliah akan dihapus dari kurikulum.<br><br>
+            Data silabus yang terkait juga akan ikut terhapus secara permanen.
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Ya, Hapus'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteDetailForm_${id_detail}`).submit();
+        }
+
+    });
 }
 
 function openModalSilabus(imgEl) {
@@ -268,7 +295,7 @@ function openModalSilabus(imgEl) {
     document.getElementById('silabusNamaMK').textContent = d.namaMk || '-';
     document.getElementById('silabusKode').textContent = d.kode || '-';
     document.getElementById('silabusSks').textContent = d.sks || '-';
-    document.getElementById('silabusIdHidden').value = d.idSilabus || '';
+    // HAPUS baris ini → document.getElementById('silabusIdHidden').value = d.idSilabus || '';
 
     const deskripsiEl = document.getElementById('silabusDeskripsi');
     const cpmEl = document.getElementById('silabusCpm');
@@ -301,7 +328,7 @@ function openModalSilabus(imgEl) {
     if (iconEl) iconEl.classList.remove('hidden');
 
     const form = document.getElementById('formSilabus');
-    if (form) form.action = d.action || `/admin/silabus/${d.idDetail}`;
+    if (form) form.action = d.action; // d.action sudah diset dari blade ke route updateSilabus
     document.getElementById('silabusDetailId').value = d.idDetail;
 
     const modal = document.getElementById('modalSilabus');
@@ -320,11 +347,11 @@ function closeModalSilabus() {
 }
 
 function deleteExistingSilabusFile() {
-    if (confirm('Yakin ingin menghapus silabus/RPS ini?')) {
-        const silabusId = document.getElementById('silabusIdHidden').value;
-        if (silabusId) {
+    if (confirm('Yakin ingin menghapus file RPS ini?')) {
+        const detailId = document.getElementById('silabusDetailId').value;
+        if (detailId) {
             const form = document.getElementById('deleteSilabusForm');
-            form.action = `/admin/silabus/${silabusId}`;
+            form.action = `/admin/detail-kurikulum/${detailId}/file-rps`;
             form.submit();
         }
     }
@@ -381,11 +408,23 @@ document.getElementById('formTambahMatkul').addEventListener('submit', function 
     const sks = parseFloat(document.querySelector('#formTambahMatkul input[name="sks"]').value) || 0;
     const bobotTeori = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_teori"]').value) || 0;
     const bobotPraktikum = parseFloat(document.querySelector('#formTambahMatkul input[name="bobot_praktikum"]').value) || 0;
+function hitungSksTambah() {
+    const teori = parseFloat(document.getElementById('tambahBobotTeori').value) || 0;
+    const praktikum = parseFloat(document.getElementById('tambahBobotPraktikum').value) || 0;
+    const total = teori + praktikum;
+    document.getElementById('tambahSks').value = total;
+}
 
-    if (bobotTeori + bobotPraktikum !== sks) {
-        e.preventDefault();
-        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
-    }
+function hitungSksEdit() {
+    const teori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
+    const praktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
+    const total = teori + praktikum;
+    document.getElementById('editSks').value = total;
+}
+
+document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
+    // SKS sudah dihitung otomatis dari bobot_teori + bobot_praktikum
+    hitungSksTambah();
 });
 
 document.getElementById('formEditMatkul').addEventListener('submit', function (e) {
@@ -393,10 +432,9 @@ document.getElementById('formEditMatkul').addEventListener('submit', function (e
     const bobotTeori = parseFloat(document.getElementById('editBobotTeori').value) || 0;
     const bobotPraktikum = parseFloat(document.getElementById('editBobotPraktikum').value) || 0;
 
-    if (bobotTeori + bobotPraktikum !== sks) {
-        e.preventDefault();
-        showToastError(`Total bobot SKS (${bobotTeori} + ${bobotPraktikum} = ${bobotTeori + bobotPraktikum}) harus sama dengan SKS (${sks})`);
-    }
+document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
+    // SKS dihitung otomatis dari bobot_teori + bobot_praktikum sebelum submit
+    hitungSksEdit();
 });
 
 function showToastError(message) {

@@ -191,41 +191,84 @@ function editProfil(btn) {
     });
 });
 
+
+
 // =============================================
 // RESET FORM
 // =============================================
 function resetForm() {
-    if (!confirm('Yakin ingin mereset semua perubahan?')) return;
 
-    document.querySelectorAll('#formKustomisasi textarea').forEach(function (el) {
-        el.value = '';
+    Swal.fire({
+        title: 'Reset Perubahan?',
+        text: 'Seluruh perubahan yang belum disimpan akan dikembalikan ke kondisi awal.',
+        icon: 'warning',
+
+        showCancelButton: true,
+
+        confirmButtonText: 'Ya, Reset',
+        cancelButtonText: 'Batal',
+
+        reverseButtons: true,
+
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',
+
+    }).then((result) => {
+
+        if (!result.isConfirmed) return;
+
+        document.querySelectorAll('#formKustomisasi textarea').forEach(function (el) {
+            el.value = '';
+        });
+
+        document.querySelectorAll('#formKustomisasi input[type="text"]').forEach(function (el) {
+            el.value = '';
+        });
+
+        const status = document.querySelector('select[name="status_prodi"]');
+        if (status) status.value = 'draft';
+
+        ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
+
+            const input = document.getElementById('input-' + name);
+            const picker = document.getElementById('picker-' + name);
+            const preview = document.getElementById('preview-' + name);
+
+            if (!input || !picker || !preview) return;
+
+            input.value = '#000000';
+            picker.value = '#000000';
+            preview.style.backgroundColor = '#000000';
+
+        });
+
+        ['logo', 'ilustrasi', 'icon'].forEach(function (name) {
+
+            const input = document.getElementById('input-' + name);
+            const preview = document.getElementById('preview-' + name);
+
+            if (input) input.value = '';
+
+            if (preview) {
+                preview.innerHTML = `
+                    <img src="/images/icon-upload.svg" class="w-17 h-17">
+                `;
+            }
+
+        });
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: 'Perubahan pada form berhasil direset.',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
     });
 
-    document.querySelectorAll('#formKustomisasi input[type="text"]').forEach(function (el) {
-        el.value = '';
-    });
-
-    const status = document.querySelector('select[name="status_prodi"]');
-    if (status) status.value = 'draft';
-
-    ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
-        const input = document.getElementById('input-' + name);
-        const picker = document.getElementById('picker-' + name);
-        const preview = document.getElementById('preview-' + name);
-        if (!input || !picker || !preview) return;
-
-        input.value = '#000000';
-        picker.value = '#000000';
-        preview.style.backgroundColor = '#000000';
-    });
-
-    ['logo', 'ilustrasi', 'icon'].forEach(function (name) {
-        const input = document.getElementById('input-' + name);
-        const preview = document.getElementById('preview-' + name);
-        if (input) input.value = '';
-        if (preview) preview.innerHTML = `<img src="/images/icon-upload.svg" class="w-17 h-17">`;
-    });
 }
+
 //mobile
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
@@ -278,3 +321,25 @@ closeSidebar.addEventListener('click', () => {
     sidebar.classList.add('-translate-x-[120%]');
     overlay.classList.add('hidden');
 });
+
+
+
+function hapusProfilLulusan(id) {
+    Swal.fire({
+        title: 'Hapus Profil Lulusan?',
+        html: `
+            Data profil lulusan akan dihapus secara permanen.
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Ya, Hapus'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            document.getElementById(`deleteForm${id}`).submit();
+        }
+
+    });
+}

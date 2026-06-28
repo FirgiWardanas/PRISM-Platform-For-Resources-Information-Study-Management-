@@ -69,34 +69,34 @@
                             <span>Nama</span>
                             <input type="text" name="nama" value="{{ $user->nama }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                            @error('nama')
-                                <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
-                            @enderror
+
                         </label>
                         <label>
                             <span>NIP</span>
                             <input type="text" name="nip" value="{{ $user->nip }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                            @error('nip')
-                                <p class="text-red-500 text-xs mb-2">NIP sudah digunakan, silakan gunakan NIP lain.</p>
-                            @enderror
+
                         </label>
                         <label>
                             <span>Email</span>
                             <input type="email" name="email" value="{{ $user->email }}"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
-                            @error('email')
-                                <p class="text-red-500 text-xs mb-2">Email sudah digunakan, silakan gunakan email lain.</p>
-                            @enderror
+
                         </label>
                         <label>
                             <span>Password Baru (kosongkan jika tidak diubah)</span>
                             <input type="password" name="password" placeholder="Masukkan Password Baru"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-5">
-                            @error('password')
-                                <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
-                            @enderror
                         </label>
+
+                        <label for="password_confirmation">
+                            <span>konfirmasi Password</span>
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                placeholder="Konfirmasi Password"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
+                        </label>
+
                         <div class="flex justify-center">
                             <button type="submit"
                                 class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
@@ -116,28 +116,8 @@
 
     </body>
     <script>
-        @if(session('success'))
-            document.addEventListener('DOMContentLoaded', function () {
-                const popup = document.getElementById('successPopup');
-                popup.classList.remove('hidden');
-                setTimeout(function () {
-                    popup.classList.add('hidden');
-                }, 3000);
-            });
-        @endif
 
-        @if(session('info'))
-            document.addEventListener('DOMContentLoaded', function () {
-                openModal();
-                alert('{{ session("info") }}');
-            });
-        @endif
 
-        @if($errors->any())
-            document.addEventListener('DOMContentLoaded', function () {
-                openModal();
-            });
-        @endif
 
             function openModal() {
                 const modal = document.getElementById('modal');

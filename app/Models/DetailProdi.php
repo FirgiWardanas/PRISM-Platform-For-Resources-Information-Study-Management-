@@ -19,7 +19,7 @@ class DetailProdi extends Model
         'deskripsi_prodi',
         'logo',
         'ilustrasi',
-        'icon_lulusan',
+
     ];
 
     public function prodi(): BelongsTo

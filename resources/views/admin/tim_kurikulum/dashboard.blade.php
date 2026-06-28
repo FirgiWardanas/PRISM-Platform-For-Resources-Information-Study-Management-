@@ -279,19 +279,19 @@
                                                                     <td class="p-2">{{ $detail->sesi_praktikum ?? '-' }}</td>
                                                                     <td class="p-2 capitalize">{{ $detail->status_matkul }}</td>
                                                                     <td class="p-2 flex justify-center items-center">
-                                                                        @if($detail->silabus)
+                                                                        @if($detail->deskripsi || $detail->cpm || $detail->cpk || $detail->file_rps)
                                                                             <img src="{{ asset('images/silabus.png') }}"
                                                                                 class="cursor-pointer w-4 sm:w-5"
                                                                                 onclick='openModalSilabus({
-                                                                                                                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
-                                                                                                                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
-                                                                                                                                                                                    "sks":           "{{ $detail->sks }}",
-                                                                                                                                                                                    "deskripsi":     "{{ addslashes($detail->silabus->deskripsi ?? '') }}",
-                                                                                                                                                                                    "cpm":           "{{ addslashes($detail->silabus->cpm ?? '') }}",
-                                                                                                                                                                                    "cpk":           "{{ addslashes($detail->silabus->cpk ?? '') }}",
-                                                                                                                                                                                    "bahan_pustaka": "{{ addslashes($detail->silabus->bahan_pustaka ?? '') }}",
-                                                                                                                                                                                    "file_rps":      "{{ $detail->silabus->file_rps ?? '' }}"
-                                                                                                                                                                                })'>
+                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
+                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
+                                                                                    "sks":           "{{ $detail->sks }}",
+                                                                                    "deskripsi":     "{{ addslashes($detail->deskripsi ?? '') }}",
+                                                                                    "cpm":           "{{ addslashes($detail->cpm ?? '') }}",
+                                                                                    "cpk":           "{{ addslashes($detail->cpk ?? '') }}",
+                                                                                    "bahan_pustaka": "{{ addslashes($detail->bahan_pustaka ?? '') }}",
+                                                                                    "file_rps":      "{{ $detail->file_rps ?? '' }}"
+                                                                                })'>
                                                                         @else
                                                                             <span class="text-gray-300 text-[10px]">—</span>
                                                                         @endif
