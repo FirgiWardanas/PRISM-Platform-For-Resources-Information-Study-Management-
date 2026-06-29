@@ -10,7 +10,9 @@
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
 
             {{-- header --}}
-            <x-admin.header_kurikulum>Dashboard</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>
+                <div class="font-bold">Beranda</div>
+            </x-admin.header-kurikulum>
 
                 <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 

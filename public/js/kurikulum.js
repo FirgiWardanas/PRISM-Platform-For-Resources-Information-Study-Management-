@@ -377,13 +377,13 @@ function hitungSksEdit() {
     document.getElementById('editSks').value = total;
 }
 
-document.getElementById('formTambahMatkul').addEventListener('submit', function(e) {
+document.getElementById('formTambahMatkul').addEventListener('submit', function (e) {
     // SKS sudah dihitung otomatis dari bobot_teori + bobot_praktikum
     hitungSksTambah();
 });
 
 
-document.getElementById('formEditMatkul').addEventListener('submit', function(e) {
+document.getElementById('formEditMatkul').addEventListener('submit', function (e) {
     // SKS dihitung otomatis dari bobot_teori + bobot_praktikum sebelum submit
     hitungSksEdit();
 });
@@ -404,4 +404,52 @@ function showToastError(message) {
 
     // Auto hilang setelah 4 detik
     setTimeout(() => toast.remove(), 4000);
+}
+//kurikulum yang pertama aktif langsung muncul
+document.addEventListener("DOMContentLoaded", () => {
+    const aktif = document.querySelector('.kurikulum-item[data-status="aktif"]');
+
+    if (aktif) {
+        aktif.click();
+    }
+});
+
+function showKurikulum(id, element) {
+
+    // Sembunyikan semua panel
+    document.querySelectorAll(".kurikulum-content").forEach(panel => {
+        panel.classList.add("hidden");
+    });
+
+    // Tampilkan panel yang dipilih
+    document.getElementById("kurikulum-" + id).classList.remove("hidden");
+
+    // Reset semua tombol
+    document.querySelectorAll(".kurikulum-item").forEach(item => {
+        item.classList.remove(
+            "bg-gradient-to-r",
+            "from-[#0282FD]",
+            "to-[#3502CA]",
+            "text-white",
+            "scale-105",
+            "shadow-lg"
+        );
+
+        item.classList.add(
+            "bg-[#B3C3FF]",
+            "text-[#4862E5]"
+        );
+    });
+
+    // Aktif
+    element.classList.remove("bg-[#B3C3FF]", "text-[#4862E5]");
+
+    element.classList.add(
+        "bg-gradient-to-r",
+        "from-[#4363E3]",
+        "to-[#9A55FF]",
+        "text-white",
+        "scale-105",
+        "shadow-lg"
+    );
 }
