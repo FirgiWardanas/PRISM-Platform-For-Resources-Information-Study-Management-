@@ -17,12 +17,10 @@ class TampilanProgramStudiController extends Controller
             'kurikulums' => function ($q) {
                 $q->with([
                     'detailKurikulums.matakuliah',
-                    'detailKurikulums.silabus',
                 ]);
             },
         ])
         ->where('kode_prodi', $kode)
-        ->where('status_prodi', 'published')
         ->firstOrFail();
 
         $kurikulumAktif = $prodi->kurikulums

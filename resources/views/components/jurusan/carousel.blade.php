@@ -4,7 +4,7 @@
   <div id="slider" class="flex transition-transform duration-500 h-full w-full">
 
     <!-- SLIDE 1 -->
-    <div class="min-w-full flex flex-col-reverse md:flex-row items-center justify-center gap-8 lg:gap-68 max-w-6xl mx-auto px-4 md:px-10 lg:px-16">
+    <div class="min-w-full flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-68 max-w-6xl mx-auto px-4 md:px-10 lg:px-16">
 
       <!-- TEXT -->
       <div class="text-center md:text-left md:gap-2">
@@ -13,7 +13,7 @@
         </h2>
 
         <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold">
-          Teknik Informatika
+          Jurusan Teknik Informatika
         </h1>
 
         <h3 class="text-sm md:text-base lg:text-lg text-white">
@@ -25,7 +25,7 @@
       <div class="flex justify-center">
         <img 
           src="{{ asset('images/ilustrasi-jurusan.png') }}" 
-          class="w-52 sm:w-64 md:w-80 lg:w-[420px] drop-shadow-xl hover:scale-105 transition duration-300"
+          class=" w-52 sm:w-64 md:w-80 lg:w-[420px] drop-shadow-xl hover:scale-105 transition duration-300"
         >
       </div>
 

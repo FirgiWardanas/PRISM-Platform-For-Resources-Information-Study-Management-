@@ -15,6 +15,7 @@ return new class extends Migration
             $table->year('tahun_mulai');
             $table->integer('total_semester');
             $table->enum('status_kurikulum', ['aktif', 'tidak aktif'])->default('aktif');
+            $table->unique(['id_prodi','nama_kurikulum']);
 
             $table->foreign('id_prodi')
                   ->references('id_prodi')->on('prodi')

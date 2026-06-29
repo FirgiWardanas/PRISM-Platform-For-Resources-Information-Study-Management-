@@ -10,10 +10,21 @@ class ProgramStudiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {   
-        $prodi = Prodi::all();
-        return view('admin.ketua_jurusan.program-studi', compact('prodi'));
+
+        $search = $request->get('search');
+        
+
+        $prodi = Prodi::query()
+        ->when($search, function($query, $search) {
+        $query->where('kode_prodi', 'LIKE', "%{$search}%")
+                ->orWhere('nama_prodi', 'LIKE', "%{$search}%");
+        })
+        ->paginate(6)
+        ->withQueryString();
+
+        return view('admin.ketua_jurusan.program-studi', compact('prodi','search'));
     }
 
     /**
@@ -27,24 +38,43 @@ class ProgramStudiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'kode_prodi' => 'required',
-            'nama_prodi' => 'required',
-            'jenjang' => 'required',
-            'id_jurusan' => 'required'
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'kode_prodi' => 'required|unique:prodi,kode_prodi',
+        'nama_prodi' => 'required|unique:prodi,nama_prodi',
+        'jenjang' => 'required',
+        'id_jurusan' => 'required'
+    ], [
+        'kode_prodi.required' => 'Kode prodi wajib diisi',
+        'kode_prodi.unique' => 'Kode prodi sudah digunakan',
+
+        'nama_prodi.required' => 'Nama prodi wajib diisi',
+        'nama_prodi.unique' => 'Nama prodi sudah digunakan',
+    ]);
+
+    try {
 
         Prodi::create([
-            'kode_prodi'=>$request->kode_prodi,
-            'nama_prodi'=>$request->nama_prodi,
-            'jenjang'=>$request->jenjang,
+            'kode_prodi' => $request->kode_prodi,
+            'nama_prodi' => $request->nama_prodi,
+            'jenjang' => $request->jenjang,
             'id_jurusan' => $request->id_jurusan
         ]);
 
-        return redirect()->back()->with('pesan','Data Prodi Berhasil di Tambahkan');
+        return redirect()
+            ->back()
+            ->with('success', 'Data Prodi berhasil ditambahkan');
+
+    } catch (\Exception $e) {
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('error', 'Terjadi kesalahan saat menyimpan data');
+
     }
+}
 
     /**
      * Display the specified resource.
@@ -65,22 +95,51 @@ class ProgramStudiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'kode_prodi' => 'required',
-            'nama_prodi' => 'required',
-            'jenjang' => 'required',
+public function update(Request $request, string $id)
+{
+    $request->validate([
+        'kode_prodi' => 'required|unique:prodi,kode_prodi,' . $id . ',id_prodi',
+        'nama_prodi' => 'required|unique:prodi,nama_prodi,' . $id . ',id_prodi',
+        'jenjang' => 'required',
+    ], [
+        'kode_prodi.required' => 'Kode prodi wajib diisi',
+        'kode_prodi.unique' => 'Kode prodi sudah digunakan',
+
+        'nama_prodi.required' => 'Nama prodi wajib diisi',
+        'nama_prodi.unique' => 'Nama prodi sudah digunakan',
+    ]);
+
+    try {
+
+        $prodi = Prodi::findOrFail($id);
+        $prodi->fill([
+            'kode_prodi' => $request->kode_prodi,
+            'nama_prodi' => $request->nama_prodi,
+            'jenjang' => $request->jenjang,
         ]);
 
-        Prodi::where('id_prodi',$id    )->update([
-            'kode_prodi'=>$request->kode_prodi,
-            'nama_prodi'=>$request->nama_prodi,
-            'jenjang'=>$request->jenjang,
-        ]);
+        if (!$prodi->isDirty()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
 
-        return redirect()->back()->with('pesan','Data Prodi Berhasil di Tambahkan');
+        $prodi->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Data Prodi berhasil diperbarui');
+
+    } catch (\Exception $e) {
+
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('error', 'Terjadi kesalahan saat memperbarui data');
+
     }
+}
 
 
 

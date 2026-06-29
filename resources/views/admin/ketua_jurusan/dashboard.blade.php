@@ -7,12 +7,15 @@
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+        <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
             <!-- Header -->
-            <x-admin.header>Dashboard</x-admin.header>
+            <x-admin.header>
+                <div class="font-bold">Dashboard</div>
+            </x-admin.header>
             <!-- Welcome Banner -->
             <!-- CONTENT -->
             <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
+                
 
                 <!-- WELCOME -->
                 <div class="relative bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF]
@@ -26,7 +29,7 @@
                         </p>
 
                         <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">
-                            Welcome Back
+                            Selamat Datang Kembali
                         </h2>
 
                         <p class="text-[11px] pt-4 opacity-75 font-medium">
@@ -35,7 +38,7 @@
 
                     </div>
 
-                    <div class="absolute right-0 top-5 h-full flex items-end">
+                    <div class="absolute -right-4 top-5 h-full flex items-end">
 
                         <img src="{{ asset('images/illustrasi_welcome.png') }}" alt=""
                             class="h-[120px] md:h-[190px] object-contain">
@@ -155,7 +158,7 @@
                 <div class="grid grid-cols-1 gap-5">
 
                     <div
-                        class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-2xl">
+                        class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-full">
 
                         <h4 class="text-xs font-bold text-[#001286] mb-6 text-center w-full">
                             Jumlah kurikulum per program studi
@@ -312,6 +315,7 @@
             });
 
         </script>
+
 
     </body>
 </x-layout.layout>

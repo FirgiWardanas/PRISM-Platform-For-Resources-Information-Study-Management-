@@ -11,8 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    @vite('..\resources\css\app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'App' }}</title>
+
+    {{-- Alpine.js --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -25,6 +28,80 @@
 {{ $slot }}
 
 
-<script src="{{ asset('js/app.js') }}"></script>
+
+{{-- NOTIFIKASI LOGIN --}}
+@if(session('login_success'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    window.Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: @json(session('login_success')),
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        width: 350,
+        padding: '12px',
+        customClass: {
+            popup: 'text-base'
+        }
+    });
+});
+</script>
+@endif
+
+
+{{-- NOTIFIKASI INSERT UPDATE DELETE BERHASIL --}}
+@if(session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    window.Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: @json(session('success')),
+        confirmButtonColor: '#16a34a',
+        confirmButtonText: 'OK'
+    });
+});
+</script>
+@endif
+
+
+{{-- NOTIFIKASI VALIDASI ADA YANG SALAH --}}
+@if($errors->any())
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    let messages = @json($errors->all());
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Validasi Gagal!',
+        html: messages.map(msg => `• ${msg}`).join('<br>'),
+        confirmButtonColor: '#dc2626'
+    });
+
+});
+</script>
+@endif
+
+
+{{-- VALIDASI TERJADI ERROR --}}
+@if(session('error'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: @json(session('error')),
+        confirmButtonColor: '#dc2626'
+    });
+
+});
+</script>
+@endif
+
 
 </html>

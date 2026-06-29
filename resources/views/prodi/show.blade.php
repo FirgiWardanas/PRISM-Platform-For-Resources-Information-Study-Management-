@@ -206,12 +206,12 @@
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-6 z-10">
             <div class="bg-white rounded-2xl shadow-md p-6 md:p-10 text-center hover:scale-105 transition flex flex-col items-center">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 visi-nomor">01</h1>
-                <p class="font-bold text-primary-color mb-3 text-lg md:text-xl">Visi Prodi {{ $prodi->nama_prodi }}</p>
+                <p class="font-bold text-primary-color mb-3 text-xl md:text-2xl">Visi Prodi</p>
                 <p class="text-sm md:text-base text-justify leading-relaxed">{{ $prodi->detailProdi?->visi }}</p>
             </div>
             <div class="bg-white rounded-2xl shadow-md p-6 md:p-10 text-center hover:scale-105 transition flex flex-col items-center">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 visi-nomor">02</h1>
-                <p class="font-bold text-primary-color mb-3 text-lg md:text-xl">Misi Prodi {{ $prodi->nama_prodi }}</p>
+                <p class="font-bold text-primary-color mb-3 text-xl md:text-2xl">Misi Prodi</p>
                 <p class="text-sm md:text-base text-justify leading-relaxed">{{ $prodi->detailProdi?->misi }}</p>
             </div>
         </div>
@@ -313,6 +313,7 @@
                         <tr><td class="border p-2">Daftar Pustaka</td><td class="border p-2 text-center">:</td><td class="border p-2" id="sil-pustaka"></td></tr>
                         <tr>
                             <td class="border p-2">Rencana Pembelajaran Semester</td>
+                            
                             <td class="border p-2 text-center">:</td>
                             <td class="border p-2" id="sil-rps"></td>
                         </tr>
@@ -479,7 +480,20 @@
 
             const rpsEl = document.getElementById('sil-rps');
             if (data.file_rps) {
-                rpsEl.innerHTML = `<a href="/storage/${data.file_rps}" target="_blank" class="text-blue-600 underline text-sm">Lihat RPS</a>`;
+                rpsEl.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <a href="/storage/${data.file_rps}" target="_blank"
+                        class="text-blue-600 underline text-sm">Lihat RPS</a>
+                        <a href="/storage/${data.file_rps}" download
+                        class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                            Download
+                        </a>
+                    </div>`;
             } else {
                 rpsEl.textContent = '-';
             }

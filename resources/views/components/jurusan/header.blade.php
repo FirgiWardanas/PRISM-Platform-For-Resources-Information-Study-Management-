@@ -1,5 +1,5 @@
 <div 
-  class="min-h-screen w-full bg-cover bg-center bg-no-repeat text-white"
+  class="min-h-screen w-full bg-cover bg-bottom bg-no-repeat text-white"
   style="background-image: url('{{ asset('images/bg-teknikinformatika.png') }}')">
 
     {{-- NAVBAR --}}

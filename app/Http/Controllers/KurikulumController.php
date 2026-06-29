@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kurikulum;
 use App\Models\Matakuliah;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
@@ -13,8 +14,9 @@ class KurikulumController extends Controller
         $kurikulums = Kurikulum::with([
             'prodi',
             'detailKurikulums.matakuliah',
-            'detailKurikulums.silabus',
-        ])->where('id_prodi', auth()->user()->id_prodi)->get();
+        ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
+
+        
 
         $matakuliahs = Matakuliah::all();
 
@@ -25,25 +27,48 @@ class KurikulumController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kurikulum' => 'required',
-            'tahun_mulai'    => 'required',
-            'total_semester' => 'required',
-        ]);
+        $prodi = auth()->guard()->user()->prodis;
+
+        $totalSemester = match ($prodi->jenjang) {
+            'D3' => 6,
+            'D4' => 8,
+        };
 
         $idProdi = auth()->guard()->user()->id_prodi;
 
-        Kurikulum::where('id_prodi', $idProdi)->update(['status_kurikulum' => 'tidak aktif']);
+        $request->validate([
+            'nama_kurikulum' => [
+                'required',
+                Rule::unique('kurikulum', 'nama_kurikulum')
+                    ->where(fn($q) => $q->where('id_prodi', $idProdi)),
+            ],
+            'tahun_mulai' => 'required|between:1901,2125',
+        ], [
+            'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
+            'nama_kurikulum.unique'   => 'Nama kurikulum sudah digunakan pada prodi ini.',
+            'tahun_mulai.required'    => 'Tahun mulai wajib diisi.',
+            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
+        ]);
 
-       Kurikulum::create([
-        'id_prodi'         => $idProdi,
-        'nama_kurikulum'   => $request->nama_kurikulum,
-        'tahun_mulai'      => $request->tahun_mulai,
-        'total_semester'   => $request->total_semester,
-        'status_kurikulum' => $request->status_kurikulum ?? 'aktif', // ← default 'aktif'
-    ]);
+        try {
+            Kurikulum::where('id_prodi', $idProdi)
+                ->update(['status_kurikulum' => 'tidak aktif']);
 
-        return redirect()->back();
+            Kurikulum::create([
+                'id_prodi'         => $idProdi,
+                'nama_kurikulum'   => $request->nama_kurikulum,
+                'tahun_mulai'      => $request->tahun_mulai,
+                'total_semester'   => $totalSemester,
+                'status_kurikulum' => 'aktif',
+            ]);
+
+            return redirect()->back()
+                ->with('success', 'Kurikulum berhasil ditambahkan dan berstatus Aktif.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()
+                ->with('error', 'Terjadi kesalahan saat menyimpan kurikulum.');
+        }
     }
 
     public function show(string $id) {}
@@ -52,32 +77,70 @@ class KurikulumController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama_kurikulum'  => 'required',
-            'tahun_mulai'     => 'required',
-            'total_semester'  => 'required',
-            'status_kurikulum' => 'required',
-        ]);
-
         $idProdi = auth()->guard()->user()->id_prodi;
 
-        if ($request->status_kurikulum == 'aktif') {
-            Kurikulum::where('id_prodi', $idProdi)->update(['status_kurikulum' => 'tidak aktif']);
-        }
-
-        Kurikulum::where('id_kurikulum', $id)->update([
-            'nama_kurikulum'  => $request->nama_kurikulum,
-            'tahun_mulai'     => $request->tahun_mulai,
-            'total_semester'  => $request->total_semester,
-            'status_kurikulum' => $request->status_kurikulum,
+        $request->validate([
+            'nama_kurikulum' => [
+                'required',
+                Rule::unique('kurikulum', 'nama_kurikulum')
+                    ->where(fn($q) => $q->where('id_prodi', $idProdi))
+                    ->ignore($id, 'id_kurikulum'),
+            ],
+            'tahun_mulai'      => 'required|between:1901,2125',
+            'total_semester'   => 'required',
+            'status_kurikulum' => 'required',
+        ], [
+            'nama_kurikulum.required'   => 'Nama kurikulum wajib diisi.',
+            'nama_kurikulum.unique'     => 'Nama kurikulum sudah digunakan pada program studi ini.',
+            'tahun_mulai.required'      => 'Tahun mulai wajib diisi.',
+            'total_semester.required'   => 'Total semester wajib diisi.',
+            'status_kurikulum.required' => 'Status kurikulum wajib dipilih.',
+            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
         ]);
 
-        return redirect()->back();
+
+
+        try {
+            $kurikulum = Kurikulum::findOrFail($id);
+            $kurikulum->fill([
+                'nama_kurikulum' => $request->nama_kurikulum,
+                'tahun_mulai' => $request->tahun_mulai,
+                'total_semester' => $request->total_semester,
+                'status_kurikulum' => $request->status_kurikulum,
+            ]);
+
+            if (!$kurikulum->isDirty()) {
+                return redirect()->back()->withInput()
+                    ->with('error', 'Tidak ada data yang diubah.');
+            }
+
+            if ($request->status_kurikulum === 'aktif') {
+                Kurikulum::where('id_prodi', $idProdi)
+                    ->update(['status_kurikulum' => 'tidak aktif']);
+            }
+
+            $kurikulum->save();
+
+            return redirect()->back()->with('success', 'Kurikulum berhasil diperbarui.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()
+                ->with('error', 'Terjadi kesalahan saat memperbarui kurikulum.');
+        }
     }
 
     public function destroy(string $id)
     {
-        Kurikulum::findOrFail($id)->delete();
-        return redirect()->back();
+        $kurikulum = Kurikulum::findOrFail($id);
+
+        if ($kurikulum->status_kurikulum === 'aktif') {
+            return redirect()->back()
+                ->with('error', 'Kurikulum yang sedang aktif tidak dapat dihapus.');
+        }
+
+        $kurikulum->delete();
+
+        return redirect()->back()
+            ->with('success', 'Kurikulum berhasil dihapus.');
     }
 }

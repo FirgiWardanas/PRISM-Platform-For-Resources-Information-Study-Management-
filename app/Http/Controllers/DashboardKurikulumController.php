@@ -24,17 +24,19 @@ class DashboardKurikulumController extends Controller
         // Kurikulum aktif milik prodi user
         $kurikulumAktif = Kurikulum::with([
                 'detailKurikulums.matakuliah',
-                'detailKurikulums.silabus',
+
             ])
             ->where('id_prodi', $idProdi)
             ->where('status_kurikulum', 'aktif')
             ->first();
 
         // Jumlah total matakuliah unik di kurikulum aktif
-        $jumlahMatakuliah = $kurikulumAktif
+        $jumlahMatakuliahAktif = $kurikulumAktif
             ? $kurikulumAktif->detailKurikulums->count()
             : 0;
 
+        // Jumlah seluruh matakuliah di database
+        $jumlahMatakuliah = Matakuliah::count();
         // ── SKS per Semester (dari kurikulum aktif) ──────────────────
         $sksPerSemester = [];
         if ($kurikulumAktif) {
@@ -70,13 +72,14 @@ class DashboardKurikulumController extends Controller
         }
 
         return view('admin.tim_kurikulum.dashboard', compact(
-            'jumlahProdi',
-            'jumlahKurikulum',
-            'jumlahMatakuliah',
-            'kurikulumAktif',
-            'sksPerSemester',
-            'kategoriMatakuliah',
-            'semesterData',
-        ));
+        'jumlahProdi',
+        'jumlahKurikulum',
+        'jumlahMatakuliah',      
+        'jumlahMatakuliahAktif', 
+        'kurikulumAktif',
+        'sksPerSemester',
+        'kategoriMatakuliah',
+        'semesterData',
+    ));
     }
 }

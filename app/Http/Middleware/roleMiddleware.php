@@ -10,6 +10,8 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, string ...$roles): mixed
     {
+
+
         if (!Auth::check()) {
             return redirect()->route('login');
         }

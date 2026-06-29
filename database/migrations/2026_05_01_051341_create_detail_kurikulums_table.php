@@ -15,10 +15,15 @@ return new class extends Migration
             $table->unsignedTinyInteger('semester');
             $table->unsignedTinyInteger('sesi_teori')->nullable();
             $table->unsignedTinyInteger('sesi_praktikum')->nullable();
-            $table->decimal('bobot_teori', 4, 2)->nullable();
-            $table->decimal('bobot_praktikum', 4, 2)->nullable();
+            $table->unsignedTinyInteger('bobot_teori')->nullable();
+            $table->unsignedTinyInteger('bobot_praktikum')->nullable();
             $table->enum('status_matkul', ['langsung', 'tidak langsung', 'pendukung']);
             $table->unsignedTinyInteger('sks');
+            $table->text('bahan_pustaka')->nullable();
+            $table->text('cpk')->nullable();
+            $table->text('cpm')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('file_rps', 255)->nullable();
 
             $table->foreign('id_kurikulum')
                   ->references('id_kurikulum')->on('kurikulum')

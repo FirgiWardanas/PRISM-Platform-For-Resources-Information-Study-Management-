@@ -10,7 +10,9 @@
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
 
             {{-- header --}}
-            <x-admin.header_kurikulum>Dashboard</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>
+                <div class="font-bold">Beranda</div>
+            </x-admin.header-kurikulum>
 
                 <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 
@@ -23,7 +25,7 @@
                             <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
                                 HELLO {{ strtoupper(auth()->user()->nama) }}!
                             </p>
-                            <h2 class="text-4xl font-extrabold tracking-tight">Welcome Back</h2>
+                            <h2 class="text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
                             <p class="text-[11px] pt-4 opacity-75 font-medium">
                                 {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                             </p>
@@ -37,41 +39,41 @@
                     {{-- ── STAT CARDS ── --}}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-                        {{-- Program Studi --}}
+                        {{-- Kurikulum --}}
                         <div
                             class="bg-white rounded-[24px] p-5 border border-[#DDE8FF] shadow-[#0447945a] shadow-lg relative overflow-hidden">
                             <div
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#067AFA] to-[#044894]">
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">
-                                    <img src="{{ asset('images/logo-prodi(biru).png') }}" alt="">
+                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">    
+                                   <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
+                                        alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#044894] font-semibold text-sm">Program Studi</p>
+                                    <p class="text-[#044894] font-semibold text-sm">Kurikulum</p>
                                     <h1 class="text-[40px] font-extrabold text-[#044894] leading-none">
-                                        {{ $jumlahProdi }}
+                                        {{ $jumlahKurikulum }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Kurikulum --}}
-                        <div
-                            class="bg-white rounded-[24px] p-5 border border-[#E8D7FF] shadow-[#5200c663] shadow-lg relative overflow-hidden">
+                        {{-- MataKuliah --}}
+                         <div
+                            class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c663] shadow-lg relative overflow-hidden">
                             <div
-                                class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9A55FF] to-[#5100C6]">
+                                class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9a55ff] to-[#5100c6]">
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 rounded-full bg-[#9955ff7a] flex items-center justify-center">
-                                    <img class="relative bottom-1" src="{{ asset('images/logo-kurikulum(ungu).png') }}"
-                                        alt="">
+                                    <img src="{{ asset('images/Book (1).png') }}" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#5100C6] font-semibold text-sm">Kurikulum</p>
-                                    <h1 class="text-[40px] font-extrabold text-[#5100C6] leading-none">
-                                        {{ $jumlahKurikulum }}
-                                    </h1>
+                                    <p class="text-[#5100c6] font-semibold text-sm">Total Mata Kuliah</p>
+                                    <h1 class="text-[40px] font-extrabold text-[#5100c6] leading-none">
+                                        {{ $jumlahMatakuliah }}
+                                    </h1>   
                                 </div>
                             </div>
                         </div>
@@ -87,14 +89,13 @@
                                     <img src="{{ asset('images/logo-matakuliah(ungu).png') }}" alt="">
                                 </div>
                                 <div>
-                                    <p class="text-[#A900C7] font-semibold text-sm">Mata Kuliah</p>
+                                    <p class="text-[#A900C7] font-semibold text-sm">Mata Kuliah Aktif</p>
                                     <h1 class="text-[40px] font-extrabold text-[#A900C7] leading-none">
-                                        {{ $jumlahMatakuliah }}
+                                        {{ $jumlahMatakuliahAktif }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     {{-- ── CHART + KATEGORI ── --}}
@@ -196,7 +197,7 @@
 
                     {{-- ── KURIKULUM ACCORDION ── --}}
                     <div class="bg-white p-5 rounded-2xl shadow-lg">
-                        <div class="flex flex-col md:flex-row items-center gap-3 md:justify-between">
+                        <div class="flex flex-col md:flex-row items-center gap-3 md:justify-between mb-4">
                             <div></div>
                             <h1
                                 class="text-xl font-bold bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent mx-auto">
@@ -207,7 +208,7 @@
                                 @endif
                             </h1>
                             <a href="/admin/kurikulum"
-                                class="px-4 py-2 w-full md:w-auto  bg-gradient-to-r from-[#0282FD] to-[#3502CA] hover:scale-110 text-white rounded-full transition flex justify-center items-center gap-1 text-sm">
+                                class=" px-4 py-2 w-full md:w-auto  bg-gradient-to-r from-[#0282FD] to-[#3502CA] hover:scale-110 text-white rounded-full transition flex justify-center items-center gap-1 text-sm">
                                 Selengkapnya
                                 <img class="w-5 h-5" src="{{ asset('images/panah1.png') }}" alt="">
                             </a>
@@ -276,19 +277,19 @@
                                                                     <td class="p-2">{{ $detail->sesi_praktikum ?? '-' }}</td>
                                                                     <td class="p-2 capitalize">{{ $detail->status_matkul }}</td>
                                                                     <td class="p-2 flex justify-center items-center">
-                                                                        @if($detail->silabus)
+                                                                        @if($detail->deskripsi || $detail->cpm || $detail->cpk || $detail->file_rps)
                                                                             <img src="{{ asset('images/silabus.png') }}"
                                                                                 class="cursor-pointer w-4 sm:w-5"
                                                                                 onclick='openModalSilabus({
-                                                                                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
-                                                                                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
-                                                                                                                                                    "sks":           "{{ $detail->sks }}",
-                                                                                                                                                    "deskripsi":     "{{ addslashes($detail->silabus->deskripsi ?? '') }}",
-                                                                                                                                                    "cpm":           "{{ addslashes($detail->silabus->cpm ?? '') }}",
-                                                                                                                                                    "cpk":           "{{ addslashes($detail->silabus->cpk ?? '') }}",
-                                                                                                                                                    "bahan_pustaka": "{{ addslashes($detail->silabus->bahan_pustaka ?? '') }}",
-                                                                                                                                                    "file_rps":      "{{ $detail->silabus->file_rps ?? '' }}"
-                                                                                                                                                })'>
+                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
+                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
+                                                                                    "sks":           "{{ $detail->sks }}",
+                                                                                    "deskripsi":     "{{ addslashes($detail->deskripsi ?? '') }}",
+                                                                                    "cpm":           "{{ addslashes($detail->cpm ?? '') }}",
+                                                                                    "cpk":           "{{ addslashes($detail->cpk ?? '') }}",
+                                                                                    "bahan_pustaka": "{{ addslashes($detail->bahan_pustaka ?? '') }}",
+                                                                                    "file_rps":      "{{ $detail->file_rps ?? '' }}"
+                                                                                })'>
                                                                         @else
                                                                             <span class="text-gray-300 text-[10px]">—</span>
                                                                         @endif

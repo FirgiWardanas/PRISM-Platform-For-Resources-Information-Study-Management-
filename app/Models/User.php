@@ -32,9 +32,6 @@ class User extends Authenticatable
         return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
     }
 
-    public function pendingTransfers(): HasMany
-    {
-    return $this->hasMany(PendingTransfer::class, 'id_user', 'id_user');
-    }
+
 
 }
