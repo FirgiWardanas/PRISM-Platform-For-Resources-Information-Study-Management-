@@ -192,6 +192,12 @@ class KustomisasiController extends Controller
 
         $idProdi = auth()->guard()->user()->id_prodi;
 
+        $prodi = Prodi::findOrFail($idProdi);
+        if ($prodi->status_prodi === 'published') {
+            return redirect()->back()
+                ->with('error', 'Data profil lulusan tidak dapat diubah saat status Program Studi dipublikasikan. Silakan ubah status menjadi Draft terlebih dahulu.');
+        }
+
         $detailProdi = DetailProdi::firstOrCreate(['id_prodi' => $idProdi]);
 
         $data = [
@@ -213,6 +219,11 @@ class KustomisasiController extends Controller
     public function destroyProfilLulusan(string $id)
     {
         $profilLulusan = ProfilLulusan::findOrFail($id);
+        $prodi = $profilLulusan->detailProdi->prodi;
+        if ($prodi->status_prodi === 'published') {
+            return redirect()->back()
+                ->with('error', 'Data profil lulusan tidak dapat diubah saat status Program Studi dipublikasikan. Silakan ubah status menjadi Draft terlebih dahulu.');
+        }
 
         $profilLulusan->delete();
 
@@ -230,6 +241,11 @@ class KustomisasiController extends Controller
     ]);
 
     $profil = ProfilLulusan::where('id_lulusan', $id)->firstOrFail();
+    $prodi = $profil->detailProdi->prodi;
+    if ($prodi->status_prodi === 'published') {
+        return redirect()->back()
+            ->with('error', 'Data profil lulusan tidak dapat diubah saat status Program Studi dipublikasikan. Silakan ubah status menjadi Draft terlebih dahulu.');
+    }
 
     $data = [
         'judul_lulusan'     => $request->judul_lulusan,
