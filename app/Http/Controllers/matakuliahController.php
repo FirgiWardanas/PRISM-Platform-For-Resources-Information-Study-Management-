@@ -81,11 +81,20 @@ class matakuliahController extends Controller
 
         try {
 
-            Matakuliah::where('id_MK', $id)
-                ->update([
-                    'kode_matkul' => $request->kode_matkul,
-                    'nama_matkul' => $request->nama_matkul,
-                ]);
+            $mk = Matakuliah::findOrFail($id);
+            $mk->fill([
+                'kode_matkul' => $request->kode_matkul,
+                'nama_matkul' => $request->nama_matkul,
+            ]);
+
+            if (!$mk->isDirty()) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', 'Tidak ada data yang diubah.');
+            }
+
+            $mk->save();
 
             return redirect()
                 ->back()

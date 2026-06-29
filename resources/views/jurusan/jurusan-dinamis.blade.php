@@ -355,7 +355,7 @@
           </div>
         
         </div>
-        {{-- Taruh ini tepat setelah penutup </div> grid kontak --}}
+        
 
     {{-- Google Maps --}}
     <div class="rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl w-full h-64 sm:h-80 lg:h-96 mt-6">

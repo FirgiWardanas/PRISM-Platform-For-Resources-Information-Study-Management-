@@ -194,9 +194,10 @@ public function update(Request $request, $id)
 
     try {
 
-        $dosen = Dosen::findOrFail($id);
+        $dosen = Dosen::with(['riwayatPendidikans', 'bidangSpesialis'])->findOrFail($id);
 
-        if ($request->hasFile('foto_dosen')) {
+        $hasFile = $request->hasFile('foto_dosen');
+        if ($hasFile) {
 
             if ($dosen->foto_dosen) {
                 Storage::disk('public')->delete($dosen->foto_dosen);
@@ -210,7 +211,7 @@ public function update(Request $request, $id)
             $path = $dosen->foto_dosen;
         }
 
-        $dosen->update([
+        $dosen->fill([
             'nama_dosen'         => $request->nama_dosen,
             'status_jabatan'     => $request->status_jabatan,
             'id_prodi'           => $request->id_prodi,
@@ -220,32 +221,41 @@ public function update(Request $request, $id)
             'jenjang_pendidikan' => $request->jenjang_pendidikan,
         ]);
 
+        $oldRiwayat = $dosen->riwayatPendidikans->pluck('deskripsi_riwayat')->toArray();
+        $newRiwayat = array_values(array_filter($request->riwayat_pendidikan ?? [], fn($val) => !empty($val)));
+        $riwayatChanged = ($oldRiwayat !== $newRiwayat);
+
+        $oldBidang = $dosen->bidangSpesialis->pluck('deskripsi_bidang')->toArray();
+        $newBidang = array_values(array_filter($request->bidang_spesialis ?? [], fn($val) => !empty($val)));
+        $bidangChanged = ($oldBidang !== $newBidang);
+
+        if (!$hasFile && !$dosen->isDirty() && !$riwayatChanged && !$bidangChanged) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
+
+        $dosen->save();
+
         // Hapus riwayat pendidikan lama
         $dosen->riwayatPendidikans()->delete();
 
-        foreach ($request->riwayat_pendidikan as $riwayat) {
-
-            if (!empty($riwayat)) {
-
-                RiwayatPendidikan::create([
-                    'id_dosen' => $dosen->id_dosen,
-                    'deskripsi_riwayat' => $riwayat,
-                ]);
-            }
+        foreach ($newRiwayat as $riwayat) {
+            RiwayatPendidikan::create([
+                'id_dosen' => $dosen->id_dosen,
+                'deskripsi_riwayat' => $riwayat,
+            ]);
         }
 
         // Hapus bidang spesialis lama
         $dosen->bidangSpesialis()->delete();
 
-        foreach ($request->bidang_spesialis as $bidang) {
-
-            if (!empty($bidang)) {
-
-                BidangSpesialis::create([
-                    'id_dosen' => $dosen->id_dosen,
-                    'deskripsi_bidang' => $bidang,
-                ]);
-            }
+        foreach ($newBidang as $bidang) {
+            BidangSpesialis::create([
+                'id_dosen' => $dosen->id_dosen,
+                'deskripsi_bidang' => $bidang,
+            ]);
         }
 
         return redirect()

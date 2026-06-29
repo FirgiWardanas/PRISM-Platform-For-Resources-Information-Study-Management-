@@ -101,17 +101,25 @@ class KurikulumController extends Controller
 
 
         try {
+            $kurikulum = Kurikulum::findOrFail($id);
+            $kurikulum->fill([
+                'nama_kurikulum' => $request->nama_kurikulum,
+                'tahun_mulai' => $request->tahun_mulai,
+                'total_semester' => $request->total_semester,
+                'status_kurikulum' => $request->status_kurikulum,
+            ]);
+
+            if (!$kurikulum->isDirty()) {
+                return redirect()->back()->withInput()
+                    ->with('error', 'Tidak ada data yang diubah.');
+            }
+
             if ($request->status_kurikulum === 'aktif') {
                 Kurikulum::where('id_prodi', $idProdi)
                     ->update(['status_kurikulum' => 'tidak aktif']);
             }
 
-            Kurikulum::where('id_kurikulum', $id)->update([
-                'nama_kurikulum'   => $request->nama_kurikulum,
-                'tahun_mulai'      => $request->tahun_mulai,
-                'total_semester'   => $request->total_semester,
-                'status_kurikulum' => $request->status_kurikulum,
-            ]);
+            $kurikulum->save();
 
             return redirect()->back()->with('success', 'Kurikulum berhasil diperbarui.');
 

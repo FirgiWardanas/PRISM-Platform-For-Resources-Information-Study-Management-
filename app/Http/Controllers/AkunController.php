@@ -136,12 +136,22 @@ class AkunController extends Controller
             ]);
             try {
 
-                User::where('id_user', $id)->update([
+                $user = User::findOrFail($id);
+                $user->fill([
                     'id_prodi' => $request->id_prodi,
                     'nama' => $request->nama,
                     'nip' => $request->nip,
                     'email' => $request->email,
                 ]);
+
+                if (!$user->isDirty()) {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', 'Tidak ada data yang diubah.');
+                }
+
+                $user->save();
 
                 return redirect()
                     ->back()

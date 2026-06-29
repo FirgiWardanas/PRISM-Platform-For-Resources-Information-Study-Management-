@@ -102,7 +102,15 @@ class DetailKurikulumController extends Controller
             (int) ($data['bobot_teori'] ?? 0) +
             (int) ($data['bobot_praktikum'] ?? 0);
 
-        $detail->update($data);
+        $detail->fill($data);
+
+        if (!$detail->isDirty()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
+
+        $detail->save();
 
         return redirect()->back()->with(
             'success',
@@ -130,7 +138,8 @@ class DetailKurikulumController extends Controller
 
             $data = $request->only(['deskripsi', 'cpm', 'cpk', 'bahan_pustaka']);
 
-            if ($request->hasFile('file_rps')) {
+            $hasFile = $request->hasFile('file_rps');
+            if ($hasFile) {
                 if ($detail->file_rps) {
                     Storage::disk('public')->delete($detail->file_rps);
                 }
@@ -138,7 +147,15 @@ class DetailKurikulumController extends Controller
                     ->store('silabus_rps', 'public');
             }
 
-            $detail->update($data);
+            $detail->fill($data);
+
+            if (!$hasFile && !$detail->isDirty()) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Tidak ada data yang diubah.');
+            }
+
+            $detail->save();
 
             return redirect()->back()->with('success', 'Data silabus berhasil disimpan!');
 
