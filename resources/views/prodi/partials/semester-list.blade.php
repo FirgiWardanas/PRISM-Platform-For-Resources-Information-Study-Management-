@@ -49,16 +49,16 @@
                                         <td class="p-2 flex justify-center items-center">
                                             <img src="{{ asset('images/silabus.png') }}"
                                                 class="cursor-pointer w-4 sm:w-5"
-                                                onclick='openModalSilabus({
-                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
-                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
-                                                    "sks":           "{{ $detail->sks }}",
-                                                    "deskripsi":     "{{ addslashes($detail->silabus?->deskripsi ?? '') }}",
-                                                    "cpm":           "{{ addslashes($detail->silabus?->cpm ?? '') }}",
-                                                    "cpk":           "{{ addslashes($detail->silabus?->cpk ?? '') }}",
-                                                    "bahan_pustaka": "{{ addslashes($detail->silabus?->bahan_pustaka ?? '') }}",
-                                                    "file_rps":      "{{ $detail->silabus?->file_rps ?? '' }}"
-                                                })'>
+                                               onclick='openModalSilabus({
+                                                "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
+                                                "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
+                                                "sks":           "{{ $detail->sks }}",
+                                                "deskripsi":     "{{ addslashes($detail->deskripsi ?? '') }}",
+                                                "cpm":           "{{ addslashes($detail->cpm ?? '') }}",
+                                                "cpk":           "{{ addslashes($detail->cpk ?? '') }}",
+                                                "bahan_pustaka": "{{ addslashes($detail->bahan_pustaka ?? '') }}",
+                                                "file_rps":      "{{ $detail->file_rps ?? '' }}"
+                                            })'>
                                                 @if($detail->silabus?->file_rps)
                                         <a href="{{ Storage::url($detail->silabus->file_rps) }}"
                                         download
