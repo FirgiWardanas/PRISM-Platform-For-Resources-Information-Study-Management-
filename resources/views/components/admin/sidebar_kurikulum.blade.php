@@ -23,7 +23,7 @@
     ? asset('images/icon-dashboard (putih).svg')
     : asset('images/Structure.svg') }}" alt="Dashboard" class="w-4 h-4">
 
-            <span>Dashboard</span>
+            <span>Beranda</span>
         </a>
         {{-- kurikulum --}}
         <a href="/admin/kurikulum" class="{{ request()->is('admin/kurikulum')
@@ -32,7 +32,7 @@
 
             <img src="{{ request()->is('admin/kurikulum')
     ? asset('images/icon-kurikulum (putih).svg')
-    : asset('images/icon-kurikulum(biru).svg') }}" alt="Kurikulum" class="w-4 h-4">
+    : asset('images/icon-kurikulum(biru).svg') }}" alt="Kurikulum" class="w-4 h-4 mb-2">
 
             <span>Kurikulum</span>
         </a>
@@ -67,7 +67,7 @@
     ? asset('images/icon-profil(putih).svg')
     : asset('images/icon-profile(biru).svg') }}" alt="profile" class="w-4 h-4">
 
-            <span>Profile</span>
+            <span>Profil</span>
         </a>
     </nav>
 </aside>

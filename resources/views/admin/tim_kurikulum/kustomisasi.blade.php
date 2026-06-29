@@ -7,7 +7,9 @@
         {{-- main kontent --}}
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header_kurikulum>Kustomisasi</x-admin.header_kurikulum>
+            <x-admin.header_kurikulum>
+               <div class="font-bold">kustomisasi</div>
+            </x-admin.header_kurikulum>
 
             <div class="flex flex-col sm:flex-row justify-end gap-2 mb-3 mt-3">
 

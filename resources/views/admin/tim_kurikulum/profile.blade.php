@@ -8,7 +8,9 @@
         <!-- Main -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header_kurikulum>Profile</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>
+               <div class="font-bold">Profil</div>
+            </x-admin.header-kurikulum>
 
                 <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 

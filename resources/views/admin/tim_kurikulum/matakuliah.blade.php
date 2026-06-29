@@ -8,7 +8,9 @@
         <!-- Main -->
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72 h-screen overflow-hidden">
             {{-- header --}}
-            <x-admin.header_kurikulum>Mata kuliah</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>
+                <div class="font-bold">Mata kuliah</div>
+            </x-admin.header-kurikulum>
 
                 {{-- Search + Tombol Tambah --}}
                 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 mb-4">
