@@ -1,4 +1,18 @@
 <x-layout.layout>
+  <style>
+    /* Menghilangkan scrollbar untuk Chrome, Safari, dan Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Menghilangkan scrollbar untuk IE, Edge, dan Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      /* IE dan Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  </style>
 
   <body class="font-[Montserrat]">
     <x-jurusan.header></x-jurusan.header>
@@ -48,130 +62,93 @@
       <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-8 sm:mb-10 text-[#1B4597] mt-16 sm:mt-20 text-center">Profil Lulusan</h1>
 
 
-      <!-- GRID -->
-      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-        <!-- CARD -->
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
 
-          <!-- ICON -->
-          <div class="w-20">
-            <img src="{{ asset('images/icon-programming.png') }}" alt="">
-          </div>
+      <div
+        id="prodi-container"
+        class="w-full max-w-screen-xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 space-y-2 transition-all duration-300">
 
-          <!-- TEXT -->
-          <div>
-            <h3 class="font-semibold text-blue-900">Programer</h3>
-            <p class="text-xs text-gray-500">
-              Memiliki pemahaman baik dalam algoritma dan pengembangan aplikasi
-            </p>
+        @forelse($prodis as $index => $prodi)
+
+        <div class="prodi-row {{ $index >= 3 ? 'hidden' : '' }}">
+
+          <h2 class="text-xs sm:text-sm font-semibold text-purple-400">
+            {{ $prodi->nama_prodi }} →
+          </h2>
+
+          <div class="flex gap-3 sm:gap-6 overflow-x-auto no-scrollbar snap-x scroll-smooth py-4 ">
+
+            @forelse(optional($prodi->detailProdi)->profilLulusans ?? [] as $profil)
+
+            <div class="flex-none w-[75vw] xs:w-[60vw] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] snap-start">
+
+              <div class="flex items-center gap-3 sm:gap-4 bg-white rounded-2xl shadow-md p-3 sm:p-4 hover:shadow-lg transition h-full">
+
+                <div class="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-purple-200/40 flex-shrink-0">
+
+                  @if($profil->icon_lulusan)
+                  <img
+                    src="{{ Storage::url($profil->icon_lulusan) }}"
+                    alt="{{ $profil->judul_lulusan }}"
+                    class="w-9 h-9 sm:w-12 sm:h-12 object-contain">
+                  @else
+                  <img
+                    src="{{ asset('images/icon-programming.png') }}"
+                    alt="Default Icon"
+                    class="w-9 h-9 sm:w-12 sm:h-12 object-contain">
+                  @endif
+
+                </div>
+
+                <div class="min-w-0">
+
+                  <h3 class="font-semibold text-blue-900 text-sm sm:text-base leading-tight">
+                    {{ $profil->judul_lulusan }}
+                  </h3>
+
+                  <p class="text-xs text-gray-500 mt-0.5 line-clamp-3">
+                    {{ $profil->deskripsi_lulusan }}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            @empty
+
+            <div class="w-full bg-gray-50 rounded-xl p-6 text-center text-gray-400 text-sm">
+              Belum ada profil lulusan.
+            </div>
+
+            @endforelse
+
           </div>
 
         </div>
 
+        @empty
 
-        <!-- DUPLICATE CARD -->
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-30">
-            <img src="{{ asset('images/icon-mobile.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Mobile Apps Developer</h3>
-            <p class="text-xs text-gray-500">
-              Mengembangkan aplikasi berbasis mobile baik responsive mobile, atau aplikasi berbasis Android
-            </p>
-          </div>
+        <div class="bg-gray-50 rounded-2xl p-10 text-center">
+          <h3 class="text-xl font-semibold text-gray-600">
+            Belum ada Program Studi
+          </h3>
         </div>
 
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-30">
-            <img src="{{ asset('images/icon-jaringan.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Administrator Jaringan</h3>
-            <p class="text-xs text-gray-500">
-              Mampu mengelola administrasi jaringan dan melakukan konfigurasi pada jaringan linux dan windows
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-20">
-            <img src="{{ asset('images/icon-broadcasting.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Manager Broadcasting</h3>
-            <p class="text-xs text-gray-500">
-              Memiliki kemampuan dalam tahap produksi suatu film atau video yang dilakukan di studio.
-            </p>
-          </div>
-        </div>
-
-
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-18 rounded-xl overflow-hidden">
-            <img src="{{ asset('images/icon-animator.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Animator</h3>
-            <p class="text-xs text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-30 rounded-xl overflow-hidden">
-            <img src="{{ asset('images/icon-desaingrafis.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Desain Grafis</h3>
-            <p class="text-xs text-gray-500">
-              Mampu melakukan pengolahan gambar dengan memanfaatkan software editor seperti adobe dan corel
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-20 rounded-xl overflow-hidden">
-            <img src="{{ asset('images/icon-surveyor.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Surveyor Hidrografi</h3>
-            <p class="text-xs text-gray-500">
-              Mampu mengamati, mengolah, dan menganalisis pasang surut laut, dan arus laut
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-30 rounded-xl overflow-hidden">
-            <img src="{{ asset('images/icon-teknisiGIS.png') }}" alt="">
-          </div>
-
-          <div>
-            <h3 class="font-semibold text-blue-900">Teknisi GIS</h3>
-            <p class="text-xs text-gray-500">
-              Mampu melakukan konversi data geospasial, editing data geospasial, and pengujian kualitas data geospasial
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition">
-          <div class="w-30 rounded-xl overflow-hidden">
-            <img src="{{ asset('images/icon-cybersecurity.png') }}" alt="">
-          </div>
-          <div>
-            <h3 class="font-semibold text-blue-900">Cyber Security Analyst</h3>
-            <p class="text-xs text-gray-500">
-              Memiliki kemampuan dan keterampilan dalam menindaklanjuti ancaman keamanan dalam suatu organisasi
-            </p>
-          </div>
-        </div>
+        @endforelse
 
       </div>
+
+      @if($prodis->count() > 3)
+      <div class="text-center mt-5">
+        <button
+          id="btn-selengkapnya"
+          class="mx-auto flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#0088FF] to-[#3600C9] font-bold text-white rounded-full shadow-md transition hover:scale-105">
+          Selengkapnya
+        </button>
+      </div>
+      @endif
 
     </section>
 
@@ -386,5 +363,25 @@
 
     <x-layout.footer></x-layout.footer>
   </body>
+  <!-- SCRIPT UNTUK TOMBOL SHOW/HIDE -->
+  <script>
+    document.getElementById('btn-selengkapnya').addEventListener('click', function() {
+      const hiddenRows = document.querySelectorAll('.prodi-row.hidden');
 
+      if (hiddenRows.length > 0) {
+        hiddenRows.forEach(row => {
+          row.classList.remove('hidden');
+        });
+        this.textContent = 'Sembunyikan';
+      } else {
+        const allRows = document.querySelectorAll('.prodi-row');
+        allRows.forEach((row, index) => {
+          if (index >= 3) {
+            row.classList.add('hidden');
+          }
+        });
+        this.textContent = 'Selengkapnya';
+      }
+    });
+  </script>
 </x-layout.layout>
