@@ -353,8 +353,22 @@
               </p>
             </div>
           </div>
-
+        
         </div>
+        {{-- Taruh ini tepat setelah penutup </div> grid kontak --}}
+
+    {{-- Google Maps --}}
+    <div class="rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl w-full h-64 sm:h-80 lg:h-96 mt-6">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.015!2d104.0462732!3d1.1186405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98921856ddfab%3A0xf9d9fc65ca00c9d!2sPoliteknik%20Negeri%20Batam!5e0!3m2!1sid!2sid!4v1700000000000"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
 
 
       </div>
