@@ -90,12 +90,16 @@
                         <li><a href="#kurikulum" class="nav-hover transition duration-300 cursor-pointer">Kurikulum</a></li>
                         <li><a href="#dosen"     class="nav-hover transition duration-300 cursor-pointer">Dosen</a></li>
                     </ul>
-                    <div class="hidden lg:flex">
-                        <a href="/admin/login"
-                            class="btn-login shadow-2xl px-8 py-2 rounded-lg text-white text-xs font-bold hover:scale-105 transition cursor-pointer">
-                            LOGIN
-                        </a>
-                    </div>
+                    <div class="hidden lg:flex items-center gap-3">
+                    <a href="{{ route('index') }}"
+                        class="shadow-2xl px-8 py-2 rounded-lg text-white text-xs font-bold hover:scale-105 transition cursor-pointer border border-white/40 bg-white/10 backdrop-blur-sm">
+                        ← Beranda
+                    </a>
+                    <a href="/admin/login"
+                        class="btn-login shadow-2xl px-8 py-2 rounded-lg text-white text-xs font-bold hover:scale-105 transition cursor-pointer">
+                        LOGIN
+                    </a>
+                </div>
                 </div>
                 <button id="menu-btn" class="lg:hidden block">
                     <img src="{{ asset('images/menu.png') }}" alt="Menu" class="w-5 hover:opacity-50 transition">
@@ -109,6 +113,11 @@
                     <li><a href="#visimisi"  class="block w-full p-3 rounded-lg hover:bg-white/10 transition">Visi Misi</a></li>
                     <li><a href="#kurikulum" class="block w-full p-3 rounded-lg hover:bg-white/10 transition">Kurikulum</a></li>
                     <li><a href="#dosen"     class="block w-full p-3 rounded-lg hover:bg-white/10 transition">Dosen</a></li>
+                    <li>
+                    <a href="{{ route('index') }}" class="block w-full p-3 rounded-lg hover:bg-white/10 transition">
+                        ← Beranda
+                    </a>
+                </li>
                 </ul>
                 <div class="flex flex-col gap-4 mt-4 px-2">
                     <a href="/admin/login" class="btn-login shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition hover:scale-102 cursor-pointer">
