@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\ProfilLulusan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class DetailProdi extends Model
 {
@@ -29,6 +31,10 @@ class DetailProdi extends Model
 
     public function profilLulusans(): HasMany
     {
-        return $this->hasMany(ProfilLulusan::class, 'id_detail_prodi', 'id_detail_prodi');
+        return $this->hasMany(
+            ProfilLulusan::class,
+            'id_detail_prodi',
+            'id_detail_prodi'
+        );
     }
 }
