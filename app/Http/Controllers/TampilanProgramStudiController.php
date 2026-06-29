@@ -17,7 +17,6 @@ class TampilanProgramStudiController extends Controller
             'kurikulums' => function ($q) {
                 $q->with([
                     'detailKurikulums.matakuliah',
-                    'detailKurikulums.silabus',
                 ]);
             },
         ])
