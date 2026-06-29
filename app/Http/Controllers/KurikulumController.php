@@ -14,23 +14,16 @@ class KurikulumController extends Controller
         $kurikulums = Kurikulum::with([
             'prodi',
             'detailKurikulums.matakuliah',
-            'detailKurikulums.silabus',
-        ])
-            ->where('id_prodi', auth()->guard()->user()->id_prodi)
-            ->orderByRaw("CASE WHEN status_kurikulum = 'aktif' THEN 0 ELSE 1 END")
-            ->orderByDesc('tahun_mulai')
-            ->get();
+        ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
 
-
+        
 
         $matakuliahs = Matakuliah::all();
 
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
 
-    public function create()
-    {
-    }
+    public function create() {}
 
     public function store(Request $request)
     {
@@ -49,11 +42,12 @@ class KurikulumController extends Controller
                 Rule::unique('kurikulum', 'nama_kurikulum')
                     ->where(fn($q) => $q->where('id_prodi', $idProdi)),
             ],
-            'tahun_mulai' => 'required',
+            'tahun_mulai' => 'required|between:1901,2125',
         ], [
             'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
-            'nama_kurikulum.unique' => 'Nama kurikulum sudah digunakan pada prodi ini.',
-            'tahun_mulai.required' => 'Tahun mulai wajib diisi.',
+            'nama_kurikulum.unique'   => 'Nama kurikulum sudah digunakan pada prodi ini.',
+            'tahun_mulai.required'    => 'Tahun mulai wajib diisi.',
+            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
         ]);
 
         try {
@@ -61,10 +55,10 @@ class KurikulumController extends Controller
                 ->update(['status_kurikulum' => 'tidak aktif']);
 
             Kurikulum::create([
-                'id_prodi' => $idProdi,
-                'nama_kurikulum' => $request->nama_kurikulum,
-                'tahun_mulai' => $request->tahun_mulai,
-                'total_semester' => $totalSemester,
+                'id_prodi'         => $idProdi,
+                'nama_kurikulum'   => $request->nama_kurikulum,
+                'tahun_mulai'      => $request->tahun_mulai,
+                'total_semester'   => $totalSemester,
                 'status_kurikulum' => 'aktif',
             ]);
 
@@ -77,13 +71,9 @@ class KurikulumController extends Controller
         }
     }
 
-    public function show(string $id)
-    {
-    }
+    public function show(string $id) {}
 
-    public function edit(string $id)
-    {
-    }
+    public function edit(string $id) {}
 
     public function update(Request $request, string $id)
     {
@@ -96,15 +86,16 @@ class KurikulumController extends Controller
                     ->where(fn($q) => $q->where('id_prodi', $idProdi))
                     ->ignore($id, 'id_kurikulum'),
             ],
-            'tahun_mulai' => 'required',
-            'total_semester' => 'required',
+            'tahun_mulai'      => 'required|between:1901,2125',
+            'total_semester'   => 'required',
             'status_kurikulum' => 'required',
         ], [
-            'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
-            'nama_kurikulum.unique' => 'Nama kurikulum sudah digunakan pada program studi ini.',
-            'tahun_mulai.required' => 'Tahun mulai wajib diisi.',
-            'total_semester.required' => 'Total semester wajib diisi.',
+            'nama_kurikulum.required'   => 'Nama kurikulum wajib diisi.',
+            'nama_kurikulum.unique'     => 'Nama kurikulum sudah digunakan pada program studi ini.',
+            'tahun_mulai.required'      => 'Tahun mulai wajib diisi.',
+            'total_semester.required'   => 'Total semester wajib diisi.',
             'status_kurikulum.required' => 'Status kurikulum wajib dipilih.',
+            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
         ]);
 
 
@@ -116,9 +107,9 @@ class KurikulumController extends Controller
             }
 
             Kurikulum::where('id_kurikulum', $id)->update([
-                'nama_kurikulum' => $request->nama_kurikulum,
-                'tahun_mulai' => $request->tahun_mulai,
-                'total_semester' => $request->total_semester,
+                'nama_kurikulum'   => $request->nama_kurikulum,
+                'tahun_mulai'      => $request->tahun_mulai,
+                'total_semester'   => $request->total_semester,
                 'status_kurikulum' => $request->status_kurikulum,
             ]);
 
