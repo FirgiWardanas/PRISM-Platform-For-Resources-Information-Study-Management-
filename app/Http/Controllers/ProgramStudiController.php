@@ -111,11 +111,21 @@ public function update(Request $request, string $id)
 
     try {
 
-        Prodi::where('id_prodi', $id)->update([
+        $prodi = Prodi::findOrFail($id);
+        $prodi->fill([
             'kode_prodi' => $request->kode_prodi,
             'nama_prodi' => $request->nama_prodi,
             'jenjang' => $request->jenjang,
         ]);
+
+        if (!$prodi->isDirty()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
+
+        $prodi->save();
 
         return redirect()
             ->back()

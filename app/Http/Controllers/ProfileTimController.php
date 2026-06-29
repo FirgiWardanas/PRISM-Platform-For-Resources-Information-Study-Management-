@@ -93,6 +93,12 @@ class ProfileTimController extends Controller
             $user->password = Hash::make($request->password);
         }
 
+        if (!$user->isDirty()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
+
         $user->save();
 
         return redirect()->back()

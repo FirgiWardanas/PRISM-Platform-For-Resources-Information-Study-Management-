@@ -71,8 +71,14 @@ public function update(Request $request, $id)
                     ->with('error', 'Password baru tidak boleh sama dengan password saat ini.');
             }
 
-    $user->password = Hash::make($request->password);
-}
+            $user->password = Hash::make($request->password);
+        }
+
+        if (!$user->isDirty()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang diubah.');
+        }
 
         $user->save();
 
