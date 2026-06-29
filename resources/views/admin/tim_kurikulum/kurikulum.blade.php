@@ -9,7 +9,9 @@
         {{-- main konten --}}
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
-            <x-admin.header_kurikulum>Kurikulum</x-admin.header-kurikulum>
+            <x-admin.header_kurikulum>
+                <div class="font-bold">Kurikulum</div>
+            </x-admin.header-kurikulum>
 
 
 
@@ -18,13 +20,14 @@
                     {{-- DAFTAR KURIKULUM --}}
                     <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2">
                         <button id="btnTambahKurikulum" onclick="openTambahKurikulum()"
-                            class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                            class="mb-8 w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center font-bold flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Tambah <img src="{{ asset('images/icon-plus.svg') }}">
                         </button>
 
                         @foreach($kurikulums as $kurikulum)
-                            <div onclick="showKurikulum({{ $kurikulum->id_kurikulum }})"
-                                class="bg-gradient-to-r from-[#4363E3] to-[#9A55FF] text-white p-4 rounded-lg cursor-pointer text-center lg:text-left hover:scale-[1.025] transition-all hover:opacity-70">
+                            <div onclick="showKurikulum({{ $kurikulum->id_kurikulum }}, this)"
+                                data-status="{{ $kurikulum->status_kurikulum }}"
+                                class="kurikulum-item bg-[#B3C3FF] text-[#4862E5] font-bold p-4 rounded-lg cursor-pointer text-center lg:text-left transition-all duration-300">
                                 Kurikulum {{ $kurikulum->nama_kurikulum }}
                             </div>
                         @endforeach
@@ -53,13 +56,13 @@
                                 </h2>
                                 <div class="flex gap-3 ">
                                     <button onclick="openEditModal(
-                                                this,
-                                                '{{ $kurikulum->id_kurikulum }}',
-                                                '{{ addslashes($kurikulum->nama_kurikulum) }}',
-                                                '{{ $kurikulum->tahun_mulai }}',
-                                                '{{ $kurikulum->status_kurikulum }}',
-                                                '{{ $kurikulum->total_semester }}'
-                                            )">
+                                                    this,
+                                                    '{{ $kurikulum->id_kurikulum }}',
+                                                    '{{ addslashes($kurikulum->nama_kurikulum) }}',
+                                                    '{{ $kurikulum->tahun_mulai }}',
+                                                    '{{ $kurikulum->status_kurikulum }}',
+                                                    '{{ $kurikulum->total_semester }}'
+                                                )">
                                         <img src="{{ asset('images/icon-edit.png') }}" alt="edit"
                                             class="w-6 h-6 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-60">
                                     </button>
@@ -150,19 +153,19 @@
 
                                                                     {{-- SILABUS --}}
                                                                     <td class="p-2 flex justify-center items-center">
-                                                                    <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
-                                                                        class="cursor-pointer"
-                                                                        data-id-detail="{{ $detail->id_detail }}"
-                                                                        data-action="{{ route('admin.detail-kurikulum.updateSilabus', $detail->id_detail) }}"
-                                                                        data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
-                                                                        data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
-                                                                        data-sks="{{ e($detail->sks) }}"
-                                                                        data-deskripsi="{{ e($detail->deskripsi ?? '') }}"
-                                                                        data-cpm="{{ e($detail->cpm ?? '') }}"
-                                                                        data-cpk="{{ e($detail->cpk ?? '') }}"
-                                                                        data-bahan-pustaka="{{ e($detail->bahan_pustaka ?? '') }}"
-                                                                        data-file-rps="{{ e($detail->file_rps ?? '') }}"
-                                                                        onclick="openModalSilabus(this)">
+                                                                        <img src="{{ asset('images/icon-silabuskurikulum.svg') }}"
+                                                                            class="cursor-pointer"
+                                                                            data-id-detail="{{ $detail->id_detail }}"
+                                                                            data-action="{{ route('admin.detail-kurikulum.updateSilabus', $detail->id_detail) }}"
+                                                                            data-nama-mk="{{ e($detail->matakuliah->nama_matkul) }}"
+                                                                            data-kode="{{ e($detail->matakuliah->kode_matkul) }}"
+                                                                            data-sks="{{ e($detail->sks) }}"
+                                                                            data-deskripsi="{{ e($detail->deskripsi ?? '') }}"
+                                                                            data-cpm="{{ e($detail->cpm ?? '') }}"
+                                                                            data-cpk="{{ e($detail->cpk ?? '') }}"
+                                                                            data-bahan-pustaka="{{ e($detail->bahan_pustaka ?? '') }}"
+                                                                            data-file-rps="{{ e($detail->file_rps ?? '') }}"
+                                                                            onclick="openModalSilabus(this)">
                                                                     </td>
 
                                                                     {{-- AKSI --}}
@@ -238,14 +241,12 @@
                         <label for="namakur">
                             <span>Nama Kurikulum</span>
                             <input name="nama_kurikulum" type="text" id="namakur" placeholder="Masukkan nama kurikulum"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none">
                         </label>
                         <label for="tahunmulai">
                             <span>Tahun Mulai</span>
                             <input name="tahun_mulai" type="text" id="tahunmul" placeholder="Masukkan tahun mulai"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none">
                         </label>
 
                         <div class="flex justify-center mt-4">
@@ -260,73 +261,73 @@
         </div>
 
 
-{{-- MODAL EDIT KURIKULUM --}}
-<div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
-    <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
-        <button onclick="closeEditKurikulum()"
-            class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
-        <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
-        <div class="max-w-lg text-sm">
-            <form id="formEdit" method="POST">
-                @csrf
-                @method('PUT')
+        {{-- MODAL EDIT KURIKULUM --}}
+        <div id="editKurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
+            <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+                <button onclick="closeEditKurikulum()"
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
+                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
+                <div class="max-w-lg text-sm">
+                    <form id="formEdit" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                {{-- WAJIB ADA: hidden input semester --}}
-                <input type="hidden" id="semesterInputEdit" name="total_semester">
+                        {{-- WAJIB ADA: hidden input semester --}}
+                        <input type="hidden" id="semesterInputEdit" name="total_semester">
 
-                <label>
-                    <span>Nama Kurikulum</span>
-                    <input type="text" id="nama_kurikulum" name="nama_kurikulum"
-                        placeholder="Masukkan nama kurikulum"
-                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                        required>
-                </label>
-                <label>
-                    <span>Tahun Mulai</span>
-                    <input type="text" id="tahun_mulai" name="tahun_mulai"
-                        placeholder="Masukkan tahun mulai"
-                        class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
-                        required>
-                </label>
-                <label>
-                    <span>Status Kurikulum</span>
-                    <select name="status_kurikulum" id="status_kurikulum"
-                        class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                        required>
-                        <option value="aktif">Aktif</option>
-                        <option value="tidak aktif">Tidak Aktif</option>
-                    </select>
-                </label>
+                        <label>
+                            <span>Nama Kurikulum</span>
+                            <input type="text" id="nama_kurikulum" name="nama_kurikulum"
+                                placeholder="Masukkan nama kurikulum"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                                required>
+                        </label>
+                        <label>
+                            <span>Tahun Mulai</span>
+                            <input type="text" id="tahun_mulai" name="tahun_mulai" placeholder="Masukkan tahun mulai"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
+                                required>
+                        </label>
+                        <label>
+                            <span>Status Kurikulum</span>
+                            <select name="status_kurikulum" id="status_kurikulum"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                required>
+                                <option value="aktif">Aktif</option>
+                                <option value="tidak aktif">Tidak Aktif</option>
+                            </select>
+                        </label>
 
-                {{-- WAJIB ADA: counter total semester --}}
-                <label class="hidden">
-                    <span class="text-sm hidden">Total Semester</span>
-                    <div class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit mt-1">
-                        <div id="valueBoxEdit"
-                            class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
-                            0
-                        </div>
-                        <div class="flex flex-col">
-                            <button type="button" onclick="tambahEdit()" class="rotate-180 h-5 w-5">
-                                <img src="{{ asset('images/icon-dropdown.svg') }}">
+                        {{-- WAJIB ADA: counter total semester --}}
+                        <label class="hidden">
+                            <span class="text-sm hidden">Total Semester</span>
+                            <div
+                                class="flex items-center gap-2 bg-gray-100 rounded-xl px-2 py-1 border border-blue-200 w-fit mt-1">
+                                <div id="valueBoxEdit"
+                                    class="flex items-center justify-center w-10 h-6 rounded-lg border border-gray-300 shadow-lg text-sm text-gray-600">
+                                    0
+                                </div>
+                                <div class="flex flex-col">
+                                    <button type="button" onclick="tambahEdit()" class="rotate-180 h-5 w-5">
+                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
+                                    </button>
+                                    <button type="button" onclick="kurangEdit()" class="h-5 w-5">
+                                        <img src="{{ asset('images/icon-dropdown.svg') }}">
+                                    </button>
+                                </div>
+                            </div>
+                        </label>
+
+                        <div class="flex justify-center mt-4">
+                            <button type="submit"
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                                Simpan
                             </button>
-                            <button type="button" onclick="kurangEdit()" class="h-5 w-5">
-                                <img src="{{ asset('images/icon-dropdown.svg') }}">
-                            </button>
                         </div>
-                    </div>
-                </label>
-
-                <div class="flex justify-center mt-4">
-                    <button type="submit"
-                        class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                        Simpan
-                    </button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
 
         {{-- FORM HAPUS KURIKULUM --}}
         @foreach($kurikulums as $kurikulum)
@@ -336,7 +337,7 @@
                 @method('DELETE')
             </form>
         @endforeach
-        
+
 
         {{-- MODAL TAMBAH MATAKULIAH --}}
         <div id="modalTambahMatkul" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
@@ -354,37 +355,31 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
 
-                       {{-- PILIH MATAKULIAH --}}
-                            <div class="col-span-2">
-                                <label class="block">
-                                    <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
-                                    <div class="relative mt-1" x-data="mkSearch()">
-                                        <input type="hidden" name="id_MK" :value="selectedId">
-                                        <input
-                                            type="text"
-                                            x-model="query"
-                                            @input="search()"
-                                            @focus="open = true; filtered = all"
-                                            @click.outside="open = false"
-                                            @keydown.escape="open = false"
-                                            placeholder="Cari kode / nama matakuliah..."
-                                            class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
-                                        />
-                                        <ul x-show="open && filtered.length > 0" x-transition
-                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
-                                            <template x-for="mk in filtered" :key="mk.id">
-                                                <li @click="select(mk)"
-                                                    class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
-                                                    x-text="mk.label"></li>
-                                            </template>
-                                        </ul>
-                                        <div x-show="open && query.length > 0 && filtered.length === 0"
-                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
-                                            Matakuliah tidak ditemukan.
-                                        </div>
+                        {{-- PILIH MATAKULIAH --}}
+                        <div class="col-span-2">
+                            <label class="block">
+                                <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
+                                <div class="relative mt-1" x-data="mkSearch()">
+                                    <input type="hidden" name="id_MK" :value="selectedId">
+                                    <input type="text" x-model="query" @input="search()"
+                                        @focus="open = true; filtered = all" @click.outside="open = false"
+                                        @keydown.escape="open = false" placeholder="Cari kode / nama matakuliah..."
+                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black" />
+                                    <ul x-show="open && filtered.length > 0" x-transition
+                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                                        <template x-for="mk in filtered" :key="mk.id">
+                                            <li @click="select(mk)"
+                                                class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
+                                                x-text="mk.label"></li>
+                                        </template>
+                                    </ul>
+                                    <div x-show="open && query.length > 0 && filtered.length === 0"
+                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
+                                        Matakuliah tidak ditemukan.
                                     </div>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
+                        </div>
 
                         {{-- KATEGORI --}}
                         <label class="block col-span-2">
@@ -406,18 +401,18 @@
                         {{--SKS--}}
                         <input type="hidden" name="sks" id="tambahSks">
 
-                        {{-- BOBOT DAN SESI --}}    
+                        {{-- BOBOT DAN SESI --}}
                         <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label class="block">
                                 <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0" min="0"
-                                    oninput="hitungSksTambah()"
+                                <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0"
+                                    min="0" oninput="hitungSksTambah()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
-                           <label class="block">
+                            <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value="" step="1.0" min="0"
-                                    oninput="hitungSksTambah()"
+                                <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value=""
+                                    step="1.0" min="0" oninput="hitungSksTambah()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
@@ -491,8 +486,7 @@
                                     class="hidden absolute top-2 right-2 bg-white border border-gray-200 rounded-lg px-2 py-1 shadow cursor-pointer">
                                     <img src="{{ asset('images/icon-hapus.svg') }}" class="w-4 h-4">
                                 </button>
-                                <input id="tambahFileRps" type="file" name="file_rps" class="hidden"
-                                    accept=".pdf">
+                                <input id="tambahFileRps" type="file" name="file_rps" class="hidden" accept=".pdf">
                             </div>
                         </div>
                     </div>
@@ -523,37 +517,31 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
 
-                       {{-- PILIH MATAKULIAH --}}
-                    <div class="col-span-2">
-                        <label class="block">
-                            <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
-                            <div class="relative mt-1" x-data="mkSearch()">
-                                <input type="hidden" name="id_MK" :value="selectedId">
-                                <input
-                                    type="text"
-                                    x-model="query"
-                                    @input="search()"
-                                    @focus="open = true; filtered = all"
-                                    @click.outside="open = false"
-                                    @keydown.escape="open = false"
-                                    placeholder="Cari kode / nama matakuliah..."
-                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black"
-                                />
-                                <ul x-show="open && filtered.length > 0" x-transition
-                                    class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
-                                    <template x-for="mk in filtered" :key="mk.id">
-                                        <li @click="select(mk)"
-                                            class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
-                                            x-text="mk.label"></li>
-                                    </template>
-                                </ul>
-                                <div x-show="open && query.length > 0 && filtered.length === 0"
-                                    class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
-                                    Matakuliah tidak ditemukan.
+                        {{-- PILIH MATAKULIAH --}}
+                        <div class="col-span-2">
+                            <label class="block">
+                                <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
+                                <div class="relative mt-1" x-data="mkSearch()">
+                                    <input type="hidden" name="id_MK" :value="selectedId">
+                                    <input type="text" x-model="query" @input="search()"
+                                        @focus="open = true; filtered = all" @click.outside="open = false"
+                                        @keydown.escape="open = false" placeholder="Cari kode / nama matakuliah..."
+                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black" />
+                                    <ul x-show="open && filtered.length > 0" x-transition
+                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                                        <template x-for="mk in filtered" :key="mk.id">
+                                            <li @click="select(mk)"
+                                                class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
+                                                x-text="mk.label"></li>
+                                        </template>
+                                    </ul>
+                                    <div x-show="open && query.length > 0 && filtered.length === 0"
+                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
+                                        Matakuliah tidak ditemukan.
+                                    </div>
                                 </div>
-                            </div>
-                        </label>
-                    </div>
+                            </label>
+                        </div>
 
                         {{-- KATEGORI --}}
                         <label class="block col-span-2">
@@ -573,20 +561,20 @@
                         </label>
 
                         {{-- SKS --}}
-                       <input type="hidden" name="sks" id="editSks">
+                        <input type="hidden" name="sks" id="editSks">
 
                         {{-- BOBOT DAN SESI --}}
                         <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
                             <label class="block">
                                 <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01" min="0"
-                                      oninput="hitungSksEdit()"
+                                <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01"
+                                    min="0" oninput="hitungSksEdit()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>    
+                            </label>
                             <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0" step="0.01" min="0"
-                                     oninput="hitungSksEdit()"
+                                <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0"
+                                    step="0.01" min="0" oninput="hitungSksEdit()"
                                     class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
                             </label>
                             <label class="block">
@@ -746,42 +734,42 @@
                 </div>
             </div>
             {{-- FORM HAPUS SILABUS --}}
-        <form id="deleteSilabusForm" method="POST" class="hidden">
-            @csrf
-            @method('DELETE')
-            {{-- action diisi dinamis oleh JS pakai route destroyFileRps --}}
-        </form>
+            <form id="deleteSilabusForm" method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+                {{-- action diisi dinamis oleh JS pakai route destroyFileRps --}}
+            </form>
         </div>
-    <script>
-function mkSearch() {
-    return {
-        query: '',
-        selectedId: '',
-        open: false,
-        all: @json($matakuliahs->map(fn($mk) => [
-            'id'    => $mk->id_MK,
-            'label' => $mk->kode_matkul . ' — ' . $mk->nama_matkul,
-        ])),
-        filtered: [],
-        search() {
-            this.selectedId = '';
-            const q = this.query.toLowerCase();
-            this.filtered = q
-                ? this.all.filter(mk => mk.label.toLowerCase().includes(q))
-                : this.all;
-        },
-        select(mk) {
-            this.selectedId = mk.id;
-            this.query      = mk.label;
-            this.open       = false;
-            this.filtered   = [];
-        },
-        init() {
-            this.filtered = this.all;
-        }
-    }
-}
-</script>
+        <script>
+            function mkSearch() {
+                return {
+                    query: '',
+                    selectedId: '',
+                    open: false,
+                    all: @json($matakuliahs->map(fn($mk) => [
+                        'id' => $mk->id_MK,
+                        'label' => $mk->kode_matkul . ' — ' . $mk->nama_matkul,
+                    ])),
+                    filtered: [],
+                    search() {
+                        this.selectedId = '';
+                        const q = this.query.toLowerCase();
+                        this.filtered = q
+                            ? this.all.filter(mk => mk.label.toLowerCase().includes(q))
+                            : this.all;
+                    },
+                    select(mk) {
+                        this.selectedId = mk.id;
+                        this.query = mk.label;
+                        this.open = false;
+                        this.filtered = [];
+                    },
+                    init() {
+                        this.filtered = this.all;
+                    }
+                }
+            }
+        </script>
     </body>
     <script src="{{ asset('js/kurikulum.js') }}"></script>
 </x-layout.layout>
