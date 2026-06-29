@@ -243,7 +243,7 @@
                         </label>
                         <label for="tahunmulai">
                             <span>Tahun Mulai</span>
-                            <input name="tahun_mulai" type="text" id="tahunmul" placeholder="Masukkan tahun mulai"
+                            <input name="number" type="text" id="tahunmul" placeholder="Masukkan tahun mulai"
                                 class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
                                 >
                         </label>
@@ -283,7 +283,7 @@
                 </label>
                 <label>
                     <span>Tahun Mulai</span>
-                    <input type="text" id="tahun_mulai" name="tahun_mulai"
+                    <input type="number" id="tahun_mulai" name="tahun_mulai"
                         placeholder="Masukkan tahun mulai"
                         class="py-2 px-3 border border-gray-300 shadow-lg rounded-lg w-full block text-sm mb-2 focus:outline-none"
                         required>
