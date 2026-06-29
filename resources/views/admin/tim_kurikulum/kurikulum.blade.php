@@ -562,8 +562,8 @@
                                 <select name="status_matkul" id="editStatusMatkul"
                                     class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
                                     required>
-                                    <option value="langsung">Wajib</option>
-                                    <option value="tidak langsung">Pilihan</option>
+                                    <option value="langsung">Langung</option>
+                                    <option value="tidak langsung">Tidak Langsung</option>
                                     <option value="pendukung">Pendukung</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
