@@ -7,16 +7,15 @@
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+        <main class="flex-1 lg:ml-72 h-screen flex flex-col p-6">
             <!-- Header -->
             <x-admin.header>
                 <div class="font-bold">Kelola Dosen</div>
             </x-admin.header>
 
-
             <div class="flex justify-end">
                 <button onclick="openTambahModal()"
-                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all ">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90  hover:scale-[1.025] transition-all cursor-pointer ">
                     Tambah +
                 </button>
 
@@ -40,16 +39,17 @@
                 </div>
 
                 <!-- Filter Prodi -->
-                <select name="prodi" class="flex-1 min-w-[160px] py-2.5 px-4 text-sm border border-blue-200
-                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
-                                focus:ring-blue-300 cursor-pointer">
-                    <option value="">Semua Prodi</option>
-                    @foreach($list_prodi as $p)
-                        <option value="{{ $p->id_prodi }}" {{ request('prodi') == $p->id_prodi ? 'selected' : '' }}>
-                            {{ $p->nama_prodi }}
-                        </option>
-                    @endforeach
-                </select>
+                <div class="flex-1 min-w-[160px]">
+                    <select id="filterProdi" name="prodi">
+                        <option value="">Semua Prodi</option>
+
+                        @foreach($list_prodi as $p)
+                            <option value="{{ $p->id_prodi }}" {{ request('prodi') == $p->id_prodi ? 'selected' : '' }}>
+                                {{ $p->nama_prodi }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <!-- Filter Jabatan -->
                 <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
@@ -69,133 +69,128 @@
 
                 @if(request('search') || request('prodi') || request('jabatan'))
                     <a href="{{ route('admin.kelola-dosen.index') }}" class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
-                                        bg-white hover:bg-blue-50 transition">
+                                                                            bg-white hover:bg-blue-50 transition">
                         Reset
                     </a>
                 @endif
             </form>
 
-            @foreach ($dosens as $dosen)
-                <!-- CARD DOSEN 1 -->
-                <div class="card bg-white rounded-[32px] shadow-xl border border-gray-300 p-5">
-                    <!-- HEADER -->
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                        <div class="flex items-center gap-4 flex-1">
+            <!--scroll card-->
+            <div class="flex-1 overflow-y-auto pr-2 space-y-4">
+                @foreach ($dosens as $dosen)
+                    <!-- CARD DOSEN 1 -->
+                    <div class="card bg-white rounded-[32px] shadow-md border border-gray-300 p-5">
+                        <!-- HEADER -->
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                            <div class="flex items-center gap-4 flex-1">
 
-                            <img src="{{ asset('storage/' . $dosen->foto_dosen) }}"
-                                class="-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover">
+                                <img src="{{ asset('storage/' . $dosen->foto_dosen) }}"
+                                    class="-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover">
 
-                            <div class="flex-1">
-                                <h2
-                                    class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold break-words hover:bg-gray-200">
-                                    {{ $dosen->nama_dosen }}
-                                </h2>
-                                <p class="text-gray-500 text-sm font-semibold">
-                                    {{ $dosen->status_jabatan }} {{ $dosen->prodi->nama_prodi }}
-                                </p>
+                                <div class="flex-1">
+                                    <h2
+                                        class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] bg-clip-text text-transparent font-bold break-words hover:bg-gray-200">
+                                        {{ $dosen->nama_dosen }}
+                                    </h2>
+                                    <p class="text-gray-500 text-sm font-semibold">
+                                        {{ $dosen->status_jabatan }} {{ $dosen->prodi->nama_prodi }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- ICON -->
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-2">
+                                    <button type="button"
+                                        class="btn-edit w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
+                                        data-id="{{ $dosen->id_dosen }}" data-id-prodi="{{ $dosen->id_prodi }}"
+                                        data-nama="{{ $dosen->nama_dosen }}" data-jabatan="{{ $dosen->status_jabatan }}"
+                                        data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
+                                        data-email="{{ $dosen->email }}" data-riwayat='@json($dosen->riwayatPendidikans)'
+                                        data-spesialis='@json($dosen->bidangSpesialis)'
+                                        data-prodi="{{ $dosen->prodi->nama_prodi }}">
+                                        <img src="{{ asset('images/icon-edit.svg') }}">
+                                    </button>
+
+                                    <button onclick="hapusData('{{ $dosen->id_dosen }}')"
+                                        class="hover:scale-[1.025] transition-all hover:opacity-90">
+                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
+                                    </button>
+                                </div>
+
+                                <!-- ICON DROPDOWN -->
+                                <button onclick="toggleCard(this)"
+                                    class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
+                                    <img src="{{ asset('images/icon-dropdown.svg') }}"
+                                        class="icon-arrow h-5 w-5 transition">
+                                </button>
                             </div>
                         </div>
 
-                        <!-- ICON -->
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-2">
-                                <button type="button"
-                                    class="btn-edit w-5 h-5 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90"
-                                    data-id="{{ $dosen->id_dosen }}" data-id-prodi="{{ $dosen->id_prodi }}"
-                                    data-nama="{{ $dosen->nama_dosen }}" data-jabatan="{{ $dosen->status_jabatan }}"
-                                    data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
-                                    data-email="{{ $dosen->email }}" data-riwayat='@json($dosen->riwayatPendidikans)'
-                                    data-spesialis='@json($dosen->bidangSpesialis)'
-                                    data-prodi="{{ $dosen->prodi->nama_prodi }}">
-                                    <img src="{{ asset('images/icon-edit.svg') }}">
-                                </button>
+                        <!-- CONTENT -->
+                        <div class="card-content hidden mt-5 pt-4">
 
-                                <button onclick="hapusData('{{ $dosen->id_dosen }}')"
-                                    class="hover:scale-[1.025] transition-all hover:opacity-90">
-                                    <img src="{{ asset('images/icon-hapus.svg') }}" class="w-6 h-6 cursor-pointer">
-                                </button>
-                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm px-4">
 
-                            <!-- ICON DROPDOWN -->
-                            <button onclick="toggleCard(this)" class="flex items-center gap-4 flex-1 cursor-pointer ml-3">
-                                <img src="{{ asset('images/icon-dropdown.svg') }}" class="icon-arrow h-5 w-5 transition">
-                            </button>
-                        </div>
-                    </div>
+                                <!-- kiri -->
+                                <div class="space-y-2 pl-2 ">
+                                    <p><span class="font-bold">NIK :</span> {{ $dosen->NIK }}</p>
 
-                    <!-- CONTENT -->
-                    <div class="card-content hidden mt-5 pt-4">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm px-4">
-
-                            <!-- kiri -->
-                            <div class="space-y-2 pl-2 ">
-                                <p><span class="font-bold">NIK :</span> {{ $dosen->NIK }}</p>
-
-                                <p>
-                                    <span class="font-bold">Program Studi :</span>
-                                    {{ $dosen->prodi->nama_prodi }}
-                                </p>
-
-                                <p>
-                                    <span class="font-bold">Pendidikan Terakhir :</span>
-                                    {{ $dosen->jenjang_pendidikan }}
-                                </p>
-
-                                <p>
-                                    <span class="font-bold">Email :</span>
-                                    <u>{{ $dosen->email }}</u>
-                                </p>
-                            </div>
-
-                            <!-- kanan -->
-                            <div class="pr-2">
-                                <h3 class="text-[#123CFF] font-bold mb-2">
-                                    Riwayat Pendidikan
-                                </h3>
-
-                                @foreach ($dosen->riwayatPendidikans as $riwayat)
-
-                                    <p class="text-gray-700">
-                                        {{ $riwayat->deskripsi_riwayat  }}
+                                    <p>
+                                        <span class="font-bold">Program Studi :</span>
+                                        {{ $dosen->prodi->nama_prodi }}
                                     </p>
 
-                                @endforeach
-                                <p class="mt-2">
-                                    <span class="font-bold">Bidang :</span>
-                                    {{ $dosen->bidangSpesialis->pluck('deskripsi_bidang')->implode(', ') }}
-                                </p>
-                            </div>
+                                    <p>
+                                        <span class="font-bold">Pendidikan Terakhir :</span>
+                                        {{ $dosen->jenjang_pendidikan }}
+                                    </p>
 
+                                    <p>
+                                        <span class="font-bold">Email :</span>
+                                        <u>{{ $dosen->email }}</u>
+                                    </p>
+                                </div>
+
+                                <!-- kanan -->
+                                <div class="pr-2">
+                                    <h3 class="text-[#123CFF] font-bold mb-2">
+                                        Riwayat Pendidikan
+                                    </h3>
+
+                                    @foreach ($dosen->riwayatPendidikans as $riwayat)
+
+                                        <p class="text-gray-700">
+                                            {{ $riwayat->deskripsi_riwayat  }}
+                                        </p>
+
+                                    @endforeach
+                                    <p class="mt-2">
+                                        <span class="font-bold">Bidang :</span>
+                                        {{ $dosen->bidangSpesialis->pluck('deskripsi_bidang')->implode(', ') }}
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+                @endforeach
+
+                <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+                    <p class="text-sm text-gray-500">
+                        Menampilkan {{ $dosens->firstItem() }} -
+                        {{ $dosens->lastItem() }}
+                        dari {{ $dosens->total() }} data
+                    </p>
+
+                    {{ $dosens->links() }}
+
                 </div>
-            @endforeach
-
-
-
-
-            <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
-                <p class="text-sm text-gray-500">
-                    Menampilkan {{ $dosens->firstItem() }} -
-                    {{ $dosens->lastItem() }}
-                    dari {{ $dosens->total() }} data
-                </p>
-
-                {{ $dosens->links() }}
-            </div>
             </div>
 
         </main>
 
-
-
-
-
-
         {{-- Modal --}}
-
-
         {{-- Tambah --}}
         <div id="modalTambahDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
             <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
@@ -226,7 +221,7 @@
                             <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select name="status_jabatan"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="" >--Pilih Status Jabatan--</option>
+                                <option value="">--Pilih Status Jabatan--</option>
                                 <option>Kepala Program Studi</option>
                                 <option>Dosen</option>
                                 <option>Laboran</option>
@@ -242,8 +237,7 @@
                         <label for="id_prodi">
                             <span>Program Studi</span>
                             <select name="id_prodi" id="id_prodi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none"
-                                >
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">Pilih Program Studi yang di kelola</option>
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
@@ -300,20 +294,32 @@
                             </div>
                         </div>
 
-
-
-                        <!-- FOTO DOSEN -->
                         <div class="flex flex-col">
                             <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
 
-                            <input type="file" name="foto_dosen" id="fotoDosen" class="hidden"
-                                accept="image/png, image/jpg, img/jpeg">
+                            <input type="file" name="foto_dosen" id="fotoDosen" class="hidden" accept=".png,.jpg,.jpeg">
 
-                            <label for="fotoDosen"
-                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
+                            {{-- Tombol upload --}}
+                            <label id="uploadBtn" for="fotoDosen"
+                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF]
+                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
                                 Upload foto
                             </label>
+
+                            {{-- Preview file --}}
+                            <div id="previewFile"
+                                class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 shadow focus:outline-none">
+
+                                <div>
+                                    <h3 id="fileName" class="font-semibold text-sm"></h3>
+                                    <p id="fileSize" class="text-gray-400 text-xs"></p>
+                                </div>
+
+                                <button type="button" id="hapusFoto">
+                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                </button>
+
+                            </div>
                         </div>
 
                     </div>
@@ -327,9 +333,6 @@
                 </form>
             </div>
         </div>
-
-
-
 
         {{-- Edit --}}
         <div id="modalEditDosen" class="fixed inset-0 bg-black/60  hidden  items-center justify-center z-50">
@@ -361,7 +364,7 @@
                             <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select id="edit_jabatan" name="status_jabatan"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="" >--Pilih Status Jabatan--</option>
+                                <option value="">--Pilih Status Jabatan--</option>
                                 <option>Kepala Program Studi</option>
                                 <option>Dosen</option>
                                 <option>Laboran</option>
@@ -377,8 +380,7 @@
                         <label for="edit_id_prodi">
                             <span>Program Studi</span>
                             <select id="edit_id_prodi" name="id_prodi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none"
-                                >
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">Pilih Program Studi yang di kelola</option>
 
                                 @foreach($list_prodi as $prodi)
@@ -439,7 +441,7 @@
 
                             <label for="editFotoDosen"
                                 class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                        bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
+                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
                                 Upload foto
                             </label>
                         </div>
@@ -455,9 +457,6 @@
                 </form>
             </div>
         </div>
-
-
-
         {{-- HAPUS --}}
 
         {{-- Hapus --}}
@@ -472,6 +471,8 @@
 
         @endforeach
 
+        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+        <script src="{{ asset('js/dosen.js') }}"></script>
+
     </body>
-    <script src="{{ asset('js/dosen.js') }}"></script>
 </x-layout.layout>

@@ -245,3 +245,49 @@ document.addEventListener('click', function () {
     profileCard.classList.add('hidden');
 
 });
+
+//tombol foto
+const input = document.getElementById('fotoDosen');
+const uploadBtn = document.getElementById('uploadBtn');
+const preview = document.getElementById('previewFile');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+const hapus = document.getElementById('hapusFoto');
+
+input.addEventListener('change', function () {
+
+    if (!this.files.length) return;
+
+    const file = this.files[0];
+
+    fileName.textContent = file.name;
+    fileSize.textContent = (file.size / 1024).toFixed(0) + " KB";
+
+    uploadBtn.classList.add('hidden');
+    preview.classList.remove('hidden');
+});
+
+hapus.addEventListener('click', function () {
+
+    input.value = "";
+
+    preview.classList.add('hidden');
+    uploadBtn.classList.remove('hidden');
+
+});
+
+//library select2
+const ts = new TomSelect("#filterProdi", {
+    create: false,
+    maxItems: 1,
+    allowEmptyOption: true,
+    closeAfterSelect: true,
+    placeholder: "Semua Prodi",
+
+    onItemAdd() {
+        this.close();
+        this.blur();
+    }
+});
+
+
