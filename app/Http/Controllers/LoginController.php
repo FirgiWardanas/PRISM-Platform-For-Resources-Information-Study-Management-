@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
+use App\Models\kurikulum;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +15,13 @@ class LoginController extends Controller
         if (Auth::check()) {
             return $this->redirectByRole(Auth::user()->role);
         }
-        return view('admin.login');
+
+        $statistik = [
+            'prodi' => Prodi::count(),
+            'kurikulum' => Kurikulum::count(),
+            'matakuliah' => Matakuliah::count(),
+        ];
+        return view('admin.login' , compact('statistik') );
     }
 
     public function store(Request $request)

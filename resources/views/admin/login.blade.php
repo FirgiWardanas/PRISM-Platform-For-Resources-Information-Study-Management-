@@ -95,7 +95,7 @@
                                 class="bg-white/10 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 hover:shadow-2xl">
 
                                 <div class="text-2xl font-bold text-white">
-                                    8
+                                    {{ $statistik['prodi'] }}
                                 </div>
 
                                 <div class="text-sm text-blue-100 mt-1">
@@ -108,7 +108,7 @@
                                 class="bg-white/10 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 hover:shadow-2xl">
 
                                 <div class="text-2xl font-bold text-white">
-                                    6
+                                    {{ $statistik['kurikulum'] }}
                                 </div>
 
                                 <div class="text-sm text-blue-100 mt-1">
@@ -121,7 +121,7 @@
                                 class="bg-white/10 rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 hover:shadow-2xl">
 
                                 <div class="text-2xl font-bold text-white">
-                                    12
+                                    {{ $statistik['matakuliah'] }}
                                 </div>
 
                                 <div class="text-sm text-blue-100 mt-1">
