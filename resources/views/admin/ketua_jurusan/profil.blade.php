@@ -11,7 +11,7 @@
         <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
             {{-- header --}}
             <x-admin.header>
-                <div class="font-bold">Profile</div>
+                <div class="font-bold">Profil</div>
             </x-admin.header>
 
             <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
@@ -39,11 +39,11 @@
 
 
 
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}" class="md:ml-auto">
                         @csrf
                         <button type="submit"
-                            class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
-                            Logout ↗
+                            class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-4 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90 flex items-center gap-2 cursor-pointer">
+                            Logout <img src="{{ asset('images/icon-keluar.svg') }}" class="w-4 h-4">
                         </button>
                     </form>
 

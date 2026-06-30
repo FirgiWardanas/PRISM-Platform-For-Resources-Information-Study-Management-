@@ -60,7 +60,7 @@
                     @csrf
 
                     <button type="submit"
-                        class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow hover:scale-[1.025] transition-all">
+                        class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow hover:scale-[1.025] transition-all cursor-pointer">
                         Logout
                     </button>
 

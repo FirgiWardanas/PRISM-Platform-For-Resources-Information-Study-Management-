@@ -10,13 +10,10 @@
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
             <!-- Header -->
             <x-admin.header>
-                <div class="font-bold">Dashboard</div>
+                <div class="font-bold">Beranda</div>
             </x-admin.header>
-            <!-- Welcome Banner -->
             <!-- CONTENT -->
             <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
-                
-
                 <!-- WELCOME -->
                 <div class="relative bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF]
                     text-white px-7 rounded-[24px] shadow-sm overflow-hidden

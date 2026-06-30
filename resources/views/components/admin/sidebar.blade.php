@@ -24,7 +24,7 @@
     ? asset('images/icon-dashboard (putih).svg')
     : asset('images/Structure.svg') }}" alt="Dashboard" class="w-4 h-4">
 
-            <span>Dashboard</span>
+            <span>Beranda</span>
         </a>
         {{-- program-studi --}}
         <a href="/admin/program-studi"
@@ -46,9 +46,9 @@
 
             <img src="{{ request()->is('admin/akun')
     ? asset('images/icon-dosen(putih).svg')
-    : asset('images/icon-dosen(biru).svg') }}" alt="Dosen" class="w-4 h-4">
+    : asset('images/icon-dosen(biru).svg') }}" alt="Dosen" class="w-4 h-4 mb-1">
 
-            <span>Dosen</span>
+            <span>Akun</span>
         </a>
         {{-- kelola-dosen --}}
         <a href="/admin/kelola-dosen"
@@ -60,7 +60,7 @@
     ? asset('images/icon-akun(putih).svg')
     : asset('images/icon-akun(biru).svg') }}" alt="Kelola-dosen" class="w-4 h-4">
 
-            <span>Akun</span>
+            <span>Dosen</span>
         </a>
         {{-- profile --}}
         <a href="/admin/profile-ketua-jurusan"
@@ -72,7 +72,7 @@
     ? asset('images/icon-profil(putih).svg')
     : asset('images/icon-profile(biru).svg') }}" alt="profile" class="w-4 h-4">
 
-            <span>Profile</span>
+            <span>Profil</span>
         </a>
     </nav>
 </aside>
