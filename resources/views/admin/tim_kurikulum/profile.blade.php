@@ -38,7 +38,7 @@
                         @csrf
                         <button type="submit"
                             class="w-full md:w-auto flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-6 py-3 text-white shadow hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                            Logout <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 mt-1">
+                            Keluar <img src="{{ asset('images/icon-logout.svg') }}" class="h-4 w-4 ">
                         </button>
                     </form>
 

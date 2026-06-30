@@ -14,16 +14,21 @@ class KurikulumController extends Controller
         $kurikulums = Kurikulum::with([
             'prodi',
             'detailKurikulums.matakuliah',
-        ])->where('id_prodi', auth()->guard()->user()->id_prodi)->get();
+        ])
+            ->where('id_prodi', auth()->guard()->user()->id_prodi)
+            ->latest('id_kurikulum')
+            ->get();
 
-        
+
 
         $matakuliahs = Matakuliah::all();
 
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
 
-    public function create() {}
+    public function create()
+    {
+    }
 
     public function store(Request $request)
     {
@@ -45,9 +50,9 @@ class KurikulumController extends Controller
             'tahun_mulai' => 'required|numeric|between:1901,2125',
         ], [
             'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
-            'nama_kurikulum.unique'   => 'Nama kurikulum sudah digunakan pada prodi ini.',
-            'tahun_mulai.required'    => 'Tahun mulai wajib diisi.',
-            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
+            'nama_kurikulum.unique' => 'Nama kurikulum sudah digunakan pada prodi ini.',
+            'tahun_mulai.required' => 'Tahun mulai wajib diisi.',
+            'tahun_mulai.between' => 'Tahun mulai tidak valid.',
         ]);
 
         try {
@@ -55,10 +60,10 @@ class KurikulumController extends Controller
                 ->update(['status_kurikulum' => 'tidak aktif']);
 
             Kurikulum::create([
-                'id_prodi'         => $idProdi,
-                'nama_kurikulum'   => $request->nama_kurikulum,
-                'tahun_mulai'      => $request->tahun_mulai,
-                'total_semester'   => $totalSemester,
+                'id_prodi' => $idProdi,
+                'nama_kurikulum' => $request->nama_kurikulum,
+                'tahun_mulai' => $request->tahun_mulai,
+                'total_semester' => $totalSemester,
                 'status_kurikulum' => 'aktif',
             ]);
 
@@ -71,9 +76,13 @@ class KurikulumController extends Controller
         }
     }
 
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+    }
 
-    public function edit(string $id) {}
+    public function edit(string $id)
+    {
+    }
 
     public function update(Request $request, string $id)
     {
@@ -87,15 +96,15 @@ class KurikulumController extends Controller
                     ->ignore($id, 'id_kurikulum'),
             ],
             'tahun_mulai' => 'required|numeric|between:1901,2125',
-            'total_semester'   => 'required',
+            'total_semester' => 'required',
             'status_kurikulum' => 'required',
         ], [
-            'nama_kurikulum.required'   => 'Nama kurikulum wajib diisi.',
-            'nama_kurikulum.unique'     => 'Nama kurikulum sudah digunakan pada program studi ini.',
-            'tahun_mulai.required'      => 'Tahun mulai wajib diisi.',
-            'total_semester.required'   => 'Total semester wajib diisi.',
+            'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
+            'nama_kurikulum.unique' => 'Nama kurikulum sudah digunakan pada program studi ini.',
+            'tahun_mulai.required' => 'Tahun mulai wajib diisi.',
+            'total_semester.required' => 'Total semester wajib diisi.',
             'status_kurikulum.required' => 'Status kurikulum wajib dipilih.',
-            'tahun_mulai.between'  => 'Tahun mulai tidak valid.',
+            'tahun_mulai.between' => 'Tahun mulai tidak valid.',
         ]);
 
 
