@@ -42,7 +42,7 @@ class KurikulumController extends Controller
                 Rule::unique('kurikulum', 'nama_kurikulum')
                     ->where(fn($q) => $q->where('id_prodi', $idProdi)),
             ],
-            'tahun_mulai' => 'required|between:1901,2125',
+            'tahun_mulai' => 'required|numeric|between:1901,2125',
         ], [
             'nama_kurikulum.required' => 'Nama kurikulum wajib diisi.',
             'nama_kurikulum.unique'   => 'Nama kurikulum sudah digunakan pada prodi ini.',
@@ -86,7 +86,7 @@ class KurikulumController extends Controller
                     ->where(fn($q) => $q->where('id_prodi', $idProdi))
                     ->ignore($id, 'id_kurikulum'),
             ],
-            'tahun_mulai'      => 'required|between:1901,2125',
+            'tahun_mulai' => 'required|numeric|between:1901,2125',
             'total_semester'   => 'required',
             'status_kurikulum' => 'required',
         ], [
