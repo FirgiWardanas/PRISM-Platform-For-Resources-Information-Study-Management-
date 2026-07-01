@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -88,40 +89,53 @@ public function store(Request $request)
         'foto_dosen.max' => 'Ukuran foto maksimal 2 MB.',
     ]);
 
+    // Upload foto dilakukan di luar transaksi karena filesystem bukan bagian DB.
+    // Jika transaksi DB gagal, foto yang sudah terupload akan dihapus kembali.
+    $path = null;
+
     try {
 
         $path = $request->file('foto_dosen')
             ->store('foto-dosen', 'public');
 
-        $dosen = Dosen::create([
-            'nama_dosen'         => $request->nama_dosen,
-            'status_jabatan'     => $request->status_jabatan,
-            'id_prodi'           => $request->id_prodi,
-            'email'              => $request->email,
-            'NIK'                => $request->NIK,
-            'foto_dosen'         => $path,
-            'jenjang_pendidikan' => $request->pendidikan_terakhir,
-        ]);
+        DB::transaction(function () use ($request, $path) {
 
-        foreach ($request->riwayat_pendidikan as $riwayat) {
-            RiwayatPendidikan::create([
-                'id_dosen' => $dosen->id_dosen,
-                'deskripsi_riwayat' => $riwayat
+            $dosen = Dosen::create([
+                'nama_dosen'         => $request->nama_dosen,
+                'status_jabatan'     => $request->status_jabatan,
+                'id_prodi'           => $request->id_prodi,
+                'email'              => $request->email,
+                'NIK'                => $request->NIK,
+                'foto_dosen'         => $path,
+                'jenjang_pendidikan' => $request->pendidikan_terakhir,
             ]);
-        }
 
-        foreach ($request->bidang_spesialis as $bidang) {
-            BidangSpesialis::create([
-                'id_dosen' => $dosen->id_dosen,
-                'deskripsi_bidang' => $bidang
-            ]);
-        }
+            foreach ($request->riwayat_pendidikan as $riwayat) {
+                RiwayatPendidikan::create([
+                    'id_dosen'          => $dosen->id_dosen,
+                    'deskripsi_riwayat' => $riwayat,
+                ]);
+            }
+
+            foreach ($request->bidang_spesialis as $bidang) {
+                BidangSpesialis::create([
+                    'id_dosen'         => $dosen->id_dosen,
+                    'deskripsi_bidang' => $bidang,
+                ]);
+            }
+
+        }); // akhir DB::transaction — jika ada Exception di sini, semua INSERT di-rollback
 
         return redirect()
             ->back()
             ->with('success', 'Data dosen berhasil ditambahkan.');
 
     } catch (\Exception $e) {
+
+        // Jika transaksi DB gagal, hapus foto yang sudah terlanjur diupload
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
 
         return redirect()
             ->back()
@@ -192,24 +206,26 @@ public function update(Request $request, $id)
         'foto_dosen.max' => 'Ukuran foto maksimal 2 MB.',
     ]);
 
+    $pathBaru = null; // untuk cleanup jika transaksi gagal
+
     try {
 
-        $dosen = Dosen::with(['riwayatPendidikans', 'bidangSpesialis'])->findOrFail($id);
+        $dosen    = Dosen::with(['riwayatPendidikans', 'bidangSpesialis'])->findOrFail($id);
+        $pathLama = $dosen->foto_dosen;
+        $hasFile  = $request->hasFile('foto_dosen');
 
-        $hasFile = $request->hasFile('foto_dosen');
+        // Upload foto baru di luar transaksi (filesystem bukan bagian DB)
         if ($hasFile) {
-
-            if ($dosen->foto_dosen) {
-                Storage::disk('public')->delete($dosen->foto_dosen);
-            }
-
-            $path = $request->file('foto_dosen')
-                            ->store('foto-dosen', 'public');
-
-        } else {
-
-            $path = $dosen->foto_dosen;
+            $pathBaru = $request->file('foto_dosen')->store('foto-dosen', 'public');
         }
+
+        $newRiwayat = array_values(array_filter($request->riwayat_pendidikan ?? [], fn($val) => !empty($val)));
+        $newBidang  = array_values(array_filter($request->bidang_spesialis  ?? [], fn($val) => !empty($val)));
+
+        $oldRiwayat    = $dosen->riwayatPendidikans->pluck('deskripsi_riwayat')->toArray();
+        $oldBidang     = $dosen->bidangSpesialis->pluck('deskripsi_bidang')->toArray();
+        $riwayatChanged = ($oldRiwayat !== $newRiwayat);
+        $bidangChanged  = ($oldBidang  !== $newBidang);
 
         $dosen->fill([
             'nama_dosen'         => $request->nama_dosen,
@@ -217,45 +233,48 @@ public function update(Request $request, $id)
             'id_prodi'           => $request->id_prodi,
             'email'              => $request->email,
             'NIK'                => $request->NIK,
-            'foto_dosen'         => $path,
+            'foto_dosen'         => $hasFile ? $pathBaru : $pathLama,
             'jenjang_pendidikan' => $request->jenjang_pendidikan,
         ]);
 
-        $oldRiwayat = $dosen->riwayatPendidikans->pluck('deskripsi_riwayat')->toArray();
-        $newRiwayat = array_values(array_filter($request->riwayat_pendidikan ?? [], fn($val) => !empty($val)));
-        $riwayatChanged = ($oldRiwayat !== $newRiwayat);
-
-        $oldBidang = $dosen->bidangSpesialis->pluck('deskripsi_bidang')->toArray();
-        $newBidang = array_values(array_filter($request->bidang_spesialis ?? [], fn($val) => !empty($val)));
-        $bidangChanged = ($oldBidang !== $newBidang);
-
         if (!$hasFile && !$dosen->isDirty() && !$riwayatChanged && !$bidangChanged) {
+            // Hapus foto baru jika tidak jadi dipakai
+            if ($pathBaru) {
+                Storage::disk('public')->delete($pathBaru);
+            }
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('error', 'Tidak ada data yang diubah.');
         }
 
-        $dosen->save();
+        DB::transaction(function () use ($dosen, $newRiwayat, $newBidang) {
 
-        // Hapus riwayat pendidikan lama
-        $dosen->riwayatPendidikans()->delete();
+            $dosen->save();
 
-        foreach ($newRiwayat as $riwayat) {
-            RiwayatPendidikan::create([
-                'id_dosen' => $dosen->id_dosen,
-                'deskripsi_riwayat' => $riwayat,
-            ]);
-        }
+            // Hapus riwayat lama → isi ulang dengan yang baru
+            $dosen->riwayatPendidikans()->delete();
+            foreach ($newRiwayat as $riwayat) {
+                RiwayatPendidikan::create([
+                    'id_dosen'          => $dosen->id_dosen,
+                    'deskripsi_riwayat' => $riwayat,
+                ]);
+            }
 
-        // Hapus bidang spesialis lama
-        $dosen->bidangSpesialis()->delete();
+            // Hapus bidang lama → isi ulang dengan yang baru
+            $dosen->bidangSpesialis()->delete();
+            foreach ($newBidang as $bidang) {
+                BidangSpesialis::create([
+                    'id_dosen'         => $dosen->id_dosen,
+                    'deskripsi_bidang' => $bidang,
+                ]);
+            }
 
-        foreach ($newBidang as $bidang) {
-            BidangSpesialis::create([
-                'id_dosen' => $dosen->id_dosen,
-                'deskripsi_bidang' => $bidang,
-            ]);
+        }); // akhir DB::transaction — jika gagal, semua perubahan DB di-rollback
+
+        // Transaksi berhasil → hapus foto lama jika ada foto baru
+        if ($hasFile && $pathLama) {
+            Storage::disk('public')->delete($pathLama);
         }
 
         return redirect()
@@ -263,6 +282,11 @@ public function update(Request $request, $id)
             ->with('success', 'Data dosen berhasil diperbarui.');
 
     } catch (\Exception $e) {
+
+        // Transaksi DB gagal → hapus foto baru yang sudah terlanjur diupload
+        if ($pathBaru && Storage::disk('public')->exists($pathBaru)) {
+            Storage::disk('public')->delete($pathBaru);
+        }
 
         return redirect()
             ->back()

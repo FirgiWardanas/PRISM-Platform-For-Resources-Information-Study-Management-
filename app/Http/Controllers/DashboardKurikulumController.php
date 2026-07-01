@@ -11,14 +11,14 @@ class DashboardKurikulumController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
+        $user = auth()->guard()->user();
         $idProdi = $user->id_prodi;
 
         // ── Stat Cards ──────────────────────────────────────────────
-        // Jumlah seluruh prodi di sistem
+
         $jumlahProdi = Prodi::count();
 
-        // Jumlah kurikulum milik prodi user ini
+ 
         $jumlahKurikulum = Kurikulum::where('id_prodi', $idProdi)->count();
 
         // Kurikulum aktif milik prodi user
@@ -35,8 +35,8 @@ class DashboardKurikulumController extends Controller
             ? $kurikulumAktif->detailKurikulums->count()
             : 0;
 
-        // Jumlah seluruh matakuliah di database
         $jumlahMatakuliah = Matakuliah::count();
+        
         // ── SKS per Semester (dari kurikulum aktif) ──────────────────
         $sksPerSemester = [];
         if ($kurikulumAktif) {
