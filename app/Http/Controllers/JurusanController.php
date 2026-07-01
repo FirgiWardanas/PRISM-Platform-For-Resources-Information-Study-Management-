@@ -13,7 +13,6 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        // get count of published prodi
         $jumlah_prodi = Prodi::where('status_prodi', 'published')->count();
         $jumlah_dosen = Dosen::whereHas('prodi', function ($q) {
             $q->where('status_prodi', 'published');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kurikulum;
 use App\Models\Matakuliah;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
@@ -56,16 +57,23 @@ class KurikulumController extends Controller
         ]);
 
         try {
-            Kurikulum::where('id_prodi', $idProdi)
-                ->update(['status_kurikulum' => 'tidak aktif']);
+            DB::transaction(function () use ($request, $idProdi, $totalSemester) {
 
-            Kurikulum::create([
-                'id_prodi' => $idProdi,
-                'nama_kurikulum' => $request->nama_kurikulum,
-                'tahun_mulai' => $request->tahun_mulai,
-                'total_semester' => $totalSemester,
-                'status_kurikulum' => 'aktif',
-            ]);
+                // UPDATE semua kurikulum prodi ini jadi tidak aktif
+                Kurikulum::where('id_prodi', $idProdi)
+                    ->update(['status_kurikulum' => 'tidak aktif']);
+
+                // CREATE kurikulum baru sebagai aktif
+                // Jika gagal di sini, UPDATE di atas ikut di-rollback
+                Kurikulum::create([
+                    'id_prodi'         => $idProdi,
+                    'nama_kurikulum'   => $request->nama_kurikulum,
+                    'tahun_mulai'      => $request->tahun_mulai,
+                    'total_semester'   => $totalSemester,
+                    'status_kurikulum' => 'aktif',
+                ]);
+
+            }); // akhir DB::transaction — UPDATE + CREATE bersifat atomik
 
             return redirect()->back()
                 ->with('success', 'Kurikulum berhasil ditambahkan dan berstatus Aktif.');
@@ -112,9 +120,9 @@ class KurikulumController extends Controller
         try {
             $kurikulum = Kurikulum::findOrFail($id);
             $kurikulum->fill([
-                'nama_kurikulum' => $request->nama_kurikulum,
-                'tahun_mulai' => $request->tahun_mulai,
-                'total_semester' => $request->total_semester,
+                'nama_kurikulum'   => $request->nama_kurikulum,
+                'tahun_mulai'      => $request->tahun_mulai,
+                'total_semester'   => $request->total_semester,
                 'status_kurikulum' => $request->status_kurikulum,
             ]);
 
@@ -123,12 +131,19 @@ class KurikulumController extends Controller
                     ->with('error', 'Tidak ada data yang diubah.');
             }
 
-            if ($request->status_kurikulum === 'aktif') {
-                Kurikulum::where('id_prodi', $idProdi)
-                    ->update(['status_kurikulum' => 'tidak aktif']);
-            }
+            DB::transaction(function () use ($kurikulum, $idProdi, $request) {
 
-            $kurikulum->save();
+                // Jika status baru = aktif, nonaktifkan semua kurikulum lain prodi ini dulu
+                if ($request->status_kurikulum === 'aktif') {
+                    Kurikulum::where('id_prodi', $idProdi)
+                        ->update(['status_kurikulum' => 'tidak aktif']);
+                }
+
+                // Simpan perubahan kurikulum ini
+                // Jika gagal, UPDATE status di atas ikut di-rollback
+                $kurikulum->save();
+
+            }); // akhir DB::transaction — UPDATE status + SAVE bersifat atomik
 
             return redirect()->back()->with('success', 'Kurikulum berhasil diperbarui.');
 

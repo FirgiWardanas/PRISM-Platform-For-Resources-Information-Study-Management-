@@ -126,7 +126,7 @@
 
                                 <div class="text-sm text-blue-100 mt-1">
                                     Mata Kuliah
-                                </div>
+                                </div>  
 
                             </div>
 
@@ -135,7 +135,6 @@
                     </div>
 
                 </div>
-
             </div>
 
         </div>
