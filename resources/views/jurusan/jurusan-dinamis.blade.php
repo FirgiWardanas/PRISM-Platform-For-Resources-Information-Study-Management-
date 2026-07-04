@@ -28,32 +28,61 @@
         Jurusan Teknik Informatika berkomitmen menghasilkan lulusan yang unggul, inovatif, dan berintegritas di bidang teknologi informasi melalui pendidikan berkualitas, penelitian, serta pengabdian kepada masyarakat yang selaras dengan perkembangan industri digital.
       </p>
 
-      <div class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF] w-full rounded-3xl text-white py-4 sm:py-6 md:py-8 px-3 sm:px-8 md:px-12 flex justify-evenly items-start gap-3 sm:gap-8 md:gap-12">
-        <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2 ">
-          <h1 class="text-[10px] sm:text-sm font-bold">Tahun berdiri</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">2000</h1>
-          <p class="text-[9px] sm:text-xs text-center leading-tight ">
+      <div
+        class="bg-gradient-to-r from-[#490097] via-[#203DA6] to-[#00A6FF] w-full rounded-3xl text-white flex flex-col sm:flex-row justify-center sm:justify-evenly items-center sm:items-start py-4 sm:py-6 md:py-8 px-4 sm:px-8 md:px-12 gap-4 sm:gap-8 md:gap-12 mx-20 sm:mx-0">
+
+        <!-- Tahun Berdiri -->
+        <div class="flex flex-col justify-center items-center w-full sm:flex-1 max-w-[180px] sm:max-w-none gap-1 sm:gap-2">
+          <h1 class="text-[11px] sm:text-sm font-bold text-center">
+            Tahun Berdiri
+          </h1>
+
+          <h1 class="text-lg sm:text-xl md:text-2xl font-bold">
+            2000
+          </h1>
+
+          <p class="text-[10px] sm:text-xs text-center leading-tight">
             Berdiri sejak tahun 2000 dan terus menghasilkan lulusan yang kompeten di bidang teknologi informasi.
           </p>
         </div>
 
-        <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
-          <h1 class="text-[10px] sm:text-sm font-bold">Program Studi</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">{{ $jumlah_prodi }}</h1>
+        <!-- Program Studi -->
+        <div class="flex flex-col justify-center items-center w-full sm:flex-1 max-w-[180px] sm:max-w-none gap-1 sm:gap-2">
+          <h1 class="text-[11px] sm:text-sm font-bold text-center">
+            Program Studi
+          </h1>
+
+          <h1 class="text-lg sm:text-xl md:text-2xl font-bold">
+            {{ $jumlah_prodi }}
+          </h1>
 
           <a href="#programStudi">
-            <button class="bg-gradient-to-r from-[#ff7700] to-[#ffa600]
-        shadow-lg px-3 sm:px-6 md:px-8 py-1 sm:py-3 rounded-full
-        text-[9px] sm:text-xs font-bold transition hover:scale-105">
+            <button
+              class="bg-gradient-to-r from-[#ff7700] to-[#ffa600]
+                shadow-lg
+                px-4 py-2
+                sm:px-6 md:px-8
+                sm:py-3
+                rounded-full
+                text-[10px] sm:text-xs
+                font-bold
+                transition hover:scale-105">
               Selengkapnya
             </button>
           </a>
         </div>
 
-        <div class="flex flex-col justify-center items-center flex-1 gap-1 sm:gap-2">
-          <h1 class="text-[10px] sm:text-sm font-bold">Jumlah Dosen</h1>
-          <h1 class="text-base sm:text-xl md:text-2xl font-bold">{{ $jumlah_dosen }}</h1>
-          <p class="text-[9px] sm:text-xs text-center leading-tight">
+        <!-- Jumlah Dosen -->
+        <div class="flex flex-col justify-center items-center w-full sm:flex-1 max-w-[180px] sm:max-w-none gap-1 sm:gap-2">
+          <h1 class="text-[11px] sm:text-sm font-bold text-center">
+            Jumlah Dosen
+          </h1>
+
+          <h1 class="text-lg sm:text-xl md:text-2xl font-bold">
+            {{ $jumlah_dosen }}
+          </h1>
+
+          <p class="text-[10px] sm:text-xs text-center leading-tight">
             Didukung oleh dosen profesional yang berpengalaman di bidang akademik maupun industri.
           </p>
         </div>
@@ -353,13 +382,13 @@
               </p>
             </div>
           </div>
-        
-        </div>
-        
 
-    {{-- Google Maps --}}
-    <div class="rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl w-full h-64 sm:h-80 lg:h-96 mt-6">
-        <iframe
+        </div>
+
+
+        {{-- Google Maps --}}
+        <div class="rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl w-full h-64 sm:h-80 lg:h-96 mt-6">
+          <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.015!2d104.0462732!3d1.1186405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98921856ddfab%3A0xf9d9fc65ca00c9d!2sPoliteknik%20Negeri%20Batam!5e0!3m2!1sid!2sid!4v1700000000000"
             width="100%"
             height="100%"
@@ -367,8 +396,8 @@
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
+          </iframe>
+        </div>
 
 
       </div>

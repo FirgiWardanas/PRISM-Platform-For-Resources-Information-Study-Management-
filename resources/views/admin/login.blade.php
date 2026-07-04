@@ -47,7 +47,7 @@
                         </h1>
 
                         <p class="text-blue-100 text-sm">
-                            Platform for Resource and Study Management
+                            Platform for Resource and Information Study Management
                         </p>
                     </div>
 

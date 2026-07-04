@@ -4,10 +4,10 @@
 
         {{-- LOGO & DESKRIPSI --}}
         <div>
-            <img src="{{ asset('images/logo-prism.png') }}">
+            <img src="{{ asset('images/PRISM-logo.png') }}">
             <div class="w-full border-b border-white/50 mb-4"></div>
             <p class="text-sm text-white/80 mb-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, eum, quasi voluptas nulla temporibus soluta.
+                PRISM menyediakan platform terintegrasi untuk mengelola kurikulum, menyusun struktur mata kuliah, dan mendukung perancangan akademik program studi secara efektif.
             </p>
             <div class="flex items-center gap-2">
                 <img src="{{ asset('images/logo-ig.png') }}" class="w-6">
@@ -76,7 +76,7 @@
 
     {{-- COPYRIGHT --}}
     <div class="bg-gradient-to-r from-[#470398] via-[#1F41A9] to-[#00A5FE] text-center text-sm py-2">
-        ©2026 Platform for Resource & Study Management
+        ©2026 Platform for Resource & Information Study Management
     </div>
 
 </footer>

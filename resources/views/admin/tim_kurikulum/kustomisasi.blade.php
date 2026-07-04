@@ -1,37 +1,18 @@
 ﻿<x-layout.layout>
+
     <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
         {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
-        
+
         {{-- main kontent --}}
         <main class="flex flex-col h-screen p-4 md:p-6 lg:ml-72">
             {{-- header --}}
             <x-admin.header_kurikulum>
-               <div class="font-bold">kustomisasi</div>
+                <div class="font-bold">kustomisasi</div>
             </x-admin.header_kurikulum>
 
-            <div class="flex flex-col sm:flex-row justify-end gap-2 mb-3 mt-3">
-
-                <a href="/prodi/{{ $prodi->kode_prodi }}" target="_blank"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 transition hover:scale-[1.025] ">
-                    <img src="{{ asset('images/icon-preview.svg') }}" class="h-5 w-5">
-                    <span class="text-[#3307CC]">Preview</span>
-                </a>
-
-                <button type="button" onclick="resetForm()"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200 hover:scale-[1.025] transition-all">
-                    <img src="{{ asset('images/icon-reset.svg') }}" class="w-5 h-5">
-                    <span class="text-[#3307CC]">Reset</span>
-                </button>
-
-
-                <button type="submit" form="formKustomisasi"
-                    class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition hover:scale-[1.025] ">
-                    <img src="{{ asset('images/icon-simpan perubahan.svg') }}" class="mt-2 w-5 h-5">
-                    <span class="text-white">Simpan Perubahan</span>
-                </button>
-            </div>
+           
 
 
 
@@ -40,6 +21,28 @@
                 <form id="formKustomisasi" action="{{ route('admin.kustomisasi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="bg-white p-5 shadow-lg border border-gray-300 rounded-2xl">
+                        <div class="flex flex-col sm:flex-row justify-end gap-2 mb-3 mt-3">
+
+                            <a href="/prodi/{{ $prodi->kode_prodi }}" target="_blank"
+                                class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 border border-[#3307CC] text-[#3307CC] rounded-xl text-sm hover:bg-purple-50 transition hover:scale-[1.025] ">
+                                <img src="{{ asset('images/icon-preview.svg') }}" class="h-5 w-5">
+                                <span class="text-[#3307CC]">Preview</span>
+                            </a>
+
+                            <button type="button" onclick="resetForm()"
+                                class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-xl text-sm shadow hover:bg-gray-200 hover:scale-[1.025] transition-all">
+                                <img src="{{ asset('images/icon-reset.svg') }}" class="w-5 h-5">
+                                <span class="text-[#3307CC]">Reset</span>
+                            </button>
+
+
+                            <button type="submit" form="formKustomisasi"
+                                class="w-full sm:w-auto h-10 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0971F7] to-[#3405CC] rounded-xl text-sm text-white shadow hover:opacity-90 transition hover:scale-[1.025] ">
+                                <img src="{{ asset('images/icon-simpan perubahan.svg') }}" class="mt-2 w-5 h-5">
+                                <span class="text-white">Simpan Perubahan</span>
+                            </button>
+                        </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
 
                             {{-- STATUS --}}
@@ -62,7 +65,7 @@
 
 
                             {{-- VISI --}}
-                            <div >
+                            <div>
                                 <label class="font-semibold text-[#3307CC]">Visi</label>
                                 <p class="mt-3 text-sm text-[#3307CC]">Visi program studi</p>
                                 <textarea name="visi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan visi program studi">{{ $prodi->detailProdi?->visi }}</textarea>
@@ -74,7 +77,7 @@
                                 <p class="mt-3 text-sm text-[#3307CC]">Misi program studi</p>
                                 <textarea name="misi" class="w-full mt-2 p-3 border rounded-xl text-sm" placeholder="Masukkan misi program studi">{{ $prodi->detailProdi?->misi }}</textarea>
                             </div>
-                            
+
                             {{-- LOGO --}}
                             <div>
                                 <label class="font-semibold text-[#3307CC]">Logo</label>
@@ -82,9 +85,9 @@
                                 <div class="flex flex-col sm:flex-row items-center gap-6 mt-2">
                                     <div id="preview-logo" class="w-28 h-28 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center overflow-hidden">
                                         @if($prodi->detailProdi?->logo)
-                                            <img src="{{ Storage::url($prodi->detailProdi->logo) }}" class="w-full h-full object-cover">
+                                        <img src="{{ Storage::url($prodi->detailProdi->logo) }}" class="w-full h-full object-cover">
                                         @else
-                                            <img src="{{ asset('images/icon-upload.svg') }}">
+                                        <img src="{{ asset('images/icon-upload.svg') }}">
                                         @endif
                                     </div>
                                     <input type="file" id="input-logo" name="logo" class="hidden" accept="image/*">
@@ -105,9 +108,9 @@
                                 <div class="flex flex-col sm:flex-row items-center gap-6 mt-3">
                                     <div id="preview-ilustrasi" class="w-28 h-28 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center overflow-hidden">
                                         @if($prodi->detailProdi?->ilustrasi)
-                                            <img src="{{ Storage::url($prodi->detailProdi->ilustrasi) }}" class="w-full h-full object-cover">
+                                        <img src="{{ Storage::url($prodi->detailProdi->ilustrasi) }}" class="w-full h-full object-cover">
                                         @else
-                                            <img src="{{ asset('images/icon-upload.svg') }}">
+                                        <img src="{{ asset('images/icon-upload.svg') }}">
                                         @endif
                                     </div>
                                     <input type="file" id="input-ilustrasi" name="ilustrasi" class="hidden" accept="image/*">
@@ -121,7 +124,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             {{-- WARNA PRIMARY --}}
                             <div>
@@ -183,47 +186,47 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @forelse($prodi->detailProdi?->profilLulusans ?? [] as $profil)
-                            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-start gap-4">
-                                @if($profil->icon_lulusan)
-                                    <img src="{{ Storage::url($profil->icon_lulusan) }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0">
-                                @else
-                                    <div class="w-12 h-12 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <img src="{{ asset('images/icon-upload.svg') }}" class="w-6 h-6 opacity-40">
+                        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-start gap-4">
+                            @if($profil->icon_lulusan)
+                            <img src="{{ Storage::url($profil->icon_lulusan) }}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0">
+                            @else
+                            <div class="w-12 h-12 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <img src="{{ asset('images/icon-upload.svg') }}" class="w-6 h-6 opacity-40">
+                            </div>
+                            @endif
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-semibold text-[#3307CC]">{{ $profil->judul_lulusan }}</h3>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="editProfil(this)"
+                                            data-id="{{ $profil->id_lulusan }}"
+                                            data-judul="{{ $profil->judul_lulusan }}"
+                                            data-deskripsi="{{ $profil->deskripsi_lulusan }}"
+                                            data-icon="{{ $profil->icon_lulusan }}">
+                                            <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4 hover:scale-[1.025] transition-all">
+                                        </button>
+
+
+                                        <button
+                                            type="button"
+                                            onclick="hapusProfilLulusan('{{ $profil->id_lulusan }}')"
+                                            class="cursor-pointer">
+
+                                            <img src="{{ asset('images/icon-hapus (merah).svg') }}"
+                                                class="w-5 h-5 hover:scale-[1.025] transition-all">
+                                        </button>
+
+
+
                                     </div>
-                                @endif
-                                <div class="flex-1">
-                                    <div class="flex justify-between items-start">
-                                        <h3 class="font-semibold text-[#3307CC]">{{ $profil->judul_lulusan }}</h3>
-                                        <div class="flex gap-1">
-                                            <button type="button" onclick="editProfil(this)"
-                                                data-id="{{ $profil->id_lulusan }}"
-                                                data-judul="{{ $profil->judul_lulusan }}"
-                                                data-deskripsi="{{ $profil->deskripsi_lulusan }}"
-                                                data-icon="{{ $profil->icon_lulusan }}">
-                                                <img src="{{ asset('images/icon-edit.svg') }}" class="w-4 h-4 hover:scale-[1.025] transition-all">
-                                            </button>
-
-
-                                            <button
-                                                type="button"
-                                                onclick="hapusProfilLulusan('{{ $profil->id_lulusan }}')"
-                                                class="cursor-pointer">
-
-                                                <img src="{{ asset('images/icon-hapus (merah).svg') }}"
-                                                    class="w-5 h-5 hover:scale-[1.025] transition-all">
-                                            </button>
-
-
-
-                                        </div>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-2 leading-relaxed">{{ $profil->deskripsi_lulusan }}</p>
                                 </div>
+                                <p class="text-xs text-gray-500 mt-2 leading-relaxed">{{ $profil->deskripsi_lulusan }}</p>
                             </div>
+                        </div>
                         @empty
-                            <div class="col-span-2 text-center text-gray-400 italic text-sm py-4">
-                                Belum ada profil lulusan. Klik + untuk menambahkan.
-                            </div>
+                        <div class="col-span-2 text-center text-gray-400 italic text-sm py-4">
+                            Belum ada profil lulusan. Klik + untuk menambahkan.
+                        </div>
                         @endforelse
                     </div>
                 </div>
@@ -232,7 +235,7 @@
 
 
 
-    @forelse($prodi->detailProdi?->profilLulusans ?? [] as $profil)
+        @forelse($prodi->detailProdi?->profilLulusans ?? [] as $profil)
 
         <form id="deleteForm{{ $profil->id_lulusan }}"
             action="{{ route('admin.profil-lulusan.destroy', $profil->id_lulusan) }}"
@@ -244,8 +247,8 @@
 
         </form>
 
-    @empty
-    @endforelse
+        @empty
+        @endforelse
 
 
         {{-- MODAL TAMBAH PROFIL LULUSAN --}}
@@ -257,11 +260,11 @@
                     @csrf
                     <div class="mb-5">
                         <label class="block text-[#3307CC] font-medium mb-2">Judul</label>
-                        <input type="text" name="judul_lulusan" placeholder="Masukkan nama profil lulusan" class="w-full h-11 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20" >
+                        <input type="text" name="judul_lulusan" placeholder="Masukkan nama profil lulusan" class="w-full h-11 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20">
                     </div>
                     <div>
                         <label class="block text-[#3307CC] font-medium mb-2">Deskripsi</label>
-                        <textarea rows="5" name="deskripsi_lulusan" placeholder="Masukkan deskripsi profil lulusan" class="w-full p-4 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20" ></textarea>
+                        <textarea rows="5" name="deskripsi_lulusan" placeholder="Masukkan deskripsi profil lulusan" class="w-full p-4 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-[#3307CC]/20"></textarea>
                     </div>
                     <div class="mt-5">
                         <label class="block text-[#3307CC] font-medium mb-2">Foto</label>

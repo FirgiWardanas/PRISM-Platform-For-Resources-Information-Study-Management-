@@ -1,7 +1,7 @@
 <header class="w-full fixed z-100 bg-[#112c66a8]">
     <nav class="flex justify-between items-center border-b-1 px-8 py-3">
         <div class="flex items-center">
-            <img src="{{ asset('images/logo-prism.png') }}" class="h-11">
+            <img src="{{ asset('images/PRISM-logo.png') }}" class="h-11">
         </div>
         <div class="flex items-center gap-20">
             <ul class="hidden lg:flex gap-20 font-bold text-xs">
