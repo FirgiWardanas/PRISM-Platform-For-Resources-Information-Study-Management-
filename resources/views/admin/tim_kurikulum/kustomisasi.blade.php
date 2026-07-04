@@ -1,4 +1,4 @@
-<x-layout.layout>
+﻿<x-layout.layout>
     <body class="font-montserrat bg-cover" style="background-image: url('{{ asset('images/image-7.png') }}');">
         {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
@@ -125,7 +125,7 @@
 
                             {{-- WARNA PRIMARY --}}
                             <div>
-                                <label class="font-semibold text-[#3307CC]">Warna Primary</label>
+                                <label class="font-semibold text-[#3307CC]">Warna Primer</label>
                                 <p class="text-sm text-[#3307CC] mb-2">Pilih warna primary program studi</p>
                                 <div class="flex items-center gap-3">
                                     <div id="preview-primary" class="w-10 h-10 rounded-lg border" style="background-color: {{ $prodi->kustomisasi?->primary_color ?? '#000000' }}"></div>
@@ -136,7 +136,7 @@
 
                             {{-- WARNA SECONDARY --}}
                             <div>
-                                <label class="font-semibold text-[#3307CC]">Warna Secondary</label>
+                                <label class="font-semibold text-[#3307CC]">Warna Sekunder</label>
                                 <p class="text-sm text-[#3307CC] mb-2">Pilih warna secondary program studi</p>
                                 <div class="flex items-center gap-3">
                                     <div id="preview-secondary" class="w-10 h-10 rounded-lg border" style="background-color: {{ $prodi->kustomisasi?->secondary_color ?? '#000000' }}"></div>
@@ -147,7 +147,7 @@
 
                             {{-- WARNA TERTIARY --}}
                             <div>
-                                <label class="font-semibold text-[#3307CC]">Warna Tertiary</label>
+                                <label class="font-semibold text-[#3307CC]">Warna Tersier</label>
                                 <p class="text-sm text-[#3307CC] mb-2">Pilih warna tertiary program studi</p>
                                 <div class="flex items-center gap-3">
                                     <div id="preview-tertiary" class="w-10 h-10 rounded-lg border" style="background-color: {{ $prodi->kustomisasi?->tertiary_color ?? '#000000' }}"></div>
@@ -159,7 +159,7 @@
                             {{-- WARNA QUATERNARY --}}
 
                             <div>
-                                <label class="font-semibold text-[#3307CC]">Warna Quaternary</label>
+                                <label class="font-semibold text-[#3307CC]">Warna Kuarter</label>
                                 <p class="text-sm text-[#3307CC] mb-2">Untuk warna button dan hover navbar</p>
                                 <div class="flex items-center gap-3">
                                     <div id="preview-quaternary" class="w-10 h-10 rounded-lg border" style="background-color: {{ $prodi->kustomisasi?->quaternary_color ?? '#000000' }}"></div>

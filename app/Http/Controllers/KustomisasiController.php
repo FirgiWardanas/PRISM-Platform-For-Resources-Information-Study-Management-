@@ -224,7 +224,9 @@ class KustomisasiController extends Controller
             return redirect()->back()
                 ->with('error', 'Data profil lulusan tidak dapat diubah saat status Program Studi dipublikasikan. Silakan ubah status menjadi Draft terlebih dahulu.');
         }
-
+        if ($profilLulusan->icon_lulusan) {
+        Storage::disk('public')->delete($profilLulusan->icon_lulusan);
+        }
         $profilLulusan->delete();
 
         return redirect()->back()

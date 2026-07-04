@@ -1,6 +1,6 @@
 <x-layout.layout>
 
-    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
@@ -19,6 +19,7 @@
                     Tambah +
                 </button>
 
+
             </div>
 
             <form method="GET" action="{{ route('admin.kelola-dosen.index') }}"
@@ -33,12 +34,12 @@
                         </svg>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama dosen..."
-                        class="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-300 rounded-2xl
-                                    bg-white focus:outline-none text-gray-700">
+                        class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
+                                    bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
                 </div>
 
                 <!-- Filter Prodi -->
-                <div class="flex-1 min-w-[160px] ">
+                <div class="flex-1 min-w-[160px]">
                     <select id="filterProdi" name="prodi">
                         <option value="">Semua Prodi</option>
 
@@ -51,11 +52,12 @@
                 </div>
 
                 <!-- Filter Jabatan -->
-                <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-gray-300
-                                rounded-2xl bg-white text-gray-700 focus:outline-none cursor-pointer">
+                <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
+                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
+                                focus:ring-blue-300 cursor-pointer">
                     <option value="">Semua Jabatan</option>
                     <option value="dosen" {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
-                    <option value="kaprodi" {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Kepala Program Studi
+                    <option value="kaprodi" {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi
                     </option>
                     <option value="laboran" {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
                 </select>
@@ -66,8 +68,8 @@
                 </button>
 
                 @if(request('search') || request('prodi') || request('jabatan'))
-                    <a href="{{ route('admin.kelola-dosen.index') }}"
-                        class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl bg-white hover:bg-blue-50 transition">
+                    <a href="{{ route('admin.kelola-dosen.index') }}" class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
+                                                                            bg-white hover:bg-blue-50 transition">
                         Reset
                     </a>
                 @endif
@@ -185,37 +187,38 @@
 
                 </div>
             </div>
+
         </main>
 
-        {{-- Modal Tambah --}}
-        <div id="modalTambahDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
-            <div class="relative bg-white w-[760px] max-h-[90vh] rounded-xl shadow-lg flex flex-col overflow-hidden">
+        {{-- Modal --}}
+        {{-- Tambah --}}
+        <div id="modalTambahDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
                 <!-- Tombol Close -->
                 <button onclick="closeTambahModal()"
-                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600 z-10">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mt-7 mb-4 shrink-0">
+                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
                     Tambah Dosen
                 </h2>
 
-                <form action="{{ route('admin.kelola-dosen.store') }}" method="POST" enctype="multipart/form-data"
-                    class="flex-1 overflow-y-auto px-8 pb-7 custom-scrollbar">
-
+                <form action="{{ route('admin.kelola-dosen.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="grid grid-cols-2 gap-x-8 gap-y-4">
 
+                        <!-- KIRI -->
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Nama</label>
+                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
                             <input type="text" name="nama_dosen" placeholder="Masukkan Nama"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Jabatan</label>
+                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select name="status_jabatan"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Status Jabatan--</option>
@@ -226,16 +229,15 @@
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">NIK</label>
+                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
                             <input type="text" name="NIK" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
-                        <div>
-                            <label for="id_prodi" class="text-[#325098] font-semibold text-sm block mb-1">Program
-                                Studi</label>
+                        <label for="id_prodi">
+                            <span>Program Studi</span>
                             <select name="id_prodi" id="id_prodi"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">Pilih Program Studi yang di kelola</option>
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
@@ -243,18 +245,18 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </label>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Email</label>
+                            <label class="text-[#325098] font-semibold text-sm">Email</label>
                             <input type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Pendidikan Terakhir</label>
+                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
                             <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Pendidikan Terakhir--</option>
                                 <option value="D3">D3</option>
                                 <option value="D4">D4</option>
@@ -265,16 +267,16 @@
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat Pendidikan</label>
-                            <div id="riwayat-container" class="flex flex-col gap-2 w-full">
-                                <div class="flex items-center gap-2 w-full">
-                                    <input type="text" name="riwayat_pendidikan[]" placeholder="Riwayat Pendidikan 1"
-                                        class="flex-1 min-w-0 px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                    <div class="w-5 h-5 shrink-0 invisible"></div>
-                                </div>
+                            <div class="flex items-center justify-between">
+                                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+                            </div>
+                            <div id="riwayat-container">
+                                <input type="text" name="riwayat_pendidikan[]" placeholder="Masukkan Riwayat Pendidikan"
+                                    class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                             </div>
                         </div>
 
+                        <!-- BIDANG SPESIALIS -->
                         <div>
                             <div class="flex items-center gap-2 mb-1">
                                 <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
@@ -283,33 +285,40 @@
                                     +
                                 </button>
                             </div>
-                            <div id="spesialis-container" class="flex flex-col gap-2 w-full">
-                                <div class="flex items-center gap-2 w-full">
+                            <div id="spesialis-container">
+                                <!-- Input default, tidak bisa dihapus -->
+                                <div class="flex items-center gap-2">
                                     <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
-                                        class="flex-1 min-w-0 px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                    <div class="w-5 h-5 shrink-0 invisible"></div>
+                                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex flex-col col-span-2 md:col-span-1">
-                            <label class="text-[#3B5ED7] font-semibold mb-1">Foto Dosen</label>
+                        <div class="flex flex-col">
+                            <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
+
                             <input type="file" name="foto_dosen" id="fotoDosen" class="hidden" accept=".png,.jpg,.jpeg">
 
+                            {{-- Tombol upload --}}
                             <label id="uploadBtn" for="fotoDosen"
-                                class="w-fit px-4 py-2 rounded-lg border border-[#123CFF] bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
+                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF]
+                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
                                 Upload foto
                             </label>
 
+                            {{-- Preview file --}}
                             <div id="previewFile"
-                                class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 focus:outline-none">
+                                class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 shadow focus:outline-none">
+
                                 <div>
                                     <h3 id="fileName" class="font-semibold text-sm"></h3>
                                     <p id="fileSize" class="text-gray-400 text-xs"></p>
                                 </div>
+
                                 <button type="button" id="hapusFoto">
                                     <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
                                 </button>
+
                             </div>
                         </div>
 
@@ -325,37 +334,36 @@
             </div>
         </div>
 
-        {{-- Modal Edit --}}
-        <div id="modalEditDosen" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-4">
-            <div class="relative bg-white w-[760px] max-h-[90vh] rounded-xl shadow-lg flex flex-col overflow-hidden">
+        {{-- Edit --}}
+        <div id="modalEditDosen" class="fixed inset-0 bg-black/60  hidden  items-center justify-center z-50">
+            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
 
                 <!-- Tombol Close -->
                 <button onclick="closeEditModal()"
-                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600 z-10">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mt-7 mb-4 shrink-0">
-                    Ubah Dosen
+                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
+                    Edit Dosen
                 </h2>
 
-                <form id="editDosenForm" method="POST" enctype="multipart/form-data"
-                    class="flex-1 overflow-y-auto px-8 pb-7 custom-scrollbar">
+                <form id="editDosenForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <div class="grid grid-cols-2 gap-x-8 gap-y-4">
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Nama</label>
+                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
                             <input id="edit_nama_dosen" type="text" name="nama_dosen" placeholder="Masukkan Nama"
                                 class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Jabatan</label>
+                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
                             <select id="edit_jabatan" name="status_jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow bg-white focus:outline-none">
+                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Status Jabatan--</option>
                                 <option>Kepala Program Studi</option>
                                 <option>Dosen</option>
@@ -364,36 +372,36 @@
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">NIK</label>
+                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
                             <input id="edit_nik" type="text" name="NIK" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
-                        <div>
-                            <label for="edit_id_prodi" class="text-[#325098] font-semibold text-sm block mb-1">Program
-                                Studi</label>
+                        <label for="edit_id_prodi">
+                            <span>Program Studi</span>
                             <select id="edit_id_prodi" name="id_prodi"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow bg-white focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">Pilih Program Studi yang di kelola</option>
+
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
                                         {{ $prodi->nama_prodi }}
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </label>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Email</label>
+                            <label class="text-[#325098] font-semibold text-sm">Email</label>
                             <input id="edit_email" type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Pendidikan Terakhir</label>
+                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
                             <select name="jenjang_pendidikan" id="edit_pendidikan_terakhir"
                                 onchange="aturRiwayatEdit(this.value)"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow bg-white focus:outline-none">
+                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Pendidikan Terakhir--</option>
                                 <option value="D3">D3</option>
                                 <option value="D4">D4</option>
@@ -404,8 +412,9 @@
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat Pendidikan</label>
-                            <div id="edit-riwayat-container" class="flex flex-col gap-2 w-full">
+                            <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+
+                            <div id="edit-riwayat-container">
                                 {{-- Diisi otomatis oleh JS --}}
                             </div>
                         </div>
@@ -413,21 +422,26 @@
                         <div>
                             <div class="flex items-center gap-2 mb-1">
                                 <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
+
                                 <button onclick="tambahSpesialisEdit()" type="button"
                                     class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
                                     +
                                 </button>
                             </div>
-                            <div id="edit-spesialis-container" class="flex flex-col gap-2 w-full">
+
+                            <div id="edit-spesialis-container">
                                 {{-- Diisi otomatis oleh JS --}}
                             </div>
                         </div>
 
                         <div class="flex flex-col">
-                            <label class="text-[#3B5ED7] font-semibold mb-1">Foto Dosen</label>
+                            <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
+
                             <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
+
                             <label for="editFotoDosen"
-                                class="w-fit px-4 py-2 rounded-lg border border-[#123CFF] bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all">
+                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
+                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
                                 Upload foto
                             </label>
                         </div>
@@ -436,13 +450,14 @@
 
                     <div class="flex justify-center mt-8">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
+                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
                         </button>
                     </div>
                 </form>
             </div>
         </div>
+        {{-- HAPUS --}}
 
         {{-- Hapus --}}
         @foreach ($dosens as $dosen)
@@ -458,5 +473,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
         <script src="{{ asset('js/dosen.js') }}"></script>
+
     </body>
 </x-layout.layout>

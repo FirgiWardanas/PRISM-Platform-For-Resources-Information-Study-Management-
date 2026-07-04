@@ -2,14 +2,7 @@
     -translate-x-[120%]
     transition-transform duration-300
     lg:translate-x-0">
-    
-    <button id="closeBtn" class="absolute right-3 top-4 h-7 w-7 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer flex items-center justify-center focus:outline-none lg:hidden">
-        <svg class="h-5 w-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-    </button>
-
-    <div class="mb-10 flex items-center gap-3 pr-6 lg:pr-0">
+    <div class="mb-10 flex items-center gap-3">
         <div class="h-12 w-20 rounded-full bg-cover bg-center">
             <img src="{{ asset('images/logo prism.png') }}" alt="">
         </div>
@@ -33,7 +26,6 @@
 
             <span>Beranda</span>
         </a>
-        
         {{-- program-studi --}}
         <a href="/admin/program-studi"
             class="{{ request()->is('admin/program-studi')
@@ -46,7 +38,6 @@
 
             <span>Program studi</span>
         </a>
-        
         {{-- akun --}}
         <a href="/admin/akun"
             class="{{ request()->is('admin/akun')
@@ -59,7 +50,6 @@
 
             <span>Akun</span>
         </a>
-        
         {{-- kelola-dosen --}}
         <a href="/admin/kelola-dosen"
             class="{{ request()->is('admin/kelola-dosen')
@@ -72,7 +62,6 @@
 
             <span>Dosen</span>
         </a>
-        
         {{-- profile --}}
         <a href="/admin/profile-ketua-jurusan"
             class="{{ request()->is('admin/profile-ketua-jurusan')

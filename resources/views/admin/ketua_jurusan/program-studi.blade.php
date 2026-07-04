@@ -1,6 +1,6 @@
 <x-layout.layout>
 
-    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
@@ -22,6 +22,18 @@
 
             <!-- LIST CARD -->
             <div class="space-y-4">
+                @if(session('pesan'))
+                    <div class="mb-4 rounded bg-green-100 p-3 text-green-700">
+                        {{ session('pesan') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="bg-red-100 text-red-700 p-3 rounded mb-3">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <form method="GET" action="{{ route('admin.program-studi.index') }}"
                     class="flex items-center gap-3 mb-5">
 
@@ -34,17 +46,18 @@
                         </span>
                         <input type="text" name="search" value="{{ $search }}"
                             placeholder="Cari prodi atau kode prodi..." class="w-full pl-9 pr-4 py-2.5 text-sm border border-purple-200 rounded-xl 
-                                bg-white focus:outline-none text-gray-700 shadow-sm">
+                                bg-white focus:outline-none focus:ring-2 focus:ring-purple-300 
+                                text-gray-700 shadow-sm">
                     </div>
 
                     <button type="submit" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white text-sm font-semibold rounded-xl 
-                            hover:opacity-90 transition shadow-sm cursor-pointer">
+                            hover:opacity-90 transition shadow-sm">
                         Cari
                     </button>
 
                     @if($search)
                         <a href="{{ route('admin.program-studi.index') }}" class="px-4 py-2.5 text-sm text-purple-600 border border-purple-200 
-                                            rounded-xl bg-white hover:bg-purple-50 transition">
+                                        rounded-xl bg-white hover:bg-purple-50 transition">
                             Reset
                         </a>
                     @endif
@@ -98,10 +111,10 @@
 
                                         <td class="px-4 py-3 flex gap-2">
                                             <button onclick="openEditModal(this,
-                                                '{{ $p->id_prodi }}',
-                                                '{{ $p->kode_prodi }}',
-                                                '{{ $p->nama_prodi }}',
-                                                '{{ $p->jenjang }}')"
+                                            '{{ $p->id_prodi }}',
+                                            '{{ $p->kode_prodi }}',
+                                            '{{ $p->nama_prodi }}',
+                                            '{{ $p->jenjang }}')"
                                                 class="text-blue-600 hover:bg-blue-50 p-1.5 rounded-lg cursor-pointer hover:scale-[1.025] transition-all">
 
                                                 <img src="{{ asset('images/icon-edit(ungu).svg') }}" class="w-5 h-5" alt="">
@@ -118,6 +131,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
 
                     {{-- Pagination --}}
@@ -125,14 +139,21 @@
                         {{ $prodi->withQueryString()->links() }}
                     </div>
                 </div>
+
             </div>
         </main>
 
-        <!--Modal tambah-->
+
+
+
+        </div>
+
+
+        <!--tambahModal-->
         <div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTambahModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -144,24 +165,30 @@
                     <form action="{{ route('admin.program-studi.store') }}" method="POST">
                         @csrf
 
+                        <!-- KODE -->
                         <label for="kode">
                             <span>Kode</span>
                             <input type="text" name="kode_prodi" id="Kode" value="{{ old('kode_prodi') }}"
                                 placeholder="Masukkan kode program studi"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none">
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
                         </label>
 
+                        <!-- NAMA -->
                         <label for="nama">
                             <span>Nama</span>
                             <input type="text" name="nama_prodi" id="nama" value="{{ old('nama_prodi') }}"
                                 placeholder="Masukkan nama Program Studi"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none">
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
                         </label>
 
+                        <!-- JENJANG -->
                         <label for="jenjang">
                             <span>Jenjang</span>
                             <select name="jenjang"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none">
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
                                 <option value="D4" {{ old('jenjang') == 'D4' ? 'selected' : '' }}>D4</option>
                                 <option value="D3" {{ old('jenjang') == 'D3' ? 'selected' : '' }}>D3</option>
                                 <option value="D2" {{ old('jenjang') == 'D2' ? 'selected' : '' }}>D2</option>
@@ -174,7 +201,7 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90 mt-4 cursor-pointer">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -183,11 +210,13 @@
             </div>
         </div>
 
-        <!--Modal Edit-->
+
+
+        <!--modalEdit-->
         <div id="modaledit" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeEditModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
                     ✕
                 </button>
 
@@ -202,17 +231,19 @@
                         <label for="email">
                             <span>Kode</span>
                             <input type="text" id="editkode" name="kode_prodi" placeholder="Masukkan kode program studi"
-                                class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none">
+                                class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
                         </label>
                         <label for="nama">
                             <span>Nama</span>
                             <input type="text" id="editnama" name="nama_prodi" placeholder="Masukkan nama Program Studi"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none">
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                >
                         </label>
                         <label for="jenjang">
                             <span>Jenjang</span>
                             <select id="editjenjang" name="jenjang"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
                                 id="editjenjang">
                                 <option value="D4">D4</option>
                                 <option value="D3">D3</option>
@@ -222,15 +253,16 @@
 
                             <div class="flex justify-center">
                                 <button type="submit"
-                                    class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer mt-4">
+                                    class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
                                     Simpan
                                 </button>
                             </div>
-                        </label>
                     </form>
+
                 </div>
             </div>
         </div>
+
 
         {{-- DELETE --}}
         @foreach ($prodi as $p)
@@ -243,7 +275,7 @@
 
         @endforeach
 
-        <script src="{{ asset('js/program-studi.js') }}"></script>
-    </body>
 
+    </body>
+    <script src="{{ asset('js/program-studi.js') }}"></script>
 </x-layout.layout>
