@@ -21,20 +21,14 @@ function toggleCard(el) {
     }
 }
 
-// =====================
 // JUMLAH RIWAYAT
-// =====================
-
 function getJumlahRiwayat(pendidikan) {
     if (pendidikan === 'S2') return 2;
     if (pendidikan === 'S3') return 3;
     return 1;
 }
 
-// =====================
 // MODAL TAMBAH
-// =====================
-
 function openTambahModal() {
     const modal = document.getElementById('modalTambahDosen');
     modal.classList.remove('hidden');
@@ -56,28 +50,40 @@ function aturRiwayat() {
     if (!pendidikan) return;
 
     const jumlah = getJumlahRiwayat(pendidikan);
+    let htmlContent = '';
 
     for (let i = 1; i <= jumlah; i++) {
-        const input = document.createElement('input');
-
-        input.type = 'text';
-        input.name = 'riwayat_pendidikan[]';
-        input.placeholder = 'Riwayat Pendidikan ' + i;
-        input.className = 'w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none mt-2';
-
-        container.appendChild(input);
+        htmlContent += `
+            <div class="flex items-center gap-2 w-full">
+                <input type="text" 
+                       name="riwayat_pendidikan[]" 
+                       placeholder="Riwayat Pendidikan ${i}" 
+                       class="flex-1 min-w-0 px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                <div class="w-5 h-5 shrink-0 invisible"></div>
+            </div>
+        `;
     }
+
+    container.innerHTML = htmlContent;
 }
 
 function tambahSpesialis() {
     const container = document.getElementById('spesialis-container');
-    container.appendChild(buatRowSpesialis(''));
+
+    const htmlBaru = `
+        <div class="flex items-center gap-2 w-full">
+            <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
+                class="flex-1 min-w-0 px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+            <button type="button" onclick="this.parentElement.remove()" class="shrink-0 flex items-center justify-center">
+                <img src="/images/icon-hapus (merah).svg" class="w-5 h-5 object-contain" alt="Hapus">
+            </button>
+        </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', htmlBaru);
 }
 
-// =====================
 // MODAL EDIT
-// =====================
-
 document.addEventListener('click', function (e) {
     const btn = e.target.closest('.btn-edit');
     if (!btn) return;
@@ -151,10 +157,7 @@ function tambahSpesialisEdit() {
     container.appendChild(buatRowSpesialis(''));
 }
 
-// =====================
 // HELPER ROW
-// =====================
-
 function buatRowRiwayat(value = '', id = '') {
     const row = document.createElement('div');
     row.className = 'mt-2';
@@ -207,11 +210,11 @@ function hapusData(id_dosen) {
     });
 }
 
-
-
+//js sidebbar responsive
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('closeBtn'); 
 
 menuBtn.addEventListener('click', () => {
     sidebar.classList.toggle('-translate-x-[120%]');
@@ -223,6 +226,14 @@ overlay.addEventListener('click', () => {
     overlay.classList.add('hidden');
 });
 
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-[120%]');
+        overlay.classList.add('hidden');
+    });
+}
+
+//
 const profileBtn = document.getElementById('profileBtn');
 const profileCard = document.getElementById('profileCard');
 
@@ -276,7 +287,7 @@ hapus.addEventListener('click', function () {
 
 });
 
-//library select2
+//tom select
 const ts = new TomSelect("#filterProdi", {
     create: false,
     maxItems: 1,

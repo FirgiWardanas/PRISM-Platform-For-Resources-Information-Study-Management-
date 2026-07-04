@@ -30,86 +30,105 @@
             width: 100%;
         }
 
-        /* Control */
+        /* Control (Kondisi Normal) */
         .ts-wrapper.single .ts-control {
+            /* Gunakan min-height saja, hapus height mati agar flexbox bisa bekerja normal */
             min-height: 42px !important;
-            height: 42px !important;
 
-            border: 1px solid #bfdbfe !important;
-            border-radius: 18px !important;
-
+            border: 1px solid #d1d5db !important;
+            /* gray-300 */
+            border-radius: 9999px !important;
+            /* Pakai pill/capsule bulat penuh agar senada dengan input kirimu */
             background: #fff !important;
-
             box-shadow: none !important;
 
-            padding: 0 12px !important;
+            /* Berikan padding kanan agak luas (pr-10 / 40px) supaya teks TIDAK MENABRAK panah */
+            padding: 0 40px 0 16px !important;
 
-            display: flex;
-            align-items: center;
-
+            display: flex !important;
+            align-items: center !important;
+            position: relative;
             transition: .2s;
         }
 
         /* Hover */
         .ts-wrapper.single .ts-control:hover {
-            border-color: #93c5fd !important;
+            border-color: #9ca3af !important;
+            /* gray-400 */
         }
 
-        /* Focus */
+        /* Focus (Pas Dropdown Kebuka) */
         .ts-wrapper.focus .ts-control {
-            border-color: #60a5fa !important;
-            box-shadow: 0 0 0 2px rgba(96, 165, 250, .15) !important;
+            outline: none !important;
+            border-color: #93c5fd !important;
+            /* Blue-300 */
+            box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.25) !important;
+            /* Ring focus khas Tailwind */
         }
 
-        /* Tulisan */
-        .ts-control>.item,
-        .ts-control>input {
-            font-size: 15px;
-            color: #374151;
-            line-height: 1;
+        /* Memperbaiki posisi teks terpilih & input pencarian internal Tom Select */
+        .ts-wrapper.single .ts-control .item,
+        .ts-wrapper.single .ts-control input {
+            font-size: 14px !important;
+            color: #374151 !important;
+            /* gray-700 */
+            line-height: 1.5 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            /* Mencegah teks patah jadi 2 baris, potong pakai titik-titik jika terlalu panjang */
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
         }
 
-        /* Placeholder */
+        /* Placeholder pencarian */
         .ts-control>input::placeholder {
-            color: #9ca3af;
+            color: #9ca3af !important;
         }
 
-        /* Panah */
+        /* Menyelamatkan Ikon Panah Dropdown agar presisi di kanan tengah */
         .ts-wrapper.single .ts-control::after {
-            border-width: 5px 5px 0 5px;
-            border-color: #6b7280 transparent transparent transparent;
-            right: 16px;
+            content: ' ' !important;
+            display: block !important;
+            position: absolute !important;
+            top: 50% !important;
+            right: 16px !important;
+            /* Jarak pas dari dinding kanan */
+            transform: translateY(-50%) !important;
+            /* Sempurna di tengah vertikal */
+
+            border-width: 5px 5px 0 5px !important;
+            border-color: #6b7280 transparent transparent transparent !important;
+            width: 0 !important;
+            height: 0 !important;
         }
 
-        /* Dropdown */
+        /* Dropdown Kotak Pilihan di Bawahnya */
         .ts-dropdown {
-            margin-top: 6px;
-
-            border: 1px solid #bfdbfe !important;
-            border-radius: 18px !important;
-
-            overflow: hidden;
-
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            margin-top: 6px !important;
+            border: 1px solid #e5e7eb !important;
+            /* gray-200 */
+            border-radius: 14px !important;
+            overflow: hidden !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+            z-index: 50 !important;
         }
 
-        /* List */
+        /* Gaya untuk baris list pilihan di dalam dropdown */
         .ts-dropdown .option {
-            padding: 11px 15px;
-            font-size: 15px;
+            padding: 10px 16px !important;
+            font-size: 14px !important;
+            color: #374151 !important;
+            cursor: pointer;
         }
 
-        /* Hover option */
-        .ts-dropdown .option.active {
-            background: #2563eb;
-            color: #fff;
+        /* Efek saat list di-hover kursor */
+        .ts-dropdown .active {
+            background-color: #f3f4f6 !important;
+            /* gray-100 */
+            color: #111827 !important;
         }
-
-        /* Selected */
-        .ts-dropdown .selected {
-            background: #eff6ff;
-        }
-        
     </style>
 
 </head>

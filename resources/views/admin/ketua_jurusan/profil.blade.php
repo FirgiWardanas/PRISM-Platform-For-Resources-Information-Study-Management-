@@ -1,6 +1,6 @@
 <x-layout.layout>
 
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         {{-- sidebar --}}
         <x-admin.sidebar></x-admin.sidebar>
@@ -16,12 +16,10 @@
 
             <div class="relative rounded-2xl bg-white p-6 md:p-10 shadow-xl min-h-[300px] border border-gray-300">
 
-                {{-- tombol edit --}}
                 <button onclick="openModal()" class="absolute top-5 right-5 btn-img cursor-pointer">
                     <img src="{{ asset('images/icon-edit(hitam).svg') }}" alt="icon" width="20" height="20" hover:scale-[1.025] transition-all hover:opacity-90>
                 </button>
 
-                {{-- Baris atas --}}
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <img src="{{ asset('images/Profile-Circle.png') }}" alt="profil"
                         class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full">
@@ -34,27 +32,22 @@
                     </div>
                 </div>
 
-                {{-- Baris bawah --}}
                 <div class="mt-8 flex flex-col gap-3 md:flex-row md:justify-between md:items-end">
-
-
 
                     <form method="POST" action="{{ route('logout') }}" class="md:ml-auto">
                         @csrf
                         <button type="submit"
                             class="w-full md:w-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] px-4 py-3 text-white shadow hover:scale-[1.025] transition-all hover:opacity-90 flex items-center gap-2 cursor-pointer">
-                            Logout <img src="{{ asset('images/icon-keluar.svg') }}" class="w-4 h-4">
+                            Keluar <img src="{{ asset('images/icon-keluar.svg') }}" class="w-4 h-4">
                         </button>
                     </form>
-
                 </div>
-
             </div>
         </main>
 
         <!-- Modal Edit Profil -->
         <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
-            <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+            <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative **:focus:outline-none">
                 <button onclick="closeModal()"
                     class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
                 <h2 class="mb-6 text-center text-lg font-semibold text-[#1B4597]">Update Profile</h2>
@@ -95,86 +88,14 @@
 
                     <div class="flex justify-center">
                         <button type="submit"
-                            class="w-40 rounded-xl bg-gradient-to-r bg-gradient-to-r from-[#0284FD] to-[#3207CC]  py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                            class="w-40 rounded-xl bg-gradient-to-r bg-gradient-to-r from-[#0284FD] to-[#3207CC]  py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90 mt-4">
                             Simpan
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        <script src="{{ asset('js/profil-ketuajurusan.js') }}"></script>
     </body>
-    
-    <script>
-
-
-        function toggleModal(id, show) {
-            const el = document.getElementById(id);
-            if (show) { el.classList.remove('hidden'); el.classList.add('flex'); }
-            else { el.classList.add('hidden'); el.classList.remove('flex'); }
-        }
-
-        function openModal() { toggleModal('modal', true); }
-        function closeModal() { toggleModal('modal', false); }
-
-
-
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-[120%]');
-            overlay.classList.toggle('hidden');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-[120%]');
-            overlay.classList.add('hidden');
-        });
-
-
-        function toggleProfileCard() {
-            document
-                .getElementById('profileCard')
-                .classList
-                .toggle('hidden');
-        }
-
-
-        const profileBtn = document.getElementById('profileBtn');
-        const profileCard = document.getElementById('profileCard');
-
-        profileBtn.addEventListener('click', function (e) {
-
-            e.stopPropagation();
-
-            profileCard.classList.toggle('hidden');
-
-        });
-
-        profileCard.addEventListener('click', function (e) {
-
-            e.stopPropagation();
-
-        });
-
-        document.addEventListener('click', function () {
-
-            profileCard.classList.add('hidden');
-
-        });
-
-    </script>
 </x-layout.layout>
