@@ -80,7 +80,7 @@
         <header class="w-full fixed z-50 navbar-bg">
             <nav class="flex justify-between items-center px-8 py-3">
                 <div class="flex items-center">
-                    <img src="{{ asset('images/logo-prism.png') }}" class="h-11">
+                    <img src="{{ asset('images/PRISM-logo.png') }}" class="h-11">
                 </div>
                 <div class="flex items-center gap-20">
                     <ul class="hidden lg:flex gap-20 font-bold text-xs">
@@ -395,9 +395,9 @@
 
         <div class="relative z-10 max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
             <div>
-                <img src="{{ asset('images/logo-prism.png') }}">
+                <img src="{{ asset('images/PRISM-logo.png') }}">
                 <div class="w-full border-b border-white/50 mb-4"></div>
-                <p class="text-sm text-white/80 mb-4">Platform for Resource & Study Management</p>
+                <p class="text-sm text-white/80 mb-4">Platform for Resource & Information Study Management</p>
                 <div class="flex items-center gap-2">
                     <img src="{{ asset('images/logo-ig.png') }}" class="w-6">
                     <p class="text-sm">@pbl.trpl215</p>
@@ -462,7 +462,7 @@
         </div>
 
         <div class="relative z-10 copyright-bg text-center text-sm py-2 bg-gradient-to-r from-[#470398] via-[#1F41A9] to-[#00A5FE]">
-            ©2026 Platform for Resource & Study Management
+            ©2026 Platform for Resource & Information Study Management
         </div>
     </footer>
 
