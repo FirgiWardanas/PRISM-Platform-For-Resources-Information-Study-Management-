@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 class DetailKurikulumController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
+    /*   
     | STORE — Tambah matakuliah ke semester
-    |--------------------------------------------------------------------------
     */
     public function store(StoreDetailKurikulumRequest $request, string $kurikulumId): RedirectResponse
     {
@@ -83,9 +81,7 @@ class DetailKurikulumController extends Controller
     }
 
     /*
-    |--------------------------------------------------------------------------
     | UPDATE — Edit data matakuliah
-    |--------------------------------------------------------------------------
     */
     public function update(UpdateDetailKurikulumRequest $request, string $detailId): RedirectResponse
     {
@@ -119,9 +115,7 @@ class DetailKurikulumController extends Controller
     }
 
     /*
-    |--------------------------------------------------------------------------
     | UPDATE SILABUS — Edit data silabus dari modal silabus
-    |--------------------------------------------------------------------------
     */
     public function updateSilabus(Request $request, string $detailId): RedirectResponse
     {
@@ -166,9 +160,7 @@ class DetailKurikulumController extends Controller
     }
 
     /*
-    |--------------------------------------------------------------------------
     | DESTROY FILE RPS — Hapus hanya file RPS, bukan row-nya
-    |--------------------------------------------------------------------------
     */
     public function destroyFileRps(string $detailId): RedirectResponse
     {
@@ -183,9 +175,7 @@ class DetailKurikulumController extends Controller
     }
 
     /*
-    |--------------------------------------------------------------------------
     | DESTROY — Hapus matakuliah dari kurikulum (file RPS ikut terhapus)
-    |--------------------------------------------------------------------------
     */
     public function destroy(string $detailId): RedirectResponse
     {

@@ -52,9 +52,7 @@ class KustomisasiController extends Controller
         ]);
 
         /*
-        |--------------------------------------------------------------------------
         | Jika status saat ini Published
-        |--------------------------------------------------------------------------
         */
         if (
             $prodi->status_prodi === 'published' &&
@@ -67,9 +65,7 @@ class KustomisasiController extends Controller
         }
 
         /*
-        |--------------------------------------------------------------------------
         | Validasi tambahan saat Publish
-        |--------------------------------------------------------------------------
         */
         if ($request->status_prodi === 'published') {
 
@@ -106,9 +102,7 @@ class KustomisasiController extends Controller
         }
 
         /*
-        |--------------------------------------------------------------------------
         | Simpan Kustomisasi
-        |--------------------------------------------------------------------------
         */
         Kustomisasi::updateOrCreate(
             ['id_prodi' => $idProdi],

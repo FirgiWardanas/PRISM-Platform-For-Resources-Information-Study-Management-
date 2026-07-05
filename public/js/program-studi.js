@@ -13,8 +13,7 @@ function closeTambahModal() {
     modal.classList.remove("flex");
 }
 
-// ❌ HAPUS saveTambah()
-// karena submit langsung ke backend
+
 
 
 // =======================
@@ -41,8 +40,6 @@ function closeEditModal() {
     modal.classList.remove("flex");
 }
 
-// ❌ HAPUS saveEdit()
-// karena update dilakukan oleh backend
 
 
 // =======================
