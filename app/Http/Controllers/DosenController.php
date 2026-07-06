@@ -124,7 +124,7 @@ public function store(Request $request)
                 ]);
             }
 
-        }); // akhir DB::transaction — jika ada Exception di sini, semua INSERT di-rollback
+        }); 
 
         return redirect()
             ->back()
@@ -270,7 +270,7 @@ public function update(Request $request, $id)
                 ]);
             }
 
-        }); // akhir DB::transaction — jika gagal, semua perubahan DB di-rollback
+        });
 
         // Transaksi berhasil → hapus foto lama jika ada foto baru
         if ($hasFile && $pathLama) {

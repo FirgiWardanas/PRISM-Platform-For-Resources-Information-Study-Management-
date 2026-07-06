@@ -59,12 +59,11 @@ class KurikulumController extends Controller
         try {
             DB::transaction(function () use ($request, $idProdi, $totalSemester) {
 
-                // UPDATE semua kurikulum prodi ini jadi tidak aktif
+
                 Kurikulum::where('id_prodi', $idProdi)
                     ->update(['status_kurikulum' => 'tidak aktif']);
 
-                // CREATE kurikulum baru sebagai aktif
-                // Jika gagal di sini, UPDATE di atas ikut di-rollback
+
                 Kurikulum::create([
                     'id_prodi'         => $idProdi,
                     'nama_kurikulum'   => $request->nama_kurikulum,
@@ -73,7 +72,7 @@ class KurikulumController extends Controller
                     'status_kurikulum' => 'aktif',
                 ]);
 
-            }); // akhir DB::transaction — UPDATE + CREATE bersifat atomik
+            }); 
 
             return redirect()->back()
                 ->with('success', 'Kurikulum berhasil ditambahkan dan berstatus Aktif.');
@@ -133,17 +132,16 @@ class KurikulumController extends Controller
 
             DB::transaction(function () use ($kurikulum, $idProdi, $request) {
 
-                // Jika status baru = aktif, nonaktifkan semua kurikulum lain prodi ini dulu
+  
                 if ($request->status_kurikulum === 'aktif') {
                     Kurikulum::where('id_prodi', $idProdi)
                         ->update(['status_kurikulum' => 'tidak aktif']);
                 }
 
-                // Simpan perubahan kurikulum ini
-                // Jika gagal, UPDATE status di atas ikut di-rollback
+
                 $kurikulum->save();
 
-            }); // akhir DB::transaction — UPDATE status + SAVE bersifat atomik
+            }); 
 
             return redirect()->back()->with('success', 'Kurikulum berhasil diperbarui.');
 

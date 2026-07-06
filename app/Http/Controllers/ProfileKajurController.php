@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\TransferConfirmationMail;
-use App\Models\PendingTransfer;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class ProfileKajurController extends Controller
 {
@@ -17,7 +14,7 @@ class ProfileKajurController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('admin.ketua_jurusan.profil', compact('user'));
+        return view('admin.ketua_jurusan.profile-jurusan', compact('user'));
     }
 
 
@@ -27,7 +24,7 @@ class ProfileKajurController extends Controller
     $user = User::findOrFail($id);
 
     return view(
-        'admin.ketua_jurusan.profil',
+        'admin.ketua_jurusan.profile-jurusan',
         compact('user')
     );
 }
