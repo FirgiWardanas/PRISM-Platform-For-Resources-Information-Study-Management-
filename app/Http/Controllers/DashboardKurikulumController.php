@@ -16,8 +16,6 @@ class DashboardKurikulumController extends Controller
 
         // ── Stat Cards ──────────────────────────────────────────────
 
-        $jumlahProdi = Prodi::count();
-
  
         $jumlahKurikulum = Kurikulum::where('id_prodi', $idProdi)->count();
 
@@ -72,7 +70,6 @@ class DashboardKurikulumController extends Controller
         }
 
         return view('admin.tim_kurikulum.dashboard', compact(
-        'jumlahProdi',
         'jumlahKurikulum',
         'jumlahMatakuliah',      
         'jumlahMatakuliahAktif', 

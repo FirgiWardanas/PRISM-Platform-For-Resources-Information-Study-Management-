@@ -33,10 +33,6 @@ Route::middleware(['auth', 'role:ketua_jurusan'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::resource('/ketua-jurusan', DashboardJurusanController::class);
-        Route::resource('/program-studi', ProgramStudiController::class);
-        Route::resource('/akun', AkunController::class);
-        Route::resource('/profile-ketua-jurusan', ProfileKajurController::class);
         Route::resource('/kelola-dosen', DosenController::class);
     });
 
