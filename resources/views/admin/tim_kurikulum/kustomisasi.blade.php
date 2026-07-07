@@ -12,9 +12,7 @@
                 <div class="font-bold">kustomisasi</div>
             </x-admin.header_kurikulum>
 
-           
-
-
+        
 
             <div class="overflow-y-auto flex-1 pr-2">
                 {{-- FORM KUSTOMISASI --}}

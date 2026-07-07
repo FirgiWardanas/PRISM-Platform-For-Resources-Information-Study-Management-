@@ -13,7 +13,7 @@ class ProfileTimController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('admin.tim_kurikulum.profile', compact('user'));
+        return view('admin.tim_kurikulum.profile-kurikulum', compact('user'));
     }
 
 
