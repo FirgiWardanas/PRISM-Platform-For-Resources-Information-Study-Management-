@@ -26,7 +26,7 @@ Route::get('/admin/login', [LoginController::class, 'index'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'store'])->name('login.store');
 Route::post('/admin/logout', [LoginController::class, 'destroy'])->name('logout');
 
-// Halaman dinamis prodi
+
 Route::get('/prodi/{kode}', [TampilanProgramStudiController::class, 'show'])->name('prodi.show');
 
 Route::middleware(['auth', 'role:ketua_jurusan'])
@@ -70,8 +70,4 @@ Route::middleware(['auth', 'role:tim_kurikulum'])
             ->name('profil-lulusan.destroy');
     });
 
-
-    Route::prefix('transfer')->name('transfer.')->group(function () {
-    Route::get('confirm/{token}',  [ProfileKajurController::class, 'showConfirmPage'])->name('confirm');
-    Route::post('confirm/{token}', [ProfileKajurController::class, 'processConfirm'])->name('confirm.process');
-});
+    ;

@@ -1,5 +1,5 @@
 ﻿<x-layout.layout>
-    
+
     <x-slot:title>Kustomisasi</x-slot:title>
 
     <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"

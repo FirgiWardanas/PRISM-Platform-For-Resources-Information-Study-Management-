@@ -41,26 +41,32 @@ function closeTambahModal() {
     modal.classList.remove('flex');
 }
 
-function aturRiwayat() {
-    const pendidikan = document.getElementById('pendidikan_terakhir').value;
+function tambahRiwayat() {
     const container = document.getElementById('riwayat-container');
+    container.appendChild(buatRowRiwayatTambah());
+}
 
-    container.innerHTML = '';
+function buatRowRiwayat(value = '', id = '') {
+    const row = document.createElement('div');
+    row.className = 'flex items-center gap-2 mt-2';
 
-    if (!pendidikan) return;
+    row.innerHTML = `
+        <input type="hidden" name="id_riwayat[]" value="${id}">
 
-    const jumlah = getJumlahRiwayat(pendidikan);
+        <input type="text"
+            name="riwayat_pendidikan[]"
+            value="${value}"
+            placeholder="Masukkan Riwayat Pendidikan"
+            class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
 
-    for (let i = 1; i <= jumlah; i++) {
-        const input = document.createElement('input');
+        <button type="button"
+            onclick="this.parentElement.remove()"
+            class="flex-shrink-0 bg-red-100 hover:bg-red-200 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">
+            ✕
+        </button>
+    `;
 
-        input.type = 'text';
-        input.name = 'riwayat_pendidikan[]';
-        input.placeholder = 'Riwayat Pendidikan ' + i;
-        input.className = 'w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none mt-2';
-
-        container.appendChild(input);
-    }
+    return row;
 }
 
 function tambahSpesialis() {
@@ -148,6 +154,7 @@ document.addEventListener('click', function (e) {
         aturRiwayatEdit(pendidikan, []);
     }
 
+
     try {
         const bidangSpesialis = JSON.parse(btn.dataset.spesialis || '[]');
         const spesialisContainer = document.getElementById('edit-spesialis-container');
@@ -170,18 +177,14 @@ function aturRiwayatEdit(pendidikan, existingData = []) {
 
     container.innerHTML = '';
 
-    if (!pendidikan) return;
-
-    const jumlah = getJumlahRiwayat(pendidikan);
-
-    for (let i = 0; i < jumlah; i++) {
-        const idRiwayat = existingData[i]?.id_riwayat_pendidikan ?? '';
-        const value = existingData[i]?.deskripsi_riwayat ?? '';
-
+    existingData.forEach(item => {
         container.appendChild(
-            buatRowRiwayat(value, idRiwayat)
+            buatRowRiwayat(
+                item.deskripsi_riwayat ?? '',
+                item.id_riwayat_pendidikan ?? ''
+            )
         );
-    }
+    });
 }
 
 function closeEditModal() {
