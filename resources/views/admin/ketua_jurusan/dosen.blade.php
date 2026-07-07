@@ -255,7 +255,7 @@
 
                         <div>
                             <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
+                            <select name="pendidikan_terakhir" id="pendidikan_terakhir"
                                 class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Pendidikan Terakhir--</option>
                                 <option value="D3">D3</option>
@@ -267,12 +267,21 @@
                         </div>
 
                         <div>
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 mb-1">
                                 <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+
+                                <button onclick="tambahRiwayat()" type="button"
+                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
+                                    +
+                                </button>
                             </div>
+
                             <div id="riwayat-container">
-                                <input type="text" name="riwayat_pendidikan[]" placeholder="Masukkan Riwayat Pendidikan"
-                                    class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                <div class="flex items-center gap-2">
+                                    <input type="text" name="riwayat_pendidikan[]"
+                                        placeholder="Masukkan Riwayat Pendidikan"
+                                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                </div>
                             </div>
                         </div>
 
@@ -400,7 +409,6 @@
                         <div>
                             <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
                             <select name="jenjang_pendidikan" id="edit_pendidikan_terakhir"
-                                onchange="aturRiwayatEdit(this.value)"
                                 class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 <option value="">--Pilih Pendidikan Terakhir--</option>
                                 <option value="D3">D3</option>
@@ -412,14 +420,24 @@
                         </div>
 
                         <div>
-                            <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+                            <div class="flex items-center gap-2 mb-1">
+                                <label class="text-[#325098] font-semibold text-sm">
+                                    Riwayat Pendidikan
+                                </label>
+
+                                <button type="button"
+                                    onclick="tambahRiwayatEdit()"
+                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
+                                    +
+                                </button>
+                            </div>
 
                             <div id="edit-riwayat-container">
                                 {{-- Diisi otomatis oleh JS --}}
                             </div>
                         </div>
 
-                        <div>
+                        <div>       
                             <div class="flex items-center gap-2 mb-1">
                                 <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
 
