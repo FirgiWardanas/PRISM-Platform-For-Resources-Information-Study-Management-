@@ -1,6 +1,6 @@
 <x-layout.layout>
-
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
+    <x-slot:title>Beranda</x-slot:title>
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
@@ -41,7 +41,6 @@
                             class="h-[120px] md:h-[190px] object-contain">
 
                     </div>
-
                 </div>
 
                 <!-- CARD -->
@@ -74,11 +73,8 @@
                                 <h1 class="text-3xl md:text-[40px] font-extrabold text-[#044894] leading-none">
                                     {{ $jumlah_prodi }}
                                 </h1>
-
                             </div>
-
                         </div>
-
                     </div>
 
                     <!-- KURIKULUM -->
@@ -96,7 +92,6 @@
                                 flex items-center justify-center text-2xl">
 
                                 <img src="{{ asset('images/logo-dosen(ungu).png') }}" alt="">
-
                             </div>
 
                             <div>
@@ -110,9 +105,7 @@
                                 </h1>
 
                             </div>
-
                         </div>
-
                     </div>
 
                     <!-- MATAKULIAH -->
@@ -142,13 +135,9 @@
                                 <h1 class="text-3xl md:text-[40px] font-extrabold text-[#A900C7] leading-none">
                                     {{ $jumlah_akun }}
                                 </h1>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <!-- GRAFIK KURIKULUM -->
@@ -175,13 +164,9 @@
                                         class="text-[8px] font-bold uppercase tracking-widest [writing-mode:vertical-lr] rotate-180">
 
                                         Program Studi
-
                                     </span>
-
                                 </div>
-
                             </div>
-
 
                             <!-- CHART -->
                             <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
@@ -200,119 +185,22 @@
                                 <div id="scale-numbers"
                                     class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </main>
-        </div>
 
         <script>
-            const dataProdi = @json($Prodis->map(function ($prodi) {
+            window.dataProdi = @json($Prodis->map(function ($prodi) {
                 return [
                     'prodi' => $prodi->kode_prodi,
                     'jumlah' => $prodi->kurikulums->count(),
                 ];
             }));
 
-            const gradients = [
-                'from-[#E555FF] to-[#A900C7]',
-                'from-[#9A55FF] to-[#7928CA]',
-                'from-[#9A55FF] to-[#6B00FF]',
-                'from-[#7928CA] to-[#5100C6]',
-                'from-[#4364F7] to-[#3307CC]',
-                'from-[#067AFA] to-[#044894]',
-                'from-[#0088FF] to-[#0052D4]',
-            ];
-
-            const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
-            const offsetLeft = 48; // w-10 (40px) + gap-2 (8px)
-
-            // isi bar
-            const prodiContainer = document.getElementById("prodi-bars-container");
-            dataProdi.forEach((item, index) => {
-                const persen = Math.round((item.jumlah / maxJumlah) * 100);
-                const gradient = gradients[index % gradients.length];
-
-                const rowGroup = document.createElement("div");
-                rowGroup.className = "flex items-center w-full text-[9px] font-bold text-gray-700 gap-2";
-                rowGroup.innerHTML = `
-            <span class="w-10 text-left text-gray-800 shrink-0">${item.prodi}</span>
-            <div class="flex-1 bg-gray-100 h-3 rounded-full relative">
-                <div class="bg-gradient-to-r ${gradient} h-full rounded-full transition-all duration-500"
-                    style="width: ${persen}%"></div>
-            </div>
-        `;
-                prodiContainer.appendChild(rowGroup);
-            });
-
-            // garis skala + angka bawah
-            const scaleContainer = document.getElementById("scale-container");
-            const scaleNumbers = document.getElementById("scale-numbers");
-
-            for (let i = 0; i <= maxJumlah; i++) {
-                const persen = (i / maxJumlah) * 100;
-                const leftPos = `calc(${offsetLeft}px + ${persen}% * (100% - ${offsetLeft}px) / 100%)`;
-
-                // garis vertikal
-                const line = document.createElement("div");
-                line.className = "absolute top-0 bottom-0 border-r border-gray-100";
-                line.style.left = leftPos;
-                scaleContainer.appendChild(line);
-
-                // angka bawah
-                const num = document.createElement("div");
-                num.className = "absolute text-[9px] font-bold text-gray-400";
-                num.style.left = leftPos;
-                num.innerHTML = `<span class="-translate-x-1/2 block">${i}</span>`;
-                scaleNumbers.appendChild(num);
-            }
-            const menuBtn = document.getElementById('menuBtn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-
-            menuBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('-translate-x-[120%]');
-                overlay.classList.toggle('hidden');
-            });
-
-            overlay.addEventListener('click', () => {
-                sidebar.classList.add('-translate-x-[120%]');
-                overlay.classList.add('hidden');
-            });
-
-            const profileBtn = document.getElementById('profileBtn');
-            const profileCard = document.getElementById('profileCard');
-
-            profileBtn.addEventListener('click', function (e) {
-
-                e.stopPropagation();
-
-                profileCard.classList.toggle('hidden');
-
-            });
-
-            profileCard.addEventListener('click', function (e) {
-
-                e.stopPropagation();
-
-            });
-
-            document.addEventListener('click', function () {
-
-                profileCard.classList.add('hidden');
-
-            });
-
         </script>
-
-
+        <script src="{{ asset('js/dashboard_ketua-jurusan.js') }}"></script>
     </body>
 </x-layout.layout>

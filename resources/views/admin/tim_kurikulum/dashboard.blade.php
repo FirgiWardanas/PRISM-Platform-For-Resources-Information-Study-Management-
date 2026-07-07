@@ -1,6 +1,7 @@
 <x-layout.layout>
-
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat h-screen overflow-hidden"
+    <x-slot:title>Beranda</x-slot:title>
+    
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}');">
         {{-- sidebbar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
@@ -12,31 +13,30 @@
             {{-- header --}}
             <x-admin.header_kurikulum>
                 <div class="font-bold">Beranda</div>
-            </x-admin.header-kurikulum>
+                </x-admin.header-kurikulum>
 
                 <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 
-                    {{-- ── WELCOME BANNER ── --}}
                     <div class="relative bg-gradient-to-r from-[#AD00F1] via-[#3700E9] to-[#009DFF]
-                        text-white px-7 rounded-[24px] overflow-hidden
-                            flex flex-col md:flex-row justify-center md:justify-between
-                            min-h-[170px] p-5 md:px-7">
-                        <div class="space-y-1 z-10 pr-[260px]">
+                    text-white px-7 rounded-[24px] shadow-sm overflow-hidden
+                    flex flex-col md:flex-row items-center min-h-[170px] p-6">
+
+                        <div class="space-y-1 z-10 md:pr-[260px]">
                             <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
                                 HELLO {{ strtoupper(auth()->user()->nama) }}!
                             </p>
-                            <h2 class="text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
+                            <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
+
                             <p class="text-[11px] pt-4 opacity-75 font-medium">
                                 {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                             </p>
                         </div>
-                        <div class="hidden md:flex absolute right-0 top-5 h-full items-end">
+                        <div class="absolute -right-4 top-5 h-full flex items-end">
                             <img src="{{ asset('images/illustrasi_welcome.png') }}" alt=""
-                                class="h-[190px] object-contain">
+                                class="h-[120px] md:h-[190px] object-contain">
                         </div>
                     </div>
 
-                    {{-- ── STAT CARDS ── --}}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
                         {{-- Kurikulum --}}
@@ -46,8 +46,8 @@
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#067AFA] to-[#044894]">
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">    
-                                   <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
+                                <div class="w-14 h-14 rounded-full bg-[#067cfa74] flex items-center justify-center">
+                                    <img class="relative bottom-1" src="{{ asset('images/kurikulum(biru).png') }}"
                                         alt="">
                                 </div>
                                 <div>
@@ -60,7 +60,7 @@
                         </div>
 
                         {{-- MataKuliah --}}
-                         <div
+                        <div
                             class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c663] shadow-lg relative overflow-hidden">
                             <div
                                 class="absolute right-0 top-4 w-[8px] h-[75px] rounded-l-full bg-gradient-to-b from-[#9a55ff] to-[#5100c6]">
@@ -73,7 +73,7 @@
                                     <p class="text-[#5100c6] font-semibold text-sm">Total Mata Kuliah</p>
                                     <h1 class="text-[40px] font-extrabold text-[#5100c6] leading-none">
                                         {{ $jumlahMatakuliah }}
-                                    </h1>   
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,6 @@
                         </div>
                     </div>
 
-                    {{-- ── CHART + KATEGORI ── --}}
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
                         {{-- Diagram SKS per Semester --}}
@@ -136,7 +135,7 @@
                                     @foreach($sksPerSemester as $sem => $sks)
                                         @php
                                             $pct = $maxSks > 0 ? ($sks / $maxSks) : 0;
-                                            $px = max(8, intval($pct * 96)); // max h-24 = 96px
+                                            $px = max(8, intval($pct * 96));
                                             $colors = $barColors[$sem] ?? ['from-[#0052D4]', 'to-[#4364F7]', 'text-blue-600'];
                                         @endphp
                                         <div class="flex flex-col items-center gap-1 {{ $sem === 1 ? 'ml-8' : '' }}"
@@ -192,7 +191,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     {{-- ── KURIKULUM ACCORDION ── --}}
@@ -279,17 +277,16 @@
                                                                     <td class="p-2 flex justify-center items-center">
                                                                         @if($detail->deskripsi || $detail->cpm || $detail->cpk || $detail->file_rps)
                                                                             <img src="{{ asset('images/silabus.png') }}"
-                                                                                class="cursor-pointer w-4 sm:w-5"
-                                                                                onclick='openModalSilabus({
-                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
-                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
-                                                                                    "sks":           "{{ $detail->sks }}",
-                                                                                    "deskripsi":     "{{ addslashes($detail->deskripsi ?? '') }}",
-                                                                                    "cpm":           "{{ addslashes($detail->cpm ?? '') }}",
-                                                                                    "cpk":           "{{ addslashes($detail->cpk ?? '') }}",
-                                                                                    "bahan_pustaka": "{{ addslashes($detail->bahan_pustaka ?? '') }}",
-                                                                                    "file_rps":      "{{ $detail->file_rps ?? '' }}"
-                                                                                })'>
+                                                                                class="cursor-pointer w-4 sm:w-5" onclick='openModalSilabus({
+                                                                                                    "nama_matkul":   "{{ addslashes($detail->matakuliah->nama_matkul) }}",
+                                                                                                    "kode_matkul":   "{{ $detail->matakuliah->kode_matkul }}",
+                                                                                                    "sks":           "{{ $detail->sks }}",
+                                                                                                    "deskripsi":     "{{ addslashes($detail->deskripsi ?? '') }}",
+                                                                                                    "cpm":           "{{ addslashes($detail->cpm ?? '') }}",
+                                                                                                    "cpk":           "{{ addslashes($detail->cpk ?? '') }}",
+                                                                                                    "bahan_pustaka": "{{ addslashes($detail->bahan_pustaka ?? '') }}",
+                                                                                                    "file_rps":      "{{ $detail->file_rps ?? '' }}"
+                                                                                                })'>
                                                                         @else
                                                                             <span class="text-gray-300 text-[10px]">—</span>
                                                                         @endif
@@ -308,7 +305,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 @endforeach
                             </div>
@@ -320,7 +316,7 @@
                         @endif
                     </div>
 
-                    {{-- ── MODAL SILABUS (read-only di dashboard) ── --}}
+                    {{-- MODAL SILABUS --}}
                     <div id="modalSilabus"
                         class="fixed inset-0 hidden items-center justify-center bg-black/40 z-50 p-3">
                         <div
@@ -379,111 +375,10 @@
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
         </main>
-
+        <script src="{{ asset('js/dashboard_tim-kurikulum.js') }}"></script>
     </body>
-
-    <script>
-        // ── Toggle Semester Accordion ──────────────────────────────
-        function toggleSemester(el) {
-            const parent = el.parentElement;
-            const content = parent.querySelector('.content');
-            const arrow = parent.querySelector('.arrow');
-            content.classList.toggle('hidden');
-            arrow.classList.toggle('rotate-180');
-        }
-
-        // ── Modal Silabus (read-only) ──────────────────────────────
-        function openModalSilabus(data) {
-            document.getElementById('silabus-nama-mk').textContent = data.nama_matkul || '—';
-            document.getElementById('silabus-kode').textContent = data.kode_matkul || '—';
-            document.getElementById('silabus-sks').textContent = data.sks || '—';
-            document.getElementById('silabus-deskripsi').textContent = data.deskripsi || '—';
-            document.getElementById('silabus-cpm').textContent = data.cpm || '—';
-            document.getElementById('silabus-cpk').textContent = data.cpk || '—';
-            document.getElementById('silabus-bahan-pustaka').textContent = data.bahan_pustaka || '—';
-
-            const rpsCell = document.getElementById('silabus-rps-cell');
-            if (data.file_rps) {
-                rpsCell.innerHTML = `
-                    <a href="/storage/${data.file_rps}" target="_blank"
-                        class="flex items-center gap-2 border rounded-lg p-2 w-fit hover:bg-blue-50 transition">
-                        <img src="{{ asset('images/silabus.png') }}" class="w-5">
-                        <div>
-                            <p class="text-xs font-medium">RPS.pdf</p>
-                            <p class="text-[10px] text-gray-500">Klik untuk melihat</p>
-                        </div>
-                    </a>`;
-            } else {
-                rpsCell.textContent = '—';
-            }
-
-            const modal = document.getElementById('modalSilabus');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeModalSilabus() {
-            const modal = document.getElementById('modalSilabus');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        // Tutup modal klik backdrop
-        document.getElementById('modalSilabus').addEventListener('click', function (e) {
-            if (e.target === this) closeModalSilabus();
-        });
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-[120%]');
-            overlay.classList.toggle('hidden');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-[120%]');
-            overlay.classList.add('hidden');
-        });
-
-
-        function toggleProfileCard() {
-            document
-                .getElementById('profileCard')
-                .classList
-                .toggle('hidden');
-        }
-
-
-
-        const profileBtn = document.getElementById('profileBtn');
-        const profileCard = document.getElementById('profileCard');
-
-        profileBtn.addEventListener('click', function (e) {
-
-            e.stopPropagation();
-
-            profileCard.classList.toggle('hidden');
-
-        });
-
-        profileCard.addEventListener('click', function (e) {
-
-            e.stopPropagation();
-
-        });
-
-        document.addEventListener('click', function () {
-
-            profileCard.classList.add('hidden');
-
-        });
-    </script>
-
 </x-layout.layout>

@@ -2,6 +2,12 @@
     -translate-x-[120%]
     transition-transform duration-300
     lg:translate-x-0">
+
+    <button id="closeBtn" onclick="toggleSidebar()"
+        class="absolute top-3 right-2 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer flex items-center justify-center text-sm font-bold focus:outline-none lg:hidden">
+        ✕
+    </button>
+    
     <div class="mb-10 flex items-center gap-3">
         <div class="h-12 w-20 rounded-full bg-cover bg-center">
             <img src="{{ asset('images/logo prism.png') }}" alt="">

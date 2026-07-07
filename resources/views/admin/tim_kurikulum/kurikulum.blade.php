@@ -1,27 +1,25 @@
 <x-layout.layout>
-
-    <body class="font-montserrat bg-cover min-h-screen lg:h-screen lg:overflow-hidden"
+    <x-slot:title>Kurikulum</x-slot:title>
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden"
         style="background-image: url('{{ asset('images/image-7.png') }}');">
-        {{-- sidebbar --}}
+        {{-- sidebar --}}
         <x-admin.sidebar_kurikulum></x-admin.sidebar_kurikulum>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         {{-- main konten --}}
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72">
+        <main class="flex-1 flex flex-col h-screen p-4 md:p-6 space-y-4 lg:ml-72 overflow-hidden">
             {{-- header --}}
             <x-admin.header_kurikulum>
                 <div class="font-bold">Kurikulum</div>
             </x-admin.header-kurikulum>
 
+                <div class="flex flex-col lg:flex-row gap-4 flex-1 min-h-0 overflow-hidden">
 
-
-                <div class="flex flex-col lg:flex-row gap-4">
-
-                    {{-- DAFTAR KURIKULUM --}}
-                    <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2">
+                    {{-- DAFTAR KURIKULUM (KIRI) --}}
+                    <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2 max-h-[180px] lg:max-h-none lg:h-full pb-4">
                         <button id="btnTambahKurikulum" onclick="openTambahKurikulum()"
                             class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                            Tambah <img src="{{ asset('images/icon-plus.svg') }}">
+                            Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="w-5 h-5">
                         </button>
 
                         @foreach($kurikulums as $kurikulum)
@@ -33,14 +31,14 @@
                         @endforeach
                     </div>
 
-                    {{-- PANEL KURIKULUM --}}
+                    {{-- PANEL KURIKULUM (KANAN) --}}
                     @foreach($kurikulums as $kurikulum)
                         @php
                             $grouped = $kurikulum->detailKurikulums->groupBy('semester');
                         @endphp
 
                         <div id="kurikulum-{{ $kurikulum->id_kurikulum }}"
-                            class="kurikulum-content flex-1 bg-white rounded-2xl shadow-md p-6 overflow-y-auto h-[calc(100vh-7rem)] mb-4 hidden  border border-gray-300">
+                            class="kurikulum-content flex-1 bg-white rounded-2xl shadow-md p-4 md:p-6 overflow-y-auto min-h-[300px] lg:h-full hidden border border-gray-300">
 
                             {{-- JUDUL --}}
                             <div class="flex flex-col md:flex-row gap-3 md:justify-between md:items-center mb-4">
@@ -54,7 +52,7 @@
                                     class="text-xl font-bold bg-gradient-to-r from-[#0285FE] to-[#3405CB] bg-clip-text text-transparent mx-auto">
                                     Kurikulum {{ $kurikulum->nama_kurikulum }}({{ $kurikulum->tahun_mulai }})
                                 </h2>
-                                <div class="flex gap-3 ">
+                                <div class="flex gap-3 ml-auto flex-shrink-0 items-center">
                                     <button onclick="openEditModal(
                                                     this,
                                                     '{{ $kurikulum->id_kurikulum }}',
@@ -95,7 +93,7 @@
                                             <button id="btnTambah{{ $kurikulum->id_kurikulum }}-{{ $i }}"
                                                 onclick="openModalTambahMatkul({{ $kurikulum->id_kurikulum }}, {{ $i }})"
                                                 class="hidden mt-2 text-sm bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-2 py-1 rounded-lg shadow flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                                                Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="h-5 w-5">
+                                                Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="w-4 h-4">
                                             </button>
                                         </div>
 
@@ -142,8 +140,7 @@
                                                                     class="text-[10px] text-center border-t border-gray-100 hover:bg-blue-50">
                                                                     <td class="p-2">{{ $idx + 1 }}</td>
                                                                     <td class="p-2">{{ $detail->matakuliah->kode_matkul }}</td>
-                                                                    <td class="p-2 text-left">{{ $detail->matakuliah->nama_matkul }}
-                                                                    </td>
+                                                                    <td class="p-2 text-left">{{ $detail->matakuliah->nama_matkul }}</td>
                                                                     <td class="p-2">{{ $detail->sks }}</td>
                                                                     <td class="p-2">{{ $detail->bobot_teori ?? '-' }}</td>
                                                                     <td class="p-2">{{ $detail->bobot_praktikum ?? '-' }}</td>
