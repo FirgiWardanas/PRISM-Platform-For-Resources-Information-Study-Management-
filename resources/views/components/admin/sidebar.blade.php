@@ -2,7 +2,13 @@
     -translate-x-[120%]
     transition-transform duration-300
     lg:translate-x-0">
-    <div class="mb-10 flex items-center gap-3">
+
+    <button id="closeBtn" onclick="toggleSidebar()"
+        class="absolute top-3 right-2 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer flex items-center justify-center text-sm font-bold focus:outline-none lg:hidden">
+        ✕
+    </button>
+
+    <div class="mb-10 flex items-center gap-3 pr-6 lg:pr-0">
         <div class="h-12 w-20 rounded-full bg-cover bg-center">
             <img src="{{ asset('images/logo prism.png') }}" alt="">
         </div>
@@ -26,6 +32,7 @@
 
             <span>Beranda</span>
         </a>
+
         {{-- program-studi --}}
         <a href="/admin/program-studi"
             class="{{ request()->is('admin/program-studi')
@@ -38,6 +45,7 @@
 
             <span>Program studi</span>
         </a>
+
         {{-- akun --}}
         <a href="/admin/akun"
             class="{{ request()->is('admin/akun')
@@ -48,8 +56,9 @@
     ? asset('images/icon-dosen(putih).svg')
     : asset('images/icon-dosen(biru).svg') }}" alt="Dosen" class="w-4 h-4 mb-1">
 
-            <span>Akun</span>
+            <span>Kelola Akun</span>
         </a>
+
         {{-- kelola-dosen --}}
         <a href="/admin/kelola-dosen"
             class="{{ request()->is('admin/kelola-dosen')
@@ -60,8 +69,9 @@
     ? asset('images/icon-akun(putih).svg')
     : asset('images/icon-akun(biru).svg') }}" alt="Kelola-dosen" class="w-4 h-4">
 
-            <span>Dosen</span>
+            <span>Kelola Dosen</span>
         </a>
+
         {{-- profile --}}
         <a href="/admin/profile-ketua-jurusan"
             class="{{ request()->is('admin/profile-ketua-jurusan')

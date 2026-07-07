@@ -1,6 +1,7 @@
 <x-layout.layout>
+    <x-slot:title>Kelola Dosen</x-slot:title>
 
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
@@ -8,6 +9,7 @@
         </div>
         <!-- Main Content -->
         <main class="flex-1 lg:ml-72 h-screen flex flex-col p-6">
+
             <!-- Header -->
             <x-admin.header>
                 <div class="font-bold">Kelola Dosen</div>
@@ -15,17 +17,15 @@
 
             <div class="flex justify-end">
                 <button onclick="openTambahModal()"
-                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:opacity-90  hover:scale-[1.025] transition-all cursor-pointer ">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white font-semibold px-4 py-2 rounded-lg shadow hover:opacity-90  hover:scale-[1.025] transition-all cursor-pointer ">
                     Tambah +
                 </button>
-
-
             </div>
 
             <form method="GET" action="{{ route('admin.kelola-dosen.index') }}"
                 class="flex items-center gap-3 flex-wrap mb-5 mt-5  ">
 
-                <!-- Search -->
+
                 <div class="relative flex-[2] min-w-[200px]">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,8 +34,8 @@
                         </svg>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama dosen..."
-                        class="w-full pl-9 pr-4 py-2.5 text-sm border border-blue-200 rounded-2xl
-                                    bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700">
+                        class="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-300 rounded-2xl
+                                    bg-white focus:outline-none text-gray-700 shadow-sm">
                 </div>
 
                 <!-- Filter Prodi -->
@@ -52,14 +52,12 @@
                 </div>
 
                 <!-- Filter Jabatan -->
-                <select name="jabatan" class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-blue-200
-                                rounded-2xl bg-white text-gray-700 focus:outline-none focus:ring-2
-                                focus:ring-blue-300 cursor-pointer">
+                <select name="jabatan"
+                    class="flex-1 min-w-[180px] py-2.5 px-4 text-sm border border-gray-300 rounded-2xl bg-white text-gray-700 focus:outline-none cursor-pointer shadow-sm">
                     <option value="">Semua Jabatan</option>
-                    <option value="dosen" {{ request('jabatan') == 'dosen' ? 'selected' : '' }}>Dosen</option>
-                    <option value="kaprodi" {{ request('jabatan') == 'kaprodi' ? 'selected' : '' }}>Ketua Program Studi
-                    </option>
-                    <option value="laboran" {{ request('jabatan') == 'laboran' ? 'selected' : '' }}>Laboran</option>
+                    <option value="Dosen" {{ request('jabatan') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
+                    <option value="Kepala Program Studi" {{ request('jabatan') == 'Kepala Program Studi' ? 'selected' : '' }}>Kepala Program Studi</option>
+                    <option value="Laboran" {{ request('jabatan') == 'Laboran' ? 'selected' : '' }}>Laboran</option>
                 </select>
 
                 <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white
@@ -68,8 +66,9 @@
                 </button>
 
                 @if(request('search') || request('prodi') || request('jabatan'))
-                    <a href="{{ route('admin.kelola-dosen.index') }}" class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
-                                                                            bg-white hover:bg-blue-50 transition">
+                    <a href="{{ route('admin.kelola-dosen.index') }}"
+                        class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
+                                                                                                                    bg-white hover:bg-blue-50 transition">
                         Reset
                     </a>
                 @endif
@@ -108,7 +107,7 @@
                                         data-pendidikan="{{ $dosen->jenjang_pendidikan }}" data-nik="{{ $dosen->NIK }}"
                                         data-email="{{ $dosen->email }}" data-riwayat='@json($dosen->riwayatPendidikans)'
                                         data-spesialis='@json($dosen->bidangSpesialis)'
-                                        data-prodi="{{ $dosen->prodi->nama_prodi }}">
+                                        data-prodi="{{ $dosen->prodi->nama_prodi }}" data-foto="{{ $dosen->foto_dosen }}">
                                         <img src="{{ asset('images/icon-edit.svg') }}">
                                     </button>
 
@@ -187,153 +186,136 @@
 
                 </div>
             </div>
-
         </main>
 
-        {{-- Modal --}}
-        {{-- Tambah --}}
+        {{-- Modal Tambah --}}
         <div id="modalTambahDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
-            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
+            <div class="relative bg-white w-[760px] max-h-[90vh] rounded-xl p-8 shadow-lg flex flex-col">
 
-                <!-- Tombol Close -->
                 <button onclick="closeTambahModal()"
-                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600 z-10">
                     ✕
                 </button>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
+                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6 shrink-0">
                     Tambah Dosen
                 </h2>
 
-                <form action="{{ route('admin.kelola-dosen.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.kelola-dosen.store') }}" method="POST" enctype="multipart/form-data"
+                    class="flex flex-col flex-1 overflow-hidden">
                     @csrf
 
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="flex-1 overflow-y-auto pr-2 gap-y-4 class-scroll-keren">
+                        <div class="grid grid-cols-2 gap-x-8 gap-y-4 pb-4">
 
-                        <!-- KIRI -->
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                            <input type="text" name="nama_dosen" placeholder="Masukkan Nama"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
-                            <select name="status_jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">--Pilih Status Jabatan--</option>
-                                <option>Kepala Program Studi</option>
-                                <option>Dosen</option>
-                                <option>Laboran</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                            <input type="text" name="NIK" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <label for="id_prodi">
-                            <span>Program Studi</span>
-                            <select name="id_prodi" id="id_prodi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">Pilih Program Studi yang di kelola</option>
-                                @foreach($list_prodi as $prodi)
-                                    <option value="{{ $prodi->id_prodi }}">
-                                        {{ $prodi->nama_prodi }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </label>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Email</label>
-                            <input type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select name="pendidikan_terakhir" id="pendidikan_terakhir"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">--Pilih Pendidikan Terakhir--</option>
-                                <option value="D3">D3</option>
-                                <option value="D4">D4</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
-
-                                <button onclick="tambahRiwayat()" type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
-                                    +
-                                </button>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Nama</label>
+                                <input type="text" name="nama_dosen" placeholder="Masukkan Nama"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                             </div>
 
-                            <div id="riwayat-container">
-                                <div class="flex items-center gap-2">
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Jabatan</label>
+                                <select name="status_jabatan"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">--Pilih Status Jabatan--</option>
+                                    <option>Kepala Program Studi</option>
+                                    <option>Dosen</option>
+                                    <option>Laboran</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">NIK</label>
+                                <input type="text" name="NIK" placeholder="Masukkan NIK"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label for="id_prodi" class="text-[#325098] font-semibold text-sm block mb-1">Program
+                                    Studi</label>
+                                <select name="id_prodi" id="id_prodi"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">Pilih Program Studi yang di kelola</option>
+                                    @foreach($list_prodi as $prodi)
+                                        <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Email</label>
+                                <input type="email" name="email" placeholder="Masukkan Email"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Pendidikan
+                                    Terakhir</label>
+                                <select onchange="aturRiwayat()" name="pendidikan_terakhir" id="pendidikan_terakhir"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">--Pilih Pendidikan Terakhir--</option>
+                                    <option value="D3">D3</option>
+                                    <option value="D4">D4</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat
+                                    Pendidikan</label>
+                                <div id="riwayat-container">
                                     <input type="text" name="riwayat_pendidikan[]"
                                         placeholder="Masukkan Riwayat Pendidikan"
-                                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                        class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- BIDANG SPESIALIS -->
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-                                <button onclick="tambahSpesialis()" type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
-                                    +
-                                </button>
-                            </div>
-                            <div id="spesialis-container">
-                                <!-- Input default, tidak bisa dihapus -->
-                                <div class="flex items-center gap-2">
-                                    <input type="text" name="bidang_spesialis[]" placeholder="Masukkan Bidang Spesialis"
-                                        class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
+                                    <button onclick="tambahSpesialis()" type="button"
+                                        class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-xl leading-none hover:scale-[1.025] transition-all hover:opacity-90">
+                                        +
+                                    </button>
+                                </div>
+                                <div id="spesialis-container" class="flex flex-col gap-2">
+                                    <div class="flex items-center gap-2 spesialis-item">
+                                        <input type="text" name="bidang_spesialis[]"
+                                            placeholder="Masukkan Bidang Spesialis"
+                                            class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="flex flex-col">
-                            <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
+                            <div class="flex flex-col col-span-2 md:col-span-1">
+                                <label class="text-[#3B5ED7] font-semibold mb-1">Foto Dosen</label>
+                                <input type="file" name="foto_dosen" id="fotoDosen" class="hidden"
+                                    accept=".png,.jpg,.jpeg">
 
-                            <input type="file" name="foto_dosen" id="fotoDosen" class="hidden" accept=".png,.jpg,.jpeg">
+                                <label id="uploadBtn" for="fotoDosen"
+                                    class="w-fit px-4 py-2 rounded-lg border border-[#123CFF] bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
+                                    Upload foto
+                                </label>
 
-                            {{-- Tombol upload --}}
-                            <label id="uploadBtn" for="fotoDosen"
-                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF]
-                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
-                                Upload foto
-                            </label>
-
-                            {{-- Preview file --}}
-                            <div id="previewFile"
-                                class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 shadow focus:outline-none">
-
-                                <div>
-                                    <h3 id="fileName" class="font-semibold text-sm"></h3>
-                                    <p id="fileSize" class="text-gray-400 text-xs"></p>
+                                <div id="previewFile"
+                                    class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 focus:outline-none">
+                                    <div>
+                                        <h3 id="fileName" class="font-semibold text-sm"></h3>
+                                        <p id="fileSize" class="text-gray-400 text-xs"></p>
+                                    </div>
+                                    <button type="button" id="hapusFoto">
+                                        <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                    </button>
                                 </div>
-
-                                <button type="button" id="hapusFoto">
-                                    <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
-                                </button>
-
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
-                    <div class="flex justify-center mt-8">
+                    <div class="flex justify-center pt-4 border-t border-gray-100 shrink-0">
                         <button type="submit"
                             class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90">
                             Simpan
@@ -343,139 +325,141 @@
             </div>
         </div>
 
-        {{-- Edit --}}
-        <div id="modalEditDosen" class="fixed inset-0 bg-black/60  hidden  items-center justify-center z-50">
-            <div class="relative bg-white w-[760px] rounded-xl px-8 py-7 shadow-lg">
+        {{-- Modal Edit --}}
+        <div id="modalEditDosen" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+            <div class="relative bg-white w-[760px] max-h-[90vh] rounded-xl p-8 shadow-lg flex flex-col">
 
-                <!-- Tombol Close -->
                 <button onclick="closeEditModal()"
-                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">
+                    class="absolute top-4 right-4 bg-blue-500 text-white w-8 h-8 rounded-full font-bold cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600 z-10">
                     ✕
                 </button>
 
-                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6">
+                <h2 class="text-center text-[#1B4597] font-bold text-xl mb-6 shrink-0">
                     Edit Dosen
                 </h2>
 
-                <form id="editDosenForm" method="POST" enctype="multipart/form-data">
+                <form id="editDosenForm" method="POST" enctype="multipart/form-data"
+                    class="flex flex-col flex-1 overflow-hidden">
                     @csrf
                     @method('PUT')
 
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="flex-1 overflow-y-auto pr-2">
+                        <div class="grid grid-cols-2 gap-x-8 gap-y-4 pb-4">
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Nama</label>
-                            <input id="edit_nama_dosen" type="text" name="nama_dosen" placeholder="Masukkan Nama"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Nama</label>
+                                <input id="edit_nama_dosen" type="text" name="nama_dosen" placeholder="Masukkan Nama"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Jabatan</label>
-                            <select id="edit_jabatan" name="status_jabatan"
-                                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">--Pilih Status Jabatan--</option>
-                                <option>Kepala Program Studi</option>
-                                <option>Dosen</option>
-                                <option>Laboran</option>
-                            </select>
-                        </div>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Jabatan</label>
+                                <select id="edit_jabatan" name="status_jabatan"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">--Pilih Status Jabatan--</option>
+                                    <option>Kepala Program Studi</option>
+                                    <option>Dosen</option>
+                                    <option>Laboran</option>
+                                </select>
+                            </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">NIK</label>
-                            <input id="edit_nik" type="text" name="NIK" placeholder="Masukkan NIK"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">NIK</label>
+                                <input id="edit_nik" type="text" name="NIK" placeholder="Masukkan NIK"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            </div>
 
-                        <label for="edit_id_prodi">
-                            <span>Program Studi</span>
-                            <select id="edit_id_prodi" name="id_prodi"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">Pilih Program Studi yang di kelola</option>
+                            <div>
+                                <label for="edit_id_prodi"
+                                    class="text-[#325098] font-semibold text-sm block mb-1">Program Studi</label>
+                                <select id="edit_id_prodi" name="id_prodi"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">Pilih Program Studi yang di kelola</option>
+                                    @foreach($list_prodi as $prodi)
+                                        <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                                @foreach($list_prodi as $prodi)
-                                    <option value="{{ $prodi->id_prodi }}">
-                                        {{ $prodi->nama_prodi }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </label>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Email</label>
+                                <input id="edit_email" type="email" name="email" placeholder="Masukkan Email"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                            </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Email</label>
-                            <input id="edit_email" type="email" name="email" placeholder="Masukkan Email"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                        </div>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Pendidikan
+                                    Terakhir</label>
+                                <select name="jenjang_pendidikan" id="edit_pendidikan_terakhir"
+                                    onchange="aturRiwayatEdit(this.value)"
+                                    class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+                                    <option value="">--Pilih Pendidikan Terakhir--</option>
+                                    <option value="D3">D3</option>
+                                    <option value="D4">D4</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                            </div>
 
-                        <div>
-                            <label class="text-[#325098] font-semibold text-sm">Pendidikan Terakhir</label>
-                            <select name="jenjang_pendidikan" id="edit_pendidikan_terakhir"
-                                class="w-full px-4 py-1 rounded-xl border border-gray-300 shadow focus:outline-none">
-                                <option value="">--Pilih Pendidikan Terakhir--</option>
-                                <option value="D3">D3</option>
-                                <option value="D4">D4</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
-                            </select>
-                        </div>
+                            <div>
+                                <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat
+                                    Pendidikan</label>
+                                <div id="edit-riwayat-container" class="flex flex-col gap-2">
+                                    {{-- Diisi otomatis oleh JS --}}
+                                </div>
+                            </div>
 
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <label class="text-[#325098] font-semibold text-sm">
-                                    Riwayat Pendidikan
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
+                                    <button onclick="tambahSpesialisEdit()" type="button"
+                                        class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-xl leading-none hover:scale-[1.025] transition-all hover:opacity-90">
+                                        +
+                                    </button>
+                                </div>
+                                <div id="edit-spesialis-container" class="flex flex-col gap-2">
+                                    {{-- Diisi otomatis oleh JS --}}
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col col-span-2 md:col-span-1">
+                                <label class="text-[#3B5ED7] font-semibold mb-1">Foto Dosen</label>
+                                <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden"
+                                    accept=".png,.jpg,.jpeg">
+
+                                {{-- Tombol upload asli modal edit --}}
+                                <label id="editUploadBtn" for="editFotoDosen"
+                                    class="w-fit px-4 py-2 rounded-lg border border-[#123CFF] bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
+                                    Upload foto
                                 </label>
 
-                                <button type="button"
-                                    onclick="tambahRiwayatEdit()"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
-                                    +
-                                </button>
+                                {{-- Box Preview (SUDAH DITAMBAHKAN BORDER, SHADOW & LAYOUT YANG SAMA DENGAN TAMBAH)
+                                --}}
+                                <div id="editPreviewFile"
+                                    class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 focus:outline-none bg-white">
+                                    <div>
+                                        <h3 id="editFileName" class="font-semibold text-sm truncate max-w-[200px]"></h3>
+                                        <p id="editFileSize" class="text-gray-400 text-xs mt-0.5"></p>
+                                    </div>
+                                    <button type="button" id="editHapusFoto">
+                                        <img src="{{ asset('images/icon-hapus (merah).svg') }}" class="w-5 h-5">
+                                    </button>
+                                </div>
                             </div>
 
-                            <div id="edit-riwayat-container">
-                                {{-- Diisi otomatis oleh JS --}}
-                            </div>
                         </div>
-
-                        <div>       
-                            <div class="flex items-center gap-2 mb-1">
-                                <label class="text-[#325098] font-semibold text-sm">Bidang Spesialis</label>
-
-                                <button onclick="tambahSpesialisEdit()" type="button"
-                                    class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-sm leading-none hover:scale-[1.025] transition-all hover:opacity-90">
-                                    +
-                                </button>
-                            </div>
-
-                            <div id="edit-spesialis-container">
-                                {{-- Diisi otomatis oleh JS --}}
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label class="text-[#3B5ED7] font-semibold ml-5">Foto Dosen</label>
-
-                            <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden">
-
-                            <label for="editFotoDosen"
-                                class="w-fit mt-2 px-4 py-2 rounded-lg border border-[#123CFF] 
-                                bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] hover:scale-[1.025] transition-all ">
-                                Upload foto
-                            </label>
-                        </div>
-
                     </div>
 
-                    <div class="flex justify-center mt-8">
+                    <div class="flex justify-center pt-4 border-t border-gray-100 shrink-0">
                         <button type="submit"
-                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90">
+                            class="bg-gradient-to-r from-[#067AFA] to-[#3307CC] text-white font-semibold px-10 py-2 rounded-xl hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
                             Simpan
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-        {{-- HAPUS --}}
 
         {{-- Hapus --}}
         @foreach ($dosens as $dosen)

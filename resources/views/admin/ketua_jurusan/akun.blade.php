@@ -1,28 +1,27 @@
 <x-layout.layout>
 
-    <body class="font-montserrat bg-cover bg-center bg-no-repeat"
+    <x-slot:title>Kelola Akun</x-slot:title>
+    
+    <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
         <x-admin.sidebar></x-admin.sidebar>
         <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40 lg:hidden">
         </div>
         <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-6 space-y-6 lg:ml-72" h-screen overflow-hidden>
-            <!-- Header -->
+       <main class="flex-1 flex flex-col h-screen p-4 md:p-6 space-y-4 lg:ml-72 overflow-hidden">
             <x-admin.header>
-                <div class="font-bold">Kelola Akun</div> 
+                <div class="font-bold">Kelola Akun</div>
             </x-admin.header>
 
-            <!-- Content -->
-            <div class="flex justify-end">
+            <div class="flex justify-end flex-shrink-0">
                 <button onclick="openTambahModal()"
-                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                    class="bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-blue-600 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                     Tambah +
                 </button>
             </div>
 
-            <form method="GET" action="{{ route('admin.akun.index') }}" class="flex items-center gap-3 mb-5">
-
+            <form method="GET" action="{{ route('admin.akun.index') }}" class="flex items-center gap-3 flex-shrink-0">
                 <div class="relative flex-1 max-w-md">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,29 +29,27 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </span>
-                    <input type="text" name="search" value="{{ $search }}" placeholder="Cari nama pengelola..." class="w-full pl-9 pr-4 py-2.5 text-sm border border-purple-200 rounded-xl 
-                                bg-white focus:outline-none focus:ring-2 focus:ring-purple-300 
-                                text-gray-700 shadow-sm">
+                    <input type="text" name="search" value="{{ $search }}" placeholder="Cari nama pengelola..." class="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-300 rounded-xl 
+                                bg-white focus:outline-none text-gray-700 shadow-sm">
                 </div>
 
                 <button type="submit" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white text-sm font-semibold rounded-xl 
-                            hover:opacity-90 transition shadow-sm">
+                            hover:opacity-90 transition shadow-sm cursor-pointer">
                     Cari
                 </button>
 
                 @if($search)
                     <a href="{{ route('admin.akun.index') }}" class="px-4 py-2.5 text-sm text-purple-600 border border-purple-200 
-                                    rounded-xl bg-white hover:bg-purple-50 transition">
+                                        rounded-xl bg-white hover:bg-purple-50 transition">
                         Reset
                     </a>
                 @endif
             </form>
 
-
-            <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300">
-                <div class="overflow-x-auto overflow-y-auto max-h-[70vh]">
-                    <table class="w-full">
-                        <thead class="sticky top-0 bg-white">
+            <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300 flex-1 flex flex-col min-h-0 overflow-hidden">
+                <div class="overflow-x-auto overflow-y-auto flex-1 max-h-full">
+                    <table class="w-full border-collapse">
+                        <thead class="sticky top-0 bg-white z-10 shadow-[0_1px_0_0_rgba(243,244,246,1)]">
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">Nama
                                 </th>
@@ -92,25 +89,19 @@
                         </tbody>
                     </table>
                 </div>
+
                 {{-- Pagination --}}
-                <div class="border-t border-gray-100 mt-4 pt-4">
+                <div class="border-t border-gray-100 mt-4 pt-4 flex-shrink-0">
                     {{ $akuns->withQueryString()->links() }}
                 </div>
             </div>
-
-
-            </div>
         </main>
 
-
-        {{-- MODAL --}}
-
-
-        {{-- Tambah --}}
+        {{-- Modal Tambah --}}
         <div id="tambahmodal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
-            <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+            <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative **:focus:outline-none">
                 <button onclick="closeTambahModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer">
                     ✕
                 </button>
 
@@ -121,40 +112,31 @@
                 <div class="max-w-lg text-sm">
                     <form action="{{ route('admin.akun.store') }}" method="POST">
                         @csrf
-                        <!-- Nama -->
                         <label for="nama">
                             <span>Nama</span>
                             <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
                                 placeholder="Masukkan Nama Pengelola"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
-
-                        <!-- NIP -->
                         <label for="nip">
                             <span>NIP</span>
                             <input type="number" name="nip" id="nip" value="{{ old('nip') }}"
                                 placeholder="Masukkan NIP Pengelola"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
-                        <!-- email -->
                         <label for="email">
                             <span>Email</span>
                             <input type="email" name="email" id="email" value="{{ old('email') }}"
                                 placeholder="Masukkan e-mail Pengelola"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
-                        <!-- Program Studi -->
                         <label for="id_prodi">
                             <span>Program Studi</span>
                             <select name="id_prodi" id="id_prodi"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                                 <option value="">Pilih Program Studi yang di kelola</option>
                                 @foreach($list_prodi as $prodi)
                                     <option value="{{ $prodi->id_prodi }}">
@@ -164,48 +146,38 @@
                             </select>
                         </label>
 
-                        <!-- Password -->
                         <label for="password">
                             <span>Password</span>
                             <input type="password" name="password" id="password"
                                 placeholder="Masukkan Password Pengelola"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
-                        <!-- Konfirmasi Password -->
                         <label for="password_confirmation">
                             <span>konfirmasi Password</span>
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 placeholder="Konfirmasi Password"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
-
 
                         <input type="hidden" name="role" value="tim_kurikulum">
 
-
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mt-4 rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="w-40 mt-4 rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90 cursor-pointer">
                                 Simpan
                             </button>
                         </div>
-
-
                     </form>
-
                 </div>
             </div>
         </div>
 
-        {{-- Edit --}}
-
+        {{-- Modal Edit --}}
         <div id="modaledit" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
-            <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
+            <div class="w-[95%] max-w-[400px] rounded-2xl bg-white p-6 shadow-xl relative **:focus:outline-none">
                 <button onclick="closeEditModal()"
-                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600">
+                    class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white hover:scale-[1.025] transition-all hover:bg-blue-600 cursor-pointer">
                     ✕
                 </button>
 
@@ -221,22 +193,19 @@
                         <label for="editnama">
                             <span>Nama</span>
                             <input type="text" id="editnama" name="nama"
-                                class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3  border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
                         <label for="editnip">
                             <span>NIP</span>
                             <input type="number" id="editnip" name="nip"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
                         <label for="editemail">
                             <span>Email</span>
                             <input type="email" id="editemail" name="email"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
-                                >
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2">
                         </label>
 
                         <label for="editprodi">
@@ -255,20 +224,17 @@
 
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 text-white hover:scale-[1.025] transition-all hover:opacity-90 mt-4">
                                 Simpan
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
 
-
         {{-- Hapus --}}
         @foreach ($akuns as $akun)
-
 
             <form id="deleteForm{{ $akun->id_user }}" action="{{ route('admin.akun.destroy', $akun->id_user) }}"
                 method="POST" class="hidden">
@@ -278,6 +244,7 @@
 
         @endforeach
 
-    </body>
     <script src="{{ asset('js/akun.js') }}"></script>
+    </body>
+
 </x-layout.layout>

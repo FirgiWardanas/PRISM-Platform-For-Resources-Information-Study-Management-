@@ -328,10 +328,11 @@ function autoResize(el) {
     el.style.height = el.scrollHeight + 'px';
 }
 
-// Mobile
+//sidebbar responsive
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('closeBtn'); 
 
 menuBtn.addEventListener('click', () => {
     sidebar.classList.toggle('-translate-x-[120%]');
@@ -342,6 +343,13 @@ overlay.addEventListener('click', () => {
     sidebar.classList.add('-translate-x-[120%]');
     overlay.classList.add('hidden');
 });
+
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-[120%]');
+        overlay.classList.add('hidden');
+    });
+}
 
 function toggleProfileCard() {
     document.getElementById('profileCard').classList.toggle('hidden');
