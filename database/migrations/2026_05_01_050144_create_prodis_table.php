@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('prodi', function (Blueprint $table) {
             $table->unsignedInteger('id_prodi')->autoIncrement();
             $table->unsignedInteger('id_jurusan');
-            $table->string('kode_prodi')->unique();
-            $table->string('nama_prodi')->unique();
+            $table->string('kode_prodi',30)->unique();
+            $table->string('nama_prodi',150)->unique();
             $table->string('jenjang', 10);
             $table->enum('status_prodi', ['draft', 'published'])->default('draft');
 
