@@ -155,7 +155,7 @@ class AkunController extends Controller
 
                 return redirect()
                     ->back()
-                    ->with('success', 'Data pengguna berhasil diperbarui.');
+                    ->with('success', 'Data pengelola berhasil diperbarui.');
 
             } catch (\Exception $e) {
 

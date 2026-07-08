@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nama', 150);
             $table->string('nip', 30)->unique();
             $table->string('email', 150)->unique();
-            $table->string('password', 255);
+            $table->string('password', 150);
             $table->enum('role', ['ketua_jurusan', 'tim_kurikulum']);
         
             $table->foreign('id_prodi')
