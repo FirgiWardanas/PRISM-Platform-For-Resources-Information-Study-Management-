@@ -104,23 +104,31 @@ class KustomisasiController extends Controller
         /*
         | Simpan Kustomisasi
         */
-        Kustomisasi::updateOrCreate(
-            ['id_prodi' => $idProdi],
-            [
-                'primary_color'    => $request->primary_color,
-                'secondary_color'  => $request->secondary_color,
-                'tertiary_color'   => $request->tertiary_color,
-                'quaternary_color' => $request->quaternary_color,
-            ]
-        );
-
-        $detailProdi = DetailProdi::firstOrNew([
-            'id_prodi' => $idProdi
+        $kustomisasi = Kustomisasi::firstOrNew(['id_prodi' => $idProdi]);
+        $kustomisasi->fill([
+            'primary_color'    => $request->primary_color,
+            'secondary_color'  => $request->secondary_color,
+            'tertiary_color'   => $request->tertiary_color,
+            'quaternary_color' => $request->quaternary_color,
         ]);
 
-        $detailProdi->deskripsi_prodi = $request->deskripsi_prodi;
-        $detailProdi->visi            = $request->visi;
-        $detailProdi->misi            = $request->misi;
+        $detailProdi = DetailProdi::firstOrNew(['id_prodi' => $idProdi]);
+        $detailProdi->fill([
+            'deskripsi_prodi' => $request->deskripsi_prodi,
+            'visi'            => $request->visi,
+            'misi'            => $request->misi,
+        ]);
+
+        $hasNewFile = $request->hasFile('logo') || $request->hasFile('ilustrasi') || $request->hasFile('icon_lulusan');
+        $statusChanged = $request->filled('status_prodi') && $prodi->status_prodi !== $request->status_prodi;
+
+        if (!$kustomisasi->isDirty() && !$detailProdi->isDirty() && !$hasNewFile && !$statusChanged) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Tidak ada data yang berubah.');
+        }
+
+        $kustomisasi->save();
 
         if ($request->hasFile('logo')) {
 
