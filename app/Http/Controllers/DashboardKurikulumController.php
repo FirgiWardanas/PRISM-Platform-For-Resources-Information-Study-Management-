@@ -14,7 +14,7 @@ class DashboardKurikulumController extends Controller
         $user = auth()->guard()->user();
         $idProdi = $user->id_prodi;
 
-        // ── Stat Cards ──────────────────────────────────────────────
+        // ── Stat Cards 
 
  
         $jumlahKurikulum = Kurikulum::where('id_prodi', $idProdi)->count();
@@ -35,7 +35,7 @@ class DashboardKurikulumController extends Controller
 
         $jumlahMatakuliah = Matakuliah::count();
         
-        // ── SKS per Semester (dari kurikulum aktif) ──────────────────
+        // ── SKS per Semester (dari kurikulum aktif)
         $sksPerSemester = [];
         if ($kurikulumAktif) {
             $grouped = $kurikulumAktif->detailKurikulums->groupBy('semester');
@@ -44,7 +44,7 @@ class DashboardKurikulumController extends Controller
             }
         }
 
-        // ── Kategori Matakuliah (dari kurikulum aktif) ───────────────
+        // ── Kategori Matakuliah (dari kurikulum aktif)
         $kategoriMatakuliah = [
             'langsung'       => 0,
             'tidak langsung' => 0,
@@ -59,7 +59,7 @@ class DashboardKurikulumController extends Controller
             }
         }
 
-        // ── Semua kurikulum (untuk accordion) ───────────────────────
+        //  Semua kurikulum (untuk accordion) 
         // Gunakan kurikulum aktif saja di dashboard; tampilkan per semester
         $semesterData = [];
         if ($kurikulumAktif) {

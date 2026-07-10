@@ -20,7 +20,7 @@ Route::get('/laravel', function () {
     return view('welcome');
 });
 
-Route::resource('/', JurusanController::class);
+Route::get('/', [JurusanController::class, 'index'])->name('index');
 
 Route::get('/admin/login', [LoginController::class, 'index'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'store'])->name('login.store');

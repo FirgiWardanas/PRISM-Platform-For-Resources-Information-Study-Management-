@@ -1,5 +1,6 @@
 <x-layout.layout>
     <x-slot:title>Kurikulum</x-slot:title>
+
     <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden"
         style="background-image: url('{{ asset('images/image-7.png') }}');">
         {{-- sidebar --}}
@@ -11,14 +12,15 @@
             {{-- header --}}
             <x-admin.header_kurikulum>
                 <div class="font-bold">Kurikulum</div>
-            </x-admin.header-kurikulum>
+                </x-admin.header-kurikulum>
 
                 <div class="flex flex-col lg:flex-row gap-4 flex-1 min-h-0 overflow-hidden">
 
                     {{-- DAFTAR KURIKULUM (KIRI) --}}
-                    <div class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2 max-h-[180px] lg:max-h-none lg:h-full pb-4">
+                    <div
+                        class="w-full lg:w-48 space-y-3 mt-5 overflow-y-auto pr-2 flex-shrink-0 px-2 max-h-[180px] lg:max-h-none lg:h-full pb-4">
                         <button id="btnTambahKurikulum" onclick="openTambahKurikulum()"
-                            class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white text-center flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                            class="w-full lg:w-full bg-gradient-to-r from-[#0282FD] to-[#3502CA] py-2 rounded-lg shadow text-white font-bold text-center flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                             Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="w-5 h-5">
                         </button>
 
@@ -54,13 +56,13 @@
                                 </h2>
                                 <div class="flex gap-3 ml-auto flex-shrink-0 items-center">
                                     <button onclick="openEditModal(
-                                                    this,
-                                                    '{{ $kurikulum->id_kurikulum }}',
-                                                    '{{ addslashes($kurikulum->nama_kurikulum) }}',
-                                                    '{{ $kurikulum->tahun_mulai }}',
-                                                    '{{ $kurikulum->status_kurikulum }}',
-                                                    '{{ $kurikulum->total_semester }}'
-                                                )">
+                                                                                    this,
+                                                                                    '{{ $kurikulum->id_kurikulum }}',
+                                                                                    '{{ addslashes($kurikulum->nama_kurikulum) }}',
+                                                                                    '{{ $kurikulum->tahun_mulai }}',
+                                                                                    '{{ $kurikulum->status_kurikulum }}',
+                                                                                    '{{ $kurikulum->total_semester }}'
+                                                                                )">
                                         <img src="{{ asset('images/icon-edit.png') }}" alt="edit"
                                             class="w-6 h-6 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-60">
                                     </button>
@@ -92,8 +94,8 @@
                                         <div class="flex justify-end">
                                             <button id="btnTambah{{ $kurikulum->id_kurikulum }}-{{ $i }}"
                                                 onclick="openModalTambahMatkul({{ $kurikulum->id_kurikulum }}, {{ $i }})"
-                                                class="hidden mt-2 text-sm bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-2 py-1 rounded-lg shadow flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
-                                                Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="w-4 h-4">
+                                                class="hidden mt-2 text-sm bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white font-semibold px-2 py-1 rounded-lg shadow flex items-center justify-center gap-1 cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                                                Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="w-3 h-3">
                                             </button>
                                         </div>
 
@@ -140,7 +142,8 @@
                                                                     class="text-[10px] text-center border-t border-gray-100 hover:bg-blue-50">
                                                                     <td class="p-2">{{ $idx + 1 }}</td>
                                                                     <td class="p-2">{{ $detail->matakuliah->kode_matkul }}</td>
-                                                                    <td class="p-2 text-left">{{ $detail->matakuliah->nama_matkul }}</td>
+                                                                    <td class="p-2 text-left">{{ $detail->matakuliah->nama_matkul }}
+                                                                    </td>
                                                                     <td class="p-2">{{ $detail->sks }}</td>
                                                                     <td class="p-2">{{ $detail->bobot_teori ?? '-' }}</td>
                                                                     <td class="p-2">{{ $detail->bobot_praktikum ?? '-' }}</td>
@@ -231,7 +234,7 @@
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeTambahKurikulum()"
                     class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Tambah Kurikulum</h2>
+                <h2 class="mb-6 text-center text-lg font-bold text-blue-700">Tambah Kurikulum</h2>
                 <div class="max-w-lg text-sm">
                     <form action="{{ route('admin.kurikulum.store') }}" method="POST">
                         @csrf
@@ -248,7 +251,7 @@
 
                         <div class="flex justify-center mt-4">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white font-semibold cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -263,7 +266,7 @@
             <div class="w-[400px] rounded-2xl bg-white p-6 shadow-xl relative">
                 <button onclick="closeEditKurikulum()"
                     class="absolute right-4 top-4 h-8 w-8 rounded-full bg-blue-500 text-white cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-600">✕</button>
-                <h2 class="mb-6 text-center text-lg font-semibold text-blue-700">Edit Kurikulum</h2>
+                <h2 class="mb-6 text-center text-lg font-bold text-[#1B4597]">Ubah Kurikulum</h2>
                 <div class="max-w-lg text-sm">
                     <form id="formEdit" method="POST">
                         @csrf
@@ -317,7 +320,7 @@
 
                         <div class="flex justify-center mt-4">
                             <button type="submit"
-                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="w-40 mx-auto rounded-xl bg-gradient-to-r from-[#0284FD] to-[#3207CC] py-2 text-white font-semibold cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>
@@ -337,163 +340,172 @@
 
 
         {{-- MODAL TAMBAH MATAKULIAH --}}
-        <div id="modalTambahMatkul" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
+        <div id="modalTambahMatkul" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999] p-4">
+
             <div
-                class="w-[95%] max-w-[800px] max-h-[90vh] bg-white rounded-2xl p-8 shadow-xl relative mx-auto overflow-y-auto">
+                class="w-[95%] max-w-[800px] max-h-[90vh] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden">
 
-                <button type="button" onclick="closeModalTambahMatkul()"
-                    class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer hover:scale-[1.025] transition-all">✕</button>
+                <div class="relative flex items-center justify-center p-6 border-b border-gray-100 bg-white shrink-0">
+                    <h2 class="text-center text-xl font-bold text-[#1B4597]">Tambah Matakuliah</h2>
 
-                <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Tambah Matakuliah</h2>
+                    <button type="button" onclick="closeModalTambahMatkul()"
+                        class="absolute right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer hover:scale-[1.025]">✕</button>
+                </div>
 
-                <form id="formTambahMatkul" method="POST" enctype="multipart/form-data">
+                <form id="formTambahMatkul" method="POST" enctype="multipart/form-data"
+                    class="flex flex-col flex-1 overflow-hidden">
                     @csrf
                     <input type="hidden" name="semester" id="inputTambahSemester">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
+                    <div class="flex-1 overflow-y-auto p-6 md:p-8">
 
-                        {{-- PILIH MATAKULIAH --}}
-                        <div class="col-span-2">
-                            <label class="block">
-                                <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
-                                <div class="relative mt-1" x-data="mkSearch()">
-                                    <input type="hidden" name="id_MK" :value="selectedId">
-                                    <input type="text" x-model="query" @input="search()"
-                                        @focus="open = true; filtered = all" @click.outside="open = false"
-                                        @keydown.escape="open = false" placeholder="Cari kode / nama matakuliah..."
-                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black" />
-                                    <ul x-show="open && filtered.length > 0" x-transition
-                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
-                                        <template x-for="mk in filtered" :key="mk.id">
-                                            <li @click="select(mk)"
-                                                class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
-                                                x-text="mk.label"></li>
-                                        </template>
-                                    </ul>
-                                    <div x-show="open && query.length > 0 && filtered.length === 0"
-                                        class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
-                                        Matakuliah tidak ditemukan.
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 text-sm text-[#1B4597] font-semibold">
+
+                            {{-- PILIH MATAKULIAH --}}
+                            <div class="col-span-2">
+
+                                <label class="block">
+                                    <span class="text-sm font-semibold text-[#1B4597]">Matakuliah</span>
+                                    <div class="relative mt-1" x-data="mkSearch()">
+                                        <input type="hidden" name="id_MK" :value="selectedId">
+                                        <input type="text" x-model="query" @input="search()"
+                                            @focus="open = true; filtered = all" @click.outside="open = false"
+                                            @keydown.escape="open = false" placeholder="Cari kode / nama matakuliah..."
+                                            class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black" />
+                                        <ul x-show="open && filtered.length > 0" x-transition
+                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                                            <template x-for="mk in filtered" :key="mk.id">
+                                                <li @click="select(mk)"
+                                                    class="px-4 py-2.5 cursor-pointer hover:bg-blue-50 text-sm text-black"
+                                                    x-text="mk.label"></li>
+                                            </template>
+                                        </ul>
+                                        <div x-show="open && query.length > 0 && filtered.length === 0"
+                                            class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow px-4 py-2.5 text-sm text-gray-400">
+                                            Matakuliah tidak ditemukan.
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            {{-- KATEGORI --}}
+                            <label class="block col-span-2">
+                                <span>Kategori</span>
+                                <div class="relative">
+                                    <select name="status_matkul" id="tambahStatusMatkul"
+                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none  font-normal text-black mt-1"
+                                        required>
+                                        <option value="">Pilih</option>
+                                        <option value="langsung">Langsung</option>
+                                        <option value="tidak langsung">Tidak Langsung</option>
+                                        <option value="pendukung">Pendukung</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
+                                        <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
                                     </div>
                                 </div>
                             </label>
-                        </div>
 
-                        {{-- KATEGORI --}}
-                        <label class="block col-span-2">
-                            <span>Kategori</span>
-                            <div class="relative">
-                                <select name="status_matkul" id="tambahStatusMatkul"
-                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
-                                    required>
-                                    <option value="">Pilih</option>
-                                    <option value="langsung">Langsung</option>
-                                    <option value="tidak langsung">Tidak Langsung</option>
-                                    <option value="pendukung">Pendukung</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center mt-1">
-                                    <img src="{{ asset('images/icon-dropdown.svg') }}" class="h-4 w-4">
-                                </div>
-                            </div>
-                        </label>
-                        {{--SKS--}}
-                        <input type="hidden" name="sks" id="tambahSks">
+                            {{-- SKS HIDDEN --}}
+                            <input type="hidden" name="sks" id="tambahSks">
 
-                        {{-- BOBOT DAN SESI --}}
-                        <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <label class="block">
-                                <span class="text-xs">Bobot SKS teori</span>
-                                <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0"
-                                    min="0" oninput="hitungSksTambah()"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>
-                            <label class="block">
-                                <span class="text-xs">Bobot SKS praktikum</span>
-                                <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value=""
-                                    step="1.0" min="0" oninput="hitungSksTambah()"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>
-                            <label class="block">
-                                <span class="text-xs">Jam/sesi teori</span>
-                                <input type="number" name="sesi_teori" value="" min="0"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>
-                            <label class="block">
-                                <span class="text-xs">Jam/sesi praktikum</span>
-                                <input type="number" name="sesi_praktikum" value="" min="0"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
-                            </label>
-                        </div>
-
-                        {{-- DESKRIPSI --}}
-                        <label class="block mt-4 col-span-2">
-                            <span>Deskripsi</span>
-                            <textarea name="deskripsi" placeholder="Masukkan deskripsi matakuliah"
-                                class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
-                                rows="4"></textarea>
-                        </label>
-
-                        {{-- CPM --}}
-                        <label class="block mt-4 col-span-2">
-                            <span>Capaian Pembelajaran Umum</span>
-                            <textarea name="cpm" placeholder="Masukkan capaian pembelajaran umum"
-                                class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
-                                rows="4"></textarea>
-                        </label>
-
-                        {{-- CPK --}}
-                        <label class="block mt-2 col-span-2">
-                            <span>Capaian Pembelajaran Khusus</span>
-                            <textarea name="cpk" placeholder="Masukkan capaian pembelajaran khusus"
-                                class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
-                                rows="4"></textarea>
-                        </label>
-
-                        {{-- DAFTAR PUSTAKA --}}
-                        <label class="block mt-2 col-span-2">
-                            <span>Daftar Pustaka</span>
-                            <textarea name="bahan_pustaka" placeholder="Masukkan daftar pustaka matakuliah"
-                                class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1 resize-none"
-                                rows="4"></textarea>
-                        </label>
-
-                        {{-- FILE RPS --}}
-                        <div class="block col-span-2 mt-4">
-                            <span class="text-sm">File RPS</span>
-                            <div id="dropAreaTambah" class="relative flex flex-col items-center justify-center gap-2 w-full h-40 py-4 mt-2
-                                   border-2 border-dashed border-blue-200 rounded-2xl text-center bg-gray-50/50">
-                                <p id="uploadTextTambah" class="text-sm text-gray-700 font-bold">
-                                    Pilih file atau seret dan lepas di sini
-                                </p>
-                                <div id="uploadIconTambah">
-                                    <svg class="w-12 h-12 text-blue-300" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <img id="fileIconTambah" src="{{ asset('images/icon-silabuskurikulum.svg') }}"
-                                    class="hidden w-12" alt="">
-                                <p id="fileNameTambah" class="text-xs text-gray-500"></p>
-                                <label for="tambahFileRps"
-                                    class="px-5 py-1.5 bg-[#D9E5FF] text-blue-700 rounded-full text-xs font-semibold cursor-pointer hover:bg-blue-200 transition">
-                                    Pilih File
+                            {{-- BOBOT DAN SESI --}}
+                            <div class="col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <label class="block">
+                                    <span class="text-xs">Bobot SKS teori</span>
+                                    <input type="number" name="bobot_teori" id="tambahBobotTeori" value="" step="1.0"
+                                        min="0" oninput="hitungSksTambah()"
+                                        class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
                                 </label>
-                                <button id="removeTambahFile" type="button" onclick="removeTambahFile()"
-                                    class="hidden absolute top-2 right-2 bg-white border border-gray-200 rounded-lg px-2 py-1 shadow cursor-pointer">
-                                    <img src="{{ asset('images/icon-hapus.svg') }}" class="w-4 h-4">
-                                </button>
-                                <input id="tambahFileRps" type="file" name="file_rps" class="hidden" accept=".pdf">
+                                <label class="block">
+                                    <span class="text-xs">Bobot SKS praktikum</span>
+                                    <input type="number" name="bobot_praktikum" id="tambahBobotPraktikum" value=""
+                                        step="1.0" min="0" oninput="hitungSksTambah()"
+                                        class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
+                                </label>
+                                <label class="block">
+                                    <span class="text-xs">Jam/sesi teori</span>
+                                    <input type="number" name="sesi_teori" value="" min="0"
+                                        class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
+                                </label>
+                                <label class="block">
+                                    <span class="text-xs">Jam/sesi praktikum</span>
+                                    <input type="number" name="sesi_praktikum" value="" min="0"
+                                        class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
+                                </label>
+                            </div>
+
+                            {{-- DESKRIPSI --}}
+                            <label class="block mt-4 col-span-2">
+                                <span>Deskripsi</span>
+                                <textarea name="deskripsi" placeholder="Masukkan deskripsi matakuliah"
+                                    class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black mt-1 resize-none"
+                                    rows="4"></textarea>
+                            </label>
+
+                            {{-- CPM --}}
+                            <label class="block mt-4 col-span-2">
+                                <span>Capaian Pembelajaran Umum</span>
+                                <textarea name="cpm" placeholder="Masukkan capaian pembelajaran umum"
+                                    class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black mt-1 resize-none"
+                                    rows="4"></textarea>
+                            </label>
+
+                            {{-- CPK --}}
+                            <label class="block mt-2 col-span-2">
+                                <span>Capaian Pembelajaran Khusus</span>
+                                <textarea name="cpk" placeholder="Masukkan capaian pembelajaran khusus"
+                                    class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black mt-1 resize-none"
+                                    rows="4"></textarea>
+                            </label>
+
+                            {{-- DAFTAR PUSTAKA --}}
+                            <label class="block mt-2 col-span-2">
+                                <span>Daftar Pustaka</span>
+                                <textarea name="bahan_pustaka" placeholder="Masukkan daftar pustaka matakuliah"
+                                    class="w-full px-4 py-3 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black mt-1 resize-none"
+                                    rows="4"></textarea>
+                            </label>
+
+                            {{-- FILE RPS --}}
+                            <div class="block col-span-2 mt-4">
+                                <span class="text-sm">File RPS</span>
+                                <div id="dropAreaTambah"
+                                    class="relative flex flex-col items-center justify-center gap-2 w-full h-40 py-4 mt-2 border-2 border-dashed border-blue-200 rounded-2xl text-center bg-gray-50/50">
+                                    <p id="uploadTextTambah" class="text-sm text-gray-700 font-bold">
+                                        Pilih file atau seret dan lepas di sini
+                                    </p>
+                                    <div id="uploadIconTambah">
+                                        <svg class="w-12 h-12 text-blue-300" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <img id="fileIconTambah" src="{{ asset('images/icon-silabuskurikulum.svg') }}"
+                                        class="hidden w-12" alt="">
+                                    <p id="fileNameTambah" class="text-xs text-gray-500"></p>
+                                    <label for="tambahFileRps"
+                                        class="px-5 py-1.5 bg-[#D9E5FF] text-blue-700 rounded-full text-xs font-semibold cursor-pointer hover:bg-blue-200 transition">
+                                        Pilih File
+                                    </label>
+                                    <button id="removeTambahFile" type="button" onclick="removeTambahFile()"
+                                        class="hidden absolute top-2 right-2 bg-white border border-gray-200 rounded-lg px-2 py-1 shadow cursor-pointer">
+                                        <img src="{{ asset('images/icon-hapus.svg') }}" class="w-4 h-4">
+                                    </button>
+                                    <input id="tambahFileRps" type="file" name="file_rps" class="hidden" accept=".pdf">
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="flex justify-center mt-8">
+                    <div class="p-4 border-t border-gray-100 flex justify-center bg-gray-50/50 shrink-0">
                         <button type="submit"
-                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90  cursor-pointer hover:scale-[1.025] transition-all">
+                            class="px-12 py-2.5 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-bold shadow-md hover:opacity-90 cursor-pointer hover:scale-[1.025] transition-all">
                             Simpan
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -505,7 +517,7 @@
                 <button type="button" onclick="closeModalEditMatkul()"
                     class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 cursor-pointer hover:scale-[1.025] transition-all">✕</button>
 
-                <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Update Matakuliah</h2>
+                <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Ubah Matakuliah</h2>
 
                 <form id="formEditMatkul" method="POST">
                     @csrf
@@ -523,7 +535,7 @@
                                     <input type="text" x-model="query" @input="search()"
                                         @focus="open = true; filtered = all" @click.outside="open = false"
                                         @keydown.escape="open = false" placeholder="Cari kode / nama matakuliah..."
-                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black" />
+                                        class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl focus:outline-none  font-normal text-black" />
                                     <ul x-show="open && filtered.length > 0" x-transition
                                         class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-52 overflow-y-auto">
                                         <template x-for="mk in filtered" :key="mk.id">
@@ -545,7 +557,7 @@
                             <span>Kategori</span>
                             <div class="relative">
                                 <select name="status_matkul" id="editStatusMatkul"
-                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1"
+                                    class="w-full px-4 py-2.5 border border-gray-200 shadow-sm rounded-xl appearance-none focus:outline-none  font-normal text-black mt-1"
                                     required>
                                     <option value="langsung">Langung</option>
                                     <option value="tidak langsung">Tidak Langsung</option>
@@ -566,23 +578,23 @@
                                 <span class="text-xs">Bobot SKS teori</span>
                                 <input type="number" name="bobot_teori" id="editBobotTeori" value="0" step="0.01"
                                     min="0" oninput="hitungSksEdit()"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Bobot SKS praktikum</span>
                                 <input type="number" name="bobot_praktikum" id="editBobotPraktikum" value="0"
                                     step="0.01" min="0" oninput="hitungSksEdit()"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Jam/sesi teori</span>
                                 <input type="number" name="sesi_teori" id="editSesiTeori" value="0" min="0"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
                             </label>
                             <label class="block">
                                 <span class="text-xs">Jam/sesi praktikum</span>
                                 <input type="number" name="sesi_praktikum" id="editSesiPraktikum" value="0" min="0"
-                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal text-black mt-1">
+                                    class="w-full border border-gray-200 shadow-sm rounded-xl px-2 py-2 text-center focus:outline-none  font-normal text-black mt-1">
                             </label>
                         </div>
                     </div>
@@ -602,7 +614,7 @@
             <div class="w-[800px] max-h-[90vh] bg-white rounded-2xl shadow-xl relative overflow-hidden">
 
                 <div class="flex justify-center items-center py-3 relative border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-[#1B4597]">Kelola Silabus</h2>
+                    <h2 class="text-lg font-bold text-[#1B4597]">Kelola Silabus</h2>
                     <button onclick="closeModalSilabus()"
                         class="absolute right-4 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer hover:scale-[1.025] transition-all hover:bg-blue-700">✕</button>
                 </div>
@@ -629,7 +641,8 @@
                                 <td class="border border-gray-400 p-2" id="silabusSks"></td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-400 p-2 align-top font-medium">Deskripsi Mata Kuliah</td>
+                                <td class="border border-gray-400 p-2 align-top font-medium">Deskripsi Mata Kuliah
+                                </td>
                                 <td class="border border-gray-400 p-2 text-center align-top">:</td>
                                 <td class="border border-gray-400 p-2">
                                     <textarea name="deskripsi" id="silabusDeskripsi" oninput="autoResize(this)" rows="2"
@@ -638,7 +651,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-400 p-2 align-top font-medium">Capaian Pembelajaran Umum
+                                <td class="border border-gray-400 p-2 align-top font-medium">Capaian Pembelajaran
+                                    Umum
                                 </td>
                                 <td class="border border-gray-400 p-2 text-center align-top">:</td>
                                 <td class="border border-gray-400 p-2">
@@ -648,7 +662,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="border border-gray-400 p-2 align-top font-medium">Capaian Pembelajaran Khusus
+                                <td class="border border-gray-400 p-2 align-top font-medium">Capaian Pembelajaran
+                                    Khusus
                                 </td>
                                 <td class="border border-gray-400 p-2 text-center align-top">:</td>
                                 <td class="border border-gray-400 p-2">
@@ -723,7 +738,7 @@
 
                         <div class="flex justify-center py-6">
                             <button type="submit"
-                                class="px-8 py-2 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
+                                class="px-8 py-2 rounded-full bg-gradient-to-r from-[#0284FD] to-[#3207CC] text-white font-semibold shadow cursor-pointer hover:scale-[1.025] transition-all hover:opacity-90">
                                 Simpan
                             </button>
                         </div>

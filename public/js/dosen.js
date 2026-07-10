@@ -72,20 +72,17 @@ function buatRowRiwayat(value = '', id = '') {
 function tambahSpesialis() {
     const container = document.getElementById('spesialis-container');
 
-    // Panggil fungsi buatRowSpesialis untuk membuat elemen input baru
     const rowBaru = buatRowSpesialis();
 
-    // Masukkan ke dalam container scroll
     container.appendChild(rowBaru);
 
-    // Otomatis scroll ke bawah saat input bertambah
     container.scrollTop = container.scrollHeight;
 }
 
 // Fungsi helper untuk menyusun baris input baru + tombol hapus
 function buatRowSpesialis() {
     const div = document.createElement('div');
-    // Class 'spesialis-item' penting untuk penanda saat dihapus
+
     div.className = 'flex items-center gap-2 mt-2 spesialis-item';
 
     div.innerHTML = `
@@ -127,7 +124,6 @@ document.addEventListener('click', function (e) {
     const pendidikan = btn.dataset.pendidikan ?? '';
     document.getElementById('edit_pendidikan_terakhir').value = pendidikan;
 
-    // ---- HANDLER FOTO LAMA DI MODAL EDIT ----
     const fotoPath = btn.dataset.foto ?? '';
     const editUploadBtn = document.getElementById('editUploadBtn');
     const editPreviewFile = document.getElementById('editPreviewFile');
@@ -138,7 +134,7 @@ document.addEventListener('click', function (e) {
         const namaFileLama = fotoPath.split('/').pop();
 
         editFileName.textContent = namaFileLama;
-        editFileSize.textContent = "File Tersimpan"; // Menghidupkan baris teks kedua
+        editFileSize.textContent = "File Tersimpan"; 
         editUploadBtn.classList.add('hidden');
         editPreviewFile.classList.remove('hidden');
     } else {
@@ -154,7 +150,6 @@ document.addEventListener('click', function (e) {
         aturRiwayatEdit(pendidikan, []);
     }
 
-
     try {
         const bidangSpesialis = JSON.parse(btn.dataset.spesialis || '[]');
         const spesialisContainer = document.getElementById('edit-spesialis-container');
@@ -169,7 +164,6 @@ document.addEventListener('click', function (e) {
         console.error('Error parsing spesialis:', err);
     }
 });
-
 
 
 function aturRiwayatEdit(pendidikan, existingData = []) {

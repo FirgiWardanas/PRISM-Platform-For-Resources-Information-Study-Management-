@@ -19,19 +19,13 @@ class ProgramStudiController extends Controller
         $query->where('kode_prodi', 'LIKE', "%{$search}%")
                 ->orWhere('nama_prodi', 'LIKE', "%{$search}%");
         })
-        ->paginate(6)
+        ->paginate(4)
         ->withQueryString();
 
         return view('admin.ketua_jurusan.program-studi', compact('prodi','search'));
     }
 
-    
-    public function create()
-    {
-        //
-    }
 
-    
 public function store(Request $request)
 {
     $request->validate([
@@ -69,18 +63,6 @@ public function store(Request $request)
 
     }
 }
-
-    
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
 
     
 public function update(Request $request, string $id)
@@ -130,8 +112,6 @@ public function update(Request $request, string $id)
 }
 
 
-
-    
     public function destroy($id)
     {
         $prodi = Prodi::findOrFail($id);

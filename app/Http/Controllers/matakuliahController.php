@@ -16,7 +16,7 @@ class matakuliahController extends Controller
                       ->orWhere('nama_matkul', 'like', "%{$search}%");
             })
             ->orderBy('kode_matkul')
-            ->paginate(6)
+            ->paginate(4)
             ->withQueryString();
 
         $jumlahMatakuliah = Matakuliah::count();

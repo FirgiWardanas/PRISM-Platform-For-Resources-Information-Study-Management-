@@ -1,4 +1,4 @@
-// ── Toggle Semester Accordion ──────────────────────────────
+//Toggle Semester Accordion
 function toggleSemester(el) {
     const parent = el.parentElement;
     const content = parent.querySelector('.content');
@@ -7,7 +7,7 @@ function toggleSemester(el) {
     arrow.classList.toggle('rotate-180');
 }
 
-// ── Modal Silabus (read-only) ──────────────────────────────
+//Modal Silabus (read-only)
 function openModalSilabus(data) {
     document.getElementById('silabus-nama-mk').textContent = data.nama_matkul || '—';
     document.getElementById('silabus-kode').textContent = data.kode_matkul || '—';
@@ -69,8 +69,7 @@ function toggleProfileCard() {
         .toggle('hidden');
 }
 
-
-
+//
 const profileBtn = document.getElementById('profileBtn');
 const profileCard = document.getElementById('profileCard');
 

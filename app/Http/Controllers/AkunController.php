@@ -26,24 +26,13 @@ class AkunController extends Controller
     $akuns = User::where('role','tim_kurikulum')->with('prodis')
     ->when($search, function($query, $search) {
         $query->where('nama', 'LIKE', "%{$search}%");
-        })->paginate(6);
+        })->paginate(3);
 
 
     return view('admin.ketua_jurusan.akun', compact('list_prodi','akuns','search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
 
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -95,21 +84,7 @@ class AkunController extends Controller
     }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.

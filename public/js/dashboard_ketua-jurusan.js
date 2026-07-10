@@ -11,7 +11,7 @@ const gradients = [
 ];
 
 const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
-const offsetLeft = 48; // w-10 (40px) + gap-2 (8px)
+const offsetLeft = 48; 
 
 const prodiContainer = document.getElementById("prodi-bars-container");
 dataProdi.forEach((item, index) => {

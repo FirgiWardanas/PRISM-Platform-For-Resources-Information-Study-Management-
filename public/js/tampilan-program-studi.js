@@ -69,14 +69,12 @@
       document.getElementById('kur-' + e.target.dataset.id)
         .classList.remove('hidden');
 
-      // reset button
       document.querySelectorAll('.kur-btn')
         .forEach(b => {
           b.classList.remove('bg-white/20', 'text-white');
           b.classList.add('bg-white', 'text-[#014B53]');
         });
 
-      // aktif gradient
       e.target.classList.remove('bg-white', 'text-[#014B53]');
       e.target.classList.add('bg-white/20' , 'text-white');
     };
@@ -91,12 +89,11 @@
       const el = document.getElementById("content-" + id);
       const icon = document.getElementById("icon-" + id);
 
-      // tutup kalau sedang terbuka
       if (el.style.maxHeight && el.style.maxHeight !== "0px") {
         el.style.maxHeight = null;
         icon.classList.remove("rotate-180");
       }
-      // buka kalau tertutup
+
       else {
         el.style.maxHeight = el.scrollHeight + "px";
         icon.classList.add("rotate-180");

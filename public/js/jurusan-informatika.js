@@ -21,4 +21,4 @@
     function prev() {
       index = (index - 1 + total) % total;
       updateSlide();
-    }
+    } 

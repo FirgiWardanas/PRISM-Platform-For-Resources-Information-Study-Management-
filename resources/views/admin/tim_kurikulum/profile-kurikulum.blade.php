@@ -27,7 +27,7 @@
 
                     <!-- Kiri -->
                     <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 w-full">
-                        <img src="{{ asset('images/Profile-Circle.png') }}" alt="profil"
+                        <img src="{{ asset('images/Profile Circle.svg') }}" alt="profil"
                             class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-[#3665DF] to-[#9A55FF] rounded-full flex-shrink-0">
 
                         <div class="text-sm text-gray-700 space-y-4 text-center md:text-left font-semibold md:flex-1 w-full relative">
