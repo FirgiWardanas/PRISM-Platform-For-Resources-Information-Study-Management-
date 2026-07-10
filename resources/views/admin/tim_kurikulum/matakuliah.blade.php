@@ -1,5 +1,5 @@
 <x-layout.layout>
-    
+
     <x-slot:title>Matakuliah</x-slot:title>
 
     <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
@@ -16,9 +16,13 @@
                 </x-admin.header-kurikulum>
 
                 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+
                     <form method="GET" action="{{ route('admin.matakuliah.index') }}" class="flex-1 max-w-sm">
+
                         <div class="flex items-center gap-2">
-                            <div class="relative flex-1">
+
+                            <div class="relative w-85 shrink-0">
+
                                 <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
                                         stroke-width="2" viewBox="0 0 24 24">
@@ -31,7 +35,7 @@
                                     class="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm focus:outline-none bg-white">
                             </div>
                             <button type="submit"
-                                class="flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white text-sm rounded-lg shadow hover:opacity-90 hover:scale-[1.025] transition-all whitespace-nowrap cursor-pointer">
+                                class="flex items-center gap-1 px-5 py-2.5 bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white text-sm font-semibold rounded-2xl shadow hover:opacity-90 hover:scale-[1.025] transition-all whitespace-nowrap cursor-pointer shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <circle cx="11" cy="11" r="8" />
@@ -41,8 +45,8 @@
                             </button>
 
                             @if($search)
-                                <a href="{{ route('admin.matakuliah.index') }}" class="px-4 py-2.5 text-sm text-purple-600 border border-purple-200 
-                                                    rounded-xl bg-white hover:bg-purple-50 transition">
+                                <a href="{{ route('admin.matakuliah.index') }}"
+                                    class="px-5 py-2.5 text-sm font-semibold text-purple-600 border border-purple-200 rounded-2xl bg-white hover:bg-purple-50 transition shrink-0 shadow-sm block text-center">
                                     Reset
                                 </a>
                             @endif
@@ -53,18 +57,17 @@
                     <div class="flex justify-end sm:block">
 
                         <button onclick="openTambahModal()"
-                            class="w-auto bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 rounded-lg shadow flex items-center gap-1 cursor-pointer whitespace-nowrap hover:scale-[1.025] transition-all hover:opacity-90">
+                            class="w-auto bg-gradient-to-r from-[#0282FD] to-[#3502CA] text-white px-4 py-2 font-semibold rounded-lg shadow flex items-center gap-0.5 cursor-pointer whitespace-nowrap hover:scale-[1.025] transition-all hover:opacity-90">
                             Tambah <img src="{{ asset('images/icon-plus.svg') }}" class="h-4 w-4">
                         </button>
                     </div>
                 </div>
 
-                <div
-                    class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300 flex-1 flex flex-col min-h-0 overflow-hidden">
+                <div class="bg-white rounded-3xl shadow-xl p-6 border border-gray-300 w-full">
 
-                    <div class="overflow-x-auto overflow-y-auto flex-1 max-h-full">
+                    <div class="overflow-x-auto w-full">
                         <table class="w-full border-collapse">
-                            <thead class="sticky top-0 bg-white z-10 shadow-[0_1px_0_0_rgba(243,244,246,1)]">
+                            <thead class="bg-white border-b border-gray-100">
                                 <tr>
                                     <th class="px-4 py-3 text-left text-xs md:text-sm font-semibold text-purple-600">
                                         Kode Mata Kuliah
@@ -85,7 +88,7 @@
                                             {{ $mk->kode_matkul }}
                                         </td>
 
-                                        <td class="px-4 py-3 text-sm text-gray-700">
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium">
                                             {{ $mk->nama_matkul }}
                                         </td>
 
@@ -118,8 +121,7 @@
                                                 Tidak ada mata kuliah yang cocok dengan pencarian
                                                 "<strong>{{ $search }}</strong>".
                                             @else
-                                                Belum ada mata kuliah. Klik <strong>Tambah</strong> untuk
-                                                menambahkan.
+                                                Belum ada mata kuliah. Klik <strong>Tambah</strong> untuk menambahkan.
                                             @endif
                                         </td>
                                     </tr>
@@ -165,7 +167,7 @@
                             <a href="{{ $matakuliahs->nextPageUrl() }}"
                                 class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">
                                 &raquo;
-                            </a>
+                            </a> 
                         @else
                             <span
                                 class="px-3 py-1.5 rounded-lg text-sm text-gray-300 bg-white border border-gray-300 cursor-not-allowed select-none">

@@ -1,5 +1,6 @@
 <x-layout.layout>
     <x-slot:title>Beranda</x-slot:title>
+
     <body class="font-montserrat min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
         style="background-image: url('{{ asset('images/image-7.png') }}')">
         <!-- Sidebar -->
@@ -22,7 +23,7 @@
                     <div class="space-y-1 z-10 md:pr-[260px]">
 
                         <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
-                            HELLO {{ $user->nama }}!
+                            HALO {{ $user->nama }}!
                         </p>
 
                         <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">
@@ -142,7 +143,6 @@
 
                 <!-- GRAFIK KURIKULUM -->
                 <div class="grid grid-cols-1 gap-5">
-
                     <div
                         class="bg-white p-5 rounded-2xl shadow-sm border border-[#DDE8FF] flex flex-col items-center w-full max-w-full">
 
@@ -150,43 +150,48 @@
                             Jumlah kurikulum per program studi
                         </h4>
 
-                        <div class="flex w-full pr-2 h-56 md:h-64 relative pl-8 md:pl-10">
+                        {{-- PENGECEKAN KONDISI LANGSUNG DI BLADE --}}
+                        @if($Prodis && $Prodis->count() > 0)
 
-                            <!-- LABEL -->
-                            <div class="absolute left-0 top-0 bottom-6 flex items-center">
+                            {{-- TAMPILAN 1: JIKA DATA ADA (Ada padding left 'pl-8' untuk area kotak ungu) --}}
+                            <div class="flex w-full pr-2 h-56 md:h-64 relative pl-8 md:pl-10">
 
-                                <div
-                                    class="border border-[#3700E9] text-[#3700E9] p-1 rounded-xl flex flex-col items-center justify-center gap-1 h-full w-8">
+                                <div class="absolute left-0 top-0 bottom-6 flex items-center">
+                                    <div
+                                        class="border border-[#3700E9] text-[#3700E9] p-1 rounded-xl flex flex-col items-center justify-center gap-1 h-full w-8">
+                                        <span class="text-[14px]">🎓</span>
+                                        <span
+                                            class="text-[8px] font-bold uppercase tracking-widest [writing-mode:vertical-lr] rotate-180">
+                                            Program Studi
+                                        </span>
+                                    </div>
+                                </div>
 
-                                    <span class="text-[14px]">🎓</span>
+                                <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
+                                    <div id="scale-container"
+                                        class="absolute inset-x-0 top-0 bottom-6 flex justify-between pointer-events-none">
+                                    </div>
 
-                                    <span
-                                        class="text-[8px] font-bold uppercase tracking-widest [writing-mode:vertical-lr] rotate-180">
+                                    <div id="prodi-bars-container"
+                                        class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1"></div>
 
-                                        Program Studi
-                                    </span>
+                                    <div id="scale-numbers"
+                                        class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- CHART -->
-                            <div class="flex-1 h-full relative flex flex-col justify-between pl-2">
+                        @else
 
-                                <!-- SCALE LINES (background) -->
-                                <div id="scale-container"
-                                    class="absolute inset-x-0 top-0 bottom-6 flex justify-between pointer-events-none">
-                                </div>
-
-                                <!-- BARS -->
-                                <div id="prodi-bars-container"
-                                    class="absolute inset-x-0 top-0 bottom-6 flex flex-col justify-between py-1">
-                                </div>
-
-                                <!-- ANGKA SKALA BAWAH -->
-                                <div id="scale-numbers"
-                                    class="absolute left-0 right-0 bottom-0 flex justify-between text-[9px] font-bold text-gray-400">
-                                </div>
+                            {{-- TAMPILAN 2: JIKA DATA KOSONG (Kotak ungu otomatis hilang, teks berada di tengah sempurna)
+                            --}}
+                            <div
+                                class="flex items-center justify-center w-full h-56 md:h-64 text-gray-400 text-lg italic">
+                                Belum ada kurikulum atau program studi yang aktif
                             </div>
-                        </div>
+
+                        @endif
+
                     </div>
                 </div>
             </div>

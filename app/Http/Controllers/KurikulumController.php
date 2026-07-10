@@ -27,10 +27,6 @@ class KurikulumController extends Controller
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
 
-    public function create()
-    {
-    }
-
     public function store(Request $request)
     {
         $prodi = auth()->guard()->user()->prodis;
@@ -83,14 +79,6 @@ class KurikulumController extends Controller
         }
     }
 
-    public function show(string $id)
-    {
-    }
-
-    public function edit(string $id)
-    {
-    }
-
     public function update(Request $request, string $id)
     {
         $idProdi = auth()->guard()->user()->id_prodi;
@@ -113,8 +101,6 @@ class KurikulumController extends Controller
             'status_kurikulum.required' => 'Status kurikulum wajib dipilih.',
             'tahun_mulai.between' => 'Tahun mulai tidak valid.',
         ]);
-
-
 
         try {
             $kurikulum = Kurikulum::findOrFail($id);

@@ -23,7 +23,7 @@
 
                         <div class="space-y-1 z-10 md:pr-[260px]">
                             <p class="text-xs uppercase tracking-wider font-semibold opacity-90">
-                                HELLO {{ strtoupper(auth()->user()->nama) }}!
+                                HALO {{ strtoupper(auth()->user()->nama) }}!
                             </p>
                             <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight">Selamat Datang Kembali</h2>
 
@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        {{-- MataKuliah --}}
+                        {{-- Total matakuliah --}}
                         <div
                             class="bg-white rounded-[24px] p-5 border border-[#e8d7ff] shadow-[#5200c663] shadow-lg relative overflow-hidden">
                             <div
@@ -101,7 +101,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
                         {{-- Diagram SKS per Semester --}}
-                        <div class="lg:col-span-2 bg-white p-5 rounded-2xl shadow-sm flex flex-col items-center">
+                        <div class="lg:col-span-2 bg-white border border-gray-200 p-5 rounded-2xl shadow-sm flex flex-col items-center">
                             <h4 class="text-xs font-bold text-[#1E293B] mb-6 text-center w-full">Jumlah SKS per semester
                             </h4>
 
@@ -155,7 +155,7 @@
                         </div>
 
                         {{-- Kategori Matakuliah --}}
-                        <div class="bg-white p-5 rounded-2xl shadow-sm flex flex-col justify-between">
+                        <div class="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-center mb-4">
                                     <h4 class="text-xs font-bold text-[#1E293B]">Matakuliah</h4>

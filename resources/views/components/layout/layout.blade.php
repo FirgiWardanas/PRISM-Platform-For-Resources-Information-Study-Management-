@@ -16,7 +16,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    <title>{{ $title ?? 'App' }}</title>
 
     {{-- Alpine.js --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

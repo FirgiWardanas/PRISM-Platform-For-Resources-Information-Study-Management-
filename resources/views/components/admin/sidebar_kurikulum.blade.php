@@ -8,14 +8,14 @@
         ✕
     </button>
     
-    <div class="mb-10 flex items-center gap-3">
-        <div class="h-12 w-20 rounded-full bg-cover bg-center">
-            <img src="{{ asset('images/logo prism.png') }}" alt="">
+    <div class="mb-10 flex items-center gap-2 pr-6 lg:pr-0">
+        <div class="h-14.5 w-14.5 flex-shrink-0">
+            <img src="{{ asset('images/logo-prism.svg') }}" class="w-full h-full object-contain" alt="Logo PRISM">
         </div>
 
         <div>
             <h1 class="text-[#0161C5] text-2xl font-bold">PRISM</h1>
-            <p class="text-xs text-[#0161C5]">platform for resource & study Management</p>
+            <p class="text-[11px] text-[#0161C5] font-semibold">Platform for Resource & Information Study Management</p>
         </div>
     </div>
 

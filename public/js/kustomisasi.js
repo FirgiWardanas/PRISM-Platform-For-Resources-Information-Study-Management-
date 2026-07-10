@@ -1,6 +1,4 @@
-// =============================================
 // COLOR PICKER SYNC
-// =============================================
 ['primary', 'secondary', 'tertiary', 'quaternary'].forEach(function (name) {
     const picker = document.getElementById('picker-' + name);
     const input = document.getElementById('input-' + name);
@@ -22,9 +20,7 @@
     });
 });
 
-// =============================================
 // IMAGE PREVIEW
-// =============================================
 function setupImagePreview(inputId, previewId) {
     const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
@@ -61,14 +57,12 @@ function removeImage(inputId, previewId) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Preview gambar kustomisasi
+
     setupImagePreview('input-logo',      'preview-logo');
     setupImagePreview('input-ilustrasi', 'preview-ilustrasi');
     setupImagePreview('input-icon',      'preview-icon');
 
-    // =============================================
     // PREVIEW FOTO PROFIL LULUSAN
-    // =============================================
     const inputTambah = document.getElementById('input-icon-tambah');
     if (inputTambah) {
         inputTambah.addEventListener('change', function () {
@@ -110,15 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// =============================================
 // MODAL PROFIL LULUSAN
-// =============================================
 function openModal() {
     const m = document.getElementById('modalProfil');
     m.classList.remove('hidden');
     m.classList.add('flex');
     
-    // Reset form dan preview
     const form = m.querySelector('form');
     if(form) form.reset();
     
@@ -191,11 +182,7 @@ function editProfil(btn) {
     });
 });
 
-
-
-// =============================================
 // RESET FORM
-// =============================================
 function resetForm() {
 
     Swal.fire({

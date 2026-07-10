@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileKajurController extends Controller
 {
-    // ── Tampilkan halaman profil ──────────────────────────────────────────
+    //Tampilkan halaman profil
     public function index()
     {
         $user = Auth::user();
@@ -29,7 +29,7 @@ class ProfileKajurController extends Controller
     );
 }
 
-    // ── Update profil biasa ───────────────────────────────────────────────
+    // Update profil biasa 
 public function update(Request $request, $id)
 {
 

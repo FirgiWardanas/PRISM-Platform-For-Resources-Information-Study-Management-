@@ -34,8 +34,6 @@ function kurangTambah() {
 let valueEdit = 0;
 
 function openEditModal(btn, id_kurikulum, nama_kurikulum, tahun_mulai, status_kurikulum, total_semester) {
-
-
     const modal = document.getElementById('editKurikulum');
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -155,6 +153,48 @@ function removeTambahFile() {
 
 document.addEventListener('DOMContentLoaded', function () {
     const tambahFileInput = document.getElementById('tambahFileRps');
+    const dropAreaTambah = document.getElementById('dropAreaTambah');
+
+    // FITUR DRAG & DROP 
+    if (dropAreaTambah && tambahFileInput) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropAreaTambah.addEventListener(eventName, function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropAreaTambah.addEventListener(eventName, function () {
+                dropAreaTambah.classList.add('bg-blue-50/50', 'border-blue-400');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropAreaTambah.addEventListener(eventName, function () {
+                dropAreaTambah.classList.remove('bg-blue-50/50', 'border-blue-400');
+            }, false);
+        });
+
+        dropAreaTambah.addEventListener('drop', function (e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            if (files.length > 0 && files[0].type === "application/pdf") {
+                tambahFileInput.files = files; 
+                
+                document.getElementById('uploadTextTambah').classList.add('hidden');
+                document.getElementById('uploadIconTambah').classList.add('hidden');
+                document.getElementById('fileIconTambah').classList.remove('hidden');
+                document.getElementById('removeTambahFile').classList.remove('hidden');
+                document.getElementById('fileNameTambah').textContent = files[0].name;
+            } else if (files.length > 0) {
+                alert('Mohon masukkan file berformat PDF!');
+            }
+        });
+    }
+
+    // Input File biasa lewat klik tombol
     if (tambahFileInput) {
         tambahFileInput.addEventListener('change', function () {
             if (this.files.length > 0) {
@@ -213,7 +253,6 @@ function openModalEditMatkul(imgEl) {
     document.getElementById('editSesiPraktikum').value = d.sesiPraktikum;
     document.getElementById('editStatusMatkul').value = d.statusMatkul;
 
-    // Sync ke Alpine search edit
     const mkSearchEl = document.querySelector('#modalEditMatkul [x-data]');
     if (mkSearchEl) {
         const alpine = Alpine.$data(mkSearchEl);
@@ -247,11 +286,9 @@ function hapusDetailKurikulum(id_detail) {
         cancelButtonText: 'Batal',
         confirmButtonText: 'Ya, Hapus'
     }).then((result) => {
-
         if (result.isConfirmed) {
             document.getElementById(`deleteDetailForm_${id_detail}`).submit();
         }
-
     });
 }
 
@@ -261,7 +298,6 @@ function openModalSilabus(imgEl) {
     document.getElementById('silabusNamaMK').textContent = d.namaMk || '-';
     document.getElementById('silabusKode').textContent = d.kode || '-';
     document.getElementById('silabusSks').textContent = d.sks || '-';
-    // HAPUS baris ini → document.getElementById('silabusIdHidden').value = d.idSilabus || '';
 
     const deskripsiEl = document.getElementById('silabusDeskripsi');
     const cpmEl = document.getElementById('silabusCpm');
@@ -294,7 +330,7 @@ function openModalSilabus(imgEl) {
     if (iconEl) iconEl.classList.remove('hidden');
 
     const form = document.getElementById('formSilabus');
-    if (form) form.action = d.action; // d.action sudah diset dari blade ke route updateSilabus
+    if (form) form.action = d.action; 
     document.getElementById('silabusDetailId').value = d.idDetail;
 
     const modal = document.getElementById('modalSilabus');
@@ -328,7 +364,7 @@ function autoResize(el) {
     el.style.height = el.scrollHeight + 'px';
 }
 
-//sidebbar responsive
+// Sidebar responsive
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
@@ -386,18 +422,14 @@ function hitungSksEdit() {
 }
 
 document.getElementById('formTambahMatkul').addEventListener('submit', function (e) {
-    // SKS sudah dihitung otomatis dari bobot_teori + bobot_praktikum
     hitungSksTambah();
 });
 
-
 document.getElementById('formEditMatkul').addEventListener('submit', function (e) {
-    // SKS dihitung otomatis dari bobot_teori + bobot_praktikum sebelum submit
     hitungSksEdit();
 });
 
 function showToastError(message) {
-    // Hapus toast lama kalau ada
     const existing = document.getElementById('toastValidasiError');
     if (existing) existing.remove();
 
@@ -410,29 +442,23 @@ function showToastError(message) {
     `;
     document.body.appendChild(toast);
 
-    // Auto hilang setelah 4 detik
     setTimeout(() => toast.remove(), 4000);
 }
-//kurikulum yang pertama aktif langsung muncul
+
 document.addEventListener("DOMContentLoaded", () => {
     const aktif = document.querySelector('.kurikulum-item[data-status="aktif"]');
-
     if (aktif) {
         aktif.click();
     }
 });
 
 function showKurikulum(id, element) {
-
-    // Sembunyikan semua panel
     document.querySelectorAll(".kurikulum-content").forEach(panel => {
         panel.classList.add("hidden");
     });
 
-    // Tampilkan panel yang dipilih
     document.getElementById("kurikulum-" + id).classList.remove("hidden");
 
-    // Reset semua tombol
     document.querySelectorAll(".kurikulum-item").forEach(item => {
         item.classList.remove(
             "bg-gradient-to-r",
@@ -442,16 +468,10 @@ function showKurikulum(id, element) {
             "scale-105",
             "shadow-lg"
         );
-
-        item.classList.add(
-            "bg-[#B3C3FF]",
-            "text-[#4862E5]"
-        );
+        item.classList.add("bg-[#B3C3FF]", "text-[#4862E5]");
     });
 
-    // Aktif
     element.classList.remove("bg-[#B3C3FF]", "text-[#4862E5]");
-
     element.classList.add(
         "bg-gradient-to-r",
         "from-[#4363E3]",
