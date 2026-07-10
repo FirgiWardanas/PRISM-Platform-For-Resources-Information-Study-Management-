@@ -10,19 +10,30 @@ use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $idProdi = auth()->guard()->user()->id_prodi;
+
         $kurikulums = Kurikulum::with([
             'prodi',
             'detailKurikulums.matakuliah',
         ])
-            ->where('id_prodi', auth()->guard()->user()->id_prodi)
+            ->where('id_prodi', $idProdi)
             ->latest('id_kurikulum')
             ->get();
 
+        // ambil semua id_MK yang sudah dipakai pada semua kurikulum prodi ini
+        $usedIds = DB::table('detail_kurikulum')
+            ->join('kurikulum', 'detail_kurikulum.id_kurikulum', '=', 'kurikulum.id_kurikulum')
+            ->where('kurikulum.id_prodi', $idProdi)
+            ->pluck('detail_kurikulum.id_MK')
+            ->toArray();
 
-
-        $matakuliahs = Matakuliah::all();
+        // ambil hanya matakuliah yang belum dipakai (sesuaikan kolom primary key jika perlu)
+        $matakuliahs = Matakuliah::when(!empty($usedIds), function ($q) use ($usedIds) {
+                return $q->whereNotIn('id_MK', $usedIds);
+            })
+            ->get();
 
         return view('admin.tim_kurikulum.kurikulum', compact('kurikulums', 'matakuliahs'));
     }
@@ -42,7 +53,7 @@ class KurikulumController extends Controller
             'nama_kurikulum' => [
                 'required',
                 Rule::unique('kurikulum', 'nama_kurikulum')
-                    ->where(fn($q) => $q->where('id_prodi', $idProdi)),
+                    ->where(fn($q) => $q->where('id_prodi', $idProDi)),
             ],
             'tahun_mulai' => 'required|numeric|between:1901,2125',
         ], [
@@ -53,15 +64,15 @@ class KurikulumController extends Controller
         ]);
 
         try {
-            DB::transaction(function () use ($request, $idProdi, $totalSemester) {
+            DB::transaction(function () use ($request, $idProDi, $totalSemester) {
 
 
-                Kurikulum::where('id_prodi', $idProdi)
+                Kurikulum::where('id_prodi', $idProDi)
                     ->update(['status_kurikulum' => 'tidak aktif']);
 
 
                 Kurikulum::create([
-                    'id_prodi'         => $idProdi,
+                    'id_prodi'         => $idProDi,
                     'nama_kurikulum'   => $request->nama_kurikulum,
                     'tahun_mulai'      => $request->tahun_mulai,
                     'total_semester'   => $totalSemester,
@@ -81,13 +92,13 @@ class KurikulumController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $idProdi = auth()->guard()->user()->id_prodi;
+        $idProDi = auth()->guard()->user()->id_prodi;
 
         $request->validate([
             'nama_kurikulum' => [
                 'required',
                 Rule::unique('kurikulum', 'nama_kurikulum')
-                    ->where(fn($q) => $q->where('id_prodi', $idProdi))
+                    ->where(fn($q) => $q->where('id_prodi', $idProDi))
                     ->ignore($id, 'id_kurikulum'),
             ],
             'tahun_mulai' => 'required|numeric|between:1901,2125',
@@ -116,11 +127,11 @@ class KurikulumController extends Controller
                     ->with('error', 'Tidak ada data yang diubah.');
             }
 
-            DB::transaction(function () use ($kurikulum, $idProdi, $request) {
+            DB::transaction(function () use ($kurikulum, $idProDi, $request) {
 
   
                 if ($request->status_kurikulum === 'aktif') {
-                    Kurikulum::where('id_prodi', $idProdi)
+                    Kurikulum::where('id_prodi', $idProDi)
                         ->update(['status_kurikulum' => 'tidak aktif']);
                 }
 
