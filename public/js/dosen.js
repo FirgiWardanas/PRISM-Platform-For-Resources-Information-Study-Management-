@@ -208,6 +208,31 @@ function buatRowRiwayat(value = '', id = '') {
     return row;
 }
 
+function aturRiwayat() {
+    const pendidikan = document.getElementById('pendidikan_terakhir').value;
+    const container = document.getElementById('riwayat-container');
+    const jumlah = getJumlahRiwayat(pendidikan); 
+
+    container.innerHTML = '';
+
+    for (let i = 0; i < jumlah; i++) {
+        container.appendChild(buatRowRiwayatTambah());
+    }
+}
+
+
+function buatRowRiwayatTambah() {
+    const div = document.createElement('div');
+    div.className = 'mt-2'; 
+    div.innerHTML = `
+        <input type="text" 
+               name="riwayat_pendidikan[]" 
+               placeholder="Masukkan Riwayat Pendidikan" 
+               class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+    `;
+    return div;
+}
+
 function buatRowSpesialis(value = '') {
     const row = document.createElement('div');
     row.className = 'flex items-center gap-2 mt-2';
@@ -224,6 +249,51 @@ function buatRowSpesialis(value = '') {
     `;
 
     return row;
+}
+// FUNGSI UNTUK EDIT (Otomatis)
+function aturRiwayatEdit(pendidikan, existingData = []) {
+    const container = document.getElementById('edit-riwayat-container');
+    container.innerHTML = ''; 
+
+    // Loop data dari database
+    existingData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center gap-2 mt-2'; 
+        div.innerHTML = `
+            <input type="hidden" name="id_riwayat[]" value="${item.id_riwayat_pendidikan ?? ''}">
+            <input type="text" name="riwayat_pendidikan[]" value="${item.deskripsi_riwayat ?? ''}"
+                placeholder="Masukkan Riwayat Pendidikan"
+                class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+            
+            <button type="button" onclick="this.parentElement.remove()"
+                class="flex-shrink-0 bg-red-100 hover:bg-red-200 text-red-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs">
+                ✕
+            </button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// FUNGSI UNTUK EDIT (Manual - Tombol +)
+function tambahRiwayatManualEdit() {
+    const container = document.getElementById('edit-riwayat-container');
+    container.appendChild(buatRowRiwayatEdit());
+}
+
+// Template khusus untuk Edit (Tanpa ID hidden agar aman saat tambah baru)
+function buatRowRiwayatEdit() {
+    const div = document.createElement('div');
+    div.className = 'flex items-center gap-2';
+    div.innerHTML = `
+        <input type="text" name="riwayat_pendidikan[]" 
+               placeholder="Masukkan Riwayat Pendidikan" 
+               class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+        <button type="button" onclick="this.parentElement.remove()"
+                class="flex-shrink-0 bg-red-100 hover:bg-red-200 text-red-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs">
+            ✕
+        </button>
+    `;
+    return div;
 }
 
 function hapusData(id_dosen) {
@@ -343,20 +413,20 @@ const editFileNameEl = document.getElementById('editFileName');
 const editFileSizeEl = document.getElementById('editFileSize');
 const editHapusBtn = document.getElementById('editHapusFoto');
 
-// Ketika user memilih file baru di modal edit
+
 inputEditFoto.addEventListener('change', function () {
     if (!this.files.length) return;
 
     const file = this.files[0];
     editFileNameEl.textContent = file.name;
-    // Mengubah teks dari "File Tersimpan" menjadi ukuran asli saat file baru dipilih
+    
     editFileSizeEl.textContent = (file.size / 1024).toFixed(0) + " KB";
 
     editUploadBtnEl.classList.add('hidden');
     editPreviewEl.classList.remove('hidden');
 });
 
-// Ketika user menghapus preview foto di modal edit
+
 editHapusBtn.addEventListener('click', function () {
     inputEditFoto.value = ""; // Reset file input
     editFileNameEl.textContent = "";
@@ -366,5 +436,38 @@ editHapusBtn.addEventListener('click', function () {
     editUploadBtnEl.classList.remove('hidden');
 });
 
+
+function buatRowRiwayatTambah() {
+    const div = document.createElement('div');
+    div.className = 'flex items-center gap-2 mt-2';
+    div.innerHTML = `
+        <input type="text" name="riwayat_pendidikan[]" 
+               placeholder="Masukkan Riwayat Pendidikan" 
+               class="w-full px-4 py-2 rounded-xl border border-gray-300 shadow focus:outline-none">
+        <button type="button" onclick="this.parentElement.remove()"
+                class="flex-shrink-0 bg-red-100 hover:bg-red-200 text-red-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all">
+            ✕
+        </button>
+    `;
+    return div;
+}
+
+// 1. Fungsi Otomatis (Saat dropdown pendidikan dipilih)
+function aturRiwayat() {
+    const pendidikan = document.getElementById('pendidikan_terakhir').value;
+    const container = document.getElementById('riwayat-container');
+    const jumlah = getJumlahRiwayat(pendidikan); 
+
+    container.innerHTML = ''; 
+    
+    
+    for (let i = 0; i < jumlah; i++) {
+        container.appendChild(buatRowRiwayatTambah());
+    }
+}
+
+function tambahRiwayatManual() {
+    document.getElementById('riwayat-container').appendChild(buatRowRiwayatTambah());
+}
 
 

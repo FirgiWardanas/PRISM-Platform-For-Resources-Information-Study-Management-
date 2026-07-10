@@ -68,7 +68,7 @@
                 @if(request('search') || request('prodi') || request('jabatan'))
                     <a href="{{ route('admin.kelola-dosen.index') }}"
                         class="px-4 py-2.5 text-sm text-blue-600 border border-blue-200 rounded-2xl
-                                                                                                                    bg-white hover:bg-blue-50 transition">
+                                                                                                                            bg-white hover:bg-blue-50 transition">
                         Reset
                     </a>
                 @endif
@@ -264,8 +264,15 @@
                             </div>
 
                             <div>
-                                <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat
-                                    Pendidikan</label>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+
+                                    <button type="button" onclick="tambahRiwayatManual()"
+                                        class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-xl hover:opacity-90 transition-all">
+                                        +
+                                    </button>
+                                </div>
+
                                 <div id="riwayat-container">
                                     <input type="text" name="riwayat_pendidikan[]"
                                         placeholder="Masukkan Riwayat Pendidikan"
@@ -403,8 +410,13 @@
                             </div>
 
                             <div>
-                                <label class="text-[#325098] font-semibold text-sm block mb-1">Riwayat
-                                    Pendidikan</label>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <label class="text-[#325098] font-semibold text-sm">Riwayat Pendidikan</label>
+                                    <button type="button" onclick="tambahRiwayatManualEdit()"
+                                        class="bg-[#123CFF] text-white w-5 h-5 rounded-full flex items-center justify-center text-xl hover:opacity-90 transition-all">
+                                        +
+                                    </button>
+                                </div>
                                 <div id="edit-riwayat-container" class="flex flex-col gap-2">
                                     {{-- Diisi otomatis oleh JS --}}
                                 </div>
@@ -428,14 +440,12 @@
                                 <input type="file" name="foto_dosen" id="editFotoDosen" class="hidden"
                                     accept=".png,.jpg,.jpeg">
 
-                                {{-- Tombol upload asli modal edit --}}
                                 <label id="editUploadBtn" for="editFotoDosen"
                                     class="w-fit px-4 py-2 rounded-lg border border-[#123CFF] bg-[#EAF0FF] text-[#123CFF] font-semibold cursor-pointer hover:bg-[#DDE7FF] transition-all">
                                     Upload foto
                                 </label>
 
-                                {{-- Box Preview (SUDAH DITAMBAHKAN BORDER, SHADOW & LAYOUT YANG SAMA DENGAN TAMBAH)
-                                --}}
+
                                 <div id="editPreviewFile"
                                     class="hidden mt-3 flex items-center justify-between border rounded-xl px-4 py-2 shadow border-gray-300 focus:outline-none bg-white">
                                     <div>
