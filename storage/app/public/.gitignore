@@ -1,2 +1,16 @@
 
+# Abaikan semua file di folder ini secara default
+*
 
+# KECUALI file gitignore itu sendiri
+!.gitignore
+
+# KECUALI folder-folder aset utama beserta seluruh isinya
+!foto-dosen/
+!foto-dosen/**
+!prodi/
+!prodi/**
+!profil_lulusan/
+!profil_lulusan/**
+!rps/
+!rps/**
