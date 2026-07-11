@@ -32,7 +32,6 @@ dataProdi.forEach((item, index) => {
     `;
     prodiContainer.appendChild(rowGroup);
 
-    // Pemicu animasi: ubah width dari 0% ke width target setelah sedikit jeda
     setTimeout(() => {
         const bar = rowGroup.querySelector('.bar-fill');
         bar.style.width = bar.getAttribute('data-width');
