@@ -53,7 +53,7 @@ class KurikulumController extends Controller
             'nama_kurikulum' => [
                 'required',
                 Rule::unique('kurikulum', 'nama_kurikulum')
-                    ->where(fn($q) => $q->where('id_prodi', $idProDi)),
+                    ->where(fn($q) => $q->where('id_prodi', $idProdi)),
             ],
             'tahun_mulai' => 'required|numeric|between:1901,2125',
         ], [
@@ -64,15 +64,15 @@ class KurikulumController extends Controller
         ]);
 
         try {
-            DB::transaction(function () use ($request, $idProDi, $totalSemester) {
+            DB::transaction(function () use ($request, $idProdi, $totalSemester) {
 
 
-                Kurikulum::where('id_prodi', $idProDi)
+                Kurikulum::where('id_prodi', $idProdi)
                     ->update(['status_kurikulum' => 'tidak aktif']);
 
 
                 Kurikulum::create([
-                    'id_prodi'         => $idProDi,
+                    'id_prodi'         => $idProdi,
                     'nama_kurikulum'   => $request->nama_kurikulum,
                     'tahun_mulai'      => $request->tahun_mulai,
                     'total_semester'   => $totalSemester,

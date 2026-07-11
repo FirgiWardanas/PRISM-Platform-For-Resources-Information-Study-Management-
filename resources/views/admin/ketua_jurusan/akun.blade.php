@@ -17,11 +17,11 @@
 
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 
-                <form method="GET" action="{{ route('admin.akun.index') }}" class="w-full md:w-auto">
+                <form method="GET" action="{{ route('admin.akun.index') }}" class="w-full md:w-auto flex-1 max-w-md">
                     <div class="flex items-center gap-2">
 
                         <div class="relative flex-1 min-w-0">
-                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
