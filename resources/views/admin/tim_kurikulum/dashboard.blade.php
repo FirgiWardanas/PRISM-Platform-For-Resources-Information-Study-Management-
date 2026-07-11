@@ -13,7 +13,7 @@
             {{-- header --}}
             <x-admin.header_kurikulum>
                 <div class="font-bold">Beranda</div>
-                </x-admin.header-kurikulum>
+            </x-admin.header-kurikulum>
 
                 <div class="flex-1 overflow-y-auto px-2 pb-6 space-y-6">
 

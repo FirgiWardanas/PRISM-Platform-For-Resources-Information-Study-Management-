@@ -224,10 +224,8 @@
 
                         </div>
                     @endforeach
-
                 </div>
         </main>
-
 
         {{-- MODAL TAMBAH KURIKULUM --}}
         <div id="tambahkurikulum" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-[999]">
@@ -272,7 +270,7 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- WAJIB ADA: hidden input semester --}}
+                        {{-- hidden input semester --}}
                         <input type="hidden" id="semesterInputEdit" name="total_semester">
 
                         <label>
@@ -291,14 +289,14 @@
                         <label>
                             <span>Status Kurikulum</span>
                             <select name="status_kurikulum" id="status_kurikulum"
-                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2"
+                                class="py-2 px-3 border border-gray-300 shadow-lg rounded w-full block text-sm mb-2 focus:outline-none"
                                 required>
                                 <option value="aktif">Aktif</option>
                                 <option value="tidak aktif">Tidak Aktif</option>
                             </select>
                         </label>
 
-                        {{-- WAJIB ADA: counter total semester --}}
+                        {{-- counter total semester --}}
                         <label class="hidden">
                             <span class="text-sm hidden">Total Semester</span>
                             <div
@@ -346,7 +344,7 @@
                 class="w-[95%] max-w-[800px] max-h-[90vh] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden">
 
                 <div class="relative flex items-center justify-center p-6 border-b border-gray-100 bg-white shrink-0">
-                    <h2 class="text-center text-xl font-bold text-[#1B4597]">Tambah Matakuliah</h2>
+                    <h2 class="text-center text-xl font-bold text-[#1B4597]">Tambah Mata kuliah</h2>
 
                     <button type="button" onclick="closeModalTambahMatkul()"
                         class="absolute right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 transition cursor-pointer hover:scale-[1.025]">✕</button>
@@ -517,7 +515,7 @@
                 <button type="button" onclick="closeModalEditMatkul()"
                     class="absolute top-6 right-6 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow hover:bg-blue-700 cursor-pointer hover:scale-[1.025] transition-all">✕</button>
 
-                <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Ubah Matakuliah</h2>
+                <h2 class="text-center text-xl font-bold text-[#1B4597] mb-8">Ubah Mata kuliah</h2>
 
                 <form id="formEditMatkul" method="POST">
                     @csrf
@@ -749,7 +747,6 @@
             <form id="deleteSilabusForm" method="POST" class="hidden">
                 @csrf
                 @method('DELETE')
-                {{-- action diisi dinamis oleh JS pakai route destroyFileRps --}}
             </form>
         </div>
         <script>
@@ -782,6 +779,7 @@
                 }
             }
         </script>
+        <script src="{{ asset('js/kurikulum.js') }}"></script>
+
     </body>
-    <script src="{{ asset('js/kurikulum.js') }}"></script>
 </x-layout.layout>

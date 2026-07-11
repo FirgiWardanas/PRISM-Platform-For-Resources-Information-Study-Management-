@@ -150,10 +150,9 @@
                             Jumlah kurikulum per program studi
                         </h4>
 
-                        {{-- PENGECEKAN KONDISI LANGSUNG DI BLADE --}}
                         @if($Prodis && $Prodis->count() > 0)
 
-                            {{-- TAMPILAN 1: JIKA DATA ADA (Ada padding left 'pl-8' untuk area kotak ungu) --}}
+                            {{--  JIKA DATA ADA --}}
                             <div class="flex w-full pr-2 h-56 md:h-64 relative pl-8 md:pl-10">
 
                                 <div class="absolute left-0 top-0 bottom-6 flex items-center">
@@ -183,8 +182,6 @@
 
                         @else
 
-                            {{-- TAMPILAN 2: JIKA DATA KOSONG (Kotak ungu otomatis hilang, teks berada di tengah sempurna)
-                            --}}
                             <div
                                 class="flex items-center justify-center w-full h-56 md:h-64 text-gray-400 text-lg italic">
                                 Belum ada kurikulum atau program studi yang aktif

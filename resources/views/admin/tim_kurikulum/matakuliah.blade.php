@@ -17,11 +17,12 @@
 
                 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
 
-                    <form method="GET" action="{{ route('admin.matakuliah.index') }}" class="flex-1 max-w-sm">
+                    <form method="GET" action="{{ route('admin.matakuliah.index') }}"
+                        class="w-full md:w-auto flex-1 max-w-md">
 
                         <div class="flex items-center gap-2">
 
-                            <div class="relative w-85 shrink-0">
+                            <div class="relative flex-1 min-w-0">
 
                                 <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
@@ -137,27 +138,29 @@
                         {{-- Prev --}}
                         @if($matakuliahs->onFirstPage())
                             <span
-                                class="px-3 py-1.5 rounded-lg text-sm text-gray-300 bg-white border border-gray-300 cursor-not-allowed select-none">
-                                &laquo;
-                            </span>
+                                class="px-3 py-1.5 rounded-lg text-sm text-gray-300 bg-white border border-gray-300 cursor-not-allowed select-none">&laquo;</span>
                         @else
                             <a href="{{ $matakuliahs->previousPageUrl() }}"
-                                class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">
-                                &laquo;
-                            </a>
+                                class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">&laquo;</a>
                         @endif
 
                         {{-- Page Numbers --}}
-                        @foreach($matakuliahs->getUrlRange(1, $matakuliahs->lastPage()) as $page => $url)
-                            @if($page == $matakuliahs->currentPage())
+                        @foreach ($matakuliahs->onEachSide(1)->linkCollection() as $link)
+                            @if ($link['label'] == '&laquo; Previous' || $link['label'] == 'Next &raquo;')
+                                @continue
+                            @endif
+
+                            @if ($link['url'] === null)
+                                <span class="px-3 py-1.5 text-gray-400">{{ $link['label'] }}</span>
+                            @elseif ($link['active'])
                                 <span
                                     class="px-3 py-1.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-[#0282FD] to-[#3502CA] shadow select-none">
-                                    {{ $page }}
+                                    {{ $link['label'] }}
                                 </span>
                             @else
-                                <a href="{{ $url }}"
+                                <a href="{{ $link['url'] }}"
                                     class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">
-                                    {{ $page }}
+                                    {{ $link['label'] }}
                                 </a>
                             @endif
                         @endforeach
@@ -165,14 +168,10 @@
                         {{-- Next --}}
                         @if($matakuliahs->hasMorePages())
                             <a href="{{ $matakuliahs->nextPageUrl() }}"
-                                class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">
-                                &raquo;
-                            </a> 
+                                class="px-3 py-1.5 rounded-lg text-sm text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 transition">&raquo;</a>
                         @else
                             <span
-                                class="px-3 py-1.5 rounded-lg text-sm text-gray-300 bg-white border border-gray-300 cursor-not-allowed select-none">
-                                &raquo;
-                            </span>
+                                class="px-3 py-1.5 rounded-lg text-sm text-gray-300 bg-white border border-gray-300 cursor-not-allowed select-none">&raquo;</span>
                         @endif
                     </div>
 

@@ -11,7 +11,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('user')->insert([
-            // id_user DIHAPUS agar otomatis dibuatkan oleh MySQL (Auto-Increment)
             'id_prodi' => null,
             'nama' => 'Admin Ketua Jurusan', 
             'nip' => '12345678',
