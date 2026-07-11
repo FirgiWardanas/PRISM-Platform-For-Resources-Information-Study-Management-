@@ -37,7 +37,7 @@
                             <tbody>
                                 @forelse($details as $idx => $detail)
                                     <tr class="text-[10px] text-center border-t border-gray-100 hover:bg-blue-50">
-                                        <td class="p-2">{{ $idx + 1 }}</td>
+                                        <td class="p-2">{{ $loop->iteration }}</td>
                                         <td class="p-2">{{ $detail->matakuliah->kode_matkul }}</td>
                                         <td class="p-2 text-left">{{ $detail->matakuliah->nama_matkul }}</td>
                                         <td class="p-2">{{ $detail->sks }}</td>

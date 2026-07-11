@@ -26,7 +26,7 @@ class AkunController extends Controller
     $akuns = User::where('role','tim_kurikulum')->with('prodis')
     ->when($search, function($query, $search) {
         $query->where('nama', 'LIKE', "%{$search}%");
-        })->paginate(3);
+        })->paginate(5);
 
 
     return view('admin.ketua_jurusan.akun', compact('list_prodi','akuns','search'));

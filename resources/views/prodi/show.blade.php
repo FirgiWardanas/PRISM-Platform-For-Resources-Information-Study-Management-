@@ -232,7 +232,7 @@
                             <img src="{{ Storage::url($fotoLulusan) }}" class="w-32 md:w-56 rounded-2xl object-cover">
                         @endif
                         <div class="text-white md:ml-6 text-center md:text-left mt-4 md:mt-0">
-                            <h1 class="text-2xl md:text-4xl font-bold">{{ $profil->judul_lulusan }}</h1>
+                            <h1 class="text-2xl md:text-3xl font-bold">{{ $profil->judul_lulusan }}</h1>
                             <p class="text-[10px] md:text-sm mt-2 leading-relaxed">{{ $profil->deskripsi_lulusan }}</p>
                         </div>
                     </div>
