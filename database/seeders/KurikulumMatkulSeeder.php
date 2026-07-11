@@ -1524,9 +1524,9 @@ class KurikulumMatkulSeeder extends Seeder
                 'quaternary' => '#1F9EFF',
                 'logo' => 'prodi/logo/logo-rks.svg',
                 'ilustrasi' => 'prodi/ilustrasi/ilustrasi-rks.svg',
-                'visi' => 'Menghasilkan ahli madya komputer yang kompeten di bidang jaringan.',
-                'misi' => '1. Menyelenggarakan pendidikan praktis di bidang infrastruktur IT.',
-                'deskripsi' => 'D4 Rekayasa Keamanan Siber merupakan program studi yang mengkhususkan pada pengembangan aplikasi.',
+                'visi' => 'Menjadi program studi yang unggul dan berdaya saing dalam bidang Keamanan Siber di kawasan Asia Tenggara.',
+                'misi' => 'Menyelenggarakan pendidikan vokasi dalam bidang Keamanan Siber terbaik di Asia Tenggara.',
+                'deskripsi' => 'Program studi yang mengkhususkan pada pengembangan keamanan siber untuk tujuan tertentu. Lulusan memiliki keterampilan yang baik di bidang keamanan siber dan jaringan.',
                 'profil_lulusan_list' => [
                     [
                         'judul' => 'Security Analyst',
@@ -1534,6 +1534,162 @@ class KurikulumMatkulSeeder extends Seeder
                         'icon' => 'profil_lulusan/icon/icon-profillulusan.svg'
                     ],
                 ],
+                'dosen_list' => [
+                    [
+                        'id_dosen' => 501,
+                        'nama' => 'Maidel Fani, S.Pd., M.Kom.',
+                        'nik' => '117192',
+                        'jabatan' => 'Kepala Program Studi',
+                        'pendidikan' => 'S2',
+                        'email' => 'maidelfani@polibatam.ac.id',
+                        'foto' => 'foto-dosen/MD.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) STAIN Bukit tinggi : Pendidikan Teknik Informatika dan Komputer',
+                            'Magister (S2) Universitas Putra Indonesia Yptk Padang : Ilmu Komputer'
+                        ],
+                        'spesialis' => ['Ilmu Komputer']
+                    ],
+                    [
+                        'id_dosen' => 502,
+                        'nama' => 'Hamdani Arif, S.Pd., M.Sc',
+                        'nik' => '117175',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'hamdaniarif@polibatam.ac.id',
+                        'foto' => 'foto-dosen/HA.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Univ. Negeri Malang : Teknik Informatika',
+                            'Magister (S2) Chang Gung University : Computer Science & Information Engineering'
+                        ],
+                        'spesialis' => ['Networking', 'IoT']
+                    ],
+                    [
+                        'id_dosen' => 503,
+                        'nama' => 'Nur Cahyono Kushardianto,S.Si., M.T., M.Sc, Ph.D',
+                        'nik' => '106044',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S3',
+                        'email' => 'anung@polibatam.ac.id',
+                        'foto' => 'foto-dosen/NC.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Institut Teknologi Bandung : Matematika',
+                            'Magister (S2) Universitas Indonesia : Jaringan Informasi dan Multimedia',
+                            'Magister (S2) Université de Valenciennes et du Hainaut-Cambrésis : Teknik Sistem Komunikasi',
+                            'Doktor (S3) Universite Polytechnique Hauts-de-France : Electronics'
+                        ],
+                        'spesialis' => ['Jaringan Komputer', 'Teknologi Komunikasi', 'Machine Learning']
+                    ],
+                    [
+                        'id_dosen' => 504,
+                        'nama' => 'Andy Triwinarko, ST, M.T., Ph.D',
+                        'nik' => '105038',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S3',
+                        'email' => 'andy@polibatam.ac.id',
+                        'foto' => 'foto-dosen/AT.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Institiut Teknologi Bandung : Teknik Informatika',
+                            'Magister (S2) Universitas Indonesia : Teknik Elektro',
+                            'Doktor (S3) Université Polytenhnique Hauts-de-France : Electronique'
+                        ],
+                        'spesialis' => ['Telecommunication', 'Informatics']
+                    ],
+                    [
+                        'id_dosen' => 505,
+                        'nama' => 'Agus Fatulloh, S.T., M.T',
+                        'nik' => '107051',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'agusf@polibatam.ac.id',
+                        'foto' => 'foto-dosen/AU.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Sekolah Tinggi Sains dan Teknologi Indonesia Bandung : Teknik Informatika',
+                            'Magister (S2) Institut Teknologi Bandung : Teknik Elektro'
+                        ],
+                        'spesialis' => ['Computer organization and Architecture', 'Operating System', 'Networking and Hardware Technology', 'Computer Engineering', 'Software Applications Development', 'Socials Computing']
+                    ],
+                    [
+                        'id_dosen' => 506,
+                        'nama' => 'Nelmiawati, B.CS., M.Comp.Sc',
+                        'nik' => '115148',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'mia@polibatam.ac.id',
+                        'foto' => 'foto-dosen/MI-new.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Universiti Teknologi Malaysia : Computer Network and Security',
+                            'Magister (S2) Universiti Teknologi Malaysia : Information Security'
+                        ],
+                        'spesialis' => ['Cryptography']
+                    ],
+                    [
+                        'id_dosen' => 507,
+                        'nama' => 'Dodi Prima Resda, S.Pd., M.Kom',
+                        'nik' => '119222',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'dodi.prima@polibatam.ac.id',
+                        'foto' => 'foto-dosen/DP.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Universitas Negeri Padang : Pendidikan Teknik Elektro',
+                            'Magister (S2) Universitas Pendidikan Indonesia: Teknik Informatika'
+                        ],
+                        'spesialis' => ['Teknik Informatika', 'Rekayasa Keamanan Siber']
+                    ],
+                    [
+                        'id_dosen' => 508,
+                        'nama' => 'Antoni Haikal, S.S.T., MT',
+                        'nik' => '122276',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'antoni@polibatam.ac.id',
+                        'foto' => 'foto-dosen/wise.png',
+                        'riwayat' => [
+                            'Magister (S2) Institut Teknologi Bandung: Rekayasa Management dan Keamanan Informasi (Cyber Security)'
+                        ],
+                        'spesialis' => ['Penetration Testing', 'Application Security', 'Network Security and Software Development']
+                    ],
+                    [
+                        'id_dosen' => 509,
+                        'nama' => 'Festy Winda Sari, M.Sc',
+                        'nik' => '122288',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'festy@polibatam.ac.id',
+                        'foto' => 'foto-dosen/wise.png',
+                        'riwayat' => [
+                            'Master of Cyber Security at Swansea University'
+                        ],
+                        'spesialis' => ['Cryptography', 'IT Sec Law & Regulation']
+                    ],
+                    [
+                        'id_dosen' => 510,
+                        'nama' => 'Hajrul Khaira, S.Tr.Kom',
+                        'nik' => '220315',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'D4',
+                        'email' => 'hajrul@polibatam.ac.id',
+                        'foto' => 'foto-dosen/HK.jpg',
+                        'riwayat' => [
+                            'Sarjana Terapan (DIV) Politeknik Negeri Batam : Multimedia & Jaringan'
+                        ],
+                        'spesialis' => ['Software Development']
+                    ],
+                    [
+                        'id_dosen' => 511,
+                        'nama' => 'Agus Riady, A,Md.Kom',
+                        'nik' => '224346',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'D3',
+                        'email' => 'agusriady@polibatam.ac.id',
+                        'foto' => 'foto-dosen/agus.jpg',
+                        'riwayat' => [
+                            'Ahli Madya (DIII) Politeknik Negeri Batam : Teknik Informatika'
+                        ],
+                        'spesialis' => ['Pengembangan Web']
+                    ],
+                ],
+
                 'kurikulum_list' => [
                     [
                         'id_kurikulum' => 51,
@@ -1582,6 +1738,91 @@ class KurikulumMatkulSeeder extends Seeder
                         'judul' => 'Game Designer',
                         'deskripsi' => 'Merancang alur cerita, core mechanics, dan level difficulty.',
                         'icon' => 'profil_lulusan/icon/icon-profillulusan.svg'
+                    ],
+                ],
+                'dosen_list' => [
+                    [
+                        'id_dosen' => 601,
+                        'nama' => 'Riwinoto, ST,M.Kom',
+                        'nik' => '103025',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'riwi@polibatam.ac.id',
+                        'foto' => 'foto-dosen/liony.jpg',
+                        'riwayat' => [
+                            'Sarjana (S1) Institut Teknologi Bandung : Teknik Informatika',
+                            'Magister (S2) Universitas Indonesia :Ilmu Komputer'
+                        ],
+                        'spesialis' => ['Game', 'simulasi', 'teknologi reality', 'kewirausahaan']
+                    ],
+                    [
+                        'id_dosen' => 602,
+                        'nama' => 'Liony Lumombo, S.ST., M.IDes',
+                        'nik' => '113118',
+                        'jabatan' => 'Kepala Program Studi',
+                        'pendidikan' => 'S2',
+                        'email' => 'liony@polibatam.ac.id',
+                        'foto' => 'foto-dosen/liony.jpg',
+                        'riwayat' => [
+                            'Sarjana Terapan (DIV) Institut Teknologi Bandung- Animation',
+                            'Magister (S2) The University of Quesland - Master of Interaction Design'
+                        ],
+                        'spesialis' => ['Game UI/UX Design', 'HCI']
+                    ],
+                    [
+                        'id_dosen' => 603,
+                        'nama' => 'Agung Riyadi, S.Si., M.Kom',
+                        'nik' => '119221',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'agung@polibatam.ac.id',
+                        'foto' => 'foto-dosen/agung.jpg',
+                        'riwayat' => [
+                            'Sarjana (S1) Universitas Negeri Jakarta : Fisika',
+                            'Magister (S2) Universitas Budiluhur : Ilmu Komputer'
+                        ],
+                        'spesialis' => ['Artificial Intelligence']
+                    ],
+                    [
+                        'id_dosen' => 604,
+                        'nama' => 'Ardiman Firmanda, S.S.T, M.Tr.Kom',
+                        'nik' => '122284',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'ardiman@polibatam.ac.id',
+                        'foto' => 'foto-dosen/ardiman.jpg',
+                        'riwayat' => [
+                            'Sarjana Terapan (DIV) Politeknik Negeri Batam : Multimedia & Jaringan',
+                            'Magister (S2) PENS : Teknik Informatika dan Komputer'
+                        ],
+                        'spesialis' => ['Musik']
+                    ],
+                    [
+                        'id_dosen' => 605,
+                        'nama' => 'Nursaima Harahap, S.Pd, M.Hum',
+                        'nik' => '124302',
+                        'jabatan' => 'Dosen',
+                        'pendidikan' => 'S2',
+                        'email' => 'nursaima@polibatam.ac.id',
+                        'foto' => 'foto-dosen/nursaima.jpeg',
+                        'riwayat' => [
+                            'Sarjana (S1) Universitas Graha Nusantara - Pendidikan Bahasa Inggris',
+                            'Magister (S2) Universitas Negeri Medan - Linguistik Terapan Bahasa Inggris'
+                        ],
+                        'spesialis' => ['Bahasa Inggris']
+                    ],
+                    [
+                        'id_dosen' => 606,
+                        'nama' => 'Nanda Putra Perkasa S.Tr.Kom.',
+                        'nik' => '221323',
+                        'jabatan' => 'Laboran',
+                        'pendidikan' => 'D4',
+                        'email' => 'nanda@polibatam.ac.id',
+                        'foto' => 'foto-dosen/nanda.jpg',
+                        'riwayat' => [
+                            'Sarjana Terapan (DIV) Politeknik Negeri Batam : Multimedia & Jaringan'
+                        ],
+                        'spesialis' => ['Game']
                     ],
                 ],
                

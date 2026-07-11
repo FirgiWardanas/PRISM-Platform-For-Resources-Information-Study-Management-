@@ -11,7 +11,7 @@ const gradients = [
 ];
 
 const maxJumlah = Math.max(...dataProdi.map(d => d.jumlah), 1);
-const offsetLeft = 48; 
+const offsetLeft = 48;
 
 const prodiContainer = document.getElementById("prodi-bars-container");
 dataProdi.forEach((item, index) => {
@@ -20,14 +20,22 @@ dataProdi.forEach((item, index) => {
 
     const rowGroup = document.createElement("div");
     rowGroup.className = "flex items-center w-full text-[9px] font-bold text-gray-700 gap-2";
+
     rowGroup.innerHTML = `
-            <span class="w-10 text-left text-gray-800 shrink-0">${item.prodi}</span>
-            <div class="flex-1 bg-gray-100 h-3 rounded-full relative">
-                <div class="bg-gradient-to-r ${gradient} h-full rounded-full transition-all duration-500"
-                    style="width: ${persen}%"></div>
-            </div>
-        `;
+        <span class="w-10 text-left text-gray-800 shrink-0">${item.prodi}</span>
+        <div class="flex-1 bg-gray-100 h-3 rounded-full relative overflow-hidden">
+            <div class="bar-fill bg-gradient-to-r ${gradient} h-full rounded-full"
+                 style="width: 0%; transition: width 1s ease-out;" 
+                 data-width="${persen}%"></div>
+        </div>
+        <span class="w-6 text-left text-gray-600 font-bold ml-2">${item.jumlah}</span>
+    `;
     prodiContainer.appendChild(rowGroup);
+
+    setTimeout(() => {
+        const bar = rowGroup.querySelector('.bar-fill');
+        bar.style.width = bar.getAttribute('data-width');
+    }, 100);
 });
 
 const scaleContainer = document.getElementById("scale-container");
@@ -53,7 +61,7 @@ for (let i = 0; i <= maxJumlah; i++) {
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
-const closeBtn = document.getElementById('closeBtn'); 
+const closeBtn = document.getElementById('closeBtn');
 
 menuBtn.addEventListener('click', () => {
     sidebar.classList.toggle('-translate-x-[120%]');

@@ -39,7 +39,7 @@ function hapusMatakuliah(id) {
     });
 }
 
-// Auto dismiss toast error setelah 6 detik
+// Auto dismiss toast error 
 const toast = document.getElementById('toastError');
 if (toast) {
     setTimeout(() => toast.remove(), 6000);
