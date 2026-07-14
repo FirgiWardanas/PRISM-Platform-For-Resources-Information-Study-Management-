@@ -81,6 +81,7 @@ The system is accessible via web browsers without requiring additional installat
 * Swandy Sianturi
 * Alyana Maharani Gustav
 * Bella Fadhilla Khairunnisyah Effendi
+* Rizky Eko Pratama
 
 ---
 
