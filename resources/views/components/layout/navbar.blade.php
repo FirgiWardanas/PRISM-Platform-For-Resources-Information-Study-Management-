@@ -34,10 +34,18 @@
     {{-- MOBILE MENU --}}
     <div id="mobile-menu" class="hidden lg:hidden bg-black/40 backdrop-blur-sm mx-6 mt-4 p-4 rounded-xl transition duration-300">
         <ul class="flex flex-col gap-3 text-sm font-semibold">
-            <li class="p-3 rounded-lg hover:bg-white/10 transition">Beranda</li>
-            <li class="p-3 rounded-lg hover:bg-white/10 transition">Tentang Kami</li>
-            <li class="p-3 rounded-lg hover:bg-white/10 transition">Program Studi</li>
-            <li class="p-3 rounded-lg hover:bg-white/10 transition">Kontak</li>
+            <li>
+                <a href="#home" class="p-3 rounded-lg hover:bg-white/10 transition">Beranda</a> 
+            </li>
+            <li>
+                <a href="#tentang" class="p-3 rounded-lg hover:bg-white/10 transition">Tentang Kami</a>
+            </li>
+            <li>
+                <a href="#programStudi" class="p-3 rounded-lg hover:bg-white/10 transition">Program Studi</a>
+            </li>
+            <li>
+                <a href="#kontak" class="p-3 rounded-lg hover:bg-white/10 transition">Kontak</a>
+            </li>
         </ul>
         <div class="flex flex-col gap-4 mt-4 px-2">
            <a href="/admin/login" class="bg-gradient-to-r from-[#ff7700] to-[#ffa600] shadow-2xl px-8 py-3 rounded-lg text-white text-xs font-bold transition duration-200 hover:from-[#b95600] hover:to-[#af7200] hover:scale-102 hover:cursor-pointer text-center">
@@ -54,4 +62,3 @@
       menu.classList.toggle('hidden');
     });
   </script>
-
