@@ -1,18 +1,5 @@
 <x-layout.layout>
-  <style>
-    /* Menghilangkan scrollbar untuk Chrome, Safari, dan Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
 
-    /* Menghilangkan scrollbar untuk IE, Edge, dan Firefox */
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      /* IE dan Edge */
-      scrollbar-width: none;
-      /* Firefox */
-    }
-  </style>
 
   <body class="font-[Montserrat]">
     <x-jurusan.header></x-jurusan.header>

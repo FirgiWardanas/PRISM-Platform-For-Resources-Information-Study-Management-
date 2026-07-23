@@ -92,13 +92,13 @@ class KurikulumController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $idProDi = auth()->guard()->user()->id_prodi;
+        $idProdi = auth()->guard()->user()->id_prodi;
 
         $request->validate([
             'nama_kurikulum' => [
                 'required',
                 Rule::unique('kurikulum', 'nama_kurikulum')
-                    ->where(fn($q) => $q->where('id_prodi', $idProDi))
+                    ->where(fn($q) => $q->where('id_prodi', $idProdi))
                     ->ignore($id, 'id_kurikulum'),
             ],
             'tahun_mulai' => 'required|numeric|between:1901,2125',
@@ -127,11 +127,11 @@ class KurikulumController extends Controller
                     ->with('error', 'Tidak ada data yang diubah.');
             }
 
-            DB::transaction(function () use ($kurikulum, $idProDi, $request) {
+            DB::transaction(function () use ($kurikulum, $idProdi, $request) {
 
   
                 if ($request->status_kurikulum === 'aktif') {
-                    Kurikulum::where('id_prodi', $idProDi)
+                    Kurikulum::where('id_prodi', $idProdi)
                         ->update(['status_kurikulum' => 'tidak aktif']);
                 }
 
